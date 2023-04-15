@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,52 +17,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
-});
-//-------route data vendor---------///
-Route::get('/area', function () {
-    return view('vendor.area');
-});
-Route::get('/destinasi', function () {
-    return view('vendor.destinasi');
-});
-Route::get('/transportasi', function () {
-    return view('vendor.transportasi');
-});
-Route::get('/RM', function () {
-    return view('vendor.RM');
-});
-Route::get('/hotel', function () {
-    return view('vendor.hotel');
+    return Inertia::render('Homepage');
 });
 
-//-------route data item quotation---------///
-Route::get('/fasilitas', function () {
-    return view('item.fasilitasTour');
-});
-Route::get('/crew', function () {
-    return view('item.crew');
-});
-Route::get('/event', function () {
-    return view('item.event');
-});
-Route::get('/bonus', function () {
-    return view('item.bonus');
-});
-Route::get('/klien', function () {
-    return view('item.klien');
-});
-Route::get('/kategori', function () {
-    return view('item.kategoriTour');
+// Route::get('/', function () {
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });
+
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//-------route quotation----------//
-Route::get('/manual', function () {
-    return view('quotation.quotationM');
-});
-Route::get('/rekomendasi', function () {
-    return view('quotation.quotationR');
-});
-Route::get('/data', function () {
-    return view('quotation.dataQuotation');
-});
+require __DIR__.'/auth.php';
