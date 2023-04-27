@@ -21,7 +21,12 @@ export default function Homepage(props) {
                 <div className='max-w-7xl mx-auto sm:px-6 lg:px-8'>
                     <div className='p-6 bg-white border-b border-gray-200'>
                         <div className='m-6'>
-                            <Crew/>
+                            <a>Status Quotation</a>
+                            <div className='flex mt-5'>
+                                <Status/>
+                                <Status/>
+                                <Status/>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -30,7 +35,7 @@ export default function Homepage(props) {
             {/* <div className='ml-6'>
                 <a>Dashboard</a>
             </div>
-            <div className='flex justify-around'>
+            <div className='flex'>
                 <Status/>
                 <Status/>
                 <Status/>
@@ -38,3 +43,4 @@ export default function Homepage(props) {
         </div>
     )
 }
+
