@@ -1,16 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Head } from '@inertiajs/inertia-react';
 import Navbar from '@/Components/Navbar';
 import NewsLists from '@/Components/Homepage/NewsLists';
 import Paginator from '@/Components/Homepage/Paginator';
 import Status from '@/Components/Dashboard/Status';
+import { BsX } from "react-icons/bs";
 
 export default function Homepage(props) {
-  return (
+    const [statusList, setStatusList] = useState([
+        {
+            color:'#99E198',
+            icon: BsX,
+            name:'Penawaran yang diterima',
+            total:'10'
+        },
+        {
+            color:'#FF8080',
+            icon: '',
+            name:'Penawaran yang ditolak',
+            total:'2'
+        },
+        {
+            color:'#C7C5C5',
+            icon: '',
+            name:'Menunggu',
+            total:'3'
+        }
+
+    ])
+
+    return (
     <div className='min-h-screen bg-abu'>
             <Navbar user={props.auth.user} />
             <div className='ml-6'>
-                <a>Dashboard</a>
+                <a>Dashboard <BsX/></a>
             </div>
             <div className='ml-6'>
                 <a>Dashboard</a>
@@ -25,9 +48,16 @@ export default function Homepage(props) {
                         <div className='m-6'>
                             <a>Status Quotation</a>
                             <div className='flex mt-5'>
-                                <Status/>
-                                <Status/>
-                                <Status/>
+                            {statusList.map((st, index) => {
+                                    return (
+                                        <Status 
+                                        key={index}
+                                        status={st}
+                                        />
+                                    )
+                                })
+
+                                }
                             </div>
                         </div>
                     </div>
