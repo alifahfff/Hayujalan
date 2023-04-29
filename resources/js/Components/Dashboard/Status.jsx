@@ -1,14 +1,14 @@
-const Status = () => {
+import React from "react"
+
+const Status = (status) => {
+    console.log(status.status.icon)
     return (
-        <div class="stats shadow mr-10">
-  
-    <div class="stat">
-      <div class="stat-title">Total Page Views</div>
-      <div class="stat-value">89,400</div>
-      <div class="stat-desc">21% more than last month</div>
-    </div>
-  
-</div>
+        <div className="stats shadow mr-10">
+            <div className="stat">
+            <div className="stat-title">{status.status.name}</div>
+            <div className="stat-value">{status.status.total}</div>
+            </div>
+        </div>
     )
 }
 
