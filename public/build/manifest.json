@@ -1,0 +1,166 @@
+{
+  "resources/js/app.jsx": {
+    "file": "assets/app.24825bfb.js",
+    "src": "resources/js/app.jsx",
+    "isEntry": true,
+    "dynamicImports": [
+      "resources/js/Pages/Dashboard.jsx",
+      "resources/js/Pages/EditNews.jsx",
+      "resources/js/Pages/Homepage.jsx",
+      "resources/js/Pages/ItemCrew.jsx",
+      "resources/js/Pages/Auth/ConfirmPassword.jsx",
+      "resources/js/Pages/Auth/ForgotPassword.jsx",
+      "resources/js/Pages/Auth/Login.jsx",
+      "resources/js/Pages/Auth/Register.jsx",
+      "resources/js/Pages/Auth/ResetPassword.jsx",
+      "resources/js/Pages/Auth/VerifyEmail.jsx"
+    ],
+    "css": [
+      "assets/app.6184d2dc.css"
+    ]
+  },
+  "resources/js/Pages/Dashboard.jsx": {
+    "file": "assets/Dashboard.bee233de.js",
+    "src": "resources/js/Pages/Dashboard.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_ApplicationLogo.9635eb51.js"
+    ]
+  },
+  "_ApplicationLogo.9635eb51.js": {
+    "file": "assets/ApplicationLogo.9635eb51.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/EditNews.jsx": {
+    "file": "assets/EditNews.6a50f3fb.js",
+    "src": "resources/js/Pages/EditNews.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_Navbar.2756a657.js"
+    ]
+  },
+  "_Navbar.2756a657.js": {
+    "file": "assets/Navbar.2756a657.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Homepage.jsx": {
+    "file": "assets/Homepage.a72e25d9.js",
+    "src": "resources/js/Pages/Homepage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_Navbar.2756a657.js",
+      "_Paginator.1dad801a.js"
+    ]
+  },
+  "_Paginator.1dad801a.js": {
+    "file": "assets/Paginator.1dad801a.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/ItemCrew.jsx": {
+    "file": "assets/ItemCrew.daa5ef1f.js",
+    "src": "resources/js/Pages/ItemCrew.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_Navbar.2756a657.js",
+      "_Paginator.1dad801a.js"
+    ]
+  },
+  "resources/js/Pages/Auth/ConfirmPassword.jsx": {
+    "file": "assets/ConfirmPassword.3febee39.js",
+    "src": "resources/js/Pages/Auth/ConfirmPassword.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_Guest.37b7fcbb.js",
+      "_ValidationErrors.1a06bee1.js",
+      "_Label.449edc60.js",
+      "_ApplicationLogo.9635eb51.js"
+    ]
+  },
+  "_Guest.37b7fcbb.js": {
+    "file": "assets/Guest.37b7fcbb.js",
+    "imports": [
+      "resources/js/app.jsx",
+      "_ApplicationLogo.9635eb51.js"
+    ]
+  },
+  "_ValidationErrors.1a06bee1.js": {
+    "file": "assets/ValidationErrors.1a06bee1.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "_Label.449edc60.js": {
+    "file": "assets/Label.449edc60.js",
+    "imports": [
+      "resources/js/app.jsx"
+    ]
+  },
+  "resources/js/Pages/Auth/ForgotPassword.jsx": {
+    "file": "assets/ForgotPassword.08e1a602.js",
+    "src": "resources/js/Pages/Auth/ForgotPassword.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_Guest.37b7fcbb.js",
+      "_ValidationErrors.1a06bee1.js",
+      "_ApplicationLogo.9635eb51.js"
+    ]
+  },
+  "resources/js/Pages/Auth/Login.jsx": {
+    "file": "assets/Login.d00426d9.js",
+    "src": "resources/js/Pages/Auth/Login.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_Guest.37b7fcbb.js",
+      "_ValidationErrors.1a06bee1.js",
+      "_Label.449edc60.js",
+      "_ApplicationLogo.9635eb51.js"
+    ]
+  },
+  "resources/js/Pages/Auth/Register.jsx": {
+    "file": "assets/Register.5faa37c0.js",
+    "src": "resources/js/Pages/Auth/Register.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_Guest.37b7fcbb.js",
+      "_ValidationErrors.1a06bee1.js",
+      "_Label.449edc60.js",
+      "_ApplicationLogo.9635eb51.js"
+    ]
+  },
+  "resources/js/Pages/Auth/ResetPassword.jsx": {
+    "file": "assets/ResetPassword.50dd3f1b.js",
+    "src": "resources/js/Pages/Auth/ResetPassword.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_Guest.37b7fcbb.js",
+      "_ValidationErrors.1a06bee1.js",
+      "_Label.449edc60.js",
+      "_ApplicationLogo.9635eb51.js"
+    ]
+  },
+  "resources/js/Pages/Auth/VerifyEmail.jsx": {
+    "file": "assets/VerifyEmail.15dc62e4.js",
+    "src": "resources/js/Pages/Auth/VerifyEmail.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.jsx",
+      "_Guest.37b7fcbb.js",
+      "_ApplicationLogo.9635eb51.js"
+    ]
+  }
+}

@@ -12,12 +12,23 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 "blue": "#192D41",
                 "abu" : "#F2F4F1",
                 "kuning" : "#FCCD07",
+                "putih" : "#FFFFFF"
+            },
+            fontSize: {
+                sm: '0.8rem',
+                base: '1rem',
+                lg: '1.5rem',
+                xl: '1.25rem',
+                '2xl': '1.563rem',
+                '3xl': '1.953rem',
+                '4xl': '2.441rem',
+                '5xl': '3.052rem',
             }
         },
     },
