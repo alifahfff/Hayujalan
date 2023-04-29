@@ -41,6 +41,7 @@ const Navbar = ({ user }) => {
                 <li><Link href={route('login')} as="button">Login</Link></li>
                 <li><Link href={route('register')} as="button">Register</Link></li>
                 <li><Link href={route('Homepage')} as="button">Homepage</Link></li>
+                <li><Link href={route('areawisata')} as="button">Area Wisata</Link></li>
               </>
               :
               <>
