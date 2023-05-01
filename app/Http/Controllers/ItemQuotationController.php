@@ -18,11 +18,17 @@ class ItemQuotationController extends Controller
     public function index()
     {
         $news = new NewsCollection(News::OrderByDesc('id')->paginate(8));
-        return Inertia::render('ItemCrew', [
+        return Inertia::render('Item Quotation/Crew/ItemCrew', [
             'title' => "CUY UNIVERSE HOME",
             'description' => "Selamat Datang Di Cuy Universe News Portal",
             'news' => $news,
         ]);
+    }
+
+    public function detailCrew()
+    {
+        $news = new NewsCollection(News::OrderByDesc('id')->paginate(8));
+        return Inertia::render('Item Quotation/Crew/DetailCrew');
     }
 
     /**

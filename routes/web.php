@@ -19,6 +19,7 @@ use Inertia\Inertia;
 Route::get('/', [NewsController::class, 'index']);
 Route::get('/homepage', [NewsController::class, 'index'])->name('Homepage');
 Route::get('/item', [App\Http\Controllers\ItemQuotationController::class, 'index'])->name('item');
+Route::get('/item/detail', [App\Http\Controllers\ItemQuotationController::class, 'detailCrew'])->name('item.detail');
 Route::post('/news', [NewsController::class, 'store'])->middleware(['auth', 'verified'])->name('create.news');
 Route::get('/news', [NewsController::class, 'show'])->middleware(['auth', 'verified'])->name('my.news');
 Route::get('/news/edit', [NewsController::class, 'edit'])->middleware(['auth', 'verified'])->name('edit.news');
@@ -28,5 +29,6 @@ Route::post('/news/delete', [NewsController::class, 'destroy'])->middleware(['au
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
 
 require __DIR__ . '/auth.php';
