@@ -28,7 +28,11 @@ Route::post('/news/delete', [NewsController::class, 'destroy'])->middleware(['au
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->name('dashboard');
+
+Route::get('/areawisata', function () {
+    return Inertia::render('Vendor/VendorArea');
+})->name('areawisata');
 
 
 require __DIR__ . '/auth.php';
