@@ -4,6 +4,7 @@ use App\Http\Controllers\NewsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\VendorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,9 +31,20 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
 
-Route::get('/areawisata', function () {
-    return Inertia::render('Vendor/VendorArea');
-})->name('areawisata');
+// Route::get('/areawisata', function () {
+//     return Inertia::render('Vendor/AreaWisata/VendorArea');
+// })->name('areawisata');
+
+Route::get('/areawisata', [VendorController::class, 'areaWisata'])->name('areawisata');
+Route::get('/areawisata/detail', [VendorController::class, 'detailArea'])->name('areawisata.detail');
+Route::get('/destinasiwisata', [VendorController::class, 'destinasiWisata'])->name('destinasiwisata');
+Route::get('/destinasiwisata/detail', [VendorController::class, 'detailDestinasi'])->name('destinasiwisata.detail');
+Route::get('/transportasi', [VendorController::class, 'transportasi'])->name('transportasi');
+Route::get('/transportasi/detail', [VendorController::class, 'detailTransportasi'])->name('transportasi.detail');
+Route::get('/hotel', [VendorController::class, 'hotel'])->name('hotel');
+Route::get('/hotel/detail', [VendorController::class, 'detailHotel'])->name('hotel.detail');
+Route::get('/rumahmakan', [VendorController::class, 'rumahMakan'])->name('rumahmakan');
+Route::get('/rumahmakan/detail', [VendorController::class, 'detailRM'])->name('rumahmakan.detail');
 
 
 require __DIR__ . '/auth.php';
