@@ -42,6 +42,11 @@ const Navbar = ({ user }) => {
                 <li><Link href={route('register')} as="button">Register</Link></li>
                 <li><Link href={route('Homepage')} as="button">Homepage</Link></li>
                 <li><Link href={route('areawisata')} as="button">Area Wisata</Link></li>
+                <li><Link href={route('destinasiwisata')} as="button">Destinasi Wisata</Link></li>
+                <li><Link href={route('transportasi')} as="button">Transportasi</Link></li>
+                <li><Link href={route('hotel')} as="button">Hotel</Link></li>
+                <li><Link href={route('rumahmakan')} as="button">Rumah Makan</Link></li>
+
               </>
               :
               <>
