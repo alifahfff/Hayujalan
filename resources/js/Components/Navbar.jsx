@@ -13,7 +13,7 @@ const Navbar = ({ user }) => {
           <input type="text" placeholder="Search" className="input input-bordered" />
         </div>
         <ul className="menu menu-horizontal px-1">
-        <li><Link href={route('item')} as="button">Admin Keuangan</Link></li>
+        <li><Link href={route('crew')} as="button">Admin Keuangan</Link></li>
         {/* <li><Link href={route('Crew')} as="button">Admin Keuangan</Link></li> */}
         </ul>
         <div className="dropdown dropdown-end">

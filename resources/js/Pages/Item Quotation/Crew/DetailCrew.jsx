@@ -8,10 +8,10 @@ import Pagination from '@/Components/Pagination';
 import { BsPlusSquare } from "react-icons/bs";
 import ModalCrew from '@/Components/Item Quotation/Crew/ModalCrew';
 
-export default function DetailCrew(props, data) {
+export default function DetailCrew(props, crewL) {
     
     // const {data} = this.props.location;
-    console.log('CrewL', props)
+    console.log('CrewL', crewL)
     return (
         <div className='min-h-screen bg-abu'>
             {/* Nabvar */}

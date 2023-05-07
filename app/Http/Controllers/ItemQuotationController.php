@@ -15,20 +15,54 @@ class ItemQuotationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    
+    // Page Item Quotation
+    public function crew()
     {
         $news = new NewsCollection(News::OrderByDesc('id')->paginate(8));
-        return Inertia::render('Item Quotation/Crew/ItemCrew', [
-            'title' => "CUY UNIVERSE HOME",
-            'description' => "Selamat Datang Di Cuy Universe News Portal",
-            'news' => $news,
-        ]);
+        return Inertia::render('Item Quotation/Crew/ItemCrew');
     }
 
     public function detailCrew()
     {
         $news = new NewsCollection(News::OrderByDesc('id')->paginate(8));
         return Inertia::render('Item Quotation/Crew/DetailCrew');
+    }
+
+    public function bonus()
+    {
+        $news = new NewsCollection(News::OrderByDesc('id')->paginate(8));
+        return Inertia::render('Item Quotation/Data Bonus/DataBonus');
+    }
+
+    public function event()
+    {
+        $news = new NewsCollection(News::OrderByDesc('id')->paginate(8));
+        return Inertia::render('Item Quotation/Data Event/DataEvent');
+    }
+
+    public function jKlien()
+    {
+        $news = new NewsCollection(News::OrderByDesc('id')->paginate(8));
+        return Inertia::render('Item Quotation/Data Jenis Klien/JenisKlien');
+    }
+
+    public function klien()
+    {
+        $news = new NewsCollection(News::OrderByDesc('id')->paginate(8));
+        return Inertia::render('Item Quotation/Data Klien/Klien');
+    }
+
+    public function fTour()
+    {
+        $news = new NewsCollection(News::OrderByDesc('id')->paginate(8));
+        return Inertia::render('Item Quotation/Fasilitas Tour/FasilitasTour');
+    }
+
+    public function kTour()
+    {
+        $news = new NewsCollection(News::OrderByDesc('id')->paginate(8));
+        return Inertia::render('Item Quotation/Kategori Tour/KategoriTour');
     }
 
     /**
