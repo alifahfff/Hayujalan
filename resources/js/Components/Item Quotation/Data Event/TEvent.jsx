@@ -28,7 +28,7 @@ const TEvent = ({data}) => {
                                 <td className="whitespace-nowrap px-6 py-4">{dt.biaya}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{dt.status}</td>
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
-                                    <button className="btn btn-ghost btn-sm mr-2"><Link href={route('crew.detail')}><BsPencilSquare/></Link></button>
+                                    {/* <button className="btn btn-ghost btn-sm mr-2"><Link href={route('crew.detail')}><BsPencilSquare/></Link></button> */}
                                     <button className="btn btn-ghost btn-sm"><BsTrash3/></button>
                                 </td>
                                 </tr>
