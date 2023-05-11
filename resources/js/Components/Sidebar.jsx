@@ -1,55 +1,71 @@
 import { useState } from "react";
-import { BsChevronBarDown, BsChevronDown, BsFillChatLeftQuoteFill, BsReceipt, BsFillFileEarmarkTextFill } from "react-icons/bs";
-
+import {
+  BsChevronBarDown,
+  BsChevronDown,
+  BsFillChatLeftQuoteFill,
+  BsReceipt,
+  BsFillFileEarmarkTextFill,
+} from "react-icons/bs";
 
 const App = () => {
   const [open, setOpen] = useState(true);
   const [submenuOpen, setSubmenuOpen] = useState(false);
   const Menus = [
-    { title: "Dashboard", src: "Chart_fill",},
-    
-    { 
-        title: "Quotation", 
-        src: "Chat",
-        submenu:true,
-        submenuItems: [
-            {
-              title: "Quotation Manual",
-              icon: <BsFillChatLeftQuoteFill/>
-            },
-            {
-              title: "Quotation Rekomendasi",
-              icon: <BsReceipt/>
-            },
-            {
-              title: "Quotation",
-              icon: <BsFillFileEarmarkTextFill/>
-            }
-        ],
-    },
-        
+    { title: "Dashboard", src: "Chart_fill" },
 
-    { 
-        title: "Data Vendor", 
-        src: "User",
-        submenu:true,
-        submenuItems:[
-            {title: "Data Area Wisata"},
-            {title: "Data Destinasi Wisata"},
-            {title: "Data Bus"},
-            {title: "Data Hotel"},
-            {title: "Data Rumah Makan"},
-        ],
+    {
+      title: "Quotation",
+      src: "Chat",
+      submenu: true,
+      submenuItems: [
+        {
+          title: "Quotation Manual",
+          icon: <BsFillChatLeftQuoteFill />,
+        },
+        {
+          title: "Quotation Rekomendasi",
+          icon: <BsReceipt />,
+        },
+        {
+          title: "Quotation",
+          icon: <BsFillFileEarmarkTextFill />,
+        },
+      ],
     },
 
-    { title: "Data Item Quotation", src: "User"},
+    {
+      title: "Data Vendor",
+      src: "User",
+      submenu: true,
+      submenuItems: [
+        { title: "Data Area Wisata" },
+        { title: "Data Destinasi Wisata" },
+        { title: "Data Bus" },
+        { title: "Data Hotel" },
+        { title: "Data Rumah Makan" },
+      ],
+    },
+
+    {
+      title: "Data Item Quotation",
+      src: "User",
+      submenu: true,
+      submenuItems: [
+        { title: "Fasilitas Tour" },
+        { title: "Crew Operasional" },
+        { title: "Data Event" },
+        { title: "Data Bonus" },
+        { title: "Data Jenis Klien" },
+        { title: "Data Klient" },
+        { title: "Kategori Tour" },
+      ],
+    },
     { title: "Report", src: "Calendar" },
     { title: "Hak Akses", src: "Search" },
   ];
-  
 
   return (
-    <div className="flexside">
+    <div className="flex">
       <div
         className={` ${
           open ? "w-72" : "w-20 "
@@ -73,44 +89,49 @@ const App = () => {
               !open && "scale-0"
             }`}
           >
-            HayuJalan</h1>
+            HayuJalan
+          </h1>
         </div>
         <ul className="pt-6">
           {Menus.map((Menu, index) => (
             <>
-            <li
-              key={index}
-              className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
+              <li
+                key={index}
+                className={`flex  rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 
               ${Menu.gap ? "mt-9" : "mt-2"} ${
-                index === 0 && "bg-light-white"
-              } `}
-            >
-              <img src={`/assets/${Menu.src}.png`} />
-              <span className={`${!open && "hidden"} origin-left duration-200`}>
-                {Menu.title}
-              </span>
-              {Menu.submenu && (
-                <BsChevronDown className={'${submenuOpen && "rotate-180"}'} onClick={() => 
-                    setSubmenuOpen(!submenuOpen)} />
-              )}
-            </li>
-            {Menu.submenu && submenuOpen &&  (
+                  index === 0 && "bg-light-white"
+                } `}
+              >
+                <img src={`/assets/${Menu.src}.png`} />
+                <span
+                  className={`${!open && "hidden"} origin-left duration-200`}
+                >
+                  {Menu.title}
+                </span>
+                {Menu.submenu && (
+                  <BsChevronDown
+                    className={'${submenuOpen && "rotate-180"}'}
+                    onClick={() => setSubmenuOpen(!submenuOpen)}
+                  />
+                )}
+              </li>
+              {Menu.submenu && submenuOpen && open && (
                 <ul>
-                    {Menu.submenuItems.map((submmenuItem, index) => (
-                        <li key={index} className="text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 px-5 text-m hover:bg-light-white rounded-md">
-                            {submmenuItem.icon} {submmenuItem.title} 
-                            </li>
-                    ))}
-                 </ul>
-            )}
+                  {Menu.submenuItems.map((submmenuItem, index) => (
+                    <li
+                      key={index}
+                      className="text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 px-5 text-m hover:bg-light-white rounded-md"
+                    >
+                      {submmenuItem.icon} {submmenuItem.title}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </>
-            
           ))}
         </ul>
       </div>
     </div>
   );
-
- 
 };
 export default App;

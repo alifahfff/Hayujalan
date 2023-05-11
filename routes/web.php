@@ -22,6 +22,8 @@ use App\Http\Controllers\VendorController;
 Route::get('/', [NewsController::class, 'index']);
 Route::get('/homepage', [NewsController::class, 'index'])->name('Homepage');
 
+
+
 // Item Quotation
 Route::get('/crew', [App\Http\Controllers\ItemQuotationController::class, 'crew'])->name('crew');
 Route::get('/crew/detail', [App\Http\Controllers\ItemQuotationController::class, 'detailCrew'])->name('crew.detail');
@@ -64,5 +66,7 @@ Route::get('/rumahmakan/detail', [VendorController::class, 'detailRM'])->name('r
 // Route::post('/news/update', [NewsController::class, 'update'])->middleware(['auth', 'verified'])->name('update.news');
 // Route::post('/news/delete', [NewsController::class, 'destroy'])->middleware(['auth', 'verified'])->name('delete.news');
 
+// Quotation
+Route::get('/manualquotation', [QuotationController::class, 'manualQuotation'])->name('manualquotation');
 
 require __DIR__ . '/auth.php';

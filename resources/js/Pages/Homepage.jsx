@@ -34,10 +34,10 @@ export default function Homepage(props) {
     <>
       <div className="max-h-screen bg-white">
         <div>
-          <Navbar />
+          
           <div className="flex">
             <Sidebar />
-            <div className="p-6">
+            <div className="grow h-14 p-6">
               <div className="flex justify-between ">
                 <a className="text-2xl font-bold text-black">Dashboard</a>
               </div>

@@ -23,7 +23,7 @@
         "laravel/framework": ">=5.4@dev"
     },
     "require-dev": {
-        "orchestra/testbench": "^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0",
+        "orchestra/testbench": "^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0",
         "phpunit/phpunit": "^6.0 || ^7.0 || ^8.0 || ^9.0"
     },
     "autoload": {
@@ -41,6 +41,11 @@
             "providers": [
                 "Tightenco\\Ziggy\\ZiggyServiceProvider"
             ]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "kylekatarnls/update-helper": true
         }
     },
     "minimum-stability": "dev",
