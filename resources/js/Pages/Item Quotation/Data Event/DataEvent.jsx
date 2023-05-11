@@ -7,6 +7,8 @@ import TEvent from '@/Components/Item Quotation/Data Event/TEvent';
 import ModalEvent from '@/Components/Item Quotation/Data Event/ModalEvent';
 
 export default function DataEvent(props) {
+    console.log('props', props)
+    console.log('data', props.Mydata.data)
     const [dataList, setDataList] = useState([
         {
             id:'EV001',

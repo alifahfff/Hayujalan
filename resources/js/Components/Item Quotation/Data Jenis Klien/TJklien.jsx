@@ -24,7 +24,7 @@ const TJklien = ({data}) => {
                                 <td className="whitespace-nowrap px-6 py-4 font-medium">{dt.id}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{dt.jenis}</td>
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
-                                    <button className="btn btn-ghost btn-sm mr-2"><Link href={route('crew.detail')}><BsPencilSquare/></Link></button>
+                                    {/* <button className="btn btn-ghost btn-sm mr-2"><Link href={route('crew.detail')}><BsPencilSquare/></Link></button> */}
                                     <button className="btn btn-ghost btn-sm"><BsTrash3/></button>
                                 </td>
                                 </tr>
