@@ -9,6 +9,7 @@ import { BsPlusSquare } from "react-icons/bs";
 import ModalBonus from '@/Components/Item Quotation/Data Bonus/ModalBonus';
 import TAkses from '@/Components/Hak Akses/TAkses';
 import Search from '@/Components/Hak Akses/Search';
+import Layout from '@/Layouts/Layout';
 
 export default function Akses(props) {
     const [dataList, setDataList] = useState([
@@ -48,9 +49,6 @@ export default function Akses(props) {
 
   return (
     <div className='min-h-screen bg-abu'>
-            {/* Nabvar */}
-            <Navbar user={props.auth.user} />
-
             {/* Content */}
             <div className='ml-6'>
                 <a>Hak Akses</a>
@@ -85,3 +83,5 @@ export default function Akses(props) {
         </div>
   )
 }
+
+Akses.layout = page => <Layout children={page}/>

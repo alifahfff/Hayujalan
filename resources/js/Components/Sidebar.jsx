@@ -132,7 +132,7 @@ const Sidebar = () => {
   console.log('Menu', Menus)
 
   return (
-    <div className="flex overflow-auto bg-blue">
+    <div className="flex  overflow-auto bg-blue">
       <div
         className={` ${
           open ? "w-72" : "w-20 "
@@ -159,13 +159,12 @@ const Sidebar = () => {
             HayuJalan
           </h1>
         </div>
-        <ul className="pt-6">
-
-          {/* Menu */}
+        {/* Menu */}
+        <div className="pt-6">
           {Menus.map((Menu, index) => {
           return (  <SidebarMenu key={index} Menu={Menu} open={open}/> )
           })}
-        </ul>
+        </div>
       </div>
     </div>
   );
@@ -205,7 +204,7 @@ const SidebarMenu = ({Menu, key, open}) => {
               href={submenu.path} 
               as="button"
               onClick={submenu.subNav && showSubnav}
-              className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 ${submenu.gap ? "mt-9" : "mt-2"} ${index === 0 && "bg-light-white"} `}
+              className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 ${submenu.gap ? "mt-9" : "mt-2"} ${index === 0 && "bg-light-white"} ${!open && "hidden"} duration-200`}
             >
               {/* <img src={`/assets/${Menu.src}.png`} /> */}
               <span

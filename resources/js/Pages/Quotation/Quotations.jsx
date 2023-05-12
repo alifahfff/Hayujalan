@@ -7,16 +7,14 @@ import Crew from '@/Components/Item Quotation/Crew/Crew';
 import Pagination from '@/Components/Pagination';
 import { BsPlusSquare } from "react-icons/bs";
 import ModalCrew from '@/Components/Item Quotation/Crew/ModalCrew';
+import Layout from "@/Layouts/Layout";
 
-export default function Quotation(props, crewL) {
+export default function Quotations(props, crewL) {
     
     // const {data} = this.props.location;
     console.log('CrewL', crewL)
     return (
         <div className='min-h-screen bg-abu'>
-            {/* Nabvar */}
-            <Navbar user={props.auth.user} />
-
             {/* Content */}
             <div className='ml-6'>
                 <a>Quotation</a>
@@ -36,3 +34,5 @@ export default function Quotation(props, crewL) {
         </div>
     )
 }
+
+Quotations.layout = page => <Layout children={page}/>

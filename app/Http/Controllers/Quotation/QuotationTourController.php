@@ -48,7 +48,7 @@ class QuotationTourController extends Controller
      */
     public function show(quotationTour $quotationTour)
     {
-        return Inertia::render('Quotation/Quotation');
+        return Inertia::render('Quotation/Quotations');
     }
 
     /**

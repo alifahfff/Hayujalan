@@ -9,6 +9,7 @@ import { BsPlusSquare } from "react-icons/bs";
 import ModalBonus from '@/Components/Item Quotation/Data Bonus/ModalBonus';
 import TReport from '@/Components/Report/TReport';
 import Search from '@/Components/Hak Akses/Search';
+import Layout from '@/Layouts/Layout';
 
 export default function Report(props) {
     const [dataList, setDataList] = useState([
@@ -56,9 +57,6 @@ export default function Report(props) {
 
   return (
     <div className='min-h-screen bg-abu'>
-            {/* Nabvar */}
-            <Navbar user={props.auth.user} />
-
             {/* Content */}
             <div className='ml-6'>
                 <a>Laporan Quotation</a>
@@ -94,3 +92,5 @@ export default function Report(props) {
         </div>
   )
 }
+
+Report.layout = page => <Layout children={page}/>
