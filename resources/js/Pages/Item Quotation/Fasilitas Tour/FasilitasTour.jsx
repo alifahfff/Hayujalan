@@ -8,6 +8,7 @@ import Pagination from '@/Components/Pagination';
 import { BsPlusSquare, BsSearch } from "react-icons/bs";
 import TF from '@/Components/Item Quotation/Fasilitas Tour/TF';
 import ModalFTour from '@/Components/Item Quotation/Fasilitas Tour/ModalFTour';
+import Layout from '@/Layouts/Layout';
 
 export default function FasilitasTour(props) {
     console.log('props', props)
@@ -35,12 +36,9 @@ export default function FasilitasTour(props) {
 
   return (
     <div className='min-h-screen bg-abu'>
-            {/* Nabvar */}
-            <Navbar user={props.auth.user} />
-
             {/* Content */}
             <div className='ml-6'>
-                <a>Fasilitas Tour</a>
+                <a>Item Quotation / Fasilitas Tour</a>
             </div>
             <div className='flex justify-between m-6 mt-2 mb-3'>
                 <a className='text-2xl font-bold text-black'>Fasilitas Tour</a>
@@ -101,3 +99,5 @@ export default function FasilitasTour(props) {
         </div>
   )
 }
+
+FasilitasTour.layout = page => <Layout children={page}/>

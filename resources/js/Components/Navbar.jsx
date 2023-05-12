@@ -3,8 +3,8 @@ import Avatar from "avataaars";
 
 const Navbar = ({ user }) => {
   return (
-    <div className="navbar bg-abu">
-      <div className="flex-none gap-2">
+    <div className="navbar bg-white mb-5 flex justify-end px-5">
+      <div className="flex gap-2">
         <ul className="menu menu-horizontal px-1">
           <li>
             <Link href={route("crew")} as="button">
