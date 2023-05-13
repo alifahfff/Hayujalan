@@ -9,6 +9,7 @@ import { BsPlusSquare, BsSearch } from "react-icons/bs";
 import ModalCrew from '@/Components/Item Quotation/Crew/ModalCrew';
 import Search from '@/Components/Hak Akses/Search';
 import { Inertia } from '@inertiajs/inertia';
+import Layout from '@/Layouts/Layout';
 
 
 export default function ItemCrew(props) {
@@ -36,10 +37,7 @@ export default function ItemCrew(props) {
     const handleOnClose = () => setShowModal(false);
 
   return (
-    <div className='min-h-screen bg-abu'>
-            {/* Nabvar */}
-            <Navbar user={props.auth.user} />
-
+    <div className='bg-abu'>
             {/* Content */}
             <div className='ml-6'>
                 <a>Crew Operasional</a>
@@ -102,3 +100,5 @@ export default function ItemCrew(props) {
         </div>
   )
 }
+
+ItemCrew.layout = page => <Layout children={page}/>

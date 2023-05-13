@@ -31,8 +31,11 @@ Route::get('/', [NewsController::class, 'index']);
 Route::get('/homepage', [NewsController::class, 'index'])->name('Homepage');
 
 
-
 // Item Quotation
+// Route::get('/itemQuotation', function () {
+//     return Inertia::render('Dashboard');
+// })->name('itemQuitation');
+
 Route::controller(CrewOperasionalController::class)->group(function () {
     Route::get('/crew', 'show')->name('crew');
     Route::post('/crew', 'store')->name('create.crew');
@@ -91,7 +94,7 @@ Route::controller(DataKlienController::class)->group(function () {
 
 // Report
 Route::controller(ReportController::class)->group(function () {
-    Route::get('/report', 'show')->name('klien');
+    Route::get('/report', 'show')->name('report');
     // Route::post('/report', 'store')->name('create.report');
     // Route::get('/report/edit', 'edit')->name('edit.report');
     // Route::post('/report/update', 'update')->name('update.report');
@@ -132,8 +135,6 @@ Route::get('/hotel', [VendorController::class, 'hotel'])->name('hotel');
 Route::get('/hotel/detail', [VendorController::class, 'detailHotel'])->name('hotel.detail');
 Route::get('/rumahmakan', [VendorController::class, 'rumahMakan'])->name('rumahmakan');
 Route::get('/rumahmakan/detail', [VendorController::class, 'detailRM'])->name('rumahmakan.detail');
-
-
 
 // Quotation
 Route::get('/manualquotation', [QuotationController::class, 'manualQuotation'])->name('manualquotation');
