@@ -9,7 +9,7 @@ import { BsPlusSquare } from "react-icons/bs";
 import ModalCrew from "@/Components/Item Quotation/Crew/ModalCrew";
 import Layout from "@/Layouts/Layout";
 
-export default function Quotation(props, crewL) {
+export default function Quotations(props, crewL) {
   // const {data} = this.props.location;
   console.log("CrewL", crewL);
   return (
@@ -106,3 +106,6 @@ export default function Quotation(props, crewL) {
     </div>
   );
 }
+
+
+Quotations.layout = page => <Layout children={page}/>
