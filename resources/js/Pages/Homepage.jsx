@@ -6,7 +6,8 @@ import Paginator from "@/Components/Homepage/Paginator";
 import Status from "@/Components/Dashboard/Status";
 import { BsX, BsCheck, BsPlusSquare } from "react-icons/bs";
 import { BiLoader, BiCheck, BiX, BiLoaderCircle } from "react-icons/bi";
-import Sidebar from "@/Components/Sidebar";
+import Layout from "@/Layouts/Layout";
+
 
 export default function Homepage(props) {
   const [statusList, setStatusList] = useState([
@@ -31,13 +32,9 @@ export default function Homepage(props) {
   ]);
 
   return (
-    <>
-      <div className="max-h-screen bg-white">
-        <div>
-          <Navbar />
+      <div className="max-h-screen w-full bg-abu">
           <div className="flex">
-            <Sidebar />
-            <div className="p-6">
+            <div className="grow h-14 p-6">
               <div className="flex justify-between ">
                 <a className="text-2xl font-bold text-black">Dashboard</a>
               </div>
@@ -64,9 +61,8 @@ export default function Homepage(props) {
               </div>
             </div>
           </div>
-        </div>
       </div>
-          
-    </>
   );
 }
+
+Homepage.layout = page => <Layout children={page}/>

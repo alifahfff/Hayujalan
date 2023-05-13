@@ -10,6 +10,8 @@ import TBonus from '@/Components/Item Quotation/Data Bonus/TBonus';
 import ModalBonus from '@/Components/Item Quotation/Data Bonus/ModalBonus';
 
 export default function DataBonus(props) {
+    console.log('props', props)
+    console.log('data', props.Mydata.data)
     const [dataList, setDataList] = useState([
         {
             id:'B001',

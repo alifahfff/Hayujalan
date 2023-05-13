@@ -7,7 +7,7 @@ import AreaWisata from '@/Components/Vendor/AreaWisata/AreaWisata';
 import Pagination from '@/Components/Pagination';
 import { BsPlusSquare } from "react-icons/bs";
 import ModalArea from '@/Components/Vendor/AreaWisata/ModalArea';
-
+import Layout from '@/Layouts/Layout';
 
 export default function VendorArea (props) {
     const [areaList, setAreaList] = useState([
@@ -29,9 +29,6 @@ export default function VendorArea (props) {
     
   return (
     <div className='min-h-screen bg-abu'>
-        {/* Navbar */}
-            <Navbar user={props.auth.user} />
-        
         {/* Content */}
             <div className='ml-6'>
                 <a>Data Area Wisata</a>
@@ -53,7 +50,7 @@ export default function VendorArea (props) {
                         <AreaWisata area={areaList}/>
                         <div className='m-2 flex justify-between items-center'>
                         <a className='text-[10px] text-black'>Showing 1 - 4 of 10</a>
-                        <Pagination/>
+                        {/* <Pagination/> */}
                         </div>
                     </div>
                 </div>
@@ -63,3 +60,5 @@ export default function VendorArea (props) {
         </div>
   )
 }
+
+VendorArea.layout = page => <Layout children={page}/>
