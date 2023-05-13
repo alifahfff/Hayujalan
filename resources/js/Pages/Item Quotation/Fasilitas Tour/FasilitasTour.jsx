@@ -9,6 +9,7 @@ import { BsPlusSquare, BsSearch } from "react-icons/bs";
 import TF from '@/Components/Item Quotation/Fasilitas Tour/TF';
 import ModalFTour from '@/Components/Item Quotation/Fasilitas Tour/ModalFTour';
 import Layout from '@/Layouts/Layout';
+import { Inertia } from '@inertiajs/inertia';
 
 export default function FasilitasTour(props) {
     console.log('props', props)
@@ -55,7 +56,7 @@ export default function FasilitasTour(props) {
                             className="input input-bordered bg-white pl-10"
                             placeholder="Search..."
                             onChange={(e) => search(e.target.value)} 
-                            />
+                            /> 
                         </div> 
                     </form>
                     

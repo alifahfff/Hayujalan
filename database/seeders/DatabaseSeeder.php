@@ -30,6 +30,10 @@ class DatabaseSeeder extends Seeder
             DataJenisKlienSeeder::class,
             DataKlienSeeder::class,
             DataKategoriTourSeeder::class,
+            AreaWisataSeeder::class,
+            VendorDestinasiWisataSeeder::class,
+            DetailVendorDestinasiWisataSeeder::class,
+            JenisTransportasiSeeder::class,
         ]);
     }
 }

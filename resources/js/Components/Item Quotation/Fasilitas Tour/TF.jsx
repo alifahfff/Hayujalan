@@ -24,7 +24,7 @@ const TF = ({data}) => {
                     <thead className="border-b bg-abu font-medium dark:border-neutral-500 dark:text-neutral-800">
                         <tr>
                         <th scope="col" className="px-6 py-4">No</th>
-                        <th scope="col" className="px-6 py-4">Crew Operasional</th>
+                        <th scope="col" className="px-6 py-4">Fasilitas Tour</th>
                         <th scope="col" className="px-6 py-4">Biaya</th>
                         <th scope="col" className="px-6 py-4">Satuan</th>
                         <th scope="col" className="px-6 py-4">Aksi</th>
