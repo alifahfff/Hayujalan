@@ -34,6 +34,12 @@ class DatabaseSeeder extends Seeder
             VendorDestinasiWisataSeeder::class,
             DetailVendorDestinasiWisataSeeder::class,
             JenisTransportasiSeeder::class,
+            VendorTransportasiSeeder::class,
+            DetailVendorTransportasiSeeder::class,
+            VendorPenginapanSeeder::class,
+            DetailVendorPenginapanSeeder::class,
+            VendorRumahMakanSeeder::class,
+            DetailVendorRumahMakanSeeder::class
         ]);
     }
 }

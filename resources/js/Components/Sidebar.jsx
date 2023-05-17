@@ -37,7 +37,6 @@ const Sidebar = () => {
         {
           title: "Quotation Rekomendasi",
           icon: <BsReceipt />,
-          path: "quotation",
           path: "#",
         },
         {
