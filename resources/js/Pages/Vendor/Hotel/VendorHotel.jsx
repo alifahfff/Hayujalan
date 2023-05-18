@@ -7,6 +7,8 @@ import Hotel from '@/Components/Vendor/Hotel/Hotel';
 import Pagination from '@/Components/Pagination';
 import { BsPlusSquare } from "react-icons/bs";
 import ModalHotel from '@/Components/Vendor/Hotel/ModalHotel';
+import Layout from '@/Layouts/Layout';
+
 
 
 export default function VendorHotel (props) {
@@ -52,9 +54,6 @@ export default function VendorHotel (props) {
     
   return (
     <div className='min-h-screen bg-abu'>
-        {/* Navbar */}
-            <Navbar user={props.auth.user} />
-        
         {/* Content */}
             <div className='ml-6'>
                 <a>Data Penginapan</a>
@@ -76,7 +75,7 @@ export default function VendorHotel (props) {
                         <Hotel hotel={hotelList}/>
                         <div className='m-2 flex justify-between items-center'>
                         <a className='text-[10px] text-black'>Showing 1 - 4 of 10</a>
-                        <Pagination/>
+                        {/* <Pagination/> */}
                         </div>
                     </div>
                 </div>
@@ -86,3 +85,5 @@ export default function VendorHotel (props) {
         </div>
   )
 }
+
+VendorHotel.layout = page => <Layout children={page}/>

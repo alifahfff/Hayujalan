@@ -7,6 +7,7 @@ import RM from '@/Components/Vendor/RM/RM';
 import Pagination from '@/Components/Pagination';
 import { BsPlusSquare } from "react-icons/bs";
 import ModalRM from '@/Components/Vendor/RM/ModelRM';
+import Layout from '@/Layouts/Layout';
 
 
 export default function VendorRM (props) {
@@ -48,9 +49,6 @@ export default function VendorRM (props) {
     
   return (
     <div className='min-h-screen bg-abu'>
-        {/* Navbar */}
-            <Navbar user={props.auth.user} />
-        
         {/* Content */}
             <div className='ml-6'>
                 <a>Data Rumah Makan</a>
@@ -72,7 +70,7 @@ export default function VendorRM (props) {
                         <RM rm={rmList}/>
                         <div className='m-2 flex justify-between items-center'>
                         <a className='text-[10px] text-black'>Showing 1 - 4 of 10</a>
-                        <Pagination/>
+                        {/* <Pagination/> */}
                         </div>
                     </div>
                 </div>
@@ -82,3 +80,5 @@ export default function VendorRM (props) {
         </div>
   )
 }
+
+VendorRM.layout = page => <Layout children={page}/>
