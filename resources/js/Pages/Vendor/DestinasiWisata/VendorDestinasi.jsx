@@ -7,9 +7,10 @@ import DestinasiWisata from '@/Components/Vendor/Destinasi/DestinasiWisata';
 import Pagination from '@/Components/Pagination';
 import { BsPlusSquare } from "react-icons/bs";
 import ModalDestinasi from '@/Components/Vendor/Destinasi/ModalDestinasi';
+import Layout from '@/Layouts/Layout';
 
 
-export default function VendorArea (props) {
+export default function VendorDestinasi (props) {
     const [destinasiList, setdestinasiList] = useState([
         {
             id:'AW001',
@@ -48,9 +49,6 @@ export default function VendorArea (props) {
     
   return (
     <div className='min-h-screen bg-abu'>
-        {/* Navbar */}
-            <Navbar user={props.auth.user} />
-        
         {/* Content */}
             <div className='ml-6'>
                 <a>Data Destinasi Wisata</a>
@@ -72,7 +70,7 @@ export default function VendorArea (props) {
                         <DestinasiWisata destinasi={destinasiList}/>
                         <div className='m-2 flex justify-between items-center'>
                         <a className='text-[10px] text-black'>Showing 1 - 4 of 10</a>
-                        <Pagination/>
+                        {/* <Pagination/> */}
                         </div>
                     </div>
                 </div>
@@ -82,3 +80,5 @@ export default function VendorArea (props) {
         </div>
   )
 }
+
+VendorDestinasi.layout = page => <Layout children={page}/>
