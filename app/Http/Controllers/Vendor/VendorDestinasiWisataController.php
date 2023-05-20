@@ -47,9 +47,12 @@ class VendorDestinasiWisataController extends Controller
      * @param  \App\Models\vendorDestinasiWisata  $vendorDestinasiWisata
      * @return \Illuminate\Http\Response
      */
-    public function show(vendorDestinasiWisata $vendorDestinasiWisata)
+    public function show()
     {
-        //
+        $Mydata = vendorDestinasiWisata::all();
+        return Inertia::render('Vendor/DestinasiWisata/VendorDestinasi', [
+            'Mydata' => $Mydata,
+        ]);
     }
 
     /**

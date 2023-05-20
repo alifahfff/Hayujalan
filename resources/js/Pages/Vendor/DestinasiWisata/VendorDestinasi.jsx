@@ -10,37 +10,38 @@ import ModalDestinasi from '@/Components/Vendor/Destinasi/ModalDestinasi';
 
 
 export default function VendorArea (props) {
-    const [destinasiList, setdestinasiList] = useState([
-        {
-            id:'AW001',
-            area:'Bandung',    
-            nama: 'Floating Market',
-            alamat: 'Jl.Lembang',
-            kapasitas: '500',
-            kapasitasParkir: '3',
-            noTelpDestinasi:'0897261713',
-            picDestinasi: 'Yoga',
-            noHpPIC: '0897655272',
-            rangePeserta: '',
-            tiketMasukWeekday: '',
-            tiketMasukWeekend: '',
-        },
-        {
-            id:'AW002',
-            area:'Jakarta',    
-            nama: 'Dufan',
-            alamat: 'Jl.Ancol',
-            kapasitas: '500',
-            kapasitasParkir: '5',
-            noTelpDestinasi:'0897261713',
-            picDestinasi: 'Nova',
-            noHpPIC: '0897655272',
-            rangePeserta: '',
-            tiketMasukWeekday: '',
-            tiketMasukWeekend: '',   
+    console.log('data', props)
+    // const [destinasiList, setdestinasiList] = useState([
+    //     {
+    //         id:'AW001',
+    //         area:'Bandung',    
+    //         nama: 'Floating Market',
+    //         alamat: 'Jl.Lembang',
+    //         kapasitas: '500',
+    //         kapasitasParkir: '3',
+    //         noTelpDestinasi:'0897261713',
+    //         picDestinasi: 'Yoga',
+    //         noHpPIC: '0897655272',
+    //         rangePeserta: '',
+    //         tiketMasukWeekday: '',
+    //         tiketMasukWeekend: '',
+    //     },
+    //     {
+    //         id:'AW002',
+    //         area:'Jakarta',    
+    //         nama: 'Dufan',
+    //         alamat: 'Jl.Ancol',
+    //         kapasitas: '500',
+    //         kapasitasParkir: '5',
+    //         noTelpDestinasi:'0897261713',
+    //         picDestinasi: 'Nova',
+    //         noHpPIC: '0897655272',
+    //         rangePeserta: '',
+    //         tiketMasukWeekday: '',
+    //         tiketMasukWeekend: '',   
 
-        },
-    ])
+    //     },
+    // ])
 
     const [showModal, setShowModal] = useState(false);
     
@@ -69,10 +70,10 @@ export default function VendorArea (props) {
                 <div className='p-4 bg-kuning border-b border-gray-200'></div>
                 <div className='bg-white border-b border-gray-200'>
                     <div className=''>
-                        <DestinasiWisata destinasi={destinasiList}/>
+                        {/* <DestinasiWisata destinasi={destinasiList}/> */}
                         <div className='m-2 flex justify-between items-center'>
                         <a className='text-[10px] text-black'>Showing 1 - 4 of 10</a>
-                        <Pagination/>
+                        {/* <Pagination/> */}
                         </div>
                     </div>
                 </div>

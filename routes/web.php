@@ -15,6 +15,7 @@ use App\Http\Controllers\Itemq\DataJenisKlienController;
 use App\Http\Controllers\Itemq\DataKlienController;
 use App\Http\Controllers\Itemq\DataKategoriTourController;
 use App\Http\Controllers\Quotation\QuotationTourController;
+use App\Http\Controllers\Vendor\VendorDestinasiWisataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -127,7 +128,7 @@ Route::get('/dashboard', function () {
 // Vendor
 Route::get('/areawisata', [VendorController::class, 'areaWisata'])->name('areawisata');
 Route::get('/areawisata/detail', [VendorController::class, 'detailArea'])->name('areawisata.detail');
-Route::get('/destinasiwisata', [VendorController::class, 'destinasiWisata'])->name('destinasiwisata');
+Route::get('/destinasiwisata', [VendorDestinasiWisataController::class, 'show'])->name('destinasiwisata');
 Route::get('/destinasiwisata/detail', [VendorController::class, 'detailDestinasi'])->name('destinasiwisata.detail');
 Route::get('/transportasi', [VendorController::class, 'transportasi'])->name('transportasi');
 Route::get('/transportasi/detail', [VendorController::class, 'detailTransportasi'])->name('transportasi.detail');

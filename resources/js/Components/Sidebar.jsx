@@ -60,7 +60,7 @@ const Sidebar = () => {
         },
         { 
           title: "Data Destinasi Wisata",
-          path: "#", 
+          path: "/destinasiwisata", 
         },
         { 
           title: "Data Bus",
