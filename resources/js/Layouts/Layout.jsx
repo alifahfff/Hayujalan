@@ -9,7 +9,7 @@ const Layout = ({children})=> {
                     <div className=''>
                         <Sidebar/>
                     </div>
-                    <div className='grow bg-abu h-screen'>
+                    <div className='grow bg-abu h-screen overflow-auto'>
                         <Navbar/>
                         <div className='grow bg-abu h-screen'>
                         {children}
