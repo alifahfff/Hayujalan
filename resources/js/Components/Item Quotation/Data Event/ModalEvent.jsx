@@ -1,5 +1,36 @@
-const ModalEvent = ({visible, onClose}) => {
+import { Inertia } from "@inertiajs/inertia";
+import { useState } from "react";
+
+const ModalEvent = ({visible, onClose, data}) => {
     if (!visible) return null;
+    const [datas, setDatas] = useState(data)
+    console.log('modal data', data)
+    // console.log('datas', datas)
+
+    const handleSubmit = () => {
+        console.log('id', data.id)
+        if(data.id){
+            // update data
+            const dataE = {
+                id: data.id,
+                ketDataEvent: datas.ketDataEvent, 
+                biayaDataEvent: datas.biayaDataEvent, 
+                satuan: datas.satuan,
+                updated_at: new Date(),
+            }
+            Inertia.post('/event/update', dataE)
+        }else{
+            // tambah data
+            const dataT = {
+                ketDataEvent: datas.ketDataEvent, 
+                biayaDataEvent: datas.biayaDataEvent, 
+                satuan: datas.satuan,
+                created_at: new Date(),
+                updated_at: new Date(),
+            }
+            Inertia.post('/event', dataT)
+        }
+    }
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center">
@@ -23,6 +54,12 @@ const ModalEvent = ({visible, onClose}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
+                                    value={datas.ketDataEvent || ''}
+                                    onChange={(value) => 
+                                        setDatas({
+                                            ...datas,
+                                            ketDataEvent: value.target.value
+                                        })}
                                 />
                             </div>
                             <div className="flex flex-row justify-between">
@@ -30,6 +67,12 @@ const ModalEvent = ({visible, onClose}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
+                                    onChange={(value) => 
+                                        setDatas({
+                                            ...datas,
+                                            biayaDataEvent: value.target.value
+                                        })}
+                                    value={datas.biayaDataEvent}
                                 />
                             </div>
                             <div className="flex flex-row justify-between">
@@ -37,13 +80,25 @@ const ModalEvent = ({visible, onClose}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
+                                    onChange={(value) => 
+                                        setDatas({
+                                            ...datas,
+                                            satuan: value.target.value
+                                        })}
+                                    value={datas.satuan}
                                 />
                             </div>
                         </div>
                         {/* Button */}
                         <div className="card-actions justify-end">
                             <button onClick={onClose} className="btn bg-[#AF4F4F] text-putih outline-none border-transparent">Batalkan</button>
-                            <button onClick={onClose} className="btn bg-[#3E9E3E] text-putih outline-none border-transparent">Simpan</button>
+                            <button 
+                                onClick={() => {
+                                    handleSubmit()
+                                    onClose()
+                                }}  
+                                className="btn bg-[#3E9E3E] text-putih outline-none border-transparent"
+                            >Simpan</button>
                         </div> 
                     </div>
                 </div>
