@@ -114,6 +114,7 @@ Route::controller(AksesController::class)->group(function () {
 Route::controller(QuotationTourController::class)->group(function () {
     Route::get('/quotation', 'show')->name('quotation');
     Route::get('/quotation/qmanualform/', 'form')->name('quotationform');
+    Route::get('/quotation/qmanualresult/', 'result')->name('quotationresult');
     Route::post('/quotation', 'store')->name('create.quotation');
     Route::get('/quotation/edit', 'edit')->name('edit.quotation');
     Route::post('/quotation/update', 'update')->name('update.quotation');
