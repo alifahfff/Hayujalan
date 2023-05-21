@@ -56,6 +56,11 @@ class QuotationTourController extends Controller
         return Inertia::render('Quotation/QuotationsForm');
     }
 
+    public function result(quotationTour $quotationTour)
+    {
+        return Inertia::render('Quotation/QuotationsResult');
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
