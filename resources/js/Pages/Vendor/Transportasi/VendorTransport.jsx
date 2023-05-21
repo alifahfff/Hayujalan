@@ -7,6 +7,7 @@ import Transportasi from '@/Components/Vendor/Transportasi/Transportasi';
 import Pagination from '@/Components/Pagination';
 import { BsPlusSquare } from "react-icons/bs";
 import ModalTransport from '@/Components/Vendor/Transportasi/ModalTransport';
+import Layout from '@/Layouts/Layout';
 
 
 export default function VendorTransport (props) {
@@ -60,9 +61,6 @@ export default function VendorTransport (props) {
     
   return (
     <div className='min-h-screen bg-abu'>
-        {/* Navbar */}
-            <Navbar user={props.auth.user} />
-        
         {/* Content */}
             <div className='ml-6'>
                 <a>Data Transportasi</a>
@@ -84,7 +82,7 @@ export default function VendorTransport (props) {
                         <Transportasi transportasi={transportList}/>
                         <div className='m-2 flex justify-between items-center'>
                         <a className='text-[10px] text-black'>Showing 1 - 4 of 10</a>
-                        <Pagination/>
+                        {/* <Pagination/> */}
                         </div>
                     </div>
                 </div>
@@ -94,3 +92,5 @@ export default function VendorTransport (props) {
         </div>
   )
 }
+
+VendorTransport.layout = page => <Layout children={page}/>

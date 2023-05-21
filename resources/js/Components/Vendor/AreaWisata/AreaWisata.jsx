@@ -1,4 +1,4 @@
-import { BsPencilSquare, BsTrash3 } from "react-icons/bs";
+import { BsPencilSquare, BsTrash3, BsList, BsThreeDots } from "react-icons/bs";
 import { Link } from "@inertiajs/inertia-react"
 
 const AreaWisata = ({area}) => {
@@ -23,8 +23,7 @@ const AreaWisata = ({area}) => {
                                 <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.id}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.area}</td>
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
-                                    <button className="btn btn-ghost btn-sm mr-2"><Link href={route('areawisata.detail')} data={{id: cr.id}}><BsPencilSquare/></Link></button>
-                                    <button className="btn btn-ghost btn-sm"><BsTrash3/></button>
+                                    <button className="btn btn-ghost btn-sm mr-2"><Link href={route('areawisata.detail')} data={{id: cr.id}}><BsThreeDots/></Link></button> 
                                 </td>
                                 </tr>
                             </tbody>

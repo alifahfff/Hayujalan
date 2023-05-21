@@ -63,16 +63,16 @@ const Sidebar = () => {
           path: "/destinasiwisata", 
         },
         { 
-          title: "Data Bus",
-          path: "#", 
+          title: "Data Transportasi",
+          path: "/transportasi", 
         },
         { 
           title: "Data Hotel",
-          path: "#", 
+          path: "/hotel", 
         },
         { 
           title: "Data Rumah Makan",
-          path: "#", 
+          path: "/rumahmakan", 
         },
       ],
     },
