@@ -115,6 +115,9 @@ Route::controller(QuotationTourController::class)->group(function () {
     Route::get('/quotation', 'show')->name('quotation');
     Route::get('/quotation/qmanualform/', 'form')->name('quotationform');
     Route::get('/quotation/qmanualresult/', 'result')->name('quotationresult');
+    Route::get('/quotation/qrecomend/', 'showrec')->name('quotationrecomend'); 
+    Route::get('/quotation/qrecomendform/', 'formrec')->name('quotationrecomendform'); 
+    Route::get('/quotation/qrecomendresult/', 'recresult')->name('quotationrecomendresult'); 
     Route::post('/quotation', 'store')->name('create.quotation');
     Route::get('/quotation/edit', 'edit')->name('edit.quotation');
     Route::post('/quotation/update', 'update')->name('update.quotation');
