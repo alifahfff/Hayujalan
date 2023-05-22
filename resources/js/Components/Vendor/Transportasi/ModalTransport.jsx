@@ -18,7 +18,7 @@ const ModalTransport = ({visible, onClose}) => {
                         <p className="text-center text-gray-700 mb-5">Data Transportasi</p>
                         {/* Data Input */}
                         <div className="flex flex-col">
-                            <div className="grid grid-cols-3 gap-3">
+                            <div className="grid grid-cols-2 gap-3">
                             <div className="flex flex-row justify-between">
                                 <a className="mr-5 mt-2 text-black">Area Wisata</a>
                                 <input
@@ -56,62 +56,6 @@ const ModalTransport = ({visible, onClose}) => {
                             </div>
                             <div className="flex flex-row justify-between">
                                 <a className="mr-5 mt-2 text-black">No HP PIC</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                />
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Nama Kendaraan</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                />
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Tahun kendaraan</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                />
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Kapasitas</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                />
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Ketersediaan Unit</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                />
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Harga Weekend Dalam Kota</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                />
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Harga Weekday Dalam Kota</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                />
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Harga Weekday Luar Kota</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                />
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Harga Weekend Luar Kota</a>
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"

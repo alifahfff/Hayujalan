@@ -49,7 +49,10 @@ class VendorRumahMakanController extends Controller
      */
     public function show(vendorRumahMakan $vendorRumahMakan)
     {
-        //
+        $rm = vendorRumahMakan::all();
+        return Inertia::render('Vendor/RumahMakan/VendorRM', [
+            'rm' => $rm,
+        ]);
     }
 
     /**
@@ -58,9 +61,11 @@ class VendorRumahMakanController extends Controller
      * @param  \App\Models\vendorRumahMakan  $vendorRumahMakan
      * @return \Illuminate\Http\Response
      */
-    public function edit(vendorRumahMakan $vendorRumahMakan)
+    public function edit(vendorRumahMakan $vendorRumahMakan, request $request)
     {
-        //
+        return Inertia::render('Vendor/RumahMakan/DetailRM',[
+            'rm' => $vendorRumahMakan->find($request->id) 
+        ]);
     }
 
     /**

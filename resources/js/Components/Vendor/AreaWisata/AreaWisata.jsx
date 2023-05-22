@@ -23,7 +23,11 @@ const AreaWisata = ({area}) => {
                                 <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.id}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.area}</td>
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
-                                    <button className="btn btn-ghost btn-sm mr-2"><Link href={route('areawisata.detail')} data={{id: cr.id}}><BsThreeDots/></Link></button> 
+                                    <button className="btn btn-ghost btn-sm mr-2">
+                                        <Link href="">
+                                            <BsThreeDots/>
+                                        </Link>
+                                    </button> 
                                 </td>
                                 </tr>
                             </tbody>

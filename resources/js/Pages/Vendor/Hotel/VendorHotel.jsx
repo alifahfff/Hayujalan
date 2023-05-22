@@ -12,41 +12,41 @@ import Layout from '@/Layouts/Layout';
 
 
 export default function VendorHotel (props) {
-    const [hotelList, sethotelList] = useState([
-        {
-            id:'P001',
-            area:'Bandung',    
-            nama: 'Hotel Zodiak',
-            bintang: '3',
-            alamat: 'Jl.Pasteur',
-            noTelpHotel:'0897261713',
-            picHotel: 'Yoga',
-            noHpPIC: '0897655272',
-            kapasitasParkir: '3',
-            jenisKamar:'',
-            kapasitasKamar:'',
-            ketersediaanKamar:'',
-            hargaWeekday: '',
-            hargaWeekend: '',
-        },
-        {
-            id:'P002',
-            area:'Bandung',    
-            nama: 'Hotel Ibis',
-            bintang: '3',
-            alamat: 'Jl.AH Yani',
-            noTelpHotel:'0897261713',
-            picHotel: 'Yoga',
-            noHpPIC: '0897655272',
-            kapasitasParkir: '3',
-            jenisKamar:'',
-            kapasitasKamar:'',
-            ketersediaanKamar:'',
-            hargaWeekday: '',
-            hargaWeekend: '',  
+    // const [hotelList, sethotelList] = useState([
+    //     {
+    //         id:'P001',
+    //         area:'Bandung',    
+    //         nama: 'Hotel Zodiak',
+    //         bintang: '3',
+    //         alamat: 'Jl.Pasteur',
+    //         noTelpHotel:'0897261713',
+    //         picHotel: 'Yoga',
+    //         noHpPIC: '0897655272',
+    //         kapasitasParkir: '3',
+    //         jenisKamar:'',
+    //         kapasitasKamar:'',
+    //         ketersediaanKamar:'',
+    //         hargaWeekday: '',
+    //         hargaWeekend: '',
+    //     },
+    //     {
+    //         id:'P002',
+    //         area:'Bandung',    
+    //         nama: 'Hotel Ibis',
+    //         bintang: '3',
+    //         alamat: 'Jl.AH Yani',
+    //         noTelpHotel:'0897261713',
+    //         picHotel: 'Yoga',
+    //         noHpPIC: '0897655272',
+    //         kapasitasParkir: '3',
+    //         jenisKamar:'',
+    //         kapasitasKamar:'',
+    //         ketersediaanKamar:'',
+    //         hargaWeekday: '',
+    //         hargaWeekend: '',  
 
-        },
-    ])
+    //     },
+    // ])
 
     const [showModal, setShowModal] = useState(false);
     
@@ -72,7 +72,7 @@ export default function VendorHotel (props) {
                 <div className='p-4 bg-kuning border-b border-gray-200'></div>
                 <div className='bg-white border-b border-gray-200'>
                     <div className=''>
-                        <Hotel hotel={hotelList}/>
+                        <Hotel hotel={props.hotel}/>
                         <div className='m-2 flex justify-between items-center'>
                         <a className='text-[10px] text-black'>Showing 1 - 4 of 10</a>
                         {/* <Pagination/> */}

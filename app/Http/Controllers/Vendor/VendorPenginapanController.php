@@ -49,7 +49,10 @@ class VendorPenginapanController extends Controller
      */
     public function show(vendorPenginapan $vendorPenginapan)
     {
-        //
+        $hotel = vendorPenginapan::all();
+        return Inertia::render('Vendor/Hotel/VendorHotel', [
+            'hotel' => $hotel,
+        ]);
     }
 
     /**
@@ -58,9 +61,11 @@ class VendorPenginapanController extends Controller
      * @param  \App\Models\vendorPenginapan  $vendorPenginapan
      * @return \Illuminate\Http\Response
      */
-    public function edit(vendorPenginapan $vendorPenginapan)
+    public function edit(vendorPenginapan $vendorPenginapan, request $request)
     {
-        //
+        return Inertia::render('Vendor/Hotel/DetailHotel',[
+            'hotel' => $vendorPenginapan->find($request->id) 
+        ]);
     }
 
     /**

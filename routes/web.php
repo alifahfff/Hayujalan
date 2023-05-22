@@ -17,6 +17,9 @@ use App\Http\Controllers\Itemq\DataKategoriTourController;
 use App\Http\Controllers\Quotation\QuotationTourController;
 use App\Http\Controllers\Vendor\VendorDestinasiWisataController;
 use App\Http\Controllers\Vendor\VendorTransportasiController;
+use App\Http\Controllers\Vendor\VendorPenginapanController;
+use App\Http\Controllers\Vendor\VendorRumahMakanController;
+
 
 
 /*
@@ -118,6 +121,9 @@ Route::controller(QuotationTourController::class)->group(function () {
     Route::get('/quotation', 'show')->name('quotation');
     Route::get('/quotation/qmanualform/', 'form')->name('quotationform');
     Route::get('/quotation/qmanualresult/', 'result')->name('quotationresult');
+    Route::get('/quotation/qrecomend/', 'showrec')->name('quotationrecomend'); 
+    Route::get('/quotation/qrecomendform/', 'formrec')->name('quotationrecomendform'); 
+    Route::get('/quotation/qrecomendresult/', 'recresult')->name('quotationrecomendresult'); 
     Route::post('/quotation', 'store')->name('create.quotation');
     Route::get('/quotation/edit', 'edit')->name('edit.quotation');
     Route::post('/quotation/update', 'update')->name('update.quotation');
@@ -129,7 +135,7 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
 
-// Vendor
+// Vendor Destinasi
 Route::controller(VendorDestinasiWisataController::class)->group(function(){
     Route::get('/destinasiwisata', 'show')->name('destinasiwisata');
     Route::get('/destinasiwisata/detail', 'edit')->name('destinasiwisata.detail');
@@ -138,14 +144,24 @@ Route::controller(VendorDestinasiWisataController::class)->group(function(){
 Route::get('/areawisata', [VendorController::class, 'areaWisata'])->name('areawisata');
 Route::get('/areawisata/detail', [VendorController::class, 'detailArea'])->name('areawisata.detail');
 
+//Vendor Transportasi
 Route::controller(VendorTransportasiController::class)->group(function (){
     Route::get('/transportasi', 'show')->name('transportasi');
     Route::get('/transportasi/detail', 'edit')->name('transportasi.detail');
 });
-Route::get('/hotel', [VendorController::class, 'hotel'])->name('hotel');
-Route::get('/hotel/detail', [VendorController::class, 'detailHotel'])->name('hotel.detail');
-Route::get('/rumahmakan', [VendorController::class, 'rumahMakan'])->name('rumahmakan');
-Route::get('/rumahmakan/detail', [VendorController::class, 'detailRM'])->name('rumahmakan.detail');
+
+//Vendor Hotel
+Route::controller(VendorPenginapanController::class)->group(function() {
+    Route::get('/hotel', 'show')->name('hotel');
+    Route::get('/hotel/detail', 'edit')->name('hotel.detail');
+});
+
+
+//Vendor Rumah Makan
+Route::controller(VendorRumahMakanController::class)->group(function(){
+    Route::get('/rumahmakan', 'show')->name('rumahmakan');
+    Route::get('/rumahmakan/detail', 'edit')->name('rumahmakan.detail');    
+});
 
 // Quotation
 Route::get('/manualquotation', [QuotationController::class, 'manualQuotation'])->name('manualquotation');
