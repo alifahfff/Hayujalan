@@ -75,27 +75,6 @@ const ModalDestinasi = ({visible, onClose}) => {
                                     className="border border-gray-700 p-2 rounded mb-5"
                                 />
                             </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Range Peserta</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                />
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Tiket Masuk WeekDay</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                />
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Tiket Masuk WeekEnd</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                />
-                            </div>
                             </div>
                         </div>
                         {/* Button */}

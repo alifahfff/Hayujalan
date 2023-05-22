@@ -18,7 +18,7 @@ const ModalHotel = ({visible, onClose}) => {
                         <p className="text-center text-gray-700 mb-5">Data Penginapan</p>
                         {/* Data Input */}
                         <div className="flex flex-col">
-                            <div className="grid grid-cols-3 gap-3">
+                            <div className="grid grid-cols-2 gap-3">
                             <div className="flex flex-row justify-between">
                                 <a className="mr-5 mt-2 text-black">Area Wisata</a>
                                 <input
@@ -69,42 +69,7 @@ const ModalHotel = ({visible, onClose}) => {
                                 />
                             </div>
                             <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Kapasitas Parkir</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                />
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Jenis Kamar</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                />
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Kapasitas Kamar</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                />
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Ketersediaan Kamar</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                />
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Harga Sewa WeekDay</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                />
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Harga Sewa WeekEnd</a>
+                                <a className="mr-5 mt-2 text-black">Kapasitas Parkir Bus</a>
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"

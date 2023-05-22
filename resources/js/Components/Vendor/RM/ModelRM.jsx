@@ -18,7 +18,7 @@ const ModalRM = ({visible, onClose}) => {
                         <p className="text-center text-gray-700 mb-5">Data Rumah Makan</p>
                         {/* Data Input */}
                         <div className="flex flex-col">
-                            <div className="grid grid-cols-3 gap-3">
+                            <div className="grid grid-cols-2 gap-3">
                             <div className="flex flex-row justify-between">
                                 <a className="mr-5 mt-2 text-black">Area Wisata</a>
                                 <input
@@ -70,27 +70,6 @@ const ModalRM = ({visible, onClose}) => {
                             </div>
                             <div className="flex flex-row justify-between">
                                 <a className="mr-5 mt-2 text-black">No HP PIC</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                />
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Nama Menu</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                />
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Detail Menu</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                />
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Harga Menu</a>
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"

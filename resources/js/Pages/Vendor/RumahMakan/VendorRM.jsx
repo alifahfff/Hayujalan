@@ -11,37 +11,37 @@ import Layout from '@/Layouts/Layout';
 
 
 export default function VendorRM (props) {
-    const [rmList, setrmList] = useState([
-        {
-            id:'RM001',
-            area:'Bandung',    
-            namaRM: 'Mie Gacoan',
-            kapasitasRM: '100',
-            kapasitasParkir: '1',
-            alamat: 'Jl.Setiabudhi',
-            noTelpRM:'0897261713',
-            picRM: 'Yoga',
-            noHpPIC: '0897655272',
-            namaMenu:'',
-            detailMenu:'',
-            hargaMenu:'',
-        },
-        {
-            id:'RM001',
-            area:'Bandung',    
-            namaRM: 'Mie Gacoan',
-            kapasitasRM: '100',
-            kapasitasParkir: '1',
-            alamat: 'Jl.Setiabudhi',
-            noTelpRM:'0897261713',
-            picRM: 'Yoga',
-            noHpPIC: '0897655272',
-            namaMenu:'',
-            detailMenu:'',
-            hargaMenu:'',  
+    // const [rmList, setrmList] = useState([
+    //     {
+    //         id:'RM001',
+    //         area:'Bandung',    
+    //         namaRM: 'Mie Gacoan',
+    //         kapasitasRM: '100',
+    //         kapasitasParkir: '1',
+    //         alamat: 'Jl.Setiabudhi',
+    //         noTelpRM:'0897261713',
+    //         picRM: 'Yoga',
+    //         noHpPIC: '0897655272',
+    //         namaMenu:'',
+    //         detailMenu:'',
+    //         hargaMenu:'',
+    //     },
+    //     {
+    //         id:'RM001',
+    //         area:'Bandung',    
+    //         namaRM: 'Mie Gacoan',
+    //         kapasitasRM: '100',
+    //         kapasitasParkir: '1',
+    //         alamat: 'Jl.Setiabudhi',
+    //         noTelpRM:'0897261713',
+    //         picRM: 'Yoga',
+    //         noHpPIC: '0897655272',
+    //         namaMenu:'',
+    //         detailMenu:'',
+    //         hargaMenu:'',  
 
-        },
-    ])
+    //     },
+    // ])
 
     const [showModal, setShowModal] = useState(false);
     
@@ -67,7 +67,7 @@ export default function VendorRM (props) {
                 <div className='p-4 bg-kuning border-b border-gray-200'></div>
                 <div className='bg-white border-b border-gray-200'>
                     <div className=''>
-                        <RM rm={rmList}/>
+                        <RM rm={props.rm}/>
                         <div className='m-2 flex justify-between items-center'>
                         <a className='text-[10px] text-black'>Showing 1 - 4 of 10</a>
                         {/* <Pagination/> */}

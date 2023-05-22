@@ -13,7 +13,7 @@ export default function DetailTransport(props) {
             <a>Detail Data</a>
         </div>
         <div className='flex justify-between m-6 mt-2 mb-3'>
-            <a className='text-2xl font-bold text-black'>{props.transportasi.namatransportasiWisata}</a>
+            <a className='text-2xl font-bold text-black'>{props.transportasi.namaTransportasi}</a>
             <button 
             onClick={() => setShowModal(true)}
             className="btn gap-2 btn-outline rounded-full btn-sm px-5 bg-white hover:bg-gray-100 text-[#C1C0BF]"
@@ -28,32 +28,20 @@ export default function DetailTransport(props) {
                         <div className="column p-6 text-black text-sm">
                         <table>
                                     <tr>
-                                        <td>Kapasitas Pengunjung </td>
-                                        <td>: {props.transportasi.kapasitastransportasiWisata} </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kapasitas Parkir Bus  </td>
-                                        <td>: {props.transportasi.kapasitasParkirBus}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Alamat  </td>
-                                        <td>: {props.transportasi.alamattransportasiWisata}</td>
+                                        <td>Alamat Transportasi </td>
+                                        <td>: {props.transportasi.alamatTransportasi} </td>
                                     </tr>
                                     <tr>
                                             <td>No Telpon </td>
-                                            <td>: {props.transportasi.tlptransportasiWisata}</td>
+                                            <td>: {props.transportasi.tlpTransportasi}</td>
                                         </tr>
                                         <tr>
                                             <td>PIC transportasi </td>
-                                            <td>: {props.transportasi.pictransportasiWisata} </td>
+                                            <td>: {props.transportasi.picTransportasi} </td>
                                         </tr>
                                         <tr>
                                             <td>No PIC </td>
-                                            <td>: {props.transportasi.hptransportasiWisata}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Link Gmaps </td>
-                                            <td>: {props.transportasi.linkGmaps}</td>
+                                            <td>: {props.transportasi.hpPicTransportasi}</td>
                                         </tr>
                                 </table>
                         </div>
