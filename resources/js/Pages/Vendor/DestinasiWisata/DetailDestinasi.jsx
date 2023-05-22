@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { BsPlusSquare } from "react-icons/bs";
 import ModalDestinasi from '@/Components/Vendor/Destinasi/ModalDestinasi';
 import Layout from '@/Layouts/Layout';
-
+import { Link } from "@inertiajs/inertia-react";
 
 export default function DetailDestinasi(props) {
-  console.log('props', props)
+  console.log('detail', props)
+//   console.log('detaildw', props.idAreaWisata.jenisPeserta)
   return (
     <div className='min-h-screen bg-abu'>
     {/* Content */}
@@ -68,9 +69,40 @@ export default function DetailDestinasi(props) {
                                         <th scope="col" className="px-6 py-4">Aksi</th>
                                     </tr>
                                 </thead>
+                                {props.detail.map((cr, index) => {
+                                    // console.log('cr', cr)
+                                    return (
+                                        <tbody key={index}>
+                                            <tr className="border-b dark:border-neutral-500">
+                                            <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.jenisPeserta}</td>
+                                            <td className="whitespace-nowrap px-6 py-4">{cr.rangePeserta}</td>
+                                            <td className="whitespace-nowrap px-6 py-4">{cr.tiketMasukWeekday}</td>
+                                            <td className="whitespace-nowrap px-6 py-4">{cr.alamatDestinasiWisata}</td>
+                                            <td className="whitespace-nowrap px-6 py-4 justify-item-center">
+                                                {/* <button className="btn btn-ghost btn-sm mr-2">
+                                                    <Link href={route('destinasiwisata.detail')} method="get" data={{id: cr.id}}>
+                                                        <BsThreeDots/>
+                                                    </Link>
+                                                </button> */}
+                                                {/* <button 
+                                                    onClick={() => {
+                                                        setShowModal(true)
+                                                        setDataD(cr)
+                                                    }}
+                                                    className="btn btn-ghost btn-sm mr-2"
+                                                ><BsThreeDots/></button> */}
+                                            </td>
+                                            </tr>
+                                        </tbody>
+                                    )
+                                })}
                             </table>
                         </div>
                     </div>
+                </div>
+
+                <div>
+
                 </div>
         </div>
 
