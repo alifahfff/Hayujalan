@@ -16,6 +16,8 @@ use App\Http\Controllers\Itemq\DataKlienController;
 use App\Http\Controllers\Itemq\DataKategoriTourController;
 use App\Http\Controllers\Quotation\QuotationTourController;
 use App\Http\Controllers\Vendor\VendorDestinasiWisataController;
+use App\Http\Controllers\Vendor\VendorTransportasiController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -135,8 +137,11 @@ Route::controller(VendorDestinasiWisataController::class)->group(function(){
 });
 Route::get('/areawisata', [VendorController::class, 'areaWisata'])->name('areawisata');
 Route::get('/areawisata/detail', [VendorController::class, 'detailArea'])->name('areawisata.detail');
-Route::get('/transportasi', [VendorController::class, 'transportasi'])->name('transportasi');
-Route::get('/transportasi/detail', [VendorController::class, 'detailTransportasi'])->name('transportasi.detail');
+
+Route::controller(VendorTransportasiController::class)->group(function (){
+    Route::get('/transportasi', 'show')->name('transportasi');
+    Route::get('/transportasi/detail', 'edit')->name('transportasi.detail');
+});
 Route::get('/hotel', [VendorController::class, 'hotel'])->name('hotel');
 Route::get('/hotel/detail', [VendorController::class, 'detailHotel'])->name('hotel.detail');
 Route::get('/rumahmakan', [VendorController::class, 'rumahMakan'])->name('rumahmakan');

@@ -49,7 +49,10 @@ class VendorTransportasiController extends Controller
      */
     public function show(vendorTransportasi $vendorTransportasi)
     {
-        //
+        $transportasi = vendorTransportasi::all();
+        return Inertia::render('Vendor/Transportasi/VendorTransport', [
+            'transportasi' => $transportasi,
+        ]);
     }
 
     /**
@@ -58,9 +61,11 @@ class VendorTransportasiController extends Controller
      * @param  \App\Models\vendorTransportasi  $vendorTransportasi
      * @return \Illuminate\Http\Response
      */
-    public function edit(vendorTransportasi $vendorTransportasi)
+    public function edit(vendorTransportasi $vendorTransportasi, request $request)
     {
-        //
+        return Inertia::render('Vendor/Transportasi/DetailTransport',[
+            'transportasi' => $vendorTransportasi->find($request->id) 
+        ]);
     }
 
     /**

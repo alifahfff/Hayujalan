@@ -69,8 +69,9 @@ class VendorDestinasiWisataController extends Controller
      */
     public function edit(vendorDestinasiWisata $vendorDestinasiWisata, Request $request)
     {
+        $destinasi = detailVendorDestinasiWisata::all();
         return Inertia::render('Vendor/DestinasiWisata/DetailDestinasi',[
-            'destinasi' => $vendorDestinasiWisata->find($request->id) 
+            'destinasi' => $vendorDestinasiWisata->find($request->id), 'detail' => $destinasi, 
         ]);
     }
 
