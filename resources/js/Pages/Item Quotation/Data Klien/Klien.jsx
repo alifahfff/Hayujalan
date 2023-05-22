@@ -11,28 +11,28 @@ import TKlien from '@/Components/Item Quotation/Data Klien/TKlien';
 import ModalKlien from '@/Components/Item Quotation/Data Klien/ModalKlien';
 
 export default function Klien(props) {
-    const [dataList, setDataList] = useState([
-        {
-            id:'K001',
-            nama:'-',
-            jenis:'-',
-        },
-        {
-            id:'K001',
-            nama:'-',
-            jenis:'-',
-        },
-        {
-            id:'K001',
-            nama:'-',
-            jenis:'-',
-        },
-        {
-            id:'K001',
-            nama:'-',
-            jenis:'-',
-        },
-    ])
+    // const [dataList, setDataList] = useState([
+    //     {
+    //         id:'K001',
+    //         nama:'-',
+    //         jenis:'-',
+    //     },
+    //     {
+    //         id:'K001',
+    //         nama:'-',
+    //         jenis:'-',
+    //     },
+    //     {
+    //         id:'K001',
+    //         nama:'-',
+    //         jenis:'-',
+    //     },
+    //     {
+    //         id:'K001',
+    //         nama:'-',
+    //         jenis:'-',
+    //     },
+    // ])
 
     const [showModal, setShowModal] = useState(false);
     
@@ -61,7 +61,7 @@ export default function Klien(props) {
                 <div className='p-4 bg-kuning border-b border-gray-200'></div>
                 <div className='bg-white border-b border-gray-200'>
                     <div className=''>
-                        <TKlien data={dataList}/>
+                        {/* <TKlien data={dataList}/> */}
                         <div className='m-2 flex justify-between items-center'>
                         <a className='text-[10px] text-black'>Showing 1 - 4 of 10</a>
                         <Pagination/>

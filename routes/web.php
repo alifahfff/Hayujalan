@@ -17,7 +17,6 @@ use App\Http\Controllers\Itemq\DataKategoriTourController;
 use App\Http\Controllers\Quotation\QuotationTourController;
 use App\Http\Controllers\Vendor\VendorDestinasiWisataController;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -115,6 +114,8 @@ Route::controller(AksesController::class)->group(function () {
 // Quotation
 Route::controller(QuotationTourController::class)->group(function () {
     Route::get('/quotation', 'show')->name('quotation');
+    Route::get('/quotation/qmanualform/', 'form')->name('quotationform');
+    Route::get('/quotation/qmanualresult/', 'result')->name('quotationresult');
     Route::post('/quotation', 'store')->name('create.quotation');
     Route::get('/quotation/edit', 'edit')->name('edit.quotation');
     Route::post('/quotation/update', 'update')->name('update.quotation');

@@ -10,7 +10,7 @@ import ModalDestinasi from '@/Components/Vendor/Destinasi/ModalDestinasi';
 import Layout from '@/Layouts/Layout';
 
 
-export default function VendorDestinasi (props) {
+export default function VendorDestinasi (props) {    
     // const [destinasiList, setdestinasiList] = useState([
     //     {
     //         id:'AW001',
