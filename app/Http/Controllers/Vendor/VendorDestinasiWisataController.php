@@ -47,10 +47,19 @@ class VendorDestinasiWisataController extends Controller
      * @param  \App\Models\vendorDestinasiWisata  $vendorDestinasiWisata
      * @return \Illuminate\Http\Response
      */
-    public function show(vendorDestinasiWisata $vendorDestinasiWisata)
+    public function show()
     {
-        //
+        $destinasi = vendorDestinasiWisata::all();
+        return Inertia::render('Vendor/DestinasiWisata/VendorDestinasi', [
+            'destinasi' => $destinasi,
+        ]);
     }
+
+    // public function showDetail()
+    // {
+    //     $vendorDestinasiWisata = detailVendorDestinasiWisata::all();
+    //     return Inertia::render('Vendor')
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -58,9 +67,11 @@ class VendorDestinasiWisataController extends Controller
      * @param  \App\Models\vendorDestinasiWisata  $vendorDestinasiWisata
      * @return \Illuminate\Http\Response
      */
-    public function edit(vendorDestinasiWisata $vendorDestinasiWisata)
+    public function edit(vendorDestinasiWisata $vendorDestinasiWisata, Request $request)
     {
-        return Inertia::render('Vendor/DestinasiWisata/DetailDestinasi');
+        return Inertia::render('Vendor/DestinasiWisata/DetailDestinasi',[
+            'destinasi' => $vendorDestinasiWisata->find($request->id) 
+        ]);
     }
 
     /**
@@ -85,4 +96,9 @@ class VendorDestinasiWisataController extends Controller
     {
         //
     }
+
+    // public function detailDestinasi()
+    // {
+    //     return Inertia::render('Vendor/DestinasiWisata/DetailDestinasi');
+    // }
 }
