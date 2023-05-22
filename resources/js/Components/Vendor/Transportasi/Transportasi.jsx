@@ -25,15 +25,19 @@ const Transportasi = ({transportasi}) => {
                         return (
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
-                                <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.area}</td>
+                                <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.idAreaWisata}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.id}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{cr.nama}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{cr.alamat}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{cr.telponTransport}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{cr.picTransport}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{cr.noPIC}</td>                                
+                                <td className="whitespace-nowrap px-6 py-4">{cr.namaTransportasi}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{cr.alamatTransportasi}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{cr.tlpTransportasi}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{cr.picTransportasi}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{cr.hpPicTransportasi}</td>                                
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
-                                    <button className="btn btn-ghost btn-sm"><Link href={route('transportasi.detail')} data={{id: cr.id}}><BsThreeDots/></Link></button>
+                                    <button className="btn btn-ghost btn-sm mr-2">
+                                        <Link href={route('transportasi.detail')} method="get" data={{id: cr.id}}>
+                                            <BsThreeDots/>
+                                        </Link>
+                                    </button>
                                     {/* <button className="btn btn-ghost btn-sm mr-2"><Link href={route('transportasi.detail')} data={{id: cr.id}}><BsThreeDots/></Link></button> */}
                                 </td>
                                 </tr>

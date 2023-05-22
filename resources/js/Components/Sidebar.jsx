@@ -37,7 +37,6 @@ const Sidebar = () => {
         {
           title: "Quotation Rekomendasi",
           icon: <BsReceipt />,
-          path: "quotation",
           path: "#",
         },
         {
@@ -95,23 +94,23 @@ const Sidebar = () => {
         },
         { 
           title: "Data Event",
-          path: "#",
+          path: "/event",
         },
         { 
           title: "Data Bonus",
-          path: "#",
+          path: "/bonus",
         },
         { 
           title: "Data Jenis Klien",
-          path: "#",
+          path: "/jenisKlien",
         },
         { 
           title: "Data Klient",
-          path: "#",
+          path: "/klien",
         },
         { 
           title: "Kategori Tour",
-          path: "#",
+          path: "/kategoriTour",
         },
       ],
     },
