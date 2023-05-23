@@ -139,7 +139,7 @@ Route::get('/dashboard', function () {
 Route::controller(VendorDestinasiWisataController::class)->group(function(){
     Route::get('/destinasiwisata', 'show')->name('destinasiwisata');
     Route::get('/destinasiwisata/detail', 'edit')->name('destinasiwisata.detail');
-    //Route::get('/destinasiwisata/detail', 'detailDestinasi')->name('destinasiwisata.detail');
+    Route::get('/destinasiwisata/details/{id}', 'detail')->name('destinasiwisata.details');
 });
 Route::get('/areawisata', [VendorController::class, 'areaWisata'])->name('areawisata');
 Route::get('/areawisata/detail', [VendorController::class, 'detailArea'])->name('areawisata.detail');

@@ -24,7 +24,7 @@
     },
     "dependencies": {
         "avataaars": "^2.0.0",
-        "daisyui": "^2.19.0",
+        "daisyui": "^2.51.6",
         "react-icons": "^4.8.0"
     }
 }

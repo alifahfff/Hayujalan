@@ -67,11 +67,14 @@ class VendorDestinasiWisataController extends Controller
      * @param  \App\Models\vendorDestinasiWisata  $vendorDestinasiWisata
      * @return \Illuminate\Http\Response
      */
-    public function edit(vendorDestinasiWisata $vendorDestinasiWisata, Request $request)
+    public function edit(Request $request)
     {
-        $destinasi = detailVendorDestinasiWisata::all();
+        $destinasi = vendorDestinasiWisata::findOrFail($request->id); 
+        $detail = detailVendorDestinasiWisata::where('idDestinasiWisata','=',$request->id)->get();
+        // $detail = detailVendorDestinasiWisata::all();
         return Inertia::render('Vendor/DestinasiWisata/DetailDestinasi',[
-            'destinasi' => $vendorDestinasiWisata->find($request->id), 'detail' => $destinasi, 
+            'destinasi' => $destinasi,  
+            'detail' => $detail,
         ]);
     }
 
@@ -96,6 +99,14 @@ class VendorDestinasiWisataController extends Controller
     public function destroy(vendorDestinasiWisata $vendorDestinasiWisata)
     {
         //
+    }
+
+    //contoh jangan dihapusssss
+    public function detail($id)
+    {
+       //$destinasi = detailVendorDestinasiWisata::with('vendorDW')->findOrFail($id);
+       $destinasi = detailVendorDestinasiWisata::with('vendorDW')->findOrFail($id);
+        return response()->json($destinasi);
     }
 
     // public function detailDestinasi()
