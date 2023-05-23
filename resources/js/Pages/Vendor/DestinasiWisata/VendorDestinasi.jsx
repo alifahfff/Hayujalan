@@ -11,38 +11,6 @@ import Layout from '@/Layouts/Layout';
 
 
 export default function VendorDestinasi (props) {    
-    // const [destinasiList, setdestinasiList] = useState([
-    //     {
-    //         id:'AW001',
-    //         area:'Bandung',    
-    //         nama: 'Floating Market',
-    //         alamat: 'Jl.Lembang',
-    //         kapasitas: '500',
-    //         kapasitasParkir: '3',
-    //         noTelpDestinasi:'0897261713',
-    //         picDestinasi: 'Yoga',
-    //         noHpPIC: '0897655272',
-    //         rangePeserta: '',
-    //         tiketMasukWeekday: '',
-    //         tiketMasukWeekend: '',
-    //     },
-    //     {
-    //         id:'AW002',
-    //         area:'Jakarta',    
-    //         nama: 'Dufan',
-    //         alamat: 'Jl.Ancol',
-    //         kapasitas: '500',
-    //         kapasitasParkir: '5',
-    //         noTelpDestinasi:'0897261713',
-    //         picDestinasi: 'Nova',
-    //         noHpPIC: '0897655272',
-    //         rangePeserta: '',
-    //         tiketMasukWeekday: '',
-    //         tiketMasukWeekend: '',   
-
-    //     },
-    // ])
-
     const [showModal, setShowModal] = useState(false);
     
     const handleOnClose = () => setShowModal(false);

@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { BsPlusSquare } from "react-icons/bs";
-import ModalDestinasi from '@/Components/Vendor/Destinasi/ModalDestinasi';
+import TambahDetailHotel from '@/Components/Vendor/Hotel/TambahDetailHotel';
 import Layout from '@/Layouts/Layout';
 
 
 export default function DetailHotel(props) {
+    const [showModal, setShowModal] = useState(false);
+
+    const handleOnClose = () => setShowModal(false);
+    
   console.log('props', props)
   return (
     <div className='min-h-screen bg-abu'>
@@ -70,6 +74,7 @@ export default function DetailHotel(props) {
                 </div>
         </div>
 
+        <TambahDetailHotel onClose={handleOnClose} visible={showModal}/>
         
     </div>
   );

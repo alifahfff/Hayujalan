@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { BsPlusSquare } from "react-icons/bs";
-import ModalDestinasi from '@/Components/Vendor/Destinasi/ModalDestinasi';
+import TambahDetailTransport from '@/Components/Vendor/Transportasi/TambahDetailTransport';
 import Layout from '@/Layouts/Layout';
 
 
 export default function DetailTransport(props) {
+    const [showModal, setShowModal] = useState(false);
+    
+    const handleOnClose = () => setShowModal(false);
+
   console.log('props', props)
   return (
     <div className='min-h-screen bg-abu'>
@@ -62,7 +66,8 @@ export default function DetailTransport(props) {
                 </div>
         </div>
 
-        
+        <TambahDetailTransport onClose={handleOnClose} visible={showModal}/>
+
     </div>
   );
 }
