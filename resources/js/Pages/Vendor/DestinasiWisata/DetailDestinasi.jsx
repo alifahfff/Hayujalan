@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { BsPlusSquare } from "react-icons/bs";
-import ModalDestinasi from '@/Components/Vendor/Destinasi/ModalDestinasi';
+import ModalDetail from '@/Components/Vendor/Destinasi/TambahDetailDestinasi';
 import Layout from '@/Layouts/Layout';
 import { Link } from "@inertiajs/inertia-react";
 
 export default function DetailDestinasi(props) {
-  console.log('detail', props)
-//   console.log('detaildw', props.idAreaWisata.jenisPeserta)
+    const [showModal, setShowModal] = useState(false);
+
+    const handleOnClose = () => setShowModal(false);
+
+    
+  console.log('props', props)
   return (
     <div className='min-h-screen bg-abu'>
     {/* Content */}
@@ -105,7 +109,7 @@ export default function DetailDestinasi(props) {
 
                 </div>
         </div>
-
+        <ModalDetail onClose={handleOnClose} visible={showModal}/>
         
     </div>
   );

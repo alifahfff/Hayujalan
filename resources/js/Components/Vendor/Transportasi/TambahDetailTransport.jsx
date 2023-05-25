@@ -1,4 +1,4 @@
-const ModalDetail = ({visible, onClose, data}) => {
+const TambahDetailTransport = ({visible, onClose, data}) => {
     console.log('data', data)
     if (!visible) return null;
 
@@ -19,80 +19,72 @@ const ModalDetail = ({visible, onClose, data}) => {
                         <p className="text-center text-gray-700 mb-5">Tambah Data</p>
                         {/* Data Input */}
                         <div className="flex flex-col">
-                            <div className="grid grid-cols-2 gap-3">
+                            <div className="grid grid-cols-2 gap-3">    
                             <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Area Wisata</a>
+                                <a className="mr-5 mt-2 text-black">Nama</a>
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
                                 />
                             </div>
                             <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Nama Destinasi Wisata</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                    value={data.namaDestinasiWisata}
-                                />
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Kapasitas Destinasi Wisata</a>
+                                <a className="mr-5 mt-2 text-black">Tahun</a>
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
                                 />
                             </div>
                             <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Kapasitas Parkir Bus</a>
+                                <a className="mr-5 mt-2 text-black">Kapasitas</a>
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
                                 />
                             </div>
                             <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Alamat Destinasi Wisata</a>
+                                <a className="mr-5 mt-2 text-black">Ketersediaan Unit</a>
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
                                 />
                             </div>
                             <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">No Telpon Destinasi</a>
+                                <a className="mr-5 mt-2 text-black">Harga Sewa Weekend Dalam Kota</a>
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
                                 />
                             </div>
                             <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">PIC Destinasi</a>
+                                <a className="mr-5 mt-2 text-black">Harga Sewa Weekday Dalam Kota</a>
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
                                 />
                             </div>
                             <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">No HP PIC</a>
+                                <a className="mr-5 mt-2 text-black">Harga Sewa Weekend Luar Kota</a>
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
                                 />
                             </div>
                             <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Range Peserta</a>
+                                <a className="mr-5 mt-2 text-black">Harga Sewa Weekday Luar Kota</a>
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
                                 />
                             </div>
                             <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Tiket Masuk WeekDay</a>
+                                <a className="mr-5 mt-2 text-black">Interior</a>
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
                                 />
                             </div>
                             <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Tiket Masuk WeekEnd</a>
+                                <a className="mr-5 mt-2 text-black">Eksterior</a>
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
@@ -112,4 +104,4 @@ const ModalDetail = ({visible, onClose, data}) => {
     )
 }
 
-export default ModalDetail
+export default TambahDetailTransport

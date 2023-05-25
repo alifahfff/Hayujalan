@@ -1,6 +1,6 @@
 import {  BsThreeDots } from "react-icons/bs";
 import { Link } from "@inertiajs/inertia-react";
-import ModalDetail from "./ModalTambahDetail";
+import ModalDetail from "./TambahDetailDestinasi";
 import { useState } from "react";
 
 
