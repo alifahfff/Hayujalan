@@ -92,6 +92,7 @@ Route::controller(DataKategoriTourController::class)->group(function () {
 
 Route::controller(DataKlienController::class)->group(function () {
     Route::get('/klien', 'show')->name('klien');
+    // Route::get('/klien/search', 'search')->name('search.klien');
     Route::post('/klien', 'store')->name('create.klien');
     Route::get('/klien/edit', 'edit')->name('edit.klien');
     Route::post('/klien/update', 'update')->name('update.klien');
@@ -139,7 +140,7 @@ Route::get('/dashboard', function () {
 Route::controller(VendorDestinasiWisataController::class)->group(function(){
     Route::get('/destinasiwisata', 'show')->name('destinasiwisata');
     Route::get('/destinasiwisata/detail', 'edit')->name('destinasiwisata.detail');
-    Route::get('/destinasiwisata/details/{id}', 'detail')->name('destinasiwisata.details');
+    Route::get('/destinasiwisata/details', 'detail')->name('destinasiwisata.details');
 });
 Route::get('/areawisata', [VendorController::class, 'areaWisata'])->name('areawisata');
 Route::get('/areawisata/detail', [VendorController::class, 'detailArea'])->name('areawisata.detail');

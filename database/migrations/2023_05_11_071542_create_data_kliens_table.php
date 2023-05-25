@@ -15,15 +15,18 @@ return new class extends Migration
     {
         Schema::create('data_kliens', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('jenis_klien_id')->constrained(
-                table: 'data_jenis_kliens'
-            )->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('jenis_klien_id');
             $table->string('namaKlien', 100);
             $table->string('alamatKlien', 255);
             $table->string('tlpKlien', 13);
             $table->string('namaPicKlien', 100);
             $table->string('tlpPicKlien', 13);
             $table->timestamps();
+
+            // $table->foreignId('jenis_klien_id')->constrained(
+            //     table: 'data_jenis_kliens'
+            // )->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('jenis_klien_id')->references('id')->on('data_jenis_kliens')->onDelete('cascade');
         });
     }
 

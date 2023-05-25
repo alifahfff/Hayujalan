@@ -128,7 +128,7 @@ const Sidebar = () => {
     },
   ];
 
-  console.log('Menu', Menus)
+  // console.log('Menu', Menus)
 
   return (
     <div className="flex  overflow-auto bg-blue">
@@ -171,7 +171,7 @@ const Sidebar = () => {
 export default Sidebar;
 
 const SidebarMenu = ({Menu, key, open}) => {
-  console.log('title', Menu)
+  // console.log('title', Menu)
   const [subnav, setSubnav] = useState(false);
 
   const showSubnav = () => setSubnav(!subnav);

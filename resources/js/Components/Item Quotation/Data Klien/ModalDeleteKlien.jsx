@@ -1,10 +1,13 @@
 import { Inertia } from "@inertiajs/inertia";
 import { Link } from "@inertiajs/inertia-react";
 
-const ModalDeleteJK = ({visible, onClose, data}) => {
+const ModalDeleteKlien = ({visible, onClose, data}) => {
     if (!visible) return null;
     console.log('delete', data)
 
+    const Dback = () => {
+        Inertia.get('/klien')
+    }
     return (
         <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center">
             <div className='relative bg-white shadow-xl m-6 mt-3 md:max-xl:flex ring-1 ring-gray-900/5 rounded-lg'>
@@ -23,8 +26,11 @@ const ModalDeleteJK = ({visible, onClose, data}) => {
                             <button onClick={onClose} className="btn bg-[#AF4F4F] text-putih outline-none border-transparent">Tidak</button>
                             <button  
                                 className="btn bg-[#3E9E3E] text-putih outline-none border-transparent"
-                                onClick={onClose}
-                            ><Link href={route('delete.jenisKlien')} method="post" data={{ id: data.id }} as="button">
+                                onClick={() => {
+                                    onClose()
+                                    Dback()
+                                }}
+                            ><Link href={route('delete.klien')} method="post" data={{ id: data.id }} as="button">
                             IYA
                             </Link></button>
                         </div> 
@@ -35,4 +41,4 @@ const ModalDeleteJK = ({visible, onClose, data}) => {
     )
 }
 
-export default ModalDeleteJK
+export default ModalDeleteKlien

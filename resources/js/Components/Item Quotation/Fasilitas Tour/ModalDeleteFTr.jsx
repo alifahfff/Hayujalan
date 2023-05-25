@@ -1,7 +1,7 @@
 import { Inertia } from "@inertiajs/inertia";
 import { Link } from "@inertiajs/inertia-react";
 
-const ModalDeleteJK = ({visible, onClose, data}) => {
+const ModalDeleteFTr = ({visible, onClose, data}) => {
     if (!visible) return null;
     console.log('delete', data)
 
@@ -24,7 +24,7 @@ const ModalDeleteJK = ({visible, onClose, data}) => {
                             <button  
                                 className="btn bg-[#3E9E3E] text-putih outline-none border-transparent"
                                 onClick={onClose}
-                            ><Link href={route('delete.jenisKlien')} method="post" data={{ id: data.id }} as="button">
+                            ><Link href={route('delete.fasilitasTour')} method="post" data={{ id: data.id }} as="button">
                             IYA
                             </Link></button>
                         </div> 
@@ -35,4 +35,4 @@ const ModalDeleteJK = ({visible, onClose, data}) => {
     )
 }
 
-export default ModalDeleteJK
+export default ModalDeleteFTr

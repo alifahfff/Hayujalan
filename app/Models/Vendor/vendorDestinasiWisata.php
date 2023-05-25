@@ -12,8 +12,15 @@ class vendorDestinasiWisata extends Model
     protected $table = "vendor_destinasi_wisatas";
     protected $primaryKey = "id";
 
+    // nggak punya id
     public function detaildw()
     {
-        return $this->belongsTo(vendorDestinasiWisata::class, 'idDestinasiWisata', 'id');
+        return $this->hasMany(detailVendorDestinasiWisata::class, 'idDestinasiWisata', 'id');
+    }
+
+    // yang punya id one to many
+    public function AWdestinasi()
+    {
+        return $this->belongsTo(areaWisata::class, 'idAreaWisata', 'id');
     }
 }
