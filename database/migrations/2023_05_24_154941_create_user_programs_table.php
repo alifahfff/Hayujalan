@@ -18,9 +18,6 @@ return new class extends Migration
             $table->foreignId('idUser')->constrained(
                 table: 'users'
             )->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('idRoles')->constrained(
-                table: 'roles'
-            )->onDelete('cascade')->onUpdate('cascade');
             $table->string('namaProgram', 100);
             $table->string('tlpProgram', 100)->nullable();
             $table->string('statusProgram', 100);

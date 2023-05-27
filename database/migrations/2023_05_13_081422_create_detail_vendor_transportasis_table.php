@@ -23,12 +23,12 @@ return new class extends Migration
             )->onDelete('cascade')->onUpdate('cascade');
             $table->string('nama', 100)->nullable();
             $table->string('tahun', 5)->nullable();
-            $table->string('kapasitas', 10)->nullable();
-            $table->string('qtyKetersediaanUnit', 10)->nullable();
-            $table->float('hargaSewaWeekendDalamKota', 10)->nullable();
-            $table->float('hargaSewaWeekdayDalamKota', 10)->nullable();
-            $table->float('hargaSewaWeekendLuarKota', 10)->nullable();
-            $table->float('hargaSewaWeekdayLuarKota', 10)->nullable();
+            $table->integer('kapasitas')->nullable();
+            $table->integer('qtyKetersediaanUnit')->nullable();
+            $table->double('hargaSewaWeekendDalamKota', 10, 2)->nullable();
+            $table->double('hargaSewaWeekdayDalamKota', 10, 2)->nullable();
+            $table->double('hargaSewaWeekendLuarKota', 10, 2)->nullable();
+            $table->double('hargaSewaWeekdayLuarKota', 10, 2)->nullable();
             $table->text('urlInterior')->nullable();
             $table->text('urlEksterior')->nullable();
             $table->timestamps();

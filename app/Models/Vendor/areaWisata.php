@@ -4,6 +4,7 @@ namespace App\Models\Vendor;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Quotation\quotationTour;
 
 class areaWisata extends Model
 {
@@ -34,5 +35,12 @@ class areaWisata extends Model
     public function Vdestinasi()
     {
         return $this->hasMany(vendorDestinasiWisata::class, 'idAreaWisata', 'id');
+    }
+
+    // nggak punya id
+    // jenis klien mempunyai banyak klien
+    public function quotation()
+    {
+        return $this->hasMany(quotationTour::class, 'idAreaWisata', 'id');
     }
 }

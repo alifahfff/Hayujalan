@@ -19,10 +19,10 @@ return new class extends Migration
                 table: 'vendor_penginapans'
             )->onDelete('cascade')->onUpdate('cascade');
             $table->string('namaJenisKamar', 100)->nullable();
-            $table->string('kapasitasKamar', 10)->nullable();
-            $table->string('qtyKetersediaanKamar', 10)->nullable();
-            $table->float('hargaSewaWeekdayPerKamar', 10)->nullable();
-            $table->float('hargaSewaWeekendPerKamar', 10)->nullable();
+            $table->integer('kapasitasKamar')->nullable();
+            $table->integer('qtyKetersediaanKamar')->nullable();
+            $table->double('hargaSewaWeekdayPerKamar', 10, 2)->nullable();
+            $table->double('hargaSewaWeekendPerKamar', 10, 2)->nullable();
             $table->timestamps();
         });
     }

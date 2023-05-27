@@ -15,18 +15,9 @@ return new class extends Migration
     {
         Schema::create('quotation_tours', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('idUserProgram')->default(1)->constrained(
-            //     table: 'users'
-            // )->onDelete('cascade')->onUpdate('cascade');
-            // $table->foreignId('idUserSales')->default(1)->constrained(
-            //     table: 'users'
-            // )->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('idKategoriTour')->default(1)->constrained(
                 table: 'data_kategori_tours'
             )->onDelete('cascade')->onUpdate('cascade');
-            // $table->foreignId('idAreaWisata')->default(1)->constrained(
-            //     table: 'area_wisatas'
-            // )->onDelete('cascade')->onUpdate('cascade');
             $table->string('namaProject', 100)->nullable();
             $table->integer('durasiProject');
             $table->integer('qty');
