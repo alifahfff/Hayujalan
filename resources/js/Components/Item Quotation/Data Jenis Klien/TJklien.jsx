@@ -2,6 +2,8 @@ import { BsPencilSquare, BsTrash3 } from "react-icons/bs";
 import { Link } from "@inertiajs/inertia-react"
 import { useState } from "react";
 import number from "@/Components/number";
+import ModalDeleteJK from "./ModalDeleteJK";
+import ModalJKlien from "./ModalJKlien";
 
 const TJklien = ({data}) => {
     const [showModal, setShowModal] = useState(false);
@@ -32,7 +34,7 @@ const TJklien = ({data}) => {
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
                                 <td className="whitespace-nowrap px-6 py-4 font-medium">{data.from + index}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{dt.jenis}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{dt.namaJenisKlien}</td>
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                                     <button 
                                         onClick={() => {
@@ -59,6 +61,23 @@ const TJklien = ({data}) => {
                 </div>
                 </div>
             </div>
+            
+            {/* Modals Tambah Data */}
+            <ModalJKlien
+                onClose={() => {
+                handleOnClose()
+                }} 
+                visible={showModal}
+                data={dataL}
+            />
+
+            <ModalDeleteJK
+                onClose={() => {
+                handleOnCloseD()
+                }} 
+                visible={showDelete}
+                data={dataL}
+            />
         </div>
     )
 }

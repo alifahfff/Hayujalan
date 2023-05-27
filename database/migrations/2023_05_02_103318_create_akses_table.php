@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('akses', function (Blueprint $table) {
             $table->id();
+            $table->string('statusAkses', 100);
             $table->timestamps();
         });
     }

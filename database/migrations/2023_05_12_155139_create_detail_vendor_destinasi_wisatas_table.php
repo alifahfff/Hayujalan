@@ -20,8 +20,8 @@ return new class extends Migration
             )->onDelete('cascade')->onUpdate('cascade');
             $table->string('rangePeserta', 10)->nullable();
             $table->string('jenisPeserta', 100)->nullable();
-            $table->string('tiketMasukWeekday', 10)->nullable();
-            $table->string('tiketMasukWeekend', 10)->nullable();
+            $table->float('tiketMasukWeekday', 10)->nullable();
+            $table->float('tiketMasukWeekend', 10)->nullable();
             $table->timestamps();
         });
     }

@@ -2,8 +2,8 @@ import { BsPencilSquare, BsTrash3 } from "react-icons/bs";
 import { Link } from "@inertiajs/inertia-react"
 import { useState } from "react";
 import ModalFTour from "./ModalFTour";
-import ModalDeleteFT from "./ModalDeleteFT";
 import number from "@/Components/number";
+import ModalDeleteFTr from "./ModalDeleteFTr";
 
 const TF = ({data}) => {
     const [showModal, setShowModal] = useState(false);
@@ -75,7 +75,7 @@ const TF = ({data}) => {
                 data={dataL}
             />
 
-            <ModalDeleteFT
+            <ModalDeleteFTr
                 onClose={() => {
                 handleOnCloseD()
                 }} 
