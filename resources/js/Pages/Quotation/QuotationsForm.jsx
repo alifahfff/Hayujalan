@@ -27,18 +27,22 @@ export default function Quotations(props, crewL) {
         <div className="bg-white border-b border-gray-200">
           <div className="flex flex-col px-11 pt-6 pb-8 ">
             <a className="mr-5 mt-2 text-black font-bold mb-4">Quotation</a>
-            <form className="max-w-3xl space-y-6 font-semibold">
+            <form className=" space-y-6 font-semibold">
               <label className="label">
                 <span className="label-text text-black">Nama Klien</span>
                 <input
                   type="text"
-                  className="input border-2 border-inherit  bg-inherit  w-2/4 mr-52"
+                  className="input border-2 border-inherit  bg-inherit"
+                  style={{ width: "40%", marginRight: "30rem" }}
                 />
               </label>
 
               <label className="label">
                 <span className="label-text  text-black">Paket</span>
-                <select className="select  bg-inherit border-2 border-inherit w-2/4 mr-52">
+                <select
+                  className="select  bg-inherit border-2 border-inherit"
+                  style={{ width: "40%", marginRight: "30rem" }}
+                >
                   <option disabled selected>
                     Pilih Paket
                   </option>
@@ -54,7 +58,8 @@ export default function Quotations(props, crewL) {
                 <span className="label-text  text-black">Jumlah Orang</span>
                 <input
                   type="text"
-                  className="input border-2 border-inherit bg-inherit  w-2/4 mr-52"
+                  className="input border-2 border-inherit bg-inherit"
+                  style={{ width: "40%", marginRight: "30rem" }}
                 />
               </label>
 
@@ -62,13 +67,17 @@ export default function Quotations(props, crewL) {
                 <span className="label-text  text-black">Hari</span>
                 <input
                   type="text"
-                  className="input border-2 border-inherit bg-inherit  w-2/4 mr-52"
+                  className="input border-2 border-inherit bg-inherit"
+                  style={{ width: "40%", marginRight: "30rem" }}
                 />
               </label>
 
               <label className="label">
                 <span className="label-text  text-black ">Area Wisata</span>
-                <select className="select  bg-inherit border-2 border-inherit w-2/4 mr-52">
+                <select
+                  className="select  bg-inherit border-2 border-inherit"
+                  style={{ width: "40%", marginRight: "30rem" }}
+                >
                   <option disabled selected>
                     Pilih Paket
                   </option>
@@ -80,110 +89,96 @@ export default function Quotations(props, crewL) {
                 </select>
               </label>
 
-              <label className="label">
-                <span className="label-text  text-black ">Tempat Wisata</span>
-                <select className="select  bg-inherit border-2 border-inherit w-3/4 mr-5 ">
-                  <option disabled selected>
-                    Pilih Tempat Wisata
-                  </option>
-                  <option>Homer</option>
-                  <option>Marge</option>
-                  <option>Bart</option>
-                  <option>Lisa</option>
-                  <option>Maggie</option>
-                </select>
-              </label>
-
-              <div className="flex flex-col ml-1">
-                <span className="label-text text-black">Total</span>
-                <p className="label-text text-2xs text-black">
-                  *Harga Sudah Termasuk Tax
-                </p>
-              </div>
-
-              <label className="label">
-                <span className="label-text  text-black ">Bus</span>
-                <select className="select  bg-inherit border-2 border-inherit w-3/4 mr-5 ">
-                  <option disabled selected>
-                    Pilih Bus
-                  </option>
-                  <option>Homer</option>
-                  <option>Marge</option>
-                  <option>Bart</option>
-                  <option>Lisa</option>
-                  <option>Maggie</option>
-                </select>
-              </label>
-
-              <div className="flex flex-col ml-1">
-                <span className="label-text text-black">Total</span>
-                <p className="label-text text-2xs text-black">
-                  *Harga Sudah Termasuk Tax
-                </p>
-              </div>
-
-              <label className="label">
-                <span className="label-text  text-black ">Hotel</span>
-                <select className="select  bg-inherit border-2 border-inherit w-3/4 mr-5 ">
-                  <option disabled selected>
-                    Pilih Hotel
-                  </option>
-                  <option>Homer</option>
-                  <option>Marge</option>
-                  <option>Bart</option>
-                  <option>Lisa</option>
-                  <option>Maggie</option>
-                </select>
-              </label>
-
-              <div className="flex flex-col ml-1">
-                <span className="label-text text-black">Total</span>
-                <p className="label-text text-2xs text-black">
-                  *Harga Sudah Termasuk Tax
-                </p>
-              </div>
-
-              <label className="label">
-                <span className="label-text  text-black ">Rumah Makan</span>
-                <select className="select  bg-inherit border-2 border-inherit w-3/4 mr-5 ">
-                  <option disabled selected>
-                    Pilih Bus
-                  </option>
-                  <option>Homer</option>
-                  <option>Marge</option>
-                  <option>Bart</option>
-                  <option>Lisa</option>
-                  <option>Maggie</option>
-                </select>
-              </label>
-
-              <div className="flex flex-col ml-1">
-                <span className="label-text text-black text-bold">Total</span>
-                <p className="label-text text-2xs text-black mb-10">
-                  *Harga Sudah Termasuk Tax
-                </p>
-              </div>
-
               <div className="flex justify-between">
-                <div className="flex flex-col">
-                  <a className="text-2xl font-bold text-black">
-                    Total Harga Keseluruhan
-                  </a>
-                  <p className="label-text text-2xs text-black">
-                    *harga sudah termasuk tax dan benefit yang tersedia
-                  </p>
+                <div className="flex flex-row">
+                  <label className="label">
+                    <span
+                      className="label-text  text-black"
+                      style={{ marginRight: "7.5rem" }}
+                    >
+                      Destinasi Wisata
+                    </span>
+                    <select
+                      className="select bg-inherit border-2 border-inherit "
+                      style={{ width: "100%" }}
+                    >
+                      <option disabled selected>
+                        Pilih Paket
+                      </option>
+                      <option>Homer</option>
+                      <option>Marge</option>
+                      <option>Bart</option>
+                      <option>Lisa</option>
+                      <option>Maggie</option>
+                    </select>
+                  </label>
+
+                  <label className="label" style={{ marginLeft: "15rem" }}>
+                    <span
+                      className="label-text  text-black"
+                      style={{ marginRight: "5rem" }}
+                    >
+                      Keterangan
+                    </span>
+                    <input
+                      className="input border-2 border-inherit bg-inherit"
+                      style={{ width: "20rem" }}
+                    />
+                  </label>
                 </div>
-                <span className="text-2xl font-bold text-black mr-96 mb-40">
-                  Rp.
-                </span>
+              </div>
+              <div className="flex flex-col">
+                <div className="flex flex-row">
+                  <label className="label mr-2">
+                    <span className="label-text  text-black mr-2">
+                      Harga Satuan
+                    </span>
+                    <input
+                      className="input border-2 border-inherit bg-inherit"
+                      style={{ width: "8rem" }}
+                    />
+                  </label>
+                  <label className="label mr-2">
+                    <span className="label-text  text-black mr-5">Satuan</span>
+                    <input
+                      className="input border-2 border-inherit bg-inherit"
+                      style={{ width: "8rem" }}
+                    />
+                  </label>
+                  <label className="label mr-2">
+                    <span className="label-text  text-black mr-5">Jumlah</span>
+                    <input
+                      className="input border-2 border-inherit bg-inherit"
+                      style={{ width: "8rem" }}
+                    />
+                  </label>
+                  <label className="label mr-2">
+                    <span className="label-text  text-black mr-5">Qty</span>
+                    <input
+                      className="input border-2 border-inherit bg-inherit"
+                      style={{ width: "8rem" }}
+                    />
+                  </label>
+                  <label className="label mr-2">
+                    <span className="label-text  text-black mr-5">Hari</span>
+                    <input
+                      className="input border-2 border-inherit bg-inherit"
+                      style={{ width: "8rem" }}
+                    />
+                  </label>
+                  <label className="label mr-2">
+                    <button className="btn bg-green-600 text-white border-0 btn-md">
+                      add
+                    </button>
+                  </label>
+                </div>
+              </div>
+              <div>
+                <button className="btn bg-primary text-white border-0 btn-md">
+                  simpan
+                </button>
               </div>
             </form>
-
-            <div>
-              <button className="btn bg-green-600 text-white border-0 btn-md w-1/6 h-0 float-right">
-                simpan
-              </button>
-            </div>
           </div>
         </div>
       </div>
@@ -192,3 +187,38 @@ export default function Quotations(props, crewL) {
 }
 
 Quotations.layout = (page) => <Layout children={page} />;
+
+<div className="flex justify-center ">
+  <label className="label">
+    <a className="label-text  text-black ">Tempat Wisata</a>
+    <select
+      className="select  bg-inherit border-2 border-inherit w-full"
+      style={{ marginLeft: "7.8rem" }}
+    >
+      <option disabled selected>
+        Pilih Tempat Wisata
+      </option>
+      <option>Homer</option>
+      <option>Marge</option>
+      <option>Bart</option>
+      <option>Lisa</option>
+      <option>Maggie</option>
+    </select>
+  </label>
+  <label className="label" style={{ marginLeft: "20rem" }}>
+    <span className="label-text  text-black ">Tempat Wisata</span>
+    <select
+      className="select bg-inherit border-2 border-inherit"
+      style={{ width: "149%" }}
+    >
+      <option disabled selected>
+        Pilih Tempat Wisata
+      </option>
+      <option>Homer</option>
+      <option>Marge</option>
+      <option>Bart</option>
+      <option>Lisa</option>
+      <option>Maggie</option>
+    </select>
+  </label>
+</div>;
