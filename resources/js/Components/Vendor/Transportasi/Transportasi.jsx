@@ -1,7 +1,16 @@
-import { BsThreeDots } from "react-icons/bs";
+import { BsThreeDots, BsTrash3 } from "react-icons/bs";
 import { Link } from "@inertiajs/inertia-react"
+import { useState } from "react";
+import DeleteTransport from "./DeleteTransport";
 
 const Transportasi = ({transportasi}) => {
+    const [showModal, setShowModal] = useState(false);
+    const [dataD, setDataD] = useState([])
+    
+    const [showDelete, setShowDelete] = useState(false);
+    const [dataL, setDataL] = useState([])
+
+    const handleOnCloseD = () => setShowDelete(false);
     return (
         <div className="flex flex-col">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -38,6 +47,15 @@ const Transportasi = ({transportasi}) => {
                                             <BsThreeDots/>
                                         </Link>
                                     </button>
+                                    <button 
+                                        className="btn btn-ghost btn-sm"
+                                        onClick={() => {
+                                            setShowDelete(true)
+                                            setDataL(cr)
+                                        }}
+                                    >
+                                     <BsTrash3/>   
+                                    </button>
                                     {/* <button className="btn btn-ghost btn-sm mr-2"><Link href={route('transportasi.detail')} data={{id: cr.id}}><BsThreeDots/></Link></button> */}
                                 </td>
                                 </tr>
@@ -48,6 +66,13 @@ const Transportasi = ({transportasi}) => {
                 </div>
                 </div>
             </div>
+            <DeleteTransport
+                onClose={() => {
+                handleOnCloseD()
+                }} 
+                visible={showDelete}
+                data={dataL}
+            />
         </div>
     )
 }

@@ -38,7 +38,30 @@ class VendorPenginapanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $hotel = new vendorPenginapan();
+        $hotel->namaPenginapan = $request->namaPenginapan;
+        $hotel->bintangPenginapan = $request->bintangPenginapan;
+        $hotel->alamatPenginapan = $request->alamatPenginapan;
+        $hotel->tlpPenginapan = $request->tlpPenginapan;
+        $hotel->picPenginapan = $request->picPenginapan;
+        $hotel->hpPicPenginapan = $request->hpPicPenginapan;
+        $hotel->linkGmaps = $request->linkGmaps;
+        $hotel->kapasitasParkirBus = $request->kapasitasParkirBus;
+        $hotel->save();
+        return redirect()->back()->with('message', 'item berhasil dibuat');
+    }
+
+
+    public function storeDetail(Request $request)
+    {
+        $hotel = new detailVendorPenginapan();
+        $hotel->namaJenisKamar = $request->namaJenisKamar;
+        $hotel->kapasitasKamar = $request->kapasitasKamar;
+        $hotel->qtyKetersediaanKamar = $request->qtyKetersediaanKamar;
+        $hotel->hargaSewaWeekdayPerKamar = $request->hargaSewaWeekdayPerKamar;
+        $hotel->hargaSewaWeekendPerKamar = $request->hargaSewaWeekendPerKamar;
+        $hotel->save();
+        return redirect()->back()->with('message', 'item berhasil dibuat');
     }
 
     /**
@@ -61,10 +84,13 @@ class VendorPenginapanController extends Controller
      * @param  \App\Models\vendorPenginapan  $vendorPenginapan
      * @return \Illuminate\Http\Response
      */
-    public function edit(vendorPenginapan $vendorPenginapan, request $request)
+    public function edit(Request $request)
     {
+        $hotel = vendorPenginapan::findOrFail($request->id); 
+        $detail = detailVendorPenginapan::where('idPenginapan','=',$request->id)->get();
         return Inertia::render('Vendor/Hotel/DetailHotel',[
-            'hotel' => $vendorPenginapan->find($request->id) 
+            'hotel' => $hotel,  
+            'detail' => $detail,
         ]);
     }
 

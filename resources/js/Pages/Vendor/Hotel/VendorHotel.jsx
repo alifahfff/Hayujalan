@@ -12,41 +12,16 @@ import Layout from '@/Layouts/Layout';
 
 
 export default function VendorHotel (props) {
-    // const [hotelList, sethotelList] = useState([
-    //     {
-    //         id:'P001',
-    //         area:'Bandung',    
-    //         nama: 'Hotel Zodiak',
-    //         bintang: '3',
-    //         alamat: 'Jl.Pasteur',
-    //         noTelpHotel:'0897261713',
-    //         picHotel: 'Yoga',
-    //         noHpPIC: '0897655272',
-    //         kapasitasParkir: '3',
-    //         jenisKamar:'',
-    //         kapasitasKamar:'',
-    //         ketersediaanKamar:'',
-    //         hargaWeekday: '',
-    //         hargaWeekend: '',
-    //     },
-    //     {
-    //         id:'P002',
-    //         area:'Bandung',    
-    //         nama: 'Hotel Ibis',
-    //         bintang: '3',
-    //         alamat: 'Jl.AH Yani',
-    //         noTelpHotel:'0897261713',
-    //         picHotel: 'Yoga',
-    //         noHpPIC: '0897655272',
-    //         kapasitasParkir: '3',
-    //         jenisKamar:'',
-    //         kapasitasKamar:'',
-    //         ketersediaanKamar:'',
-    //         hargaWeekday: '',
-    //         hargaWeekend: '',  
-
-    //     },
-    // ])
+    const [data, setData] = useState({
+        namaPenginapan: '',
+        bintangPenginapan: '',
+        alamatPenginapan: '',
+        tlpPenginapan: '',
+        picPenginapan: '',
+        hpPicPenginapan: '',
+        linkGmaps: '',
+        kapasitasParkirBus: '',
+    })
 
     const [showModal, setShowModal] = useState(false);
     
@@ -81,7 +56,10 @@ export default function VendorHotel (props) {
                 </div>
             </div>
 
-            <ModalHotel onClose={handleOnClose} visible={showModal}/>
+            <ModalHotel 
+            onClose={handleOnClose} 
+            visible={showModal}
+            data={data}/>
         </div>
   )
 }

@@ -1,15 +1,19 @@
-import {  BsThreeDots } from "react-icons/bs";
+import {  BsThreeDots, BsTrash3 } from "react-icons/bs";
 import { Link } from "@inertiajs/inertia-react";
 import ModalDetail from "./TambahDetailDestinasi";
 import { useState } from "react";
+import DeleteDestinasi from "./DeleteDestinasi";
 
 
 
 const DestinasiWisata = ({destinasi}) => {
     const [showModal, setShowModal] = useState(false);
     const [dataD, setDataD] = useState([])
+    
+    const [showDelete, setShowDelete] = useState(false);
+    const [dataL, setDataL] = useState([])
 
-
+    const handleOnCloseD = () => setShowDelete(false);
     const handleOnClose = () => setShowModal(false);
 
     return (
@@ -42,6 +46,15 @@ const DestinasiWisata = ({destinasi}) => {
                                             <BsThreeDots/>
                                         </Link>
                                     </button>
+                                    <button 
+                                        className="btn btn-ghost btn-sm"
+                                        onClick={() => {
+                                            setShowDelete(true)
+                                            setDataL(cr)
+                                        }}
+                                    >
+                                     <BsTrash3/>   
+                                    </button>
                                     {/* <button 
                                         onClick={() => {
                                             setShowModal(true)
@@ -59,6 +72,13 @@ const DestinasiWisata = ({destinasi}) => {
                 </div>
             </div>
 
+            <DeleteDestinasi
+                onClose={() => {
+                handleOnCloseD()
+                }} 
+                visible={showDelete}
+                data={dataL}
+            />
             {/* Modals Tambah Data */}
             {/* <ModalDetail 
                 onClose={() => {

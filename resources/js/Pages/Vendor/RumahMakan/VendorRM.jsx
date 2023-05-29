@@ -11,38 +11,17 @@ import Layout from '@/Layouts/Layout';
 
 
 export default function VendorRM (props) {
-    // const [rmList, setrmList] = useState([
-    //     {
-    //         id:'RM001',
-    //         area:'Bandung',    
-    //         namaRM: 'Mie Gacoan',
-    //         kapasitasRM: '100',
-    //         kapasitasParkir: '1',
-    //         alamat: 'Jl.Setiabudhi',
-    //         noTelpRM:'0897261713',
-    //         picRM: 'Yoga',
-    //         noHpPIC: '0897655272',
-    //         namaMenu:'',
-    //         detailMenu:'',
-    //         hargaMenu:'',
-    //     },
-    //     {
-    //         id:'RM001',
-    //         area:'Bandung',    
-    //         namaRM: 'Mie Gacoan',
-    //         kapasitasRM: '100',
-    //         kapasitasParkir: '1',
-    //         alamat: 'Jl.Setiabudhi',
-    //         noTelpRM:'0897261713',
-    //         picRM: 'Yoga',
-    //         noHpPIC: '0897655272',
-    //         namaMenu:'',
-    //         detailMenu:'',
-    //         hargaMenu:'',  
-
-    //     },
-    // ])
-
+    const [data, setData] = useState({
+        namaRM: '', 
+        kapasitasRM: '', 
+        kapasitasParkirBus: '', 
+        alamatRM: '', 
+        tlpRM: '',
+        picRM: '', 
+        hpPicRM: '',
+        linkGmaps: '',
+    })
+    
     const [showModal, setShowModal] = useState(false);
     
     const handleOnClose = () => setShowModal(false);
@@ -76,7 +55,10 @@ export default function VendorRM (props) {
                 </div>
             </div>
 
-            <ModalRM onClose={handleOnClose} visible={showModal}/>
+            <ModalRM 
+                onClose={handleOnClose} 
+                visible={showModal}
+                data={data}/>
         </div>
   )
 }

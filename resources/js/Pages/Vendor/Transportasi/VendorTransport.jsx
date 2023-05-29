@@ -11,49 +11,13 @@ import Layout from '@/Layouts/Layout';
 
 
 export default function VendorTransport (props) {
-    // const [transportList, settransportList] = useState([
-    //     {
-    //         id:'TR001',
-    //         area:'Bandung',
-    //         jenis:'Bus', 
-    //         statusJenis:'',
-    //         nama:'Primajasa',
-    //         alamat:'jl.Bengawan',
-    //         telponTransport:'084829213',
-    //         picTransport:'alifah',
-    //         noPIC:'0895635018789',
-    //         tahun:'2019',
-    //         kapasitas:'50',
-    //         ketersediaanUnit:'',
-    //         hargaSewaWeekendDalKot:'',
-    //         hargaSewaWeekdayDalKot:'',
-    //         hargaSewaWeekendLukot:'',
-    //         hargaSewaWeekdayLukot:'',
-    //         urlInterior:'',
-    //         urlEksterior:''
-    //     },
-    //     {
-    //         id:'TR001',
-    //         area:'Bandung',
-    //         jenis:'Bus', 
-    //         statusJenis:'',
-    //         nama:'Primajasa',
-    //         alamat:'jl.Bengawan',
-    //         telponTransport:'084829213',
-    //         picTransport:'alifah',
-    //         noPIC:'0895635018789',
-    //         tahun:'2019',
-    //         kapasitas:'50',
-    //         ketersediaanUnit:'',
-    //         hargaSewaWeekendDalKot:'',
-    //         hargaSewaWeekdayDalKot:'',
-    //         hargaSewaWeekendLukot:'',
-    //         hargaSewaWeekdayLukot:'',
-    //         urlInterior:'',
-    //         urlEksterior:''   
-
-    //     },
-    // ])
+    const [data, setData] = useState({
+        namaTransportasi: '', 
+        alamatTransportasi: '', 
+        tlpTransportasi: '', 
+        picTransportasi: '', 
+        hpPicTransportasi: '',
+    })
 
     const [showModal, setShowModal] = useState(false);
     
@@ -88,7 +52,10 @@ export default function VendorTransport (props) {
                 </div>
             </div>
 
-            <ModalTransport onClose={handleOnClose} visible={showModal}/>
+            <ModalTransport 
+            onClose={handleOnClose} 
+            visible={showModal}
+            data={data}/>
         </div>
   )
 }
