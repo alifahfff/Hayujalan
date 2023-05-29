@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('picPenginapan', 100)->nullable();
             $table->string('hpPicPenginapan', 13)->nullable();
             $table->text('linkGmaps')->nullable();
-            $table->string('kapasitasParkirBus', 10)->nullable();
+            $table->integer('kapasitasParkirBus')->nullable();
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Itemq;
 
 use App\Models\Itemq\dataKlien;
+use App\Models\Itemq\dataJenisKlien;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
@@ -43,7 +44,9 @@ class DataKlienController extends Controller
         $Mydata->tlpKlien = $request->tlpKlien;
         $Mydata->namaPicKlien = $request->namaPicKlien;
         $Mydata->tlpPicKlien = $request->tlpPicKlien;
+        $Mydata->jenis_klien_id = $request->jenis_klien_id;
         $Mydata->save();
+        
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }
 
@@ -55,12 +58,39 @@ class DataKlienController extends Controller
      */
     public function show(Request $request)
     {
+        $jenisKlien = dataJenisKlien::all();
+        $keyword = $request->input('key');
+        $mydata = dataKlien::with('jenisKlien')
+            ->where('namaKlien', 'like', '%' . $keyword . '%')
+            ->paginate(4);
+        // $mydata = dataKlien::with('jenisKlien')->paginate(4);
+        //$mydata = dataKlien::with('jenisKlien')->get();
         return Inertia::render('Item Quotation/Data Klien/Klien', [
-            'Mydata' => dataKlien::when($request->term, function ($query, $term) {
-                $query->where('namaKlien', 'LIKE', "%{$term}%");
-            }) ->paginate(4)
+            // 'Mydata' => dataKlien::whereHas('jenisKlien', function ($query) use ($keyword) {
+            //     $query->where('namaKlien', 'LIKE', '%' . $keyword . '%');
+            // }) ->paginate(4),
+            'Mydata' => $mydata,
+            'jenisKlien' => $jenisKlien,
         ]);
     }
+
+    // public function search(Request $request)
+    // {
+    //     $jenisKlien = dataJenisKlien::all();
+    //     $keyword = $request->input('key');
+    //     $mydata = dataKlien::with('jenisKlien')
+    //         ->where('namaKlien', 'like', '%' . $keyword . '%')
+    //         ->paginate(4);
+    //     // $mydata = dataKlien::with('jenisKlien')->paginate(4);
+    //     //$mydata = dataKlien::with('jenisKlien')->get();
+    //     return Inertia::render('Item Quotation/Data Klien/Klien', [
+    //         // 'Mydata' => dataKlien::whereHas('jenisKlien', function ($query) use ($keyword) {
+    //         //     $query->where('namaKlien', 'LIKE', '%' . $keyword . '%');
+    //         // }) ->paginate(4),
+    //         'Mydata' => $mydata,
+    //         'jenisKlien' => $jenisKlien,
+    //     ]);
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -90,6 +120,7 @@ class DataKlienController extends Controller
             'tlpKlien' => $request->tlpKlien,
             'namaPicKlien' => $request->namaPicKlien,
             'tlpPicKlien' => $request->tlpPicKlien,
+            'jenis_klien_id' => $request->jenis_klien_id,
         ]);
         return redirect()->back()->with('message', 'item berhasil diupdate');
     }

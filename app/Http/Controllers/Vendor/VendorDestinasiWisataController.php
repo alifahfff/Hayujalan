@@ -7,6 +7,7 @@ use App\Models\Vendor\detailVendorDestinasiWisata;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
+use App\Models\Quotation\quotationTransaksi;
 
 class VendorDestinasiWisataController extends Controller
 {
@@ -121,15 +122,21 @@ class VendorDestinasiWisataController extends Controller
     }
 
     //contoh jangan dihapusssss
-    public function detail($id)
+    public function detail()
     {
        //$destinasi = detailVendorDestinasiWisata::with('vendorDW')->findOrFail($id);
-       $destinasi = detailVendorDestinasiWisata::with('vendorDW')->findOrFail($id);
+        $destinasi = quotationTransaksi::with('quotation', 
+        'tdestinasi', 
+        'ttransportasi', 
+        'tpenginapan', 
+        'trumahmakan', 
+        'tfasilitas',
+        'tcrew',
+        'tevent',
+        'tbonus',
+        )->get();
+        // $destinasi = dataKlien::with('jenisKlien')->get();
         return response()->json($destinasi);
     }
 
-    // public function detailDestinasi()
-    // {
-    //     return Inertia::render('Vendor/DestinasiWisata/DetailDestinasi');
-    // }
 }

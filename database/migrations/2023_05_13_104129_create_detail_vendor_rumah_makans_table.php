@@ -20,7 +20,7 @@ return new class extends Migration
             )->onDelete('cascade')->onUpdate('cascade');
             $table->string('namaMenu', 100)->nullable();
             $table->text('detailMenu')->nullable();
-            $table->text('hargaMenu')->nullable();
+            $table->float('hargaMenu', 10, 2)->nullable();
             $table->timestamps();
         });
     }

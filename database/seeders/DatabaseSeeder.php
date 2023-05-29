@@ -39,7 +39,9 @@ class DatabaseSeeder extends Seeder
             VendorPenginapanSeeder::class,
             DetailVendorPenginapanSeeder::class,
             VendorRumahMakanSeeder::class,
-            DetailVendorRumahMakanSeeder::class
+            DetailVendorRumahMakanSeeder::class,
+            RolesSeeder::class,
+            AkesSeeder::class,
         ]);
     }
 }

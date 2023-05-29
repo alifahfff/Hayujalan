@@ -19,8 +19,8 @@ return new class extends Migration
                 table: 'area_wisatas'
             )->onDelete('cascade')->onUpdate('cascade');
             $table->string('namaRM', 100)->nullable();
-            $table->string('kapasitasRM', 10)->nullable();
-            $table->string('kapasitasParkirBus', 10)->nullable();
+            $table->integer('kapasitasRM')->nullable();
+            $table->integer('kapasitasParkirBus')->nullable();
             $table->text('alamatRM')->nullable();
             $table->string('tlpRM', 13)->nullable();
             $table->string('picRM', 100)->nullable();

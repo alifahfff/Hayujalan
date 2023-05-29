@@ -18,8 +18,8 @@ class VendorDestinasiWisataSeeder extends Seeder
         DB::table('vendor_destinasi_wisatas')->insert([
             [
                 'namaDestinasiWisata' => 'Candi Prambanan',
-                'kapasitasDestinasiWisata' => '',
-                'kapasitasParkirBus' => '',
+                'kapasitasDestinasiWisata' => 0,
+                'kapasitasParkirBus' => 0,
                 'alamatDestinasiWisata' => 'Jl. Raya Solo - Yogyakarta No.16, Kranggan, Bokoharjo, Kec. Prambanan, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55571',
                 'tlpDestinasiWisata' => '(0274) 496401',
                 'picDestinasiWisata' => '',

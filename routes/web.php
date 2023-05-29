@@ -93,6 +93,7 @@ Route::controller(DataKategoriTourController::class)->group(function () {
 
 Route::controller(DataKlienController::class)->group(function () {
     Route::get('/klien', 'show')->name('klien');
+    // Route::get('/klien/search', 'search')->name('search.klien');
     Route::post('/klien', 'store')->name('create.klien');
     Route::get('/klien/edit', 'edit')->name('edit.klien');
     Route::post('/klien/update', 'update')->name('update.klien');
