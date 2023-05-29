@@ -21,7 +21,7 @@ const AreaWisata = ({area}) => {
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
                                 <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.id}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{cr.area}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{cr.namaArea}</td>
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                                     <button className="btn btn-ghost btn-sm mr-2">
                                         <Link href="">

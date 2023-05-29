@@ -1,5 +1,31 @@
-const ModalArea = ({visible, onClose}) => {
+import { Inertia } from "@inertiajs/inertia";
+import { useState } from "react";
+
+const ModalArea = ({visible, onClose, data}) => {
     if (!visible) return null;
+    const [datas, setDatas] = useState(data)
+    console.log('modal data', data)
+
+    const handleSubmit = () => {
+        console.log('id', data.id)
+        if(data.id){
+            // update data
+            const dataUpdate = {
+                id: data.id,
+                namaArea: datas.namaArea, 
+                updated_at: new Date(),
+            }
+            Inertia.post('/areawisata/update', dataUpdate)
+        }else{
+            // tambah data
+            const TambahData = {
+                namaArea: datas.namaArea, 
+                created_at: new Date(),
+                updated_at: new Date(),
+            }
+            Inertia.post('/areawisata', TambahData)
+        }
+    }
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center">
@@ -15,7 +41,7 @@ const ModalArea = ({visible, onClose}) => {
                     <h1 className="font-semibold text-center text-xl text-gray-700">
                         Data Area Wisata
                         </h1>
-                        <p className="text-center text-gray-700 mb-5">Tambah Data</p>
+                        <p className="text-center text-gray-700 mb-5">{data.id ? 'Edit Data' : 'Tambah Data'}</p>
                         {/* Data Input */}
                         <div className="flex flex-col">
                             <div className="flex flex-row justify-between">
@@ -23,13 +49,24 @@ const ModalArea = ({visible, onClose}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
+                                    value={datas.namaArea || ''}
+                                    onChange={(value) => 
+                                        setDatas({
+                                            ...datas,
+                                            namaArea: value.target.value
+                                        })}
                                 />
                             </div>
                         </div>
                         {/* Button */}
                         <div className="card-actions justify-end">
                             <button onClick={onClose} className="btn bg-[#AF4F4F] text-putih outline-none border-transparent">Batalkan</button>
-                            <button onClick={onClose} className="btn bg-[#3E9E3E] text-putih outline-none border-transparent">Simpan</button>
+                            <button 
+                                onClick={() => {
+                                    handleSubmit()
+                                    onClose()
+                                }}
+                            className="btn bg-[#3E9E3E] text-putih outline-none border-transparent">Simpan</button>
                         </div> 
                     </div>
                 </div>

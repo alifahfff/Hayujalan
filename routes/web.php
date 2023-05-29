@@ -19,6 +19,7 @@ use App\Http\Controllers\Vendor\VendorDestinasiWisataController;
 use App\Http\Controllers\Vendor\VendorTransportasiController;
 use App\Http\Controllers\Vendor\VendorPenginapanController;
 use App\Http\Controllers\Vendor\VendorRumahMakanController;
+use App\Http\Controllers\Vendor\AreaWisataController;
 
 
 
@@ -139,28 +140,51 @@ Route::get('/dashboard', function () {
 Route::controller(VendorDestinasiWisataController::class)->group(function(){
     Route::get('/destinasiwisata', 'show')->name('destinasiwisata');
     Route::get('/destinasiwisata/detail', 'edit')->name('destinasiwisata.detail');
-    Route::get('/destinasiwisata/details/{id}', 'detail')->name('destinasiwisata.details');
+    Route::post('/destinasiwisata', 'store')->name('create.destinasiwisata');
+    Route::post('/destinasiwisata/update', 'update')->name('update.destinasiwisata');
+    Route::post('/destinasiwisata/detail', 'storeDetail')->name('create.detail');
+    Route::post('/destinasiwisata/update/detail', 'update')->name('update.detail');
+    // Route::get('/destinasiwisata/details/{id}', 'detail')->name('destinasiwisata.details');
 });
-Route::get('/areawisata', [VendorController::class, 'areaWisata'])->name('areawisata');
-Route::get('/areawisata/detail', [VendorController::class, 'detailArea'])->name('areawisata.detail');
+
+// Vendor Area Wisata
+Route::controller(AreaWisataController::class)->group(function(){
+    Route::get('/areawisata', 'show')->name('areawisata');
+    Route::get('/areawisata/detail', 'edit')->name('areawisata.detail');    
+    Route::post('/areawisata', 'store')->name('create.areawisata');
+    Route::post('/areawisata/update', 'update')->name('update.areawisata');
+});
+
 
 //Vendor Transportasi
 Route::controller(VendorTransportasiController::class)->group(function (){
     Route::get('/transportasi', 'show')->name('transportasi');
     Route::get('/transportasi/detail', 'edit')->name('transportasi.detail');
+    Route::post('/transportasi', 'store')->name('create.transportasi');
+    Route::post('/transportasi/update', 'update')->name('update.transportasi');
+    Route::post('/transportasi/detail', 'storeDetail')->name('create.detail');
+    Route::post('/transportasi/update/detail', 'update')->name('update.detail');
 });
 
 //Vendor Hotel
 Route::controller(VendorPenginapanController::class)->group(function() {
     Route::get('/hotel', 'show')->name('hotel');
     Route::get('/hotel/detail', 'edit')->name('hotel.detail');
+    Route::post('/hotel', 'store')->name('create.hotel');
+    Route::post('/hotel/update', 'update')->name('update.hotel');
+    Route::post('/hotel/detail', 'storeDetail')->name('create.detail');
+    Route::post('/hotel/update/detail', 'update')->name('update.detail');
 });
 
 
 //Vendor Rumah Makan
 Route::controller(VendorRumahMakanController::class)->group(function(){
     Route::get('/rumahmakan', 'show')->name('rumahmakan');
-    Route::get('/rumahmakan/detail', 'edit')->name('rumahmakan.detail');    
+    Route::get('/rumahmakan/detail', 'edit')->name('rumahmakan.detail'); 
+    Route::post('/rumahmakan', 'store')->name('create.rumahmakan');
+    Route::post('/rumahmakan/update', 'update')->name('update.rumahmakan');   
+    Route::post('/rumahmakan/detail', 'storeDetail')->name('create.detail');
+    Route::post('/rumahmakan/update/detail', 'update')->name('update.detail');   
 });
 
 // Quotation

@@ -37,7 +37,10 @@ class AreaWisataController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Mydata = new areaWisata();
+        $Mydata->namaArea = $request->namaArea;
+        $Mydata->save();
+        return redirect()->back()->with('message', 'item berhasil dibuat');
     }
 
     /**
@@ -48,7 +51,10 @@ class AreaWisataController extends Controller
      */
     public function show(areaWisata $areaWisata)
     {
-        return Inertia::render('Vendor/AreaWisata/VendorArea');
+        $area = areaWisata::all();
+        return Inertia::render('Vendor/AreaWisata/VendorArea', [
+            'area' => $area,
+        ]);
     }
 
     /**

@@ -38,7 +38,31 @@ class VendorTransportasiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $transportasi = new vendorTransportasi();
+        $transportasi->namaTransportasi = $request->namaTransportasi;
+        $transportasi->alamatTransportasi = $request->alamatTransportasi;
+        $transportasi->tlpTransportasi = $request->tlpTransportasi;
+        $transportasi->picTransportasi = $request->picTransportasi;
+        $transportasi->hpPicTransportasi = $request->hpPicTransportasi;
+        $transportasi->save();
+        return redirect()->back()->with('message', 'item berhasil dibuat');
+    }
+
+    public function storeDetail(Request $request)
+    {
+        $transportasi = new detailVendorTransportasi();
+        $transportasi->nama = $request->nama;
+        $transportasi->tahun = $request->tahun;
+        $transportasi->kapasitas = $request->kapasitas;
+        $transportasi->qtyKetersediaanUnit = $request->qtyKetersediaanUnit;
+        $transportasi->hargaSewaWeekendDalamKota = $request->hargaSewaWeekendDalamKota;
+        $transportasi->hargaSewaWeekdayDalamKota = $request->hargaSewaWeekdayDalamKota;
+        $transportasi->hargaSewaWeekendLuarKota = $request->hargaSewaWeekendLuarKota;
+        $transportasi->hargaSewaWeekdayLuarKota = $request->hargaSewaWeekdayLuarKota;
+        $transportasi->urlInterior = $request->urlInterior;
+        $transportasi->urlEksterior = $request->urlEksterior;
+        $transportasi->save();
+        return redirect()->back()->with('message', 'item berhasil dibuat');
     }
 
     /**
@@ -61,10 +85,13 @@ class VendorTransportasiController extends Controller
      * @param  \App\Models\vendorTransportasi  $vendorTransportasi
      * @return \Illuminate\Http\Response
      */
-    public function edit(vendorTransportasi $vendorTransportasi, request $request)
+    public function edit(Request $request)
     {
+        $transportasi = vendorTransportasi::findOrFail($request->id); 
+        $detail = detailVendorTransportasi::where('idTransportasi','=',$request->id)->get();
         return Inertia::render('Vendor/Transportasi/DetailTransport',[
-            'transportasi' => $vendorTransportasi->find($request->id) 
+            'transportasi' => $transportasi,  
+            'detail' => $detail,
         ]);
     }
 

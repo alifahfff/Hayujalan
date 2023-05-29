@@ -1,6 +1,41 @@
+import { Inertia } from "@inertiajs/inertia";
+import { useState } from "react";
+
 const TambahDetailHotel = ({visible, onClose, data}) => {
     console.log('data', data)
     if (!visible) return null;
+
+    const [datas, setDatas] = useState(data)
+    console.log('modal data', data)
+
+    const handleSubmit = () => {
+        console.log('id', data.id)
+        if(data.id){
+            // update data
+            const dataUpdate = {
+                id: data.id,
+                namaJenisKamar: datas.namaJenisKamar, 
+                kapasitasKamar: datas.kapasitasKamar, 
+                qtyKetersediaanKamar: datas.qtyKetersediaanKamar,
+                hargaSewaWeekdayPerKamar: datas.hargaSewaWeekdayPerKamar, 
+                hargaSewaWeekendPerKamar: datas.hargaSewaWeekendPerKamar,
+                updated_at: new Date(),
+            }
+            Inertia.post('/hotel/update/detail', dataUpdate)
+        }else{
+            // tambah data
+            const TambahData = {
+                namaJenisKamar: datas.namaJenisKamar, 
+                kapasitasKamar: datas.kapasitasKamar, 
+                qtyKetersediaanKamar: datas.qtyKetersediaanKamar,
+                hargaSewaWeekdayPerKamar: datas.hargaSewaWeekdayPerKamar, 
+                hargaSewaWeekendPerKamar: datas.hargaSewaWeekendPerKamar,
+                created_at: new Date(),
+                updated_at: new Date(),
+            }
+            Inertia.post('/hotel/detail', TambahData)
+        }
+    }
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center">
@@ -25,6 +60,12 @@ const TambahDetailHotel = ({visible, onClose, data}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
+                                    value={datas.namaJenisKamar	 || ''}
+                                    onChange={(value) => 
+                                        setDatas({
+                                            ...datas,
+                                            namaJenisKamar	: value.target.value
+                                        })}
                                 />
                             </div>
                             <div className="flex flex-row justify-between">
@@ -32,20 +73,25 @@ const TambahDetailHotel = ({visible, onClose, data}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
+                                    value={datas.kapasitasKamar	 || ''}
+                                    onChange={(value) => 
+                                        setDatas({
+                                            ...datas,
+                                            kapasitasKamar	: value.target.value
+                                        })}
                                 />
                             </div>
                             <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Kapasitas Ketersedian Kamar</a>
+                                <a className="mr-5 mt-2 text-black">Ketersedian Kamar</a>
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
-                                />
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Harga Sewa Weekend Per Kamar</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
+                                    value={datas.qtyKetersediaanKamar	 || ''}
+                                    onChange={(value) => 
+                                        setDatas({
+                                            ...datas,
+                                            qtyKetersediaanKamar	: value.target.value
+                                        })}
                                 />
                             </div>
                             <div className="flex flex-row justify-between">
@@ -53,6 +99,25 @@ const TambahDetailHotel = ({visible, onClose, data}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
+                                    value={datas.hargaSewaWeekdayPerKamar		 || ''}
+                                    onChange={(value) => 
+                                        setDatas({
+                                            ...datas,
+                                            hargaSewaWeekdayPerKamar		: value.target.value
+                                        })}
+                                />
+                            </div>
+                            <div className="flex flex-row justify-between">
+                                <a className="mr-5 mt-2 text-black">Harga Sewa Weekend Per Kamar</a>
+                                <input
+                                    type="text"
+                                    className="border border-gray-700 p-2 rounded mb-5"
+                                    value={datas.hargaSewaWeekendPerKamar	 || ''}
+                                    onChange={(value) => 
+                                        setDatas({
+                                            ...datas,
+                                            hargaSewaWeekendPerKamar	: value.target.value
+                                        })}
                                 />
                             </div>
                             </div>
@@ -60,7 +125,15 @@ const TambahDetailHotel = ({visible, onClose, data}) => {
                         {/* Button */}
                         <div className="card-actions justify-end">
                             <button onClick={onClose} className="btn bg-[#AF4F4F] text-putih outline-none border-transparent">Batalkan</button>
-                            <button onClick={onClose} className="btn bg-[#3E9E3E] text-putih outline-none border-transparent">Simpan</button>
+                            <button 
+                            
+                            onClick={ () => {
+                                handleSubmit()
+                                onClose()
+                            }} 
+                            
+                            
+                            className="btn bg-[#3E9E3E] text-putih outline-none border-transparent">Simpan</button>
                         </div> 
                     </div>
                 </div>

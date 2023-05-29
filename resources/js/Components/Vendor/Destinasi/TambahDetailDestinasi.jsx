@@ -1,6 +1,38 @@
+import { Inertia } from "@inertiajs/inertia";
+import { useState } from "react";
+
 const TambahDetailDestinasi = ({visible, onClose, data}) => {
     console.log('data', data)
     if (!visible) return null;
+
+    const [datas, setDatas] = useState(data)
+    console.log('modal data', data)
+
+    const handleSubmit = () => {
+        console.log('id', data.id)
+        if(data.id){
+            // update data
+            const dataUpdate = {
+                id: data.id,
+                rangePeserta: datas.rangePeserta, 
+                tiketMasukWeekday: datas.tiketMasukWeekday, 
+                tiketMasukWeekend: datas.tiketMasukWeekend,
+                updated_at: new Date(),
+            }
+            Inertia.post('/destinasiwisata/update/detail', dataUpdate)
+        }else{
+            // tambah data
+            const TambahData = {
+                rangePeserta: datas.rangePeserta, 
+                tiketMasukWeekday: datas.tiketMasukWeekday, 
+                tiketMasukWeekend: datas.tiketMasukWeekend,
+                linkGmaps: datas.linkGmaps,
+                created_at: new Date(),
+                updated_at: new Date(),
+            }
+            Inertia.post('/destinasiwisata/detail', TambahData)
+        }
+    }
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center">
@@ -25,6 +57,12 @@ const TambahDetailDestinasi = ({visible, onClose, data}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
+                                    value={datas.rangePeserta	 || ''}
+                                    onChange={(value) => 
+                                        setDatas({
+                                            ...datas,
+                                            rangePeserta	: value.target.value
+                                        })}
                                 />
                             </div>
                             <div className="flex flex-row justify-between">
@@ -32,6 +70,12 @@ const TambahDetailDestinasi = ({visible, onClose, data}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
+                                    value={datas.tiketMasukWeekday	 || ''}
+                                    onChange={(value) => 
+                                        setDatas({
+                                            ...datas,
+                                            tiketMasukWeekday	: value.target.value
+                                        })}
                                 />
                             </div>
                             <div className="flex flex-row justify-between">
@@ -39,6 +83,12 @@ const TambahDetailDestinasi = ({visible, onClose, data}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
+                                    value={datas.tiketMasukWeekend	 || ''}
+                                    onChange={(value) => 
+                                        setDatas({
+                                            ...datas,
+                                            tiketMasukWeekend	: value.target.value
+                                        })}
                                 />
                             </div>
                             </div>
@@ -46,7 +96,12 @@ const TambahDetailDestinasi = ({visible, onClose, data}) => {
                         {/* Button */}
                         <div className="card-actions justify-end">
                             <button onClick={onClose} className="btn bg-[#AF4F4F] text-putih outline-none border-transparent">Batalkan</button>
-                            <button onClick={onClose} className="btn bg-[#3E9E3E] text-putih outline-none border-transparent">Simpan</button>
+                            <button  
+                             onClick={() => {
+                                 handleSubmit()
+                                 onClose()
+                             }}
+                            className="btn bg-[#3E9E3E] text-putih outline-none border-transparent">Simpan</button>
                         </div> 
                     </div>
                 </div>

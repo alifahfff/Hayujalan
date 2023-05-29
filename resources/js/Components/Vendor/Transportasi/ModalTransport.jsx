@@ -1,5 +1,39 @@
-const ModalTransport = ({visible, onClose}) => {
+import { Inertia } from "@inertiajs/inertia";
+import { useState } from "react";
+
+const ModalTransport = ({visible, onClose, data}) => {
     if (!visible) return null;
+    const [datas, setDatas] = useState(data)
+    console.log('modal data', data)
+
+    const handleSubmit = () => {
+        console.log('id', data.id)
+        if(data.id){
+            // update data
+            const dataUpdate = {
+                id: data.id,
+                namaTransportasi: datas.namaTransportasi, 
+                alamatTransportasi: datas.alamatTransportasi, 
+                tlpTransportasi: datas.tlpTransportasi, 
+                picTransportasi: datas.picTransportasi, 
+                hpPicTransportasi: datas.hpPicTransportasi,
+                updated_at: new Date(),
+            }
+            Inertia.post('/transportasi/update', dataUpdate)
+        }else{
+            // tambah data
+            const TambahData = {
+                namaTransportasi: datas.namaTransportasi, 
+                alamatTransportasi: datas.alamatTransportasi, 
+                tlpTransportasi: datas.tlpTransportasi, 
+                picTransportasi: datas.picTransportasi, 
+                hpPicTransportasi: datas.hpPicTransportasi,
+                created_at: new Date(),
+                updated_at: new Date(),
+            }
+            Inertia.post('/transportasi', TambahData)
+        }
+    }
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center">
@@ -13,9 +47,9 @@ const ModalTransport = ({visible, onClose}) => {
                     {/* Content */}
                     <div className=''>
                     <h1 className="font-semibold text-center text-xl text-gray-700">
-                        Tambah Data
+                        Data Transportasi
                         </h1>
-                        <p className="text-center text-gray-700 mb-5">Data Transportasi</p>
+                        <p className="text-center text-gray-700 mb-5">{data.id ? 'Edit Data' : 'Tambah Data'}</p>
                         {/* Data Input */}
                         <div className="flex flex-col">
                             <div className="grid grid-cols-2 gap-3">
@@ -31,6 +65,12 @@ const ModalTransport = ({visible, onClose}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
+                                    value={datas.namaTransportasi	 || ''}
+                                    onChange={(value) => 
+                                        setDatas({
+                                            ...datas,
+                                            namaTransportasi	: value.target.value
+                                        })}
                                 />
                             </div>
                             <div className="flex flex-row justify-between">
@@ -38,6 +78,12 @@ const ModalTransport = ({visible, onClose}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
+                                    value={datas.alamatTransportasi	 || ''}
+                                    onChange={(value) => 
+                                        setDatas({
+                                            ...datas,
+                                            alamatTransportasi	: value.target.value
+                                        })}
                                 />
                             </div>
                             <div className="flex flex-row justify-between">
@@ -45,6 +91,12 @@ const ModalTransport = ({visible, onClose}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
+                                    value={datas.tlpTransportasi	 || ''}
+                                    onChange={(value) => 
+                                        setDatas({
+                                            ...datas,
+                                            tlpTransportasi	: value.target.value
+                                        })}
                                 />
                             </div>
                             <div className="flex flex-row justify-between">
@@ -52,6 +104,12 @@ const ModalTransport = ({visible, onClose}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
+                                    value={datas.picTransportasi	 || ''}
+                                    onChange={(value) => 
+                                        setDatas({
+                                            ...datas,
+                                            picTransportasi	: value.target.value
+                                        })}
                                 />
                             </div>
                             <div className="flex flex-row justify-between">
@@ -59,6 +117,12 @@ const ModalTransport = ({visible, onClose}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
+                                    value={datas.hpPicTransportasi	 || ''}
+                                    onChange={(value) => 
+                                        setDatas({
+                                            ...datas,
+                                            hpPicTransportasi	: value.target.value
+                                        })}
                                 />
                             </div>
                             </div>
@@ -66,7 +130,14 @@ const ModalTransport = ({visible, onClose}) => {
                         {/* Button */}
                         <div className="card-actions justify-end">
                             <button onClick={onClose} className="btn bg-[#AF4F4F] text-putih outline-none border-transparent">Batalkan</button>
-                            <button onClick={onClose} className="btn bg-[#3E9E3E] text-putih outline-none border-transparent">Simpan</button>
+                            <button 
+                                onClick={ () => {
+                                    handleSubmit()
+                                    onClose()
+                                }} 
+                                
+                                
+                                className="btn bg-[#3E9E3E] text-putih outline-none border-transparent">Simpan</button>
                         </div> 
                     </div>
                 </div>

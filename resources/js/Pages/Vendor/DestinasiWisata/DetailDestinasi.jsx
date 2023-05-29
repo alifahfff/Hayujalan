@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
-import { BsPlusSquare } from "react-icons/bs";
+import { BsPlusSquare, BsThreeDots } from "react-icons/bs";
+import { Link } from "@inertiajs/inertia-react"
 import ModalDetail from '@/Components/Vendor/Destinasi/TambahDetailDestinasi';
 import Layout from '@/Layouts/Layout';
-import { Link } from "@inertiajs/inertia-react";
 
 export default function DetailDestinasi(props) {
+    const [data, setData] = useState({
+        rangePeserta: '',
+        tiketMasukWeekday: '',
+        tiketMasukWeekend: '',
+    })
+
     const [showModal, setShowModal] = useState(false);
 
     const handleOnClose = () => setShowModal(false);
@@ -29,8 +35,8 @@ export default function DetailDestinasi(props) {
         </div>
         <div className='relative bg-white shadow-xl m-6 mt-3 md:max-xl:flex ring-1 ring-gray-900/5'>
             <div className='p-4 bg-kuning border-b border-gray-200'></div>
-            <div className="flex justify-evenly row bg-white">
-                        <div className="column p-6 text-black text-sm">
+            <div className="row bg-white">
+                        <div className="column p-6 text-black text-m bg-abu">
                         <table>
                                     <tr>
                                         <td>Kapasitas Pengunjung </td>
@@ -78,16 +84,15 @@ export default function DetailDestinasi(props) {
                                     return (
                                         <tbody key={index}>
                                             <tr className="border-b dark:border-neutral-500">
-                                            <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.jenisPeserta}</td>
-                                            <td className="whitespace-nowrap px-6 py-4">{cr.rangePeserta}</td>
+                                            <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.rangePeserta}</td>
                                             <td className="whitespace-nowrap px-6 py-4">{cr.tiketMasukWeekday}</td>
-                                            <td className="whitespace-nowrap px-6 py-4">{cr.alamatDestinasiWisata}</td>
-                                            <td className="whitespace-nowrap px-6 py-4 justify-item-center">
-                                                {/* <button className="btn btn-ghost btn-sm mr-2">
-                                                    <Link href={route('destinasiwisata.detail')} method="get" data={{id: cr.id}}>
+                                            <td className="whitespace-nowrap px-6 py-4">{cr.tiketMasukWeekend}</td>
+                                            <td className="whitespace-nowrap px-6 py-4">
+                                                <button className="btn btn-ghost btn-sm mr-2">
+                                                    <Link href="">
                                                         <BsThreeDots/>
                                                     </Link>
-                                                </button> */}
+                                                </button>
                                                 {/* <button 
                                                     onClick={() => {
                                                         setShowModal(true)
@@ -109,7 +114,10 @@ export default function DetailDestinasi(props) {
 
                 </div>
         </div>
-        <ModalDetail onClose={handleOnClose} visible={showModal}/>
+        <ModalDetail 
+        onClose={handleOnClose} 
+        visible={showModal}
+        data={data}/>
         
     </div>
   );

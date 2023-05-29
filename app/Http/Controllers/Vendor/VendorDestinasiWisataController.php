@@ -38,7 +38,27 @@ class VendorDestinasiWisataController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $destinasi = new vendorDestinasiWisata();
+        $destinasi->namaDestinasiWisata = $request->namaDestinasiWisata;
+        $destinasi->kapasitasDestinasiWisata = $request->kapasitasDestinasiWisata;
+        $destinasi->kapasitasParkirBus = $request->kapasitasParkirBus;
+        $destinasi->alamatDestinasiWisata = $request->alamatDestinasiWisata;
+        $destinasi->tlpDestinasiWisata = $request->tlpDestinasiWisata;
+        $destinasi->picDestinasiWisata = $request->picDestinasiWisata;
+        $destinasi->hpDestinasiWisata = $request->hpDestinasiWisata;
+        $destinasi->linkGmaps = $request->linkGmaps;
+        $destinasi->save();
+        return redirect()->back()->with('message', 'item berhasil dibuat');
+    }
+
+    public function storeDetail(Request $request)
+    {
+        $destinasi = new detailVendorDestinasiWisata();
+        $destinasi->rangePeserta = $request->rangePeserta;
+        $destinasi->tiketMasukWeekday = $request->tiketMasukWeekday	;
+        $destinasi->tiketMasukWeekend = $request->tiketMasukWeekend;
+        $destinasi->save();
+        return redirect()->back()->with('message', 'item berhasil dibuat');
     }
 
     /**
@@ -71,7 +91,6 @@ class VendorDestinasiWisataController extends Controller
     {
         $destinasi = vendorDestinasiWisata::findOrFail($request->id); 
         $detail = detailVendorDestinasiWisata::where('idDestinasiWisata','=',$request->id)->get();
-        // $detail = detailVendorDestinasiWisata::all();
         return Inertia::render('Vendor/DestinasiWisata/DetailDestinasi',[
             'destinasi' => $destinasi,  
             'detail' => $detail,

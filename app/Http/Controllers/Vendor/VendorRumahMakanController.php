@@ -38,7 +38,28 @@ class VendorRumahMakanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rm = new vendorRumahMakan();
+        $rm->namaRM = $request->namaRM;
+        $rm->kapasitasRM = $request->kapasitasRM;
+        $rm->kapasitasParkirBus = $request->kapasitasParkirBus;
+        $rm->alamatRM = $request->alamatRM;
+        $rm->tlpRM = $request->tlpRM;
+        $rm->picRM = $request->picRM;
+        $rm->hpPicRM = $request->hpPicRM;
+        $rm->linkGmaps = $request->linkGmaps;
+        $rm->save();
+        return redirect()->back()->with('message', 'item berhasil dibuat');
+    }
+
+
+    public function storeDetail(Request $request)
+    {
+        $rm = new detailVendorRumahMakan();
+        $rm->namaMenu = $request->namaMenu;
+        $rm->detailMenu	 = $request->detailMenu	;
+        $rm->hargaMenu = $request->hargaMenu;
+        $rm->save();
+        return redirect()->back()->with('message', 'item berhasil dibuat');
     }
 
     /**
@@ -49,6 +70,7 @@ class VendorRumahMakanController extends Controller
      */
     public function show(vendorRumahMakan $vendorRumahMakan)
     {
+        
         $rm = vendorRumahMakan::all();
         return Inertia::render('Vendor/RumahMakan/VendorRM', [
             'rm' => $rm,
@@ -63,8 +85,11 @@ class VendorRumahMakanController extends Controller
      */
     public function edit(vendorRumahMakan $vendorRumahMakan, request $request)
     {
-        return Inertia::render('Vendor/RumahMakan/DetailRM',[
-            'rm' => $vendorRumahMakan->find($request->id) 
+        $rm = vendorRumahMakan::findOrFail($request->id);
+        $detail = detailVendorRumahMakan::where('idRM', '=', $request->id)->get();
+         return Inertia::render('Vendor/RumahMakan/DetailRM',[
+             'rm' => $rm,
+             'detail' => $detail,
         ]);
     }
 
