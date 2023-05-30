@@ -73,6 +73,10 @@ class QuotationTourController extends Controller
     {
         return Inertia::render('Quotation/QuotationsRecomendResult');
     }
+    public function recpdf(quotationTour $quotationTour) 
+    {
+        return Inertia::render('Quotation/QuotationsPDF');
+    }
     /**
      * Show the form for editing the specified resource.
      *
