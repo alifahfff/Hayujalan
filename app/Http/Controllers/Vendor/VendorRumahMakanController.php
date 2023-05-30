@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Vendor;
 
+use App\Models\Vendor\areaWisata;
 use App\Models\Vendor\vendorRumahMakan;
 use App\Models\Vendor\detailVendorRumahMakan;
 use Illuminate\Http\Request;
@@ -39,6 +40,7 @@ class VendorRumahMakanController extends Controller
     public function store(Request $request)
     {
         $rm = new vendorRumahMakan();
+        $rm->idAreaWisata = $request->idAreaWisata;
         $rm->namaRM = $request->namaRM;
         $rm->kapasitasRM = $request->kapasitasRM;
         $rm->kapasitasParkirBus = $request->kapasitasParkirBus;
@@ -58,6 +60,7 @@ class VendorRumahMakanController extends Controller
         $rm->namaMenu = $request->namaMenu;
         $rm->detailMenu	 = $request->detailMenu	;
         $rm->hargaMenu = $request->hargaMenu;
+        $rm->idRM = $request->idRM;
         $rm->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }
@@ -70,10 +73,11 @@ class VendorRumahMakanController extends Controller
      */
     public function show(vendorRumahMakan $vendorRumahMakan)
     {
-        
+        $area = areaWisata::all();
         $rm = vendorRumahMakan::all();
         return Inertia::render('Vendor/RumahMakan/VendorRM', [
             'rm' => $rm,
+            'area' => $area,
         ]);
     }
 
@@ -85,11 +89,13 @@ class VendorRumahMakanController extends Controller
      */
     public function edit(vendorRumahMakan $vendorRumahMakan, request $request)
     {
+        $area = areaWisata::all();
         $rm = vendorRumahMakan::findOrFail($request->id);
         $detail = detailVendorRumahMakan::where('idRM', '=', $request->id)->get();
          return Inertia::render('Vendor/RumahMakan/DetailRM',[
              'rm' => $rm,
              'detail' => $detail,
+             'area' => $area,
         ]);
     }
 
@@ -100,9 +106,29 @@ class VendorRumahMakanController extends Controller
      * @param  \App\Models\vendorRumahMakan  $vendorRumahMakan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, vendorRumahMakan $vendorRumahMakan)
+    public function update(Request $request)
     {
-        //
+        vendorRumahMakan::where('id', $request->id)->update([
+            'namaRM' => $request->namaRM,
+            'kapasitasRM' => $request->kapasitasRM,
+            'kapasitasParkirBus' => $request->kapasitasParkirBus,
+            'alamatRM' => $request->alamatRM,
+            'tlpRM' => $request->tlpRM,
+            'picRM' => $request->picRM,
+            'hpPicRM' => $request->hpPicRM,
+            'linkGmaps' => $request->linkGmaps,
+        ]);
+        return redirect()->back()->with('message', 'item berhasil diupdate');
+    }
+
+    public function updateDetail(Request $request)
+    {
+        detailVendorRumahMakan::where('id', $request->id)->update([
+            'namaMenu' => $request->namaMenu,
+            'detailMenu' => $request->detailMenu,
+            'hargaMenu' => $request->hargaMenu,
+        ]);
+        return redirect()->back()->with('message', 'item berhasil diupdate');
     }
 
     /**
@@ -111,8 +137,17 @@ class VendorRumahMakanController extends Controller
      * @param  \App\Models\vendorRumahMakan  $vendorRumahMakan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(vendorRumahMakan $vendorRumahMakan)
+    public function destroy(Request $request)
     {
-        //
+        $rm = vendorRumahMakan::find($request->id);
+        $rm->delete();
+        return redirect()->back()->with('message', 'item berhasil dihapus');
+    }
+
+    public function destroyDetail(Request $request)
+    {
+        $rm = detailVendorRumahMakan::find($request->id);
+        $rm->delete();
+        return redirect()->back()->with('message', 'item berhasil dihapus');
     }
 }

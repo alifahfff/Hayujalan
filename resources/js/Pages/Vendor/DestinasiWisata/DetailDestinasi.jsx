@@ -1,22 +1,35 @@
 import React, { useState } from 'react';
-import { BsPlusSquare, BsThreeDots } from "react-icons/bs";
+import { BsPlusSquare, BsThreeDots, BsPencilSquare, BsTrash3 } from "react-icons/bs";
 import { Link } from "@inertiajs/inertia-react"
 import ModalDetail from '@/Components/Vendor/Destinasi/TambahDetailDestinasi';
 import Layout from '@/Layouts/Layout';
+import DeleteDestinasi from '@/Components/Vendor/Destinasi/DeleteDestinasi';
+import DeleteDetail from '@/Components/Vendor/Destinasi/DeleteDetail';
+import ModalDestinasi from '@/Components/Vendor/Destinasi/ModalDestinasi';
 
 export default function DetailDestinasi(props) {
     const [data, setData] = useState({
         rangePeserta: '',
         tiketMasukWeekday: '',
         tiketMasukWeekend: '',
+        idDestinasiWisata : props.destinasi.id,
     })
+    
+    const [dataL, setDataL] = useState([])
+    const [dataD, setDataD] = useState([])
 
     const [showModal, setShowModal] = useState(false);
+    const [showDelete, setShowDelete] = useState(false);
+    const [showUpdate, setShowUpdate] = useState(false);
 
     const handleOnClose = () => setShowModal(false);
+    const handleOnCloseD = () => setShowDelete(false);
+    const handleOnClosed = () => setShowUpdate(false);
 
     
-  console.log('props', props)
+  console.log('modal', props)
+  console.log('destinasi', props.destinasi)
+  console.log('area', props.area)
   return (
     <div className='min-h-screen bg-abu'>
     {/* Content */}
@@ -25,50 +38,64 @@ export default function DetailDestinasi(props) {
         </div>
         <div className='flex justify-between m-6 mt-2 mb-3'>
             <a className='text-2xl font-bold text-black'>{props.destinasi.namaDestinasiWisata}</a>
-            <button 
-            onClick={() => setShowModal(true)}
-            className="btn gap-2 btn-outline rounded-full btn-sm px-5 bg-white hover:bg-gray-100 text-[#C1C0BF]"
-            >
-            Tambah Data | 
-            <BsPlusSquare/>
-            </button>
         </div>
         <div className='relative bg-white shadow-xl m-6 mt-3 md:max-xl:flex ring-1 ring-gray-900/5'>
             <div className='p-4 bg-kuning border-b border-gray-200'></div>
             <div className="row bg-white">
-                        <div className="column p-6 text-black text-m bg-abu">
-                        <table>
-                                    <tr>
-                                        <td>Kapasitas Pengunjung </td>
-                                        <td>: {props.destinasi.kapasitasDestinasiWisata} </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kapasitas Parkir Bus  </td>
-                                        <td>: {props.destinasi.kapasitasParkirBus}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Alamat  </td>
-                                        <td>: {props.destinasi.alamatDestinasiWisata}</td>
-                                    </tr>
-                                    <tr>
-                                            <td>No Telpon </td>
-                                            <td>: {props.destinasi.tlpDestinasiWisata}</td>
+                                    <button 
+                                        onClick={() => {
+                                            setShowUpdate(true)
+                                            setDataL(props.destinasi)
+                                        }}
+                                        className="btn gap-2 btn-outline btn-sm px-6 m-5 bg-white hover:bg-gray-100 text-[#C1C0BF] float-right"
+                                        >
+                                        <BsPencilSquare/>Edit Data 
+                                    </button>
+                                <div className="column pt-12 pb-6 pl-6 text-black text-m bg-abu">
+                                <table>
+                                        <tr>
+                                            <td>Kapasitas Pengunjung </td>
+                                            <td>: {props.destinasi.kapasitasDestinasiWisata} </td>
                                         </tr>
                                         <tr>
-                                            <td>PIC Destinasi </td>
-                                            <td>: {props.destinasi.picDestinasiWisata} </td>
+                                            <td>Kapasitas Parkir Bus  </td>
+                                            <td>: {props.destinasi.kapasitasParkirBus}</td>
                                         </tr>
                                         <tr>
-                                            <td>No PIC </td>
-                                            <td>: {props.destinasi.hpDestinasiWisata}</td>
+                                            <td>Alamat  </td>
+                                            <td>: {props.destinasi.alamatDestinasiWisata}</td>
                                         </tr>
                                         <tr>
-                                            <td>Link Gmaps </td>
-                                            <td>: {props.destinasi.linkGmaps}</td>
-                                        </tr>
-                                </table>
+                                                <td>No Telpon </td>
+                                                <td>: {props.destinasi.tlpDestinasiWisata}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>PIC Destinasi </td>
+                                                <td>: {props.destinasi.picDestinasiWisata} </td>
+                                            </tr>
+                                            <tr>
+                                                <td>No PIC </td>
+                                                <td>: {props.destinasi.hpDestinasiWisata}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Link Gmaps </td>
+                                                <td>: {props.destinasi.linkGmaps}</td>
+                                            </tr>
+                                    </table>
                         </div>
                 <div className="p-6 bg-white border-b border-gray-200">
+                    <div className='flex justify-between m-6 mt-2 mb-3'>
+                        <a className='text-2xl font-bold text-black'></a>
+                            <button 
+                            onClick={() => {
+                                setShowModal(true),
+                                setDataL(data)
+                            }}
+                            className="btn gap-2 btn-outline btn-sm px-5 bg-white hover:bg-gray-100 text-[#C1C0BF]"
+                            >
+                             <BsPlusSquare/>Tambah Data
+                            </button>
+                    </div>
                         <div className="column">
                             <table className="min-w-full text-left text-sm text-black">
                                 <thead className="border-b bg-white font-medium dark:border-neutral-500 dark:text-neutral-800">
@@ -88,18 +115,20 @@ export default function DetailDestinasi(props) {
                                             <td className="whitespace-nowrap px-6 py-4">{cr.tiketMasukWeekday}</td>
                                             <td className="whitespace-nowrap px-6 py-4">{cr.tiketMasukWeekend}</td>
                                             <td className="whitespace-nowrap px-6 py-4">
-                                                <button className="btn btn-ghost btn-sm mr-2">
-                                                    <Link href="">
-                                                        <BsThreeDots/>
-                                                    </Link>
-                                                </button>
-                                                {/* <button 
+                                                <button 
                                                     onClick={() => {
                                                         setShowModal(true)
-                                                        setDataD(cr)
+                                                        setDataL(cr)
                                                     }}
                                                     className="btn btn-ghost btn-sm mr-2"
-                                                ><BsThreeDots/></button> */}
+                                                ><BsPencilSquare/></button>
+                                                <button 
+                                                    onClick={() => {
+                                                        setShowDelete(true)
+                                                        setDataL(cr)
+                                                    }}
+                                                    className="btn btn-ghost btn-sm mr-2"
+                                                ><BsTrash3/></button>
                                             </td>
                                             </tr>
                                         </tbody>
@@ -114,10 +143,27 @@ export default function DetailDestinasi(props) {
 
                 </div>
         </div>
+
+        <ModalDestinasi
+            onClose={handleOnClosed} 
+            visible={showUpdate}
+            data={props.destinasi}
+            dataArea={props.area}
+        />
+
         <ModalDetail 
-        onClose={handleOnClose} 
-        visible={showModal}
-        data={data}/>
+            onClose={handleOnClose} 
+            visible={showModal}
+            data={dataL}
+        />
+
+        <DeleteDetail
+                onClose={() => {
+                handleOnCloseD()
+                }} 
+                visible={showDelete}
+                data={dataL}
+            />
         
     </div>
   );

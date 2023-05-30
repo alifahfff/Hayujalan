@@ -12,6 +12,7 @@ import Layout from '@/Layouts/Layout';
 
 export default function VendorRM (props) {
     const [data, setData] = useState({
+        idAreaWisata:'',
         namaRM: '', 
         kapasitasRM: '', 
         kapasitasParkirBus: '', 
@@ -58,7 +59,8 @@ export default function VendorRM (props) {
             <ModalRM 
                 onClose={handleOnClose} 
                 visible={showModal}
-                data={data}/>
+                data={data}
+                dataArea={props.area}/>
         </div>
   )
 }

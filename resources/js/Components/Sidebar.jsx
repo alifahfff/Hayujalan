@@ -67,6 +67,10 @@ const Sidebar = () => {
           path: "/transportasi", 
         },
         { 
+          title: "Data Jenis Transportasi",
+          path: "/jenisTransportasi", 
+        },
+        { 
           title: "Data Hotel",
           path: "/hotel", 
         },

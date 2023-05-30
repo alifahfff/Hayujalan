@@ -1,10 +1,10 @@
 import { Inertia } from "@inertiajs/inertia";
 import { useState } from "react";
 
-const ModalHotel = ({visible, onClose, data}) => {
+const ModalHotel = ({visible, onClose, data, dataArea}) => {
     if (!visible) return null;
     const [datas, setDatas] = useState(data)
-    console.log('modal data', data)
+    console.log('modal data', dataArea)
 
     const handleSubmit = () => {
         console.log('id', data.id)
@@ -26,6 +26,7 @@ const ModalHotel = ({visible, onClose, data}) => {
         }else{
             // tambah data
             const TambahData = {
+                idAreaWisata: datas.idAreaWisata,
                 namaPenginapan: datas.namaPenginapan,
                 bintangPenginapan: datas.bintangPenginapan,
                 alamatPenginapan: datas.alamatPenginapan,
@@ -61,10 +62,28 @@ const ModalHotel = ({visible, onClose, data}) => {
                             <div className="grid grid-cols-2 gap-3">
                             <div className="flex flex-row justify-between">
                                 <a className="mr-5 mt-2 text-black">Area Wisata</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                />
+                                <select 
+                                    placeholder="Jenis Klien" 
+                                    defaultvalue="default"
+                                    className="w-3/5 border border-gray-700 p-2 rounded mb-5"
+                                    onChange={(e) => 
+                                        setDatas({
+                                            ...datas,
+                                            idAreaWisata: e.target.value
+                                        })
+                                    }
+                                >
+                                    <option value="default">-{datas.namaArea}-</option>
+                                    {dataArea.map((aw, index) => {
+                                        return (
+                                        <option 
+                                        value={aw.id} 
+                                        key={aw.id}
+                                        >
+                                            {aw.namaArea}
+                                        </option>
+                                    )})}
+                                </select>
                             </div>
                             <div className="flex flex-row justify-between">
                                 <a className="mr-5 mt-2 text-black">Nama Penginapan</a>

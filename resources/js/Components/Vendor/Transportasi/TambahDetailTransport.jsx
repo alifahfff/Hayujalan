@@ -1,11 +1,11 @@
 import { Inertia } from "@inertiajs/inertia";
 import { useState } from "react";
 
-const TambahDetailTransport = ({visible, onClose, data}) => {
+const TambahDetailTransport = ({visible, onClose, data, dataJenis}) => {
     console.log('data', data)
     if (!visible) return null;
     const [datas, setDatas] = useState(data)
-    console.log('modal data', data)
+    console.log('jenis', dataJenis)
 
     const handleSubmit = () => {
         console.log('id', data.id)
@@ -13,6 +13,8 @@ const TambahDetailTransport = ({visible, onClose, data}) => {
             // update data
             const dataUpdate = {
                 id: data.id,
+                idTransportasi: datas.idTransportasi,
+                idJenisTransportasi: datas.idJenisTransportasi,
                 nama: datas.nama, 
                 tahun: datas.tahun, 
                 kapasitas: datas.kapasitas, 
@@ -29,6 +31,8 @@ const TambahDetailTransport = ({visible, onClose, data}) => {
         }else{
             // tambah data
             const TambahData = {
+                idTransportasi: datas.idTransportasi,
+                idJenisTransportasi: datas.idJenisTransportasi,
                 nama: datas.nama, 
                 tahun: datas.tahun, 
                 kapasitas: datas.kapasitas, 
@@ -63,7 +67,32 @@ const TambahDetailTransport = ({visible, onClose, data}) => {
                         <p className="text-center text-gray-700 mb-5">Tambah Data</p>
                         {/* Data Input */}
                         <div className="flex flex-col">
-                            <div className="grid grid-cols-2 gap-3">    
+                            <div className="grid grid-cols-2 gap-3"> 
+                            <div className="flex flex-row justify-between">
+                                <a className="mr-5 mt-2 text-black">Jenis Transportasi</a>
+                                <select 
+                                    placeholder="Jenis Klien" 
+                                    defaultvalue="default"
+                                    className=" border border-gray-700 p-2 rounded mb-5" style={{width:"12.7rem"}}
+                                    onChange={(e) => 
+                                        setDatas({
+                                            ...datas,
+                                            idJenisTransportasi: e.target.value
+                                        })
+                                    }
+                                >
+                                    <option value="default">-{datas.namaJenis}-</option>
+                                    {dataJenis.map((aw, index) => {
+                                        return (
+                                        <option 
+                                        value={aw.id} 
+                                        key={aw.id}
+                                        >
+                                            {aw.namaJenis}
+                                        </option>
+                                    )})}
+                                </select>
+                            </div>   
                             <div className="flex flex-row justify-between">
                                 <a className="mr-5 mt-2 text-black">Nama</a>
                                 <input

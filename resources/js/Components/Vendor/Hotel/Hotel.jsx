@@ -35,7 +35,7 @@ const Hotel = ({hotel}) => {
                         return (
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
-                                <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.idAreaWIsata}</td>
+                                <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.idAreaWisata}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.id}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.namaPenginapan}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.bintangPenginapan}</td>

@@ -16,6 +16,7 @@ const DestinasiWisata = ({destinasi}) => {
     const handleOnCloseD = () => setShowDelete(false);
     const handleOnClose = () => setShowModal(false);
 
+    console.log('cek', destinasi.length)
     return (
         <div className="flex flex-col">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
