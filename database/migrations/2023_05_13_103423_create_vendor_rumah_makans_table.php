@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('vendor_rumah_makans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('idAreaWIsata')->default(1)->constrained(
+            $table->foreignId('idAreaWisata')->default(1)->constrained(
                 table: 'area_wisatas'
             )->onDelete('cascade')->onUpdate('cascade');
             $table->string('namaRM', 100)->nullable();

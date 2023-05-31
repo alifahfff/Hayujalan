@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Vendor;
 
 use App\Models\Vendor\jenisTransportasi;
+use App\Models\Itemq\crewOperasional;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
@@ -37,7 +38,13 @@ class JenisTransportasiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $jenis = new jenisTransportasi();
+        $jenis->idCrewOperasional = $request->idCrewOperasional;
+        $jenis->namaJenis = $request->namaJenis;
+        $jenis->PenggunaanUnit = $request->PenggunaanUnit;
+        $jenis->MaxKapasitas = $request->MaxKapasitas;
+        $jenis->save();
+        return redirect()->back()->with('message', 'item berhasil dibuat');
     }
 
     /**
@@ -48,7 +55,12 @@ class JenisTransportasiController extends Controller
      */
     public function show(jenisTransportasi $jenisTransportasi)
     {
-        //
+        $crew = crewOperasional::all();
+        $jenis = jenisTransportasi::all();
+        return Inertia::render('Vendor/JenisTransport/VendorJenisTransport', [
+            'jenis' => $jenis,
+            'crew' => $crew,
+        ]);
     }
 
     /**
@@ -69,9 +81,15 @@ class JenisTransportasiController extends Controller
      * @param  \App\Models\jenisTransportasi  $jenisTransportasi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, jenisTransportasi $jenisTransportasi)
+    public function update(Request $request)
     {
-        //
+        jenisTransportasi::where('id', $request->id)->update([
+            'idCrewOperasional' => $request->idCrewOperasional,
+            'namaJenis' => $request->namaJenis,
+            'PenggunaanUnit' => $request->PenggunaanUnit,
+            'MaxKapasitas' => $request->MaxKapasitas,
+        ]);
+        return redirect()->back()->with('message', 'item berhasil diupdate');
     }
 
     /**

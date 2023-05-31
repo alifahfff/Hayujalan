@@ -12,7 +12,7 @@ const RM = ({rm}) => {
     const [dataL, setDataL] = useState([])
 
     const handleOnCloseD = () => setShowDelete(false);
-    
+
     return (
         <div className="flex flex-col">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -38,7 +38,7 @@ const RM = ({rm}) => {
                         return (
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
-                                <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.idAreaWIsata}</td>
+                                <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.idAreaWisata}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.id}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.namaRM}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.kapasitasRM}</td>

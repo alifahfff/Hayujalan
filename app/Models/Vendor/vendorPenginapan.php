@@ -22,7 +22,7 @@ class vendorPenginapan extends Model
     // yang punya id one to many
     public function AWpenginapan()
     {
-        return $this->belongsTo(areaWisata::class, 'idAreaWIsata', 'id');
+        return $this->belongsTo(areaWisata::class, 'idAreaWisata', 'id');
     }
 
     // nggak punya id

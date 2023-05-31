@@ -75,9 +75,12 @@ class AreaWisataController extends Controller
      * @param  \App\Models\areaWisata  $areaWisata
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, areaWisata $areaWisata)
+    public function update(Request $request)
     {
-        //
+        areaWisata::where('id', $request->id)->update([
+            'namaArea' => $request->namaArea,
+        ]);
+        return redirect()->back()->with('message', 'item berhasil diupdate');
     }
 
     /**
@@ -86,8 +89,10 @@ class AreaWisataController extends Controller
      * @param  \App\Models\areaWisata  $areaWisata
      * @return \Illuminate\Http\Response
      */
-    public function destroy(areaWisata $areaWisata)
+    public function destroy(Request $request)
     {
-        //
+        $area = areaWisata::find($request->id);
+        $area->delete();
+        return redirect()->back()->with('message', 'item berhasil dihapus');
     }
 }

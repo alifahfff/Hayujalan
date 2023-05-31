@@ -13,6 +13,7 @@ import Layout from '@/Layouts/Layout';
 
 export default function VendorHotel (props) {
     const [data, setData] = useState({
+        idAreaWisata:'',
         namaPenginapan: '',
         bintangPenginapan: '',
         alamatPenginapan: '',
@@ -59,7 +60,8 @@ export default function VendorHotel (props) {
             <ModalHotel 
             onClose={handleOnClose} 
             visible={showModal}
-            data={data}/>
+            data={data}
+            dataArea={props.area}/>
         </div>
   )
 }

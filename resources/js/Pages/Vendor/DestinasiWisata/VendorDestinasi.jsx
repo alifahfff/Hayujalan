@@ -10,8 +10,10 @@ import ModalDestinasi from '@/Components/Vendor/Destinasi/ModalDestinasi';
 import Layout from '@/Layouts/Layout';
 
 
-export default function VendorDestinasi (props) {   
+export default function VendorDestinasi (props) { 
+
     const [data, setData] = useState({
+        idAreaWisata:'',
         namaDestinasiWisata: '',
         kapasitasDestinasiWisata: '',
         kapasitasParkirBus: '',
@@ -59,7 +61,8 @@ export default function VendorDestinasi (props) {
             <ModalDestinasi 
             onClose={handleOnClose} 
             visible={showModal}
-            data={data}/>
+            data={data}
+            dataArea={props.area}/>
         </div>
   )
 }

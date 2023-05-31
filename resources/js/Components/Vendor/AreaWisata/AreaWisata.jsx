@@ -1,7 +1,20 @@
 import { BsPencilSquare, BsTrash3, BsList, BsThreeDots } from "react-icons/bs";
 import { Link } from "@inertiajs/inertia-react"
+import { useState } from "react";
+import DeleteAreaWisata from "./DeleteAreaWisata";
+import ModalArea from "./ModalArea";
 
 const AreaWisata = ({area}) => {
+    const [showModal, setShowModal] = useState(false);
+    const [dataD, setDataD] = useState([])
+    
+    const [showDelete, setShowDelete] = useState(false);
+    const [dataL, setDataL] = useState([])
+
+    const handleOnCloseD = () => setShowDelete(false);
+    const handleOnClose = () => setShowModal(false);
+
+    console.log('area', area)
     return (
         <div className="flex flex-col">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -23,11 +36,13 @@ const AreaWisata = ({area}) => {
                                 <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.id}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.namaArea}</td>
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
-                                    <button className="btn btn-ghost btn-sm mr-2">
-                                        <Link href="">
-                                            <BsThreeDots/>
-                                        </Link>
-                                    </button> 
+                                <button 
+                                        onClick={() => {
+                                            setShowModal(true)
+                                            setDataL(cr)
+                                        }}
+                                        className="btn btn-ghost btn-sm mr-2"
+                                    ><BsPencilSquare/></button>
                                 </td>
                                 </tr>
                             </tbody>
@@ -37,6 +52,21 @@ const AreaWisata = ({area}) => {
                 </div>
                 </div>
             </div>
+            <ModalArea
+                onClose={() => {
+                handleOnClose()
+                }} 
+                visible={showModal}
+                data={dataL}
+            />
+
+            <DeleteAreaWisata
+                onClose={() => {
+                handleOnCloseD()
+                }} 
+                visible={showDelete}
+                data={dataL}
+            />
         </div>
     )
 }

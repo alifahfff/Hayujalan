@@ -57,9 +57,6 @@ const Crew = ({crew}) => {
                                         }}
                                     >
                                      <BsTrash3/>   
-                                        {/* <Link href={route('delete.crew')} method="post" data={{ id: cr.id }} as="button">
-                                            <BsTrash3/>
-                                        </Link> */}
                                     </button>
                                 </td>
                                 </tr>

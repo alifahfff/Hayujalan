@@ -15,13 +15,13 @@ class AkesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('akses')->insert([
-            [
-                'statusAkses' => 'Active',
-            ],
-            [
-                'statusAkses' => 'Inactive',
-            ],
-        ]);
+        // DB::table('akses')->insert([
+        //     [
+        //         'statusAkses' => 'Active',
+        //     ],
+        //     [
+        //         'statusAkses' => 'Inactive',
+        //     ],
+        // ]);
     }
 }
