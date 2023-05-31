@@ -77,6 +77,19 @@ class QuotationTourController extends Controller
     {
         return Inertia::render('Quotation/QuotationsPDF');
     }
+    public function qhistory(quotationTour $quotationTour)
+    {
+        $quotation = quotationTour::all();
+        return Inertia::render('Quotation/QuotationsHistory', [
+            'quotation' => $quotation,
+        ]);
+    }
+
+    public function sh(Request $request)
+    {
+        
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
