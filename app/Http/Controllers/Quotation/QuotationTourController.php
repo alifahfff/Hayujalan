@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Quotation;
 
+use App\Models\Vendor\areaWisata;
 use App\Models\Quotation\quotationTour;
+use App\Models\Quotation\quotationTransaksi;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
@@ -77,11 +79,14 @@ class QuotationTourController extends Controller
     {
         return Inertia::render('Quotation/QuotationsPDF');
     }
-    public function qhistory(quotationTour $quotationTour)
+
+    public function qhistory(quotationTransaksi $quotationTour)
     {
-        $quotation = quotationTour::all();
+        $area = areaWisata::all();
+        $quotation = quotationTransaksi::with('quotation.areaWisata')->get();
         return Inertia::render('Quotation/QuotationsHistory', [
             'quotation' => $quotation,
+            'area' => $area,
         ]);
     }
 
