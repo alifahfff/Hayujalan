@@ -48,8 +48,8 @@ export default function ItemCrew(props) {
 
                     {/* Search bar */}
                     <form>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <div className="relative">
+                            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                 <BsSearch/>
                             </div>
                             <input 

@@ -24,7 +24,7 @@ class quotationTransaksi extends Model
     // jenis klien mempunyai banyak klien
     public function rekomendasi()
     {
-        return $this->hasMany(quotationRekomendasi::class, 'idQuotationTransaksion', 'id');
+        return $this->hasOne(quotationRekomendasi::class, 'idQuotationTransaksion', 'id');
     }
 
     // yang punya id one to many
@@ -36,41 +36,41 @@ class quotationTransaksi extends Model
 
     public function tdestinasi()
     {
-        return $this->belongsTo(TDestinasiWisata::class, 'idTDestinasiWisata', 'id');
+        return $this->hasMany(TDestinasiWisata::class, 'idQuotationTransaksion', 'id');
     }
 
     public function ttransportasi()
     {
-        return $this->belongsTo(Ttransportasi::class, 'idTtransportasi', 'id');
+        return $this->hasMany(Ttransportasi::class, 'idQuotationTransaksion', 'id');
     }
 
     public function tpenginapan()
     {
-        return $this->belongsTo(Tpenginapan::class, 'idTpenginapan', 'id');
+        return $this->hasMany(Tpenginapan::class, 'idQuotationTransaksion', 'id');
     }
 
     public function trumahmakan()
     {
-        return $this->belongsTo(TRumahMakan::class, 'idTrm', 'id');
+        return $this->hasMany(TRumahMakan::class, 'idQuotationTransaksion', 'id');
     }
 
     public function tfasilitas()
     {
-        return $this->belongsTo(TFasilitasTour::class, 'idTft', 'id');
+        return $this->hasMany(TFasilitasTour::class, 'idQuotationTransaksion', 'id');
     }
 
     public function tcrew()
     {
-        return $this->belongsTo(TcrewOp::class, 'idTcw', 'id');
+        return $this->hasMany(TcrewOp::class, 'idQuotationTransaksion', 'id');
     }
 
     public function tevent()
     {
-        return $this->belongsTo(Tevent::class, 'idTevent', 'id');
+        return $this->hasMany(Tevent::class, 'idQuotationTransaksion', 'id');
     }
 
     public function tbonus()
     {
-        return $this->belongsTo(Tbonus::class, 'idTbonus', 'id');
+        return $this->hasMany(Tbonus::class, 'idQuotationTransaksion', 'id');
     }
 }

@@ -6,10 +6,10 @@ const Pagination = ({meta}) => {
     const current = meta.current_page;
 
     return (
-        <div class="btn-group px-2">
-            {prev && <Link href={prev} class="btn btn-ghost">«</Link> }
-            <button class="btn btn-ghost">{current}</button>
-            {next && <Link href={next} class="btn btn-ghost">»</Link> }
+        <div className="btn-group px-2">
+            {prev && <Link href={prev} className="btn btn-ghost">«</Link> }
+            <button className="btn btn-ghost">{current}</button>
+            {next && <Link href={next} className="btn btn-ghost">»</Link> }
         </div>
     )
 }

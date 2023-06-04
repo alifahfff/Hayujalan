@@ -37,9 +37,9 @@ const TambahDetailRM = ({visible, onClose, data}) => {
         <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center">
             <div className='relative bg-white shadow-xl m-6 mt-3 md:max-xl:flex ring-1 ring-gray-900/5 rounded-lg'>
                 <div className='p-4 bg-kuning border-b border-gray-200 rounded-t-lg flex flex-row'>
-                    <div class="rounded-full h-3 w-3 bg-putih mr-2"></div>
-                    <div class="rounded-full h-3 w-3 bg-putih mr-2"></div>
-                    <div class="rounded-full h-3 w-3 bg-putih"></div>
+                    <div className="rounded-full h-3 w-3 bg-putih mr-2"></div>
+                    <div className="rounded-full h-3 w-3 bg-putih mr-2"></div>
+                    <div className="rounded-full h-3 w-3 bg-putih"></div>
                 </div>
                 <div className='p-4 bg-white border-b border-gray-200 rounded-b-lg'>
                     {/* Content */}

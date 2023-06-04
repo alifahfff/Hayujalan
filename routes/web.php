@@ -121,7 +121,7 @@ Route::controller(AksesController::class)->group(function () {
 // Quotation
 Route::controller(QuotationTourController::class)->group(function () {
     Route::get('/quotation', 'show')->name('quotation');
-    Route::get('/quotation/qmanualform/', 'form')->name('quotationform');
+    // Route::get('/quotation/qmanualform/', 'form')->name('quotationform');
     Route::get('/quotation/qmanualresult/', 'result')->name('quotationresult');
     Route::get('/quotation/qrecomend/', 'showrec')->name('quotationrecomend'); 
     Route::get('/quotation/qrecomendform/', 'formrec')->name('quotationrecomendform'); 
@@ -145,7 +145,7 @@ Route::controller(VendorDestinasiWisataController::class)->group(function(){
     Route::post('/destinasiwisata/update', 'update')->name('update.destinasiwisata');
     Route::post('/destinasiwisata/detail', 'storeDetail')->name('create.detail');
     Route::post('/destinasiwisata/update/detail', 'update')->name('update.detail');
-    // Route::get('/destinasiwisata/details/{id}', 'detail')->name('destinasiwisata.details');
+    Route::get('/destinasiwisata/details', 'detail')->name('destinasiwisata.details');
 });
 
 // Vendor Area Wisata

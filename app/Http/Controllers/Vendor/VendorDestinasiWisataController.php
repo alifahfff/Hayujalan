@@ -7,7 +7,8 @@ use App\Models\Vendor\detailVendorDestinasiWisata;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
-use App\Models\Quotation\quotationTransaksi;
+use App\Models\Quotation\dataKriteria;
+use App\Models\Transaksi\Tbonus;
 
 class VendorDestinasiWisataController extends Controller
 {
@@ -125,16 +126,23 @@ class VendorDestinasiWisataController extends Controller
     public function detail()
     {
        //$destinasi = detailVendorDestinasiWisata::with('vendorDW')->findOrFail($id);
-        $destinasi = quotationTransaksi::with('quotation', 
-        'tdestinasi', 
-        'ttransportasi', 
-        'tpenginapan', 
-        'trumahmakan', 
-        'tfasilitas',
-        'tcrew',
-        'tevent',
-        'tbonus',
-        )->get();
+        // $destinasi = quotationTransaksi::with('quotation', 
+        // 'tdestinasi', 
+        // 'ttransportasi', 
+        // 'tpenginapan', 
+        // 'trumahmakan', 
+        // 'tfasilitas',
+        // 'tcrew',
+        // 'tevent',
+        // 'tbonus',
+        // )->get();
+        // $destinasi = detailVendorDestinasiWisata::join('vendor_destinasi_wisatas', 'detail_vendor_destinasi_wisatas.idDestinasiWisata', '=', 'vendor_destinasi_wisatas.id')
+        //            ->select('vendor_destinasi_wisatas.id', 'vendor_destinasi_wisatas.namaDestinasiWisata',
+        //            'detail_vendor_destinasi_wisatas.idDestinasiWisata', 
+        //            'detail_vendor_destinasi_wisatas.tiketMasukWeekday', 
+        //            'detail_vendor_destinasi_wisatas.tiketMasukWeekend')
+        //            ->get();
+        $destinasi = Tbonus::with('qtransaksi')->get();
         // $destinasi = dataKlien::with('jenisKlien')->get();
         return response()->json($destinasi);
     }

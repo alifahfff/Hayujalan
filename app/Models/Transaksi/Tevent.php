@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Itemq\dataEvent;
 use App\Models\Quotation\quotationTransaksi;
+use App\Models\Quotation\quotationRekomendasi;
 
 class Tevent extends Model
 {
@@ -21,9 +22,13 @@ class Tevent extends Model
         return $this->belongsTo(dataEvent::class, 'idDataEvent', 'id');
     }
 
-    // nggak punya id
     public function qtransaksi()
     {
-        return $this->hasMany(quotationTransaksi::class, 'idTevent', 'id');
+        return $this->belongsTo(quotationTransaksi::class, 'idQuotationTransaksion', 'id');
+    }
+
+    public function qrekomendasi()
+    {
+        return $this->belongsTo(quotationRekomendasi::class, 'idQuotationRekomendasi', 'id');
     }
 }
