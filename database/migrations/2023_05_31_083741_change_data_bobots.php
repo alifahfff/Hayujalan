@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('data_kriterias', function (Blueprint $table) {
-            $table->id();
-            $table->string('namaKriteria', 100);
-            $table->string('ketKriteria', 100);
-            $table->timestamps();
+        Schema::table('data_bobots', function (Blueprint $table) {
+            $table->foreignId('idKriteria')->constrained(
+                table: 'data_kriterias'
+            )->onDelete('cascade')->change();
         });
     }
 
@@ -28,7 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data_kriterias');
-        Schema::dropIfExists('kriteria_bobot');
+        //
     }
 };

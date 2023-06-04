@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Quotation;
 
+use App\Models\Vendor\areaWisata;
+use App\Models\Quotation\dataBobot;
 use App\Models\Quotation\quotationTour;
+use App\Models\Itemq\dataJenisKlien;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
@@ -61,10 +64,7 @@ class QuotationTourController extends Controller
         return Inertia::render('Quotation/QuotationsResult');
     }
 
-    public function showrec(quotationTour $quotationTour)
-    {
-        return Inertia::render('Quotation/QuotationsRecomend');
-    }
+   
     public function formrec(quotationTour $quotationTour)
     {
         return Inertia::render('Quotation/QuotationsRecomendForm');

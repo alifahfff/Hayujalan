@@ -11,12 +11,19 @@ class dataBobot extends Model
 
     protected $table = "data_bobots";
 
+    // public function kriteria()
+    // {
+    //     return $this->belongsToMany(dataKriteria::class,
+    //     'kriteria_bobot',
+    //     'idBobot',
+    //     'idKriteria');
+    // }
+
+    // yang punya id one to many
+    // klien memiliki data yang ada pada jenis klien
     public function kriteria()
     {
-        return $this->belongsToMany(dataKriteria::class,
-        'kriteria_bobot',
-        'idBobot',
-        'idKriteria');
+        return $this->belongsTo(dataKriteria::class, 'idKriteria', 'id');
     }
 
     // nggak punya id
