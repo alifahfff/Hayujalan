@@ -26,6 +26,7 @@ const TambahDetailRM = ({visible, onClose, data}) => {
                 namaMenu: datas.namaMenu, 
                 detailMenu: datas.detailMenu, 
                 hargaMenu: datas.hargaMenu,
+                idRM: datas.idRM,
                 created_at: new Date(),
                 updated_at: new Date(),
             }

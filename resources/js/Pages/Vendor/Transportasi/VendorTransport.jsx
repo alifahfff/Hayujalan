@@ -12,6 +12,7 @@ import Layout from '@/Layouts/Layout';
 
 export default function VendorTransport (props) {
     const [data, setData] = useState({
+        idAreaWisata:'',
         namaTransportasi: '', 
         alamatTransportasi: '', 
         tlpTransportasi: '', 
@@ -55,7 +56,8 @@ export default function VendorTransport (props) {
             <ModalTransport 
             onClose={handleOnClose} 
             visible={showModal}
-            data={data}/>
+            data={data}
+            dataArea={props.area}/>
         </div>
   )
 }

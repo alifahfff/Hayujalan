@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Quotation;
 
-use App\Models\Quotation\quotationTour;
 use App\Models\Vendor\areaWisata;
+use App\Models\Quotation\quotationTour;
 use App\Models\Akses\userProgram;
 use App\Models\Akses\userSales;
 use App\Models\Itemq\dataKategoriTour;
@@ -20,6 +20,7 @@ use App\Models\Itemq\crewOperasional;
 use App\Models\Itemq\dataEvent;
 use App\Models\Itemq\dataBonus;
 use App\Models\Itemq\dataJenisKlien;
+use App\Models\Quotation\quotationTransaksi;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
@@ -130,6 +131,26 @@ class QuotationTourController extends Controller
     {
         return Inertia::render('Quotation/QuotationsRecomendResult');
     }
+    public function recpdf(quotationTour $quotationTour) 
+    {
+        return Inertia::render('Quotation/QuotationsPDF');
+    }
+
+    public function qhistory(quotationTransaksi $quotationTour)
+    {
+        $area = areaWisata::all();
+        $quotation = quotationTransaksi::with('quotation.areaWisata')->get();
+        return Inertia::render('Quotation/QuotationsHistory', [
+            'quotation' => $quotation,
+            'area' => $area,
+        ]);
+    }
+
+    public function sh(Request $request)
+    {
+        
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

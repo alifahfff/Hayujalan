@@ -25,6 +25,7 @@ const TambahDetailHotel = ({visible, onClose, data}) => {
         }else{
             // tambah data
             const TambahData = {
+                idPenginapan : datas.idPenginapan,
                 namaJenisKamar: datas.namaJenisKamar, 
                 kapasitasKamar: datas.kapasitasKamar, 
                 qtyKetersediaanKamar: datas.qtyKetersediaanKamar,

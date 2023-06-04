@@ -17,6 +17,7 @@ use App\Http\Controllers\Itemq\DataKategoriTourController;
 use App\Http\Controllers\Quotation\QuotationTourController;
 use App\Http\Controllers\Vendor\VendorDestinasiWisataController;
 use App\Http\Controllers\Vendor\VendorTransportasiController;
+use App\Http\Controllers\Vendor\JenisTransportasiController;
 use App\Http\Controllers\Vendor\VendorPenginapanController;
 use App\Http\Controllers\Vendor\VendorRumahMakanController;
 use App\Http\Controllers\Vendor\AreaWisataController;
@@ -126,6 +127,8 @@ Route::controller(QuotationTourController::class)->group(function () {
     Route::get('/quotation/qrecomend/', 'showrec')->name('quotationrecomend'); 
     Route::get('/quotation/qrecomendform/', 'formrec')->name('quotationrecomendform'); 
     Route::get('/quotation/qrecomendresult/', 'recresult')->name('quotationrecomendresult'); 
+    Route::get('/quotation/qrecomendpdf/', 'recresult')->name('quotationrecomendpdf');
+    Route::get('/quotation/qhistory/', 'qhistory')->name('quotationhistory');
     Route::post('/quotation', 'store')->name('create.quotation');
     Route::get('/quotation/edit', 'edit')->name('edit.quotation');
     Route::post('/quotation/update', 'update')->name('update.quotation');
@@ -144,7 +147,9 @@ Route::controller(VendorDestinasiWisataController::class)->group(function(){
     Route::post('/destinasiwisata', 'store')->name('create.destinasiwisata');
     Route::post('/destinasiwisata/update', 'update')->name('update.destinasiwisata');
     Route::post('/destinasiwisata/detail', 'storeDetail')->name('create.detail');
-    Route::post('/destinasiwisata/update/detail', 'update')->name('update.detail');
+    Route::post('/destinasiwisata/update/detail', 'updateDetail')->name('update.detail');
+    Route::post('/destinasiwisata/delete', 'destroy')->name('delete.destinasi');
+    Route::post('/destinasiwisata/delete/detail', 'destroyDetail')->name('delete.detail');
     Route::get('/destinasiwisata/details', 'detail')->name('destinasiwisata.details');
 });
 
@@ -154,6 +159,8 @@ Route::controller(AreaWisataController::class)->group(function(){
     Route::get('/areawisata/detail', 'edit')->name('areawisata.detail');    
     Route::post('/areawisata', 'store')->name('create.areawisata');
     Route::post('/areawisata/update', 'update')->name('update.areawisata');
+    Route::post('/areawisata/delete', 'destroy')->name('delete.area');
+
 });
 
 
@@ -164,8 +171,21 @@ Route::controller(VendorTransportasiController::class)->group(function (){
     Route::post('/transportasi', 'store')->name('create.transportasi');
     Route::post('/transportasi/update', 'update')->name('update.transportasi');
     Route::post('/transportasi/detail', 'storeDetail')->name('create.detail');
-    Route::post('/transportasi/update/detail', 'update')->name('update.detail');
+    Route::post('/transportasi/update/detail', 'updateDetail')->name('update.detail');
+    Route::post('/transportasi/delete', 'destroy')->name('delete.transport');
+    Route::post('/transportasi/delete/detail', 'destroyDetail')->name('delete.detail');
 });
+
+//Vendor Jenis Transportasi
+Route::controller(JenisTransportasiController::class)->group(function (){
+    Route::get('/jenisTransportasi', 'show')->name('jenisTransportasi');
+    // Route::get('/transportasi/detail', 'edit')->name('transportasi.detail');
+    Route::post('/jenisTransportasi', 'store')->name('create.jenis');
+    Route::post('/jenisTransportasi/update', 'update')->name('update.jenis');
+    // Route::post('/transportasi/detail', 'storeDetail')->name('create.detail');
+    // Route::post('/transportasi/update/detail', 'update')->name('update.detail');
+});
+
 
 //Vendor Hotel
 Route::controller(VendorPenginapanController::class)->group(function() {
@@ -174,7 +194,9 @@ Route::controller(VendorPenginapanController::class)->group(function() {
     Route::post('/hotel', 'store')->name('create.hotel');
     Route::post('/hotel/update', 'update')->name('update.hotel');
     Route::post('/hotel/detail', 'storeDetail')->name('create.detail');
-    Route::post('/hotel/update/detail', 'update')->name('update.detail');
+    Route::post('/hotel/update/detail', 'updateDetail')->name('update.detail');
+    Route::post('/hotel/delete', 'destroy')->name('delete.hotel');
+    Route::post('/hotel/delete/detail', 'destroyDetail')->name('delete.detail');
 });
 
 
@@ -185,7 +207,9 @@ Route::controller(VendorRumahMakanController::class)->group(function(){
     Route::post('/rumahmakan', 'store')->name('create.rumahmakan');
     Route::post('/rumahmakan/update', 'update')->name('update.rumahmakan');   
     Route::post('/rumahmakan/detail', 'storeDetail')->name('create.detail');
-    Route::post('/rumahmakan/update/detail', 'update')->name('update.detail');   
+    Route::post('/rumahmakan/update/detail', 'updateDetail')->name('update.detail'); 
+    Route::post('/rumahmakan/delete', 'destroy')->name('delete.rumahmakan');
+    Route::post('/rumahmakan/delete/detail', 'destroyDetail')->name('delete.detail'); 
 });
 
 // Quotation

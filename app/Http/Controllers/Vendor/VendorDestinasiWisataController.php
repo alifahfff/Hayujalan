@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Vendor;
 
+use App\Models\Vendor\areaWisata;
 use App\Models\Vendor\vendorDestinasiWisata;
 use App\Models\Vendor\detailVendorDestinasiWisata;
 use Illuminate\Http\Request;
@@ -41,6 +42,7 @@ class VendorDestinasiWisataController extends Controller
     public function store(Request $request)
     {
         $destinasi = new vendorDestinasiWisata();
+        $destinasi->idAreaWisata = $request->idAreaWisata;
         $destinasi->namaDestinasiWisata = $request->namaDestinasiWisata;
         $destinasi->kapasitasDestinasiWisata = $request->kapasitasDestinasiWisata;
         $destinasi->kapasitasParkirBus = $request->kapasitasParkirBus;
@@ -59,6 +61,7 @@ class VendorDestinasiWisataController extends Controller
         $destinasi->rangePeserta = $request->rangePeserta;
         $destinasi->tiketMasukWeekday = $request->tiketMasukWeekday	;
         $destinasi->tiketMasukWeekend = $request->tiketMasukWeekend;
+        $destinasi->idDestinasiWisata = $request->idDestinasiWisata ;
         $destinasi->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }
@@ -71,9 +74,11 @@ class VendorDestinasiWisataController extends Controller
      */
     public function show()
     {
+        $area = areaWisata::all();
         $destinasi = vendorDestinasiWisata::all();
         return Inertia::render('Vendor/DestinasiWisata/VendorDestinasi', [
             'destinasi' => $destinasi,
+            'area' => $area,
         ]);
     }
 
@@ -91,11 +96,13 @@ class VendorDestinasiWisataController extends Controller
      */
     public function edit(Request $request)
     {
+        $area = areaWisata::all();
         $destinasi = vendorDestinasiWisata::findOrFail($request->id); 
         $detail = detailVendorDestinasiWisata::where('idDestinasiWisata','=',$request->id)->get();
         return Inertia::render('Vendor/DestinasiWisata/DetailDestinasi',[
             'destinasi' => $destinasi,  
             'detail' => $detail,
+            'area' => $area,
         ]);
     }
 
@@ -106,9 +113,30 @@ class VendorDestinasiWisataController extends Controller
      * @param  \App\Models\vendorDestinasiWisata  $vendorDestinasiWisata
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, vendorDestinasiWisata $vendorDestinasiWisata)
+    public function update(Request $request)
     {
-        //
+        vendorDestinasiWisata::where('id', $request->id)->update([
+            'namaDestinasiWisata' => $request->namaDestinasiWisata,
+            'kapasitasDestinasiWisata' => $request->kapasitasDestinasiWisata,
+            'kapasitasParkirBus' => $request->kapasitasParkirBus,
+            'alamatDestinasiWisata' => $request->alamatDestinasiWisata,
+            'tlpDestinasiWisata' => $request->tlpDestinasiWisata,
+            'picDestinasiWisata' => $request->picDestinasiWisata,
+            'hpDestinasiWisata' => $request->hpDestinasiWisata,
+            'linkGmaps' => $request->linkGmaps,
+        ]);
+        return redirect()->back()->with('message', 'item berhasil diupdate');
+    }
+
+    public function updateDetail(Request $request)
+    {
+        detailVendorDestinasiWisata::where('id', $request->id)->update([
+            'rangePeserta' => $request->rangePeserta,
+            'jenisPeserta' => $request->jenisPeserta,
+            'tiketMasukWeekday' => $request->tiketMasukWeekday,
+            'tiketMasukWeekend' => $request->tiketMasukWeekend,
+        ]);
+        return redirect()->back()->with('message', 'item berhasil diupdate');
     }
 
     /**
@@ -117,9 +145,18 @@ class VendorDestinasiWisataController extends Controller
      * @param  \App\Models\vendorDestinasiWisata  $vendorDestinasiWisata
      * @return \Illuminate\Http\Response
      */
-    public function destroy(vendorDestinasiWisata $vendorDestinasiWisata)
+    public function destroy(Request $request)
     {
-        //
+        $destinasi = vendorDestinasiWisata::find($request->id);
+        $destinasi->delete();
+        return redirect()->back()->with('message', 'item berhasil dihapus');
+    }
+
+    public function destroyDetail(Request $request)
+    {
+        $detail = detailVendorDestinasiWisata::find($request->id);
+        $detail->delete();
+        return redirect()->back()->with('message', 'item berhasil dihapus');
     }
 
     //contoh jangan dihapusssss

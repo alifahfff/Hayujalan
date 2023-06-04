@@ -1,10 +1,10 @@
 import { Inertia } from "@inertiajs/inertia";
 import { useState } from "react";
 
-const ModalDestinasi = ({visible, onClose, data}) => {
+const ModalDestinasi = ({visible, onClose, data, dataArea}) => {
     if (!visible) return null;
     const [datas, setDatas] = useState(data)
-    console.log('modal data', data)
+    console.log('modal data', dataArea)
 
 
     const handleSubmit = () => {
@@ -13,6 +13,7 @@ const ModalDestinasi = ({visible, onClose, data}) => {
             // update data
             const dataUpdate = {
                 id: data.id,
+                idAreaWisata: datas.idAreaWisata,
                 namaDestinasiWisata: datas.namaDestinasiWisata, 
                 kapasitasDestinasiWisata: datas.kapasitasDestinasiWisata, 
                 kapasitasParkirBus: datas.kapasitasParkirBus, 
@@ -27,6 +28,7 @@ const ModalDestinasi = ({visible, onClose, data}) => {
         }else{
             // tambah data
             const TambahData = {
+                idAreaWisata: datas.idAreaWisata,
                 namaDestinasiWisata: datas.namaDestinasiWisata, 
                 kapasitasDestinasiWisata: datas.kapasitasDestinasiWisata, 
                 kapasitasParkirBus: datas.kapasitasParkirBus, 
@@ -39,6 +41,7 @@ const ModalDestinasi = ({visible, onClose, data}) => {
                 updated_at: new Date(),
             }
             Inertia.post('/destinasiwisata', TambahData)
+            console.log('TambahData', TambahData)
         }
     }
 
@@ -62,10 +65,28 @@ const ModalDestinasi = ({visible, onClose, data}) => {
                             <div className="grid grid-cols-2 gap-3">
                             <div className="flex flex-row justify-between">
                                 <a className="mr-5 mt-2 text-black">Area Wisata</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                />
+                                <select 
+                                    placeholder="Jenis Klien" 
+                                    defaultvalue="default"
+                                    className="w-3/5 border border-gray-700 p-2 rounded mb-5"
+                                    onChange={(e) => 
+                                        setDatas({
+                                            ...datas,
+                                            idAreaWisata: e.target.value
+                                        })
+                                    }
+                                >
+                                    <option value="default">-{datas.namaArea}-</option>
+                                    {dataArea.map((aw, index) => {
+                                        return (
+                                        <option 
+                                        value={aw.id} 
+                                        key={aw.id}
+                                        >
+                                            {aw.namaArea}
+                                        </option>
+                                    )})}
+                                </select>
                             </div>
                             <div className="flex flex-row justify-between">
                                 <a className="mr-5 mt-2 text-black">Nama Destinasi Wisata</a>

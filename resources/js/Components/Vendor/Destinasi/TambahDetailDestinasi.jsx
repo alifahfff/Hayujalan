@@ -6,7 +6,6 @@ const TambahDetailDestinasi = ({visible, onClose, data}) => {
     if (!visible) return null;
 
     const [datas, setDatas] = useState(data)
-    console.log('modal data', data)
 
     const handleSubmit = () => {
         console.log('id', data.id)
@@ -23,6 +22,7 @@ const TambahDetailDestinasi = ({visible, onClose, data}) => {
         }else{
             // tambah data
             const TambahData = {
+                idDestinasiWisata : datas.idDestinasiWisata ,
                 rangePeserta: datas.rangePeserta, 
                 tiketMasukWeekday: datas.tiketMasukWeekday, 
                 tiketMasukWeekend: datas.tiketMasukWeekend,

@@ -8,6 +8,8 @@ import Pagination from "@/Components/Pagination";
 import { BsPlusSquare } from "react-icons/bs";
 import ModalCrew from "@/Components/Item Quotation/Crew/ModalCrew";
 import Layout from "@/Layouts/Layout";
+import PDFFile from "./QuotationsPDF";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 export default function Quotations(props, crewL) {
   // const {data} = this.props.location;
@@ -113,7 +115,18 @@ export default function Quotations(props, crewL) {
                 className="flex justify-center gap-6"
                 style={{ marginTop: "14rem" }}
               >
+                
                 <button className="btn btn-warning text-white px-8">PDF</button>
+                <PDFDownloadLink document={<PDFFile />} fileName="FORM">
+                {({ loading }) =>
+                  loading ? (
+                    <button></button>
+                  ) : (
+                    <button className="btn btn-secondary">PDF</button>
+                  )
+                }
+              </PDFDownloadLink>
+
                 <button className="btn btn-success text-white px-6">Excel</button>
               </div>
             </div>

@@ -22,7 +22,7 @@ class vendorTransportasi extends Model
     // yang punya id one to many
     public function AWtransportasi()
     {
-        return $this->belongsTo(areaWisata::class, 'idAreaWIsata', 'id');
+        return $this->belongsTo(areaWisata::class, 'idAreaWisata', 'id');
     }
 
     // nggak punya id

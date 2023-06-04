@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Vendor;
 
+use App\Models\Vendor\areaWisata;
 use App\Models\Vendor\vendorTransportasi;
 use App\Models\Vendor\detailVendorTransportasi;
+use App\Models\Vendor\jenisTransportasi;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
@@ -39,6 +41,7 @@ class VendorTransportasiController extends Controller
     public function store(Request $request)
     {
         $transportasi = new vendorTransportasi();
+        $transportasi->idAreaWisata = $request->idAreaWisata;
         $transportasi->namaTransportasi = $request->namaTransportasi;
         $transportasi->alamatTransportasi = $request->alamatTransportasi;
         $transportasi->tlpTransportasi = $request->tlpTransportasi;
@@ -51,6 +54,7 @@ class VendorTransportasiController extends Controller
     public function storeDetail(Request $request)
     {
         $transportasi = new detailVendorTransportasi();
+        $transportasi->idTransportasi = $request->idTransportasi;
         $transportasi->nama = $request->nama;
         $transportasi->tahun = $request->tahun;
         $transportasi->kapasitas = $request->kapasitas;
@@ -73,9 +77,11 @@ class VendorTransportasiController extends Controller
      */
     public function show(vendorTransportasi $vendorTransportasi)
     {
+        $area = areaWisata::all();
         $transportasi = vendorTransportasi::all();
         return Inertia::render('Vendor/Transportasi/VendorTransport', [
             'transportasi' => $transportasi,
+            'area' => $area,
         ]);
     }
 
@@ -87,11 +93,16 @@ class VendorTransportasiController extends Controller
      */
     public function edit(Request $request)
     {
+        $area = areaWisata::all();
         $transportasi = vendorTransportasi::findOrFail($request->id); 
-        $detail = detailVendorTransportasi::where('idTransportasi','=',$request->id)->get();
+        $detail = detailVendorTransportasi::with('jenisTransportasi', 'transportasi') 
+        -> where('idTransportasi','=',$request->id)->get();
+        $jenis = jenisTransportasi::all();
         return Inertia::render('Vendor/Transportasi/DetailTransport',[
             'transportasi' => $transportasi,  
             'detail' => $detail,
+            'jenis' => $jenis,
+            'area' => $area,
         ]);
     }
 
@@ -102,9 +113,35 @@ class VendorTransportasiController extends Controller
      * @param  \App\Models\vendorTransportasi  $vendorTransportasi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, vendorTransportasi $vendorTransportasi)
+    public function update(Request $request)
     {
-        //
+        vendorTransportasi::where('id', $request->id)->update([
+            'namaTransportasi' => $request->namaTransportasi,
+            'alamatTransportasi' => $request->alamatTransportasi,
+            'tlpTransportasi' => $request->tlpTransportasi,
+            'picTransportasi' => $request->picTransportasi,
+            'hpPicTransportasi' => $request->hpPicTransportasi,
+        ]);
+        return redirect()->back()->with('message', 'item berhasil diupdate');
+    }
+
+    public function updateDetail(Request $request)
+    {
+        detailVendorTransportasi::where('id', $request->id)->update([
+            'idJenisTransportasi' => $request->idJenisTransportasi,
+            'idTransportasi' => $request->idTransportasi,
+            'nama' => $request->nama,
+            'tahun' => $request->tahun,
+            'kapasitas' => $request->kapasitas,
+            'qtyKetersediaanUnit' => $request->qtyKetersediaanUnit,
+            'hargaSewaWeekendDalamKota' => $request->hargaSewaWeekendDalamKota,
+            'hargaSewaWeekdayDalamKota' => $request->hargaSewaWeekdayDalamKota,
+            'hargaSewaWeekendLuarKota' => $request->hargaSewaWeekendLuarKota,
+            'hargaSewaWeekdayLuarKota' => $request->hargaSewaWeekdayLuarKota,
+            'urlInterior' => $request->urlInterior,
+            'urlEksterior' => $request->urlEksterior,
+        ]);
+        return redirect()->back()->with('message', 'item berhasil diupdate');
     }
 
     /**
@@ -113,8 +150,17 @@ class VendorTransportasiController extends Controller
      * @param  \App\Models\vendorTransportasi  $vendorTransportasi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(vendorTransportasi $vendorTransportasi)
+    public function destroy(Request $request)
     {
-        //
+        $destinasi = vendorTransportasi::find($request->id);
+        $destinasi->delete();
+        return redirect()->back()->with('message', 'item berhasil dihapus');
+    }
+
+    public function destroyDetail(Request $request)
+    {
+        $detail = detailVendorTransportasi::find($request->id);
+        $detail->delete();
+        return redirect()->back()->with('message', 'item berhasil dihapus');
     }
 }
