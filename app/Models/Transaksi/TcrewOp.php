@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Itemq\crewOperasional;
 use App\Models\Quotation\quotationTransaksi;
+use App\Models\Quotation\quotationRekomendasi;
 
 class TcrewOp extends Model
 {
@@ -21,9 +22,13 @@ class TcrewOp extends Model
         return $this->belongsTo(crewOperasional::class, 'idCrewOperasional', 'id');
     }
 
-    // nggak punya id
     public function qtransaksi()
     {
-        return $this->hasMany(quotationTransaksi::class, 'idTcw', 'id');
+        return $this->belongsTo(quotationTransaksi::class, 'idQuotationTransaksion', 'id');
+    }
+
+    public function qrekomendasi()
+    {
+        return $this->belongsTo(quotationRekomendasi::class, 'idQuotationRekomendasi', 'id');
     }
 }

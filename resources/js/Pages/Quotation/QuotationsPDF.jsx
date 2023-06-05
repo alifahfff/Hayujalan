@@ -5,11 +5,18 @@ import {
   Image,
   Document,
   StyleSheet,
-  Font,
   View,
 } from "@react-pdf/renderer";
 import tourItenary from "../../../../public/assets/borobudur.jpg";
 import { wrap } from "lodash";
+import {Font} from '@react-pdf/renderer';
+import MyCustomFont from '../../../../public/assets/fonts/Roboto-Regular.ttf'
+
+
+Font.register({
+    family: 'Roboto',
+    src: MyCustomFont
+})
 
 const styles = StyleSheet.create({
   body: {
@@ -47,7 +54,7 @@ const PDFFile = () => {
           01
         </Text>
         <Text
-          style={{ fontSize: "36", fontWeight: "bold", marginBottom: "30" }}
+          style={{ fontSize: "36", fontWeight: "black", marginBottom: "30", fontFamily:"Roboto" }}
           className={styles.header}
         >
           Jelajah {"\n"} Yogyakarta

@@ -6,19 +6,21 @@ import Paginator from '@/Components/Homepage/Paginator';
 import Crew from '@/Components/Item Quotation/Crew/Crew';
 import Pagination from '@/Components/Pagination';
 import { BsPlusSquare, BsSearch } from "react-icons/bs";
-import TF from '@/Components/Item Quotation/Fasilitas Tour/TF';
-import ModalFTour from '@/Components/Item Quotation/Fasilitas Tour/ModalFTour';
-import Layout from '@/Layouts/Layout';
+import ModalCrew from '@/Components/Item Quotation/Crew/ModalCrew';
+import Search from '@/Components/Hak Akses/Search';
 import { Inertia } from '@inertiajs/inertia';
+import Layout from '@/Layouts/Layout';
+import DataQuo from '@/Components/Quotations/DataQuo';
 
-export default function FasilitasTour(props) {
-    console.log('props', props)
-    console.log('data', props.Mydata.data)
-    const [data, setData] = useState({
-        ketFasilitas: '', 
-        biayaFasilitas: '', 
-        satuan: '',
-    })
+
+export default function QuotationHistory(props) {
+    // console.log('props', props)
+    // console.log('length', props.crew.data.length)
+    // const [data, setData] = useState({
+    //     ketCrewOperasional: '', 
+    //     biayaCrewOperasional: '', 
+    //     satuan: '',
+    // })
     
     const search = (key) => {
       console.log('key', key)
@@ -31,32 +33,32 @@ export default function FasilitasTour(props) {
     );
     }
 
-    const [showModal, setShowModal] = useState(false);
+    // const [showModal, setShowModal] = useState(false);
     
     const handleOnClose = () => setShowModal(false);
 
   return (
-    <div className='min-h-screen bg-abu'>
+    <div className='bg-abu'>
             {/* Content */}
             <div className='ml-6'>
-                <a>Item Quotation / Fasilitas Tour</a>
+                <a>Quotation</a>
             </div>
             <div className='flex justify-between m-6 mt-2 mb-3'>
-                <a className='text-2xl font-bold text-black'>Fasilitas Tour</a>
+                <a className='text-2xl font-bold text-black'>Quotation</a>
                 <div className='flex flex-row'>
 
                     {/* Search bar */}
                     <form>
-                        <div className="relative">
-                            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <BsSearch/>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                {/* <BsSearch/> */}
                             </div>
                             <input 
                             type="search" 
                             className="input input-bordered bg-white pl-10"
                             placeholder="Search..."
                             onChange={(e) => search(e.target.value)} 
-                            /> 
+                            />
                         </div> 
                     </form>
                     
@@ -76,29 +78,21 @@ export default function FasilitasTour(props) {
 
                     {/* Data */}
                     <div className=''>
-                        <TF data={props.Mydata}/>
+                    <DataQuo quotation={props.quotation}/>
                         <div className='m-2 flex justify-between items-center'>
-                        {props.Mydata.data.length > 0 && (
-                            <a className='text-[10px] text-black'>Showing {props.Mydata.from} - {props.Mydata.from + props.Mydata.data.length -1} of {props.Mydata.total}</a>
-                         )} 
-                         
-                         {props.Mydata.data.length == 0 && (
-                            <a className='text-[10px] text-black'>Showing {props.Mydata.total} data</a>
-                         )}
-                        <Pagination meta={props.Mydata}/>
-                        </div>
+                        <a className='text-[10px] text-black'>Showing 1 - 4 of 10</a>                    </div>
                     </div>
                 </div>
             </div>
 
-
             {/* Modals Tambah Data */}
-            <ModalFTour 
+            {/* <ModalCrew 
                 onClose={handleOnClose} 
                 visible={showModal}
-                data={data}/>
+                crew={data}/> */}
         </div>
   )
 }
 
-FasilitasTour.layout = page => <Layout children={page}/>
+
+QuotationHistory.layout = (page) => <Layout children={page} />;

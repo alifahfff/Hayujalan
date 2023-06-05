@@ -13,18 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('quotation_rekomendasis', function (Blueprint $table) {
-            $table->id();
+        Schema::table('tpenginapans', function (Blueprint $table) {
             $table->foreignId('idQuotationTransaksion')->constrained(
                 table: 'quotation_transaksis'
             )->onDelete('cascade')->onUpdate('cascade');
             //
-            $table->foreignId('idQuotationTour')->constrained(
-                table: 'quotation_tours'
+            $table->foreignId('idQuotationRekomendasi')->constrained(
+                table: 'quotation_rekomendasis'
             )->onDelete('cascade')->onUpdate('cascade');
-            //
-            $table->float('totalPrice', 10, 2);
-            $table->timestamps();
         });
     }
 
@@ -35,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quotation_rekomendasis');
+        //
     }
 };
