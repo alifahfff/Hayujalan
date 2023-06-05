@@ -23,6 +23,7 @@ return new class extends Migration
                 table: 'quotation_tours'
             )->onDelete('cascade')->onUpdate('cascade');
             //
+            $table->float('totalPrice', 10, 2);
             $table->timestamps();
         });
     }

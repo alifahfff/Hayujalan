@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\Report\ReportController;
 use App\Http\Controllers\Akses\AksesController;
 use App\Http\Controllers\VendorController;
+use App\Http\Controllers\QuotationRekomendasiController;
 use App\Http\Controllers\Itemq\CrewOperasionalController;
 use App\Http\Controllers\Itemq\FasilitasTourController;
 use App\Http\Controllers\Itemq\DataEventController;
@@ -122,9 +123,8 @@ Route::controller(AksesController::class)->group(function () {
 // Quotation
 Route::controller(QuotationTourController::class)->group(function () {
     Route::get('/quotation', 'show')->name('quotation');
-    Route::get('/quotation/qmanualform/', 'form')->name('quotationform');
+    // Route::get('/quotation/qmanualform/', 'form')->name('quotationform');
     Route::get('/quotation/qmanualresult/', 'result')->name('quotationresult');
-    Route::get('/quotation/qrecomend/', 'showrec')->name('quotationrecomend'); 
     Route::get('/quotation/qrecomendform/', 'formrec')->name('quotationrecomendform'); 
     Route::get('/quotation/qrecomendresult/', 'recresult')->name('quotationrecomendresult'); 
     Route::get('/quotation/qrecomendpdf/', 'recresult')->name('quotationrecomendpdf');
@@ -136,6 +136,11 @@ Route::controller(QuotationTourController::class)->group(function () {
     Route::post('/quotation/delete', 'destroy')->name('delete.quotation');
 });
 
+
+//Quotation Rekomendasi
+Route::controller(QuotationRekomendasiController::class)->group(function(){
+    Route::get('/quotation/qrecomend/', 'showrec')->name('quotationrecomend'); 
+});
 // Dashboard
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -151,7 +156,7 @@ Route::controller(VendorDestinasiWisataController::class)->group(function(){
     Route::post('/destinasiwisata/update/detail', 'updateDetail')->name('update.detail');
     Route::post('/destinasiwisata/delete', 'destroy')->name('delete.destinasi');
     Route::post('/destinasiwisata/delete/detail', 'destroyDetail')->name('delete.detail');
-    // Route::get('/destinasiwisata/details/{id}', 'detail')->name('destinasiwisata.details');
+    Route::get('/destinasiwisata/details', 'detail')->name('destinasiwisata.details');
 });
 
 // Vendor Area Wisata

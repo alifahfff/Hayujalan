@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Vendor\vendorDestinasiWisata;
 use App\Models\Quotation\quotationTransaksi;
+use App\Models\Quotation\quotationRekomendasi;
 
 class TDestinasiWisata extends Model
 {
@@ -21,9 +22,13 @@ class TDestinasiWisata extends Model
         return $this->belongsTo(vendorDestinasiWisata::class, 'idDestinasiWisata', 'id');
     }
 
-    // nggak punya id
     public function qtransaksi()
     {
-        return $this->hasMany(quotationTransaksi::class, 'idTDestinasiWisata', 'id');
+        return $this->belongsTo(quotationTransaksi::class, 'idQuotationTransaksion', 'id');
+    }
+
+    public function qrekomendasi()
+    {
+        return $this->belongsTo(quotationRekomendasi::class, 'idQuotationRekomendasi', 'id');
     }
 }

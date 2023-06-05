@@ -8,10 +8,18 @@ import Pagination from "@/Components/Pagination";
 import { BsPlusSquare } from "react-icons/bs";
 import ModalCrew from "@/Components/Item Quotation/Crew/ModalCrew";
 import Layout from "@/Layouts/Layout";
+import { useState } from "react";
 
-export default function Quotations(props, crewL) {
+export default function Quotations(props) {
   // const {data} = this.props.location;
-  console.log("CrewL", crewL);
+  console.log("cek", props.areawisata);
+
+  const [data, setData] = useState({
+      id:'',
+      namaJenisKlien: '',
+      namaBobot: '',
+  })
+
   return (
     <div className="min-h-screen bg-abu ">
       {/* Content */}
@@ -34,67 +42,139 @@ export default function Quotations(props, crewL) {
                   className="input border-2 border-inherit  bg-inherit  w-2/4 mr-52"
                 />
               </label>
+              {/* <a>{props.areawisata.bo}</a> */}
 
               <label className="label">
                 <span className="label-text  text-black">Paket</span>
-                <select className="select  bg-inherit border-2 border-inherit w-2/4 mr-52">
-                  <option disabled selected>
-                    Pilih Paket
-                  </option>
-                  <option>Homer</option>
-                  <option>Marge</option>
-                  <option>Bart</option>
-                  <option>Lisa</option>
-                  <option>Maggie</option>
-                </select>
+                    <select 
+                      placeholder="Jenis Klien" 
+                      defaultvalue="default"
+                      className="select  bg-inherit border-2 border-inherit w-2/4 ml-36"
+                      onChange={(e) => 
+                        setData({
+                          ...data,
+                          id: e.target.value
+                         })
+                      }
+                    >
+                    <option value="default">- Pilih paket -</option>
+                        {props.kategori.map((jk, index) => {
+                            return (
+                              <option 
+                                value={jk.id} 
+                                key={jk.id}
+                              >
+                                {jk.namaBobot}
+                              </option>
+                            )})}
+                    </select>
+                    <span className="label-text  text-black ml-5">Bobot</span>
+                    <input
+                      type="text"
+                      className="input border-2 border-inherit  bg-inherit  w-3/4 ml-5"
+                    />      
               </label>
 
               <label className="label">
                 <span className="label-text  text-black">Jumlah Orang</span>
                 <input
                   type="text"
-                  className="input border-2 border-inherit bg-inherit  w-2/4 mr-52"
+                  className="input border-2 border-inherit bg-inherit  w-3/4 ml-36"
                 />
+                 <span className="label-text  text-black ml-10">Bobot</span>
+                    <input
+                      type="text"
+                      className="input border-2 border-inherit  bg-inherit  w-1/4 ml-5"
+                    /> 
               </label>
 
               <label className="label">
                 <span className="label-text  text-black">Hari</span>
                 <input
                   type="text"
+                  className="input border-2 border-inherit bg-inherit  w-3/4 ml-40"
+                />
+                 <span className="label-text  text-black ml-10">Bobot</span>
+                    <input
+                      type="text"
+                      className="input border-2 border-inherit  bg-inherit  w-1/4 ml-5"
+                    /> 
+              </label>
+
+              {/* <label className="label">
+                <span className="label-text  text-black">Hari</span>
+                <input
+                  type="text"
                   className="input border-2 border-inherit bg-inherit  w-2/4 mr-52"
                 />
-              </label>
+              </label> */}
 
               <label className="label">
                 <span className="label-text  text-black ">Area Wisata</span>
-                <select className="select  bg-inherit border-2 border-inherit w-2/4 mr-52">
-                  <option disabled selected>
-                    Pilih Paket
-                  </option>
-                  <option>Homer</option>
-                  <option>Marge</option>
-                  <option>Bart</option>
-                  <option>Lisa</option>
-                  <option>Maggie</option>
-                </select>
+                <select 
+                                    placeholder="Jenis Klien" 
+                                    defaultvalue="default"
+                                    className="select  bg-inherit border-2 border-inherit w-2/4 ml-32"
+                                    onChange={(e) => 
+                                        setData({
+                                            ...data,
+                                            id: e.target.value
+                                        })
+                                    }
+                                >
+                                    <option value="default">- Pilih Area Wisata -</option>
+                                    {props.areawisata.map((jk, index) => {
+                                        return (
+                                        <option 
+                                        value={jk.id} 
+                                        key={jk.id}
+                                        >
+                                            {jk.namaBobot}
+                                        </option>
+                                    )})}
+                                </select>
+                    <span className="label-text  text-black ml-5">Bobot</span>
+                        <input
+                          type="text"
+                          className="input border-2 border-inherit  bg-inherit  w-3/4 ml-5"
+                        /> 
               </label>
 
               <label className="label">
                 <span className="label-text  text-black ">Budget</span>
-                <select className="select  bg-inherit border-2 border-inherit w-2/4 mr-52">
-                  <option disabled selected>
-                    Pilih Budget
-                  </option>
-                  <option>Homer</option>
-                  <option>Marge</option>
-                  <option>Bart</option>
-                  <option>Lisa</option>
-                  <option>Maggie</option>
-                </select>
+                <select 
+                                    placeholder="Jenis Klien" 
+                                    defaultvalue="default"
+                                    className="select  bg-inherit border-2 border-inherit w-2/4 ml-32"
+                                    onChange={(e) => 
+                                        setData({
+                                            ...data,
+                                            id: e.target.value
+                                        })
+                                    }
+                                >
+                                    <option value="default">- Pilih Area Wisata -</option>
+                                    {props.budget.map((jk, index) => {
+                                        return (
+                                        <option 
+                                        value={jk.id} 
+                                        key={jk.id}
+                                        >
+                                            {jk.namaBobot}
+                                        </option>
+                                    )})}
+                                </select>
+                    <span className="label-text  text-black ml-5">Bobot</span>
+                        <input
+                          type="text"
+                          className="input border-2 border-inherit  bg-inherit  w-3/4 ml-5"
+                        /> 
               </label>
             </form>
-            <div>
-              <button className="btn bg-green-600 text-white border-0 btn-md w-1/6 h-0 float-right">
+            <div className="mt-10">
+              <button 
+              className="btn bg-green-600 text-white border-0 btn-md w-1/6 h-0 float-right"
+              onClick={() => setShowModal(true)}>
                 submit
               </button>
             </div>

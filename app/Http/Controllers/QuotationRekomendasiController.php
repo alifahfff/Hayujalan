@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\quotationRekomendasi;
+use App\Models\Vendor\areaWisata;
+use App\Models\Quotation\dataBobot;
+use App\Models\Quotation\quotationTour;
+use App\Models\Itemq\dataJenisKlien;
 use App\Http\Controllers\Controller;
+use Inertia\Inertia;
 use Illuminate\Http\Request;
 
 class QuotationRekomendasiController extends Controller
@@ -26,6 +31,23 @@ class QuotationRekomendasiController extends Controller
     public function create()
     {
         //
+    }
+
+    public function showrec(quotationTour $quotationTour)
+    {
+        $areawisata = dataBobot::with('kriteria')
+        ->where('idKriteria', '=', '1')->get();
+        $kategori = dataBobot::with('kriteria')
+        ->where('idKriteria', '=', '2')->get();
+        $budget = dataBobot::with('kriteria')
+        ->where('idKriteria', '=', '3')->get();
+        $jenisPaket = dataJenisKlien::all();
+        return Inertia::render('Quotation/QuotationsRecomend', [
+            'jenisPaket' => $jenisPaket,
+            'areawisata' => $areawisata,
+            'kategori' => $kategori,
+            'budget' => $budget,
+        ]);
     }
 
     /**
