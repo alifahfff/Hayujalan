@@ -21,6 +21,7 @@ use App\Models\Itemq\dataEvent;
 use App\Models\Itemq\dataBonus;
 use App\Models\Itemq\dataJenisKlien;
 use App\Models\Quotation\quotationTransaksi;
+use App\Models\Quotation\dataBobot;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
@@ -119,10 +120,7 @@ class QuotationTourController extends Controller
         return Inertia::render('Quotation/QuotationsResult');
     }
 
-    public function showrec(quotationTour $quotationTour)
-    {
-        return Inertia::render('Quotation/QuotationsRecomend');
-    }
+   
     public function formrec(quotationTour $quotationTour)
     {
         return Inertia::render('Quotation/QuotationsRecomendForm');
