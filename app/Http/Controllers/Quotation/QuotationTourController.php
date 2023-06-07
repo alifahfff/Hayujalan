@@ -144,6 +144,17 @@ class QuotationTourController extends Controller
         ]);
     }
 
+    
+    public function qhistoryresult(quotationTransaksi $quotationTour)
+    {
+        $area = areaWisata::all();
+        $quotation = quotationTransaksi::with('quotation.areaWisata','quotation.kategori')->get();
+        return Inertia::render('Quotation/DataQuoResult', [
+            'quotation' => $quotation,
+            'area' => $area,
+        ]);
+    }
+
     public function sh(Request $request)
     {
         
