@@ -138,7 +138,8 @@ Route::controller(QuotationTourController::class)->group(function () {
 
 //Quotation Rekomendasi
 Route::controller(QuotationRekomendasiController::class)->group(function(){
-    Route::get('/quotation/qrecomend/', 'showrec')->name('quotationrecomend'); 
+    Route::get('/quotation/qrecomend/', 'showrec')->name('quotationrecomend');
+    Route::post('/quotation/qrecomend', 'store')->name('create.bobot');
 });
 // Dashboard
 Route::get('/dashboard', function () {

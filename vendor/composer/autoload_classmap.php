@@ -69,6 +69,7 @@ return array(
     'App\\Models\\News' => $baseDir . '/app/Models/News.php',
     'App\\Models\\Quotation\\dataBobot' => $baseDir . '/app/Models/Quotation/dataBobot.php',
     'App\\Models\\Quotation\\dataKriteria' => $baseDir . '/app/Models/Quotation/dataKriteria.php',
+    'App\\Models\\Quotation\\hasilQRekomendasi' => $baseDir . '/app/Models/Quotation/hasilQRekomendasi.php',
     'App\\Models\\Quotation\\quotationRekomendasi' => $baseDir . '/app/Models/Quotation/quotationRekomendasi.php',
     'App\\Models\\Quotation\\quotationTour' => $baseDir . '/app/Models/Quotation/quotationTour.php',
     'App\\Models\\Quotation\\quotationTransaksi' => $baseDir . '/app/Models/Quotation/quotationTransaksi.php',

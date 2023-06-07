@@ -595,6 +595,7 @@ class ComposerStaticInit9793f31d07e71351c587e2e7a22406a9
         'App\\Models\\News' => __DIR__ . '/../..' . '/app/Models/News.php',
         'App\\Models\\Quotation\\dataBobot' => __DIR__ . '/../..' . '/app/Models/Quotation/dataBobot.php',
         'App\\Models\\Quotation\\dataKriteria' => __DIR__ . '/../..' . '/app/Models/Quotation/dataKriteria.php',
+        'App\\Models\\Quotation\\hasilQRekomendasi' => __DIR__ . '/../..' . '/app/Models/Quotation/hasilQRekomendasi.php',
         'App\\Models\\Quotation\\quotationRekomendasi' => __DIR__ . '/../..' . '/app/Models/Quotation/quotationRekomendasi.php',
         'App\\Models\\Quotation\\quotationTour' => __DIR__ . '/../..' . '/app/Models/Quotation/quotationTour.php',
         'App\\Models\\Quotation\\quotationTransaksi' => __DIR__ . '/../..' . '/app/Models/Quotation/quotationTransaksi.php',

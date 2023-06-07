@@ -11,6 +11,7 @@ class dataKlien extends Model
 
     protected $table = "data_kliens";
     protected $primaryKey = "id";
+    protected $fillable = ['namaKlien', 'jenis_klien_id'];
 
     // yang punya id one to many
     // klien memiliki data yang ada pada jenis klien

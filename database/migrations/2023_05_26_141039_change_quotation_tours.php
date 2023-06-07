@@ -29,6 +29,7 @@ return new class extends Migration
             $table->foreignId('idKriteria')->constrained(
                 table: 'data_kriterias'
             )->onDelete('cascade')->change();
+            
         });
     }
 

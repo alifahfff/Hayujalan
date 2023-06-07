@@ -44,7 +44,7 @@ export default function Homepage(props) {
                     onClick={() => setShowModal(true)}
                     className="btn gap-2 btn-outline rounded-full btn-sm px-5 bg-white hover:bg-gray-100 text-[#C1C0BF]"
                   >
-                    Tambah Data | <BsPlusSquare />
+                    Pilih Bulan | <BsPlusSquare />
                   </button>
                 </div>
               </div>
