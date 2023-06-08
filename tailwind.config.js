@@ -18,7 +18,10 @@ module.exports = {
                 "blue": "#192D41",
                 "abu" : "#F2F4F1",
                 "kuning" : "#FCCD07",
-                "putih" : "#FFFFFF"
+                "putih" : "#FFFFFF",
+                "hijau" : "#99E198",
+                "merah" : "#FF8080",
+                "abu2" : "#C7C5C5",
             },
             fontSize: {
                 sm: '0.8rem',

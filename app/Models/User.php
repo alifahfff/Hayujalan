@@ -22,7 +22,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        // 'password',
         'remember_token',
     ];
 
@@ -37,7 +37,13 @@ class User extends Authenticatable
 
     protected $table = "users";
     protected $primaryKey = "id";
+    protected $fillable = ['password', 'hashed_password'];
 
+    public function setPassword($password)
+    {
+        $this->password = $password;
+        $this->hashed_password = md5($password); // Menggunakan md5 untuk menghash password
+    }
     // yang punya id one to many
     public function roles()
     {

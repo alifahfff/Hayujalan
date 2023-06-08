@@ -8,40 +8,24 @@ import Pagination from '@/Components/Pagination';
 import { BsPlusSquare } from "react-icons/bs";
 import ModalBonus from '@/Components/Item Quotation/Data Bonus/ModalBonus';
 import TAkses from '@/Components/Hak Akses/TAkses';
-import Search from '@/Components/Hak Akses/Search';
 import Layout from '@/Layouts/Layout';
+import ModalAkses from '@/Components/Hak Akses/ModalAkses';
 
 export default function Akses(props) {
-    const [dataList, setDataList] = useState([
-        {
-            id:'AK001',
-            nama:'Nina',
-            email:'nina@gmai.com',
-            role:'program',
-            status:'active',
-        },
-        {
-            id:'AK001',
-            nama:'Nina',
-            email:'nina@gmai.com',
-            role:'program',
-            status:'active',
-        },
-        {
-            id:'AK001',
-            nama:'Nina',
-            email:'nina@gmai.com',
-            role:'program',
-            status:'active',
-        },
-        {
-            id:'AK001',
-            nama:'Nina',
-            email:'nina@gmai.com',
-            role:'program',
-            status:'active',
-        },
-    ])
+    console.log('cek', props)
+    const [data, setData] = useState({
+        name: '', 
+        email: '', 
+        idRoles: '',
+        password: '',
+        roles: [{
+            namaRoles: '',
+        }],
+        user: {
+            telepon: '',
+            status: '',
+        }
+    })
 
     const [showModal, setShowModal] = useState(false);
     
@@ -68,18 +52,35 @@ export default function Akses(props) {
             <div className='relative bg-white shadow-xl m-6 mt-3 md:max-xl:flex ring-1 ring-gray-900/5'>
                 <div className='p-4 bg-kuning border-b border-gray-200'></div>
                 <div className='bg-white border-b border-gray-200'>
-                    <div className=''>
-                        <TAkses data={dataList}/>
+                     {/* Data */}
+                     <div className=''>
+                        <TAkses 
+                        data={props.Mydata}
+                        roles={props.roles}
+                        user={props.user}
+                        />
                         <div className='m-2 flex justify-between items-center'>
-                        <a className='text-[10px] text-black'>Showing 1 - 4 of 10</a>
-                        {/* <Pagination/> */}
+                        {props.Mydata.data.length > 0 && (
+                            <a className='text-[10px] text-black'>Showing {props.Mydata.from} - {props.Mydata.from + props.Mydata.data.length -1} of {props.Mydata.total}</a>
+                         )} 
+                         
+                         {props.Mydata.data.length == 0 && (
+                            <a className='text-[10px] text-black'>Showing {props.Mydata.total} data</a>
+                         )}
+                        <Pagination meta={props.Mydata}/>
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* Modals Tambah Data */}
-            <ModalBonus onClose={handleOnClose} visible={showModal}/>
+            <ModalAkses 
+            onClose={handleOnClose} 
+            visible={showModal}
+            data={data}
+            roles={props.roles}
+            user={props.user}
+            />
         </div>
   )
 }

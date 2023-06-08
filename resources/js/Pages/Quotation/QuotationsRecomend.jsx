@@ -30,7 +30,7 @@ export default function Quotations(props) {
     console.log("e", e.target.value)
     console.log("params", params)
     if(params == 'area'){
-      const totalB = parseFloat(e.target.value) - parseFloat(props.minArea) / parseFloat(props.maxArea) - parseFloat(props.minArea)
+      const totalB = 0 + (parseFloat(e.target.value) - parseFloat(props.minArea)) * (1-0) / (parseFloat(props.maxArea) - parseFloat(props.minArea))
       console.log('totalB', totalB)
       setData({
         ...data,
@@ -38,7 +38,7 @@ export default function Quotations(props) {
       })
     }
     if(params == 'kategori'){
-      const totalB = parseFloat(e.target.value) - parseFloat(props.minKategori) / parseFloat(props.maxKategori) - parseFloat(props.minKategori)
+      const totalB = 0 + (parseFloat(e.target.value) - parseFloat(props.minKategori)) * (1-0) / (parseFloat(props.maxKategori) - parseFloat(props.minKategori))
       console.log('totalB', totalB)
       setData({
         ...data,
@@ -46,7 +46,7 @@ export default function Quotations(props) {
       })
     }
     if(params == 'durasi'){
-      const totalB = parseFloat(e.target.value) - parseFloat(props.minDurasi) / parseFloat(props.maxDurasi) - parseFloat(props.minDurasi)
+      const totalB = 0 + (parseFloat(e.target.value) - parseFloat(props.minDurasi)) * (1-0) / (parseFloat(props.maxDurasi) - parseFloat(props.minDurasi))
       console.log('totalB', totalB)
       setData({
         ...data,
@@ -54,7 +54,8 @@ export default function Quotations(props) {
       })
     }
     if(params == 'budget'){
-      const totalB = parseFloat(e.target.value) - parseFloat(props.minBudget) / parseFloat(props.maxBudget) - parseFloat(props.minBudget)
+      
+      const totalB = 0 + (parseFloat(e.target.value) - parseFloat(props.minBudget)) * (1-0) / (parseFloat(props.maxBudget) - parseFloat(props.minBudget))
       console.log('totalB', totalB)
       setData({
         ...data,
@@ -62,7 +63,7 @@ export default function Quotations(props) {
       })
     }
     if(params == 'qty'){
-      const totalB = parseFloat(e.target.value) - parseFloat(props.minQTY) / parseFloat(props.maxQTY) - parseFloat(props.minQTY)
+      const totalB = 0 + (parseFloat(e.target.value) - parseFloat(props.minQTY)) * (1-0) / (parseFloat(props.maxQTY) - parseFloat(props.minQTY))
       console.log('totalB', totalB)
       setData({
         ...data,
@@ -95,7 +96,8 @@ export default function Quotations(props) {
       <div className="relative bg-white shadow-xl m-6 mt-3 md:max-xl:flex ring-1 ring-gray-900/5">
         <div className="p-4 bg-kuning border-b border-gray-200"></div>
         <div className="bg-white border-b border-gray-200">
-          <div className="flex flex-col px-11 pt-6 pb-8 ">
+          
+          <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
             <a className="mr-5 mt-2 text-black font-bold mb-4">Quotation</a>
             <form className="max-w-3xl space-y-6 ">
               <label className="label">
@@ -135,10 +137,21 @@ export default function Quotations(props) {
                             )})}
                     </select>
                     <span className="label-text  text-black ml-5">Bobot</span>
-                    <input
-                      type="text"
-                      className="input border-2 border-inherit  bg-inherit  w-3/4 ml-5"
-                    />      
+                    <select 
+                      placeholder="Jenis Klien" 
+                      defaultvalue="default"
+                      className="select  bg-inherit border-2 border-inherit w-2/4 ml-36"
+                      onChange={(e) => 
+                        normalisasi(e, 'kategori')
+                      }
+                    >
+                    <option value="default">- Pilih prioritas -</option>  
+                    <option value="default">1</option> 
+                    <option value="default">2</option> 
+                    <option value="default">3</option> 
+                    <option value="default">4</option> 
+                    <option value="default">5</option>  
+                    </select>
               </label>
 
               <label className="label">
@@ -163,10 +176,21 @@ export default function Quotations(props) {
                             )})}
                     </select>
                     <span className="label-text  text-black ml-5">Bobot</span>
-                    <input
-                      type="text"
-                      className="input border-2 border-inherit  bg-inherit  w-3/4 ml-5"
-                    />      
+                    <select 
+                      placeholder="Jenis Klien" 
+                      defaultvalue="default"
+                      className="select  bg-inherit border-2 border-inherit w-2/4 ml-36"
+                      onChange={(e) => 
+                        normalisasi(e, 'kategori')
+                      }
+                    >
+                    <option value="default">- Pilih prioritas -</option>  
+                    <option value="default">1</option> 
+                    <option value="default">2</option> 
+                    <option value="default">3</option> 
+                    <option value="default">4</option> 
+                    <option value="default">5</option>  
+                    </select> 
               </label>
 
               <label className="label">
@@ -191,10 +215,21 @@ export default function Quotations(props) {
                             )})}
                     </select>
                     <span className="label-text  text-black ml-5">Bobot</span>
-                    <input
-                      type="text"
-                      className="input border-2 border-inherit  bg-inherit  w-3/4 ml-5"
-                    />      
+                    <select 
+                      placeholder="Jenis Klien" 
+                      defaultvalue="default"
+                      className="select  bg-inherit border-2 border-inherit w-2/4 ml-36"
+                      onChange={(e) => 
+                        normalisasi(e, 'kategori')
+                      }
+                    >
+                    <option value="default">- Pilih prioritas -</option>  
+                    <option value="default">1</option> 
+                    <option value="default">2</option> 
+                    <option value="default">3</option> 
+                    <option value="default">4</option> 
+                    <option value="default">5</option>  
+                    </select>    
               </label>
 
               {/* <label className="label">
@@ -227,10 +262,21 @@ export default function Quotations(props) {
                     )})}
                   </select>
                   <span className="label-text  text-black ml-5">Bobot</span>
-                  <input
-                    type="text"
-                    className="input border-2 border-inherit  bg-inherit  w-3/4 ml-5"
-                  /> 
+                  <select 
+                      placeholder="Jenis Klien" 
+                      defaultvalue="default"
+                      className="select  bg-inherit border-2 border-inherit w-2/4 ml-36"
+                      onChange={(e) => 
+                        normalisasi(e, 'kategori')
+                      }
+                    >
+                    <option value="default">- Pilih prioritas -</option>  
+                    <option value="default">1</option> 
+                    <option value="default">2</option> 
+                    <option value="default">3</option> 
+                    <option value="default">4</option> 
+                    <option value="default">5</option>  
+                    </select>
               </label>
 
               <label className="label">
@@ -255,10 +301,21 @@ export default function Quotations(props) {
                                     )})}
                                 </select>
                     <span className="label-text  text-black ml-5">Bobot</span>
-                        <input
-                          type="text"
-                          className="input border-2 border-inherit  bg-inherit  w-3/4 ml-5"
-                        /> 
+                    <select 
+                        placeholder="Jenis Klien" 
+                        defaultvalue="default"
+                        className="select  bg-inherit border-2 border-inherit w-2/4 ml-36"
+                        onChange={(e) => 
+                          normalisasi(e, 'kategori')
+                        }
+                    >
+                      <option value="default">- Pilih prioritas -</option>  
+                      <option value="default">1</option> 
+                      <option value="default">2</option> 
+                      <option value="default">3</option> 
+                      <option value="default">4</option> 
+                      <option value="default">5</option>  
+                    </select>
               </label>
             </form>
             <div className="mt-10">

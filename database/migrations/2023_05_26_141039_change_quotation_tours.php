@@ -18,7 +18,7 @@ return new class extends Migration
                 table: 'user_programs'
             )->onDelete('cascade')->change();
             $table->foreignId('idUserSales')->constrained(
-                table: 'users'
+                table: 'user_sales'
             )->onDelete('cascade')->change();
             $table->foreignId('idAreaWisata')->constrained(
                 table: 'area_wisatas'

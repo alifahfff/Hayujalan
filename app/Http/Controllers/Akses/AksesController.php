@@ -4,6 +4,12 @@ namespace App\Http\Controllers\Akses;
 
 use Inertia\Inertia;
 use App\Models\Akses\Akses;
+use App\Models\Akses\roles;
+use App\Models\Akses\userKeuangan;
+use App\Models\Akses\userSales;
+use App\Models\Akses\userProgram;
+use App\Models\Akses\userAdmin;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -42,7 +48,22 @@ class AksesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $klien = dataKlien::create([
+            'jenis_klien_id' => 1,
+            'namaKlien' => $request->namaKlien,
+        ]);
+
+        $rekomendasi = new hasilQRekomendasi([
+            'b_areaWisata' => $request->b_areaWisata,
+            'b_kategori' => $request->b_kategori,
+            'b_budget' => $request->b_budget,
+            'b_durasi' => $request->b_durasi,
+            'b_jumlahOrang' => $request->b_jumlahOrang,
+            'idDataKlien' => $klien->id,
+        ]);
+
+        $rekomendasi->save();
+        return redirect()->back()->with('message', 'item berhasil dibuat');
     }
 
     /**
@@ -52,8 +73,25 @@ class AksesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Akses $akses)
-    {
-        return Inertia::render('Hak Akses/Akses');
+    {   
+        $roles = roles::all();
+        $mydata = User::with('roles')
+            ->paginate(4);
+        $sales = userSales::all();
+        $keuangan = userKeuangan::all();
+        $program = userProgram::all();
+        $admin = userAdmin::all();
+        $user = [
+            'keuangan' => $keuangan, 
+            'program' => $program, 
+            'sales' => $sales,
+            'admin' => $admin,
+        ];
+        return Inertia::render('Hak Akses/Akses', [
+            'Mydata' => $mydata,
+            'roles' => $roles,
+            'user' => $user,
+        ]);
     }
 
     /**
