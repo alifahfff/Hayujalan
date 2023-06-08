@@ -30,18 +30,18 @@ const DataQuo = ({quotation}) => {
                                 <td className="whitespace-nowrap px-6 py-4">{cr.status}</td>
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                                     <button 
-                                        onClick={() => {
-                                            setShowModal(true)
-                                            setCrewL(cr)
-                                        }}
+                                        // onClick={() => {
+                                        //     setShowModal(true)
+                                        //     setCrewL(cr)
+                                        // }}
                                         className="btn btn-ghost btn-sm mr-2"
                                     ><BsPencilSquare/></button>
                                     <button 
                                         className="btn btn-ghost btn-sm"
-                                        onClick={() => {
-                                            setShowDelete(true)
-                                            setCrewL(cr)
-                                        }}
+                                        // onClick={() => {
+                                        //     setShowDelete(true)
+                                        //     setCrewL(cr)
+                                        // }}
                                     >
                                      <BsTrash3/>   
                                     </button>

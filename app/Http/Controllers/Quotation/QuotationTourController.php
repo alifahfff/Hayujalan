@@ -118,9 +118,7 @@ class QuotationTourController extends Controller
     public function result(quotationTour $quotationTour)
     {
         return Inertia::render('Quotation/QuotationsResult');
-    }
-
-   
+    }   
     public function formrec(quotationTour $quotationTour)
     {
         return Inertia::render('Quotation/QuotationsRecomendForm');
@@ -144,7 +142,7 @@ class QuotationTourController extends Controller
         ]);
     }
 
-    
+
     public function qhistoryresult(quotationTransaksi $quotationTour)
     {
         $area = areaWisata::all();
@@ -157,9 +155,9 @@ class QuotationTourController extends Controller
 
     public function sh(Request $request)
     {
-        
-    }
 
+    }
+    
     /**
      * Show the form for editing the specified resource.
      *
