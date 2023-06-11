@@ -11,8 +11,9 @@ import Layout from "@/Layouts/Layout";
 import PDFFile from "./QuotationsPDF";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 
-const DataQuoResult = ({ quotation }) => {
+export default function DataQuoResult(props) {
   // const {data} = this.props.location;
+  console.log('props',props);
   return (
     <div className="min-h-screen bg-abu ">
       {/* Content */}
@@ -77,20 +78,15 @@ const DataQuoResult = ({ quotation }) => {
                     </label>
                   </form>
                 </div>
-                {quotation.map((cr, index) => {
-                  console.log("cr", cr);
-                  return (
-                    <div className="flex flex-col pt-24 pb-8">
-                      <form
-                        className="space-y-3 font-medium text-left"
-                        key={index}
-                      >
-                        <label className="label">
-                          <span className="label-text text-black mr-12">
-                            {cr.namaKlien}
-                          </span>
-                        </label>
-                        <label className="label">
+
+                <div className="flex flex-col pt-24 pb-8">
+                  <form className="space-y-3 font-medium text-left">
+                    <label className="label">
+                      <span className="label-text text-black mr-12">
+                        {props.quotation.namaKlien}
+                      </span>
+                    </label>
+                    {/* <label className="label">
                           <span className="label-text text-black">               
                             {cr.quotation.kategori.namaKategoriTour}
                           </span>
@@ -117,11 +113,9 @@ const DataQuoResult = ({ quotation }) => {
                           <span className="label-text text-black">
                             {cr.totalPrice}
                           </span>
-                        </label>
-                      </form>
-                    </div>
-                  );
-                })}
+                        </label> */}
+                  </form>
+                </div>
               </div>
               <div
                 className="flex justify-center gap-6"
@@ -148,7 +142,6 @@ const DataQuoResult = ({ quotation }) => {
       </div>
     </div>
   );
-};
+}
 
-export default DataQuoResult;
 DataQuoResult.layout = (page) => <Layout children={page} />;

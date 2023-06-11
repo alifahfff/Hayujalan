@@ -6,6 +6,7 @@ use App\Http\Resources\NewsCollection;
 use Inertia\Inertia;
 use App\Models\News;
 use App\Models\User;
+use App\Models\Quotation\quotationTransaksi;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -17,13 +18,17 @@ class NewsController extends Controller
      */
     public function index()
     {
-        
+        $count = quotationTransaksi::where('status', 'ditolak')->count();
+        $count2 = quotationTransaksi::where('status', 'diterima')->count();
+        $count3 = quotationTransaksi::where('status', 'menunggu')->count();
         return Inertia::render('Homepage', [
-            'title' => "CUY UNIVERSE HOME",
-            'description' => "Selamat Datang Di Cuy Universe News Portal",
-            'news' => $news,
+            'count' => $count,
+            'count2' => $count2,
+            'count3' => $count3
         ]);
     }
+
+  
 
     public function view()
     {

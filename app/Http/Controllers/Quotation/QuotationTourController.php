@@ -142,14 +142,39 @@ class QuotationTourController extends Controller
         ]);
     }
 
-
-    public function qhistoryresult(quotationTransaksi $quotationTour)
+    public function editQhistory(Request $request)
     {
         $area = areaWisata::all();
-        $quotation = quotationTransaksi::with('quotation.areaWisata','quotation.kategori')->get();
+        $quotation = quotationTransaksi::findOrFail($request->id); 
+        $detail = quotationTransaksi::where('id','=',$request->id)->get();
+        return Inertia::render('Quotation/DataQuoResult',[
+            'quotation' => $quotation,  
+            'detail' => $detail,
+            'area' => $area,
+        ]);
+    }
+
+    // public function updateHistory(Request $request)
+    // {
+    //     quotationTransaksi::where('id', $request->id)->update([
+    //         'namaKlien' => $request->namaKlien,
+    //         'productionPrice' => $request->productionPrice,
+    //         'nettPrice' => $request->nettPrice,
+    //         'paxPay' => $request->nettPrice,
+
+    //     ]);
+    //     return redirect()->back()->with('message', 'item berhasil diupdate');
+    // }
+
+    public function qhistoryresult(quotationTransaksi $quotationTour)
+    {   
+        $kategori = dataKategoriTour::all();
+        $area = areaWisata::all();
+        $quotation = quotationTransaksi::with('quotation.areaWisata','quotation.dataKategoriWisata')->get();
         return Inertia::render('Quotation/DataQuoResult', [
             'quotation' => $quotation,
             'area' => $area,
+            'kategori' => $kategori,
         ]);
     }
 

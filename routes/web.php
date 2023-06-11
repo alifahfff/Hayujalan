@@ -129,6 +129,7 @@ Route::controller(QuotationTourController::class)->group(function () {
     Route::get('/quotation/qrecomendresult/', 'recresult')->name('quotationrecomendresult'); 
     Route::get('/quotation/qrecomendpdf/', 'recresult')->name('quotationrecomendpdf');
     Route::get('/quotation/qhistory/', 'qhistory')->name('quotationhistory');
+    Route::get('/quotation/qhistory/detail', 'editQhistory')->name('quotation.detail');
     Route::get('/quotation/qhistoryresult/', 'qhistoryresult')->name('quotationhistoryresult');
     Route::post('/quotation', 'store')->name('create.quotation');
     Route::get('/quotation/edit', 'edit')->name('edit.quotation');
