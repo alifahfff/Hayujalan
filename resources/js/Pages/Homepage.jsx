@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { BiLoader, BiCheck, BiX, BiLoaderCircle } from "react-icons/bi";
 import Layout from "@/Layouts/Layout";
-
-
 export default function Homepage(props) {
+  console.log('count','count2','count3', props)
   return (
     <div className="max-h-screen w-full bg-abu">
       <div className="flex">
@@ -22,6 +21,7 @@ export default function Homepage(props) {
                       <div className="grow stat-figure text-4xl w-1/5"><BiCheck color="white"/></div>
                       <div className="grow stat-title mt-2 ml-2 text-white">Quotation Diterima</div>
                     </div>
+                    <div className="grow stat-title mt-2 ml-2 text-white">{props.count}</div>
                     <div className="grow stat-value ml-2 text-white"></div>
                   </div>
                 </div>
@@ -32,6 +32,7 @@ export default function Homepage(props) {
                       <div className="grow stat-title mt-2 ml-2 text-white">Quotation Ditolak</div>
                     </div>
                     <div className="grow stat-value ml-2 text-white"></div>
+                    <div className="grow stat-title mt-2 ml-2 text-white">{props.count2}</div>
                   </div>
                 </div>
                 <div className= "grow stats shadow mr-10 bg-abu2">
@@ -39,8 +40,10 @@ export default function Homepage(props) {
                     <div className="flex justify-between">
                       <div className="grow stat-figure text-4xl w-1/5"><BiLoader color="white"/></div>
                       <div className="grow stat-title mt-2 ml-2 text-white">Menunggu Quotation</div>
+                      
                     </div>
                     <div className="grow stat-value ml-2 text-white"></div>
+                    <div className="grow stat-title mt-2 ml-2 text-white">{props.count3}</div>
                   </div>
                 </div>
               </div>

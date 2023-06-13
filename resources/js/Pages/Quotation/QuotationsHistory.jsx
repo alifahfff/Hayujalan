@@ -1,14 +1,6 @@
 import React, { useState } from 'react';
-import { Head } from '@inertiajs/inertia-react';
-import Navbar from '@/Components/Navbar';
-import NewsLists from '@/Components/Homepage/NewsLists';
-import Paginator from '@/Components/Homepage/Paginator';
-import Crew from '@/Components/Item Quotation/Crew/Crew';
-import Pagination from '@/Components/Pagination';
 import { BsPlusSquare, BsSearch } from "react-icons/bs";
-import ModalCrew from '@/Components/Item Quotation/Crew/ModalCrew';
-import Search from '@/Components/Hak Akses/Search';
-import { Inertia } from '@inertiajs/inertia';
+import { Inertia } from "@inertiajs/inertia";
 import Layout from '@/Layouts/Layout';
 import DataQuo from '@/Components/Quotations/DataQuo';
 
