@@ -107,22 +107,29 @@ Route::controller(ReportController::class)->group(function () {
     Route::get('/report', 'show')->name('report');
     // Route::post('/report', 'store')->name('create.report');
     // Route::get('/report/edit', 'edit')->name('edit.report');
-    // Route::post('/report/update', 'update')->name('update.report');
+    Route::post('/report/update', 'update')->name('update.report');
     // Route::post('/report/delete', 'destroy')->name('delete.report');
 });
 
 // Akses
 Route::controller(AksesController::class)->group(function () {
     Route::get('/akses', 'show')->name('akses');
-    // Route::post('/akses', 'store')->name('create.akses');
-    // Route::get('/akses/edit', 'edit')->name('edit.akses');
-    // Route::post('/akses/update', 'update')->name('update.akses');
-    // Route::post('/akses/delete', 'destroy')->name('delete.akses');
+    Route::post('/akses/admin', 'storeAdmin')->name('create.admin');
+    Route::post('/akses/keuangan', 'storeKeuangan')->name('create.keuangan');
+    Route::post('/akses/sales', 'storeSales')->name('create.sales');
+    Route::post('/akses/program', 'storeProgram')->name('create.program');
+    Route::get('/akses/edit', 'edit')->name('edit.akses');
+    Route::post('/akses/update/admin', 'updateAdmin')->name('update.admin');
+    Route::post('/akses/update/keuangan', 'updateKeuangan')->name('update.keuangan');
+    Route::post('/akses/update/sales', 'updateSales')->name('update.sales');
+    Route::post('/akses/update/program', 'updateProgram')->name('update.program');
+    Route::post('/akses/delete', 'destroy')->name('delete.akses');
 });
 
 // Quotation
 Route::controller(QuotationTourController::class)->group(function () {
     Route::get('/quotation', 'show')->name('quotation');
+    Route::post('/quotation/post', 'storeQuotationForm')->name('create.quotation');
     // Route::get('/quotation/qmanualform/', 'form')->name('quotationform');
     Route::get('/quotation/qmanualresult/', 'result')->name('quotationresult');
     Route::get('/quotation/qrecomendform/', 'formrec')->name('quotationrecomendform'); 
@@ -141,6 +148,7 @@ Route::controller(QuotationTourController::class)->group(function () {
 Route::controller(QuotationRekomendasiController::class)->group(function(){
     Route::get('/quotation/qrecomend/', 'showrec')->name('quotationrecomend');
     Route::post('/quotation/qrecomend', 'store')->name('create.bobot');
+    Route::post('/quotation/qrecomend/bobot', 'hitungBobot')->name('kriteria.bobot');
 });
 // Dashboard
 Route::get('/dashboard', function () {

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\quotationRekomendasi;
+use App\Models\Quotation\quotationRekomendasi;
 use App\Models\Vendor\areaWisata;
 use App\Models\Quotation\dataBobot;
 use App\Models\Quotation\quotationTour;
+use App\Models\Quotation\quotationTransaksi;
 use App\Models\Itemq\dataJenisKlien;
 use App\Http\Controllers\Controller;
 use App\Models\Quotation\hasilQRekomendasi;
@@ -96,23 +97,170 @@ class QuotationRekomendasiController extends Controller
      */
     public function store(Request $request)
     {
-        $klien = dataKlien::create([
-            'jenis_klien_id' => 1,
-            'namaKlien' => $request->namaKlien,
-        ]);
+        $hasilarea = $request->b_areaWisata;
+        $hasilKategori = $request->b_kategori;
+        $hasilBudget = $request->b_budget;
+        $hasilDurasi = $request->b_durasi;
+        $hasilQty = $request->b_jumlahOrang;
+        $b_kriteria1 = $request->b_kriteria1;
+        $b_kriteria2 = $request->b_kriteria2;
+        $b_kriteria3 = $request->b_kriteria3;
+        $b_kriteria4 = $request->b_kriteria4;
+        $b_kriteria5 = $request->b_kriteria5;
+        $referensi = quotationRekomendasi::join('t_destinasi_wisatas', 't_destinasi_wisatas.idQuotationRekomendasi', '=', 'quotation_rekomendasis.id')
+                        ->select(
+                        'quotation_rekomendasis.b_areaWisata', 
+                        'quotation_rekomendasis.b_kategori', 
+                        'quotation_rekomendasis.b_budget', 
+                        'quotation_rekomendasis.b_durasi', 
+                        'quotation_rekomendasis.b_jumlahOrang',
+                        'quotation_rekomendasis.id',
+                        't_destinasi_wisatas.idQuotationRekomendasi',
+                        't_destinasi_wisatas.keterangan',
+                        't_destinasi_wisatas.harga',)
+                        ->get();
+        $count = quotationRekomendasi::where('b_areaWisata', '=', $hasilarea)
+                        ->count();
+        
+        $result = [];
+        foreach ($referensi as $row) {
+            $id = $row->id;
+            // $idDestinasi = $row->id;
+            $b_areaWisata = $row->b_areaWisata;
+            $b_kategori = $row->b_kategori;
+            $b_budget = $row->b_budget;
+            $b_durasi = $row->b_durasi;
+            $b_jumlahOrang = $row->b_jumlahOrang;
+            $keterangan = $row->keterangan;
+            $harga = $row->harga;
+            $result = [
+                'id' => $id,
+                'harga' => $harga,
+                // 'areaWisata' => (pow(($b_areaWisata - $hasilarea),2) * $b_kriteria1),
+                // 'kategori' => (pow(($b_kategori - $hasilKategori),2) * $b_kriteria2),
+                // 'jumlahOrang' => (pow(($b_jumlahOrang - $hasilQty),2) * $b_kriteria3),
+                // 'durasi' => (pow(($b_durasi - $hasilDurasi),2) * $b_kriteria4),
+                // 'budget' => (pow(($b_budget - $hasilBudget),2) * $b_kriteria5),
+                // 'total' => (sqrt((pow(($b_areaWisata - $hasilarea),2) * $b_kriteria1) + (pow(($b_kategori - $hasilKategori),2) * $b_kriteria2) + (pow(($b_jumlahOrang - $hasilQty),2) * $b_kriteria3) + (pow(($b_durasi - $hasilDurasi),2) * $b_kriteria4) + (pow(($b_budget - $hasilBudget),2) * $b_kriteria5))) / 1,
+                $total = (sqrt(
+                    (pow(($b_areaWisata - $hasilarea),2) * $b_kriteria1) + 
+                    (pow(($b_kategori - $hasilKategori),2) * $b_kriteria2) + 
+                    (pow(($b_jumlahOrang - $hasilQty),2) * $b_kriteria3) + 
+                    (pow(($b_durasi - $hasilDurasi),2) * $b_kriteria4) + 
+                    (pow(($b_budget - $hasilBudget),2) * $b_kriteria5))) / 1,
+                'similiarty' => 1 - $total,
+            ];
+            // Simpan hasil perhitungan dalam array
+            $results[] = $result;
+        }
 
-        $rekomendasi = new hasilQRekomendasi([
-            'b_areaWisata' => $request->b_areaWisata,
-            'b_kategori' => $request->b_kategori,
-            'b_budget' => $request->b_budget,
-            'b_durasi' => $request->b_durasi,
-            'b_jumlahOrang' => $request->b_jumlahOrang,
-            'idDataKlien' => $klien->id,
-        ]);
+        // Urutkan hasil perhitungan berdasarkan nilai tertinggi
+        // usort($results, function ($a, $b) {
+        //     return $b['similiarty'] <=> $a['similiarty'];
+        // });
 
-        $rekomendasi->save();
-        return redirect()->back()->with('message', 'item berhasil dibuat');
+        
 
+        // $groupedResults = [];
+        // foreach ($results as $result) {
+        //     $id = $result['id'];
+        //     if (!isset($groupedResults[$id])) {
+        //         $groupedResults[$id] = $result;
+        //     } else {
+        //         $groupedResults[$id][] = $result;
+        //     }
+        // }
+
+        // $finalResults = [];
+        // foreach ($groupedResults as $id => $result) {
+        //     if (is_array($result[0])) {
+        //         $finalResults = array_merge($finalResults, $result);
+        //     } else {
+        //         $finalResults[] = $result;
+        //     }
+        // }
+        $ids = [];
+        $topResults = array_slice($results, 0, $count);
+        foreach ($topResults as $row) {
+            $id = $row['id'];
+            $ids= [$id];
+            $idds[] = $ids;
+        }
+        dd($results);
+
+        // $solusi = quotationRekomendasi::join('t_destinasi_wisatas', 't_destinasi_wisatas.idQuotationRekomendasi', '=', 'quotation_rekomendasis.id')
+        //                 ->select(
+        //                 'quotation_rekomendasis.id',
+        //                 'quotation_rekomendasis.b_areaWisata', 
+        //                 'quotation_rekomendasis.b_kategori', 
+        //                 'quotation_rekomendasis.b_budget', 
+        //                 'quotation_rekomendasis.b_durasi', 
+        //                 'quotation_rekomendasis.b_jumlahOrang',
+        //                 't_destinasi_wisatas.idQuotationRekomendasi',
+        //                 't_destinasi_wisatas.keterangan',
+        //                 't_destinasi_wisatas.harga',)
+        //                 ->get();
+
+        // $combinedResults = $this->combineDetails($topResults);
+        // $combinedResultsWithPrevious = array_merge($topResults, $combinedResults);
+
+        // dd($combinedResultsWithPrevious);
+
+        // Menampilkan hasil sebelumnya pada $topResults
+        // dd('Hasil sebelumnya:', $topResults);
+
+        // Menggabungkan hasil menggunakan rumus permutasi kombinasi
+        // $combinedResults = $this->combineArrays($topResults);
+        // //  dd('Hasil kombinasi:', $combinedResults);
+
+        //  $combinedResultsWithDetails = $this->combineDetails($combinedResults);
+        //  dd('Hasil kombinasi:', $combinedResultsWithDetails);
+        // dd($results);
+        // return response()->json([
+        //     'Hasil kombinasi:' => $combinedResultsWithPrevious
+        // ]);
+        // return redirect()->back()->with('message', 'item berhasil dibuat');
+
+    }
+
+    // private function combineArrays($array)
+    // {
+    //     $combinations = [[]];
+    //     foreach ($array as $subArray) {
+    //         $tempCombinations = [];
+    //         foreach ($combinations as $combination) {
+    //             foreach ($subArray as $item) {
+    //                 $tempCombination = $combination;
+    //                 $tempCombination[] = $item;
+    //                 $tempCombinations[] = $tempCombination;
+    //             }
+    //         }
+    //         $combinations = $tempCombinations;
+    //     }
+    //     return $combinations;
+    // }
+
+    private function combineDetails($results)
+    {
+        $combinedResultsWithDetails = [];
+        foreach ($results as $result) {
+            $id = $result['id'];
+            $keterangan = $result['keterangan'];
+            $harga = $result['harga'];
+
+            $combinedResultsWithDetails[] = [
+                'id' => $id,
+                'keterangan' => $keterangan,
+                'harga' => $harga,
+            ];
+        }
+        return $combinedResultsWithDetails;
+    }
+
+    public function hitungBobot(Request $request)
+    {
+        $data = $request->all();
+        dd($data);
     }
 
     /**

@@ -11,6 +11,7 @@ class detailVendorTransportasi extends Model
 
     protected $table = "detail_vendor_transportasis";
     protected $primaryKey = "id";
+   
 
     // yang punya id one to many
     public function transportasi()

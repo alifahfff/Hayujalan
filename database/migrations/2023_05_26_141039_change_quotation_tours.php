@@ -23,13 +23,9 @@ return new class extends Migration
             $table->foreignId('idAreaWisata')->constrained(
                 table: 'area_wisatas'
             )->onDelete('cascade')->change();
-            $table->foreignId('idBobot')->constrained(
-                table: 'data_bobots'
-            )->onDelete('cascade')->change();
-            $table->foreignId('idKriteria')->constrained(
-                table: 'data_kriterias'
-            )->onDelete('cascade')->change();
-            
+            $table->foreignId('idDataKlien')->constrained(
+                table: 'data_kliens'
+            )->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

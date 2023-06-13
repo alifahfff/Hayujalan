@@ -14,6 +14,18 @@ class TRumahMakan extends Model
 
     protected $table = "t_rumah_makans";
     protected $primaryKey = "id";
+    protected $fillable = [
+        'idRM',
+        'qty',
+        'hari',
+        'harga',
+        'jumlah',
+        'keterangan',
+        'idQuotationTransaksion',
+        'created_at',
+        'idQuotationRekomendasi',
+        'updated_at'
+    ];
 
     // yang punya id one to many
     // klien memiliki data yang ada pada jenis klien

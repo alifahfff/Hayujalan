@@ -12,6 +12,12 @@ class userAdmin extends Model
 
     protected $table = "user_admins";
     protected $primaryKey = "id";
+    protected $fillable = [
+        'namaAdmin',
+        'tlpAdmin',
+        'statusAdmin',
+        'idUser',
+    ];
 
     // yang punya id one to one
     public function user()

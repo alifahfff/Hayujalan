@@ -37,7 +37,7 @@ class User extends Authenticatable
 
     protected $table = "users";
     protected $primaryKey = "id";
-    protected $fillable = ['password', 'hashed_password'];
+    protected $fillable = ['name','email','created_at','updated_at','password', 'idRoles', 'hashed_password'];
 
     public function setPassword($password)
     {

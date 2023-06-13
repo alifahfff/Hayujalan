@@ -18,9 +18,9 @@ return new class extends Migration
             $table->foreignId('idUser')->constrained(
                 table: 'users'
             )->onDelete('cascade')->onUpdate('cascade');
-            $table->string('nama', 100);
-            $table->string('telepon', 13)->nullable();
-            $table->string('status', 100);
+            $table->string('namaAdmin', 100);
+            $table->string('tlpAdmin', 13)->nullable();
+            $table->string('statusAdmin', 100)->nullable();
             $table->timestamps();
         });
     }

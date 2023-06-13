@@ -20,7 +20,10 @@ const TAkses = ({data, roles, user}) => {
             const data = {
                 ...dt,
                 user: {
-                    ...find2,
+                    idAdmin:find2.id,
+                    nama: find2.namaAdmin,
+                    telepon: find2.tlpAdmin,
+                    status: find2.statusAdmin,
                 }
             }
             console.log('dataRoles', data)
@@ -35,7 +38,10 @@ const TAkses = ({data, roles, user}) => {
             const data = {
                 ...dt,
                 user: {
-                    ...find2,
+                    idProgram:find2.id,
+                    nama: find2.namaPrograms,
+                    telepon: find2.tlpPrograms,
+                    status: find2.statusPrograms,
                 }
             }
             console.log('dataRoles', data)
@@ -50,7 +56,10 @@ const TAkses = ({data, roles, user}) => {
             const data = {
                 ...dt,
                 user: {
-                    ...find2,
+                    idSales:find2.id,
+                    nama: find2.namaSales,
+                    telepon: find2.tlpSales,
+                    status: find2.statusSales,
                 }
             }
             console.log('dataRoles', data)
@@ -65,7 +74,10 @@ const TAkses = ({data, roles, user}) => {
             const data = {
                 ...dt,
                 user: {
-                    ...find2,
+                    idKeuangan:find2.id,
+                    nama: find2.namaKeuangan,
+                    telepon: find2.tlpKeuanga,
+                    status: find2.statusKeuangan,
                 }
             }
             console.log('dataRoles', data)
@@ -97,7 +109,7 @@ const TAkses = ({data, roles, user}) => {
                         return (
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
-                                <td className="whitespace-nowrap px-6 py-4 font-medium">{dt.id}</td>
+                                <td className="whitespace-nowrap px-6 py-4 font-medium">{data.from + index}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{dt.name}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{dt.email}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{dt.roles.namaRoles}</td>

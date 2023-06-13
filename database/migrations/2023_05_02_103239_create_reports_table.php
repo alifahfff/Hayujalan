@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
+            $table->string('namaProject', 100)->nullable();
+            $table->string('nilaiKlien', 100)->nullable();
+            $table->string('statusBerjalan', 100)->nullable();
+            $table->text('feedback')->nullable();
             $table->timestamps();
         });
     }

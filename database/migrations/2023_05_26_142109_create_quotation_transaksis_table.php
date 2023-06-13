@@ -19,15 +19,16 @@ return new class extends Migration
                 table: 'quotation_tours'
             )->onDelete('cascade')->onUpdate('cascade');
             //
-            $table->string('namaKlien', 100);
-            $table->float('productionPrice', 10, 2);
-            $table->float('nettPrice', 10, 2);
-            $table->integer('paxPay');
-            $table->float('surcharge', 10, 2);
-            $table->float('sellingPrice', 10, 2);
-            $table->float('totalPrice', 10, 2);
-            $table->float('profit', 10, 2);
-            $table->string('status', 100);
+            $table->string('namaQtransaksi', 100)->nullable();
+            $table->float('productionPrice', 10, 2)->nullable();
+            $table->float('nettPrice', 10, 2)->nullable();
+            $table->integer('paxPay')->nullable();
+            $table->float('surcharge', 10, 2)->nullable();
+            $table->float('sellingPrice', 10, 2)->nullable();
+            $table->float('totalPrice', 10, 2)->nullable();
+            $table->float('profit', 10, 2)->nullable();
+            $table->string('status', 100)->nullable();
+            $table->timestamp('tglBerlakuQuotation')->nullable();
             $table->timestamps();
         });
     }

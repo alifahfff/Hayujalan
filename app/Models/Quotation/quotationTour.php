@@ -8,6 +8,7 @@ use App\Models\Itemq\dataKategoriTour;
 use App\Models\Akses\userProgram;
 use App\Models\Akses\userSales;
 use App\Models\Vendor\areaWisata;
+use App\Models\Itemq\dataKlien;
 
 class quotationTour extends Model
 {
@@ -15,6 +16,22 @@ class quotationTour extends Model
 
     protected $table = "quotation_tours";
     protected $primaryKey = "id";
+    protected $fillable = [
+        'idKategoriTour',
+        'namaProject',
+        'durasiProject',
+        'qty',
+        'foc',
+        'planWaktuPelaksanaan',
+        'presentaseKeuntungan',
+        'feeMarketing',
+        'idUserProgram',
+        'idUserSales',
+        'idAreaWisata',
+        'idDataKlien',
+        'created_at',
+        'updated_at',
+    ];
 
      // nggak punya id
     // jenis klien mempunyai banyak klien
@@ -58,5 +75,10 @@ class quotationTour extends Model
     public function bobot()
     {
         return $this->belongsTo(dataBobot::class, 'idBobot', 'id');
+    }
+
+    public function klien()
+    {
+        return $this->belongsTo(dataKlien::class, 'idDataKlien', 'id');
     }
 }

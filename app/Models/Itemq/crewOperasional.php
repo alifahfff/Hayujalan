@@ -12,6 +12,7 @@ class crewOperasional extends Model
 
     protected $table = "crew_operasionals";
     protected $primaryKey = "id";
+   
 
     // nggak punya id
     // jenis klien mempunyai banyak klien

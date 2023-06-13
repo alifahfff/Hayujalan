@@ -14,6 +14,18 @@ class TFasilitasTour extends Model
 
     protected $table = "t_fasilitas_tours";
     protected $primaryKey = "id";
+    protected $fillable = [
+        'idFasilitasTour',
+        'qty',
+        'hari',
+        'harga',
+        'jumlah',
+        'keterangan',
+        'idQuotationTransaksion',
+        'created_at',
+        'idQuotationRekomendasi',
+        'updated_at'
+    ];
 
     // yang punya id one to many
     // klien memiliki data yang ada pada jenis klien

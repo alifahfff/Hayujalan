@@ -14,6 +14,18 @@ class Tbonus extends Model
 
     protected $table = "tbonuses";
     protected $primaryKey = "id";
+    protected $fillable = [
+        'idDataBonus',
+        'qty',
+        'hari',
+        'harga',
+        'jumlah',
+        'keterangan',
+        'idQuotationTransaksion',
+        'created_at',
+        'idQuotationRekomendasi',
+        'updated_at'
+    ];
 
     // yang punya id one to many
     // klien memiliki data yang ada pada jenis klien

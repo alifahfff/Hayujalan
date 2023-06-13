@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Quotation;
 
 use App\Models\Vendor\areaWisata;
 use App\Models\Quotation\quotationTour;
+use App\Models\Quotation\quotationTransaksi;
 use App\Models\Akses\userProgram;
 use App\Models\Akses\userSales;
 use App\Models\Itemq\dataKategoriTour;
@@ -20,8 +21,16 @@ use App\Models\Itemq\crewOperasional;
 use App\Models\Itemq\dataEvent;
 use App\Models\Itemq\dataBonus;
 use App\Models\Itemq\dataJenisKlien;
-use App\Models\Quotation\quotationTransaksi;
 use App\Models\Quotation\dataBobot;
+use App\Models\Transaksi\TDestinasiWisata;
+use App\Models\Transaksi\Ttransportasi;
+use App\Models\Transaksi\Tpenginapan;
+use App\Models\Transaksi\TRumahMakan;
+use App\Models\Transaksi\TFasilitasTour;
+use App\Models\Transaksi\TcrewOp;
+use App\Models\Transaksi\Tevent;
+use App\Models\Transaksi\Tbonus;
+use App\Models\Itemq\dataKlien;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
@@ -79,14 +88,11 @@ class QuotationTourController extends Controller
                    'detail_vendor_destinasi_wisatas.tiketMasukWeekend')
                    ->get();
         $rumahMakan = vendorRumahMakan::all();
-        $detailRM = detailVendorRumahMakan::join('vendor_rumah_makans', 'detail_vendor_rumah_makans.idRM', '=', 'vendor_rumah_makans.id')
-                    ->select('vendor_rumah_makans.id', 
-                    'vendor_rumah_makans.namaRM',
-                    'detail_vendor_rumah_makans.idRM', 
-                    'detail_vendor_rumah_makans.namaMenu', 
-                    'detail_vendor_rumah_makans.hargaMenu')
-                    ->get();
+        $detailRM = detailVendorRumahMakan::all();
+        $penginapan = vendorPenginapan::all();
+        $detailPenginapan = detailVendorPenginapan::all();
         $transportasi = vendorTransportasi::all();
+        $detaiTransportasi = detailVendorTransportasi::all(); 
         $fasilitasTour = fasilitasTour::all();
         $crewOperasional = crewOperasional::all();
         $dataEvent = dataEvent::all();
@@ -100,8 +106,11 @@ class QuotationTourController extends Controller
             'destinasi' => $destinasi,
             'detailDestinasi' => $detailDestinasi,
             'transportasi' => $transportasi,
+            'detaiTransportasi' => $detaiTransportasi,
             'rumahMakan' => $rumahMakan,
             'detailRM' => $detailRM,
+            'penginapan' => $penginapan,
+            'detailPenginapan' => $detailPenginapan,
             'fasilitasTour' => $fasilitasTour,
             'crewOperasional' => $crewOperasional,
             'dataEvent' => $dataEvent,
@@ -155,9 +164,195 @@ class QuotationTourController extends Controller
         ]);
     }
 
-    public function sh(Request $request)
+    public function storeQuotationForm(Request $request)
     {
-        
+        $klien = dataKlien::create([
+            'jenis_klien_id' => $request->quotationTour['jenis_klien_id'],
+            'namaKlien' => $request->quotationTour['namaKlien'],
+            'created_at' => $request->created_at,
+            'updated_at' => $request->updated_at,
+        ]);
+
+        $quotationTour = quotationTour::create([
+            'idKategoriTour' => $request->quotationTour['idKategoriTour'],
+            'namaProject' => $request->quotationTour['namaproject'],
+            'durasiProject' => $request->quotationTour['durasiproject'],
+            'qty' => $request->quotationTour['jumlahOrang'],
+            'foc' => $request->quotationTour['foc'],
+            'planWaktuPelaksanaan' => $request->quotationTour['planWaktuPelaksanaan'],
+            'presentaseKeuntungan' => $request->quotationTour['presentaseKeuntungan'],
+            'feeMarketing' => $request->quotationTour['feemarketing'],
+            'idUserProgram' => $request->quotationTour['idProgram'],
+            'idUserSales' => $request->quotationTour['idSales'],
+            'idAreaWisata' => $request->quotationTour['idAreaWisata'],
+            'idDataKlien' => $klien->id,
+            'created_at' => $request->created_at,
+            'updated_at' => $request->updated_at,
+        ]);
+
+        $quotationTransaksi = quotationTransaksi::create([
+            'idQuotationTour' => $quotationTour->id,
+            'namaQtransaksi' => $request->quotationTour['namaproject'],
+            'productionPrice' => $request->productionPrice,
+            'nettPrice' => $request->nettPrice,
+            'paxPay' => $request->paxPay,
+            'surcharge' => $request->surcharge,
+            'sellingPrice' => $request->sellingPrice,
+            'totalPrice' => $request->totalPrice,
+            'profit' => $request->profit,
+            'status' => $request->status,
+            'created_at' => $request->created_at,
+            'updated_at' => $request->updated_at,
+        ]);
+
+        $bonusData = $request->bonus;
+        if ($request->bonus[0]['idDataBonus'] != 0) {
+            foreach ($bonusData as $bonus) {
+                $tbonus = Tbonus::create([
+                    'idDataBonus' => $bonus['idDataBonus'],
+                    'qty' => $bonus['qty'],
+                    'hari' => $bonus['hari'],
+                    'harga' => $bonus['harga'],
+                    'jumlah' => $bonus['jumlah'],
+                    'keterangan' => $bonus['ketDataBonus'],
+                    'idQuotationTransaksion' => $quotationTransaksi->id,
+                    'created_at' => $request->created_at,
+                    'idQuotationRekomendasi' => 1,
+                    'updated_at' => $request->updated_at,
+                ]);
+            }
+        }
+
+        $eventData = $request->event;
+        if ($request->event[0]['idDataEvent'] != 0) {
+            foreach ($eventData as $event) {
+                $tevent = Tevent::create([
+                    'idDataEvent' => $event['idDataEvent'],
+                    'qty' => $event['qty'],
+                    'hari' => $event['hari'],
+                    'harga' => $event['harga'],
+                    'jumlah' => $event['jumlah'],
+                    'keterangan' => $event['ketDataEvent'],
+                    'idQuotationTransaksion' => $quotationTransaksi->id,
+                    'created_at' => $request->created_at,
+                    'idQuotationRekomendasi' => 1,
+                    'updated_at' => $request->updated_at,
+                ]);
+            }
+        }
+
+        $crewData = $request->crew;
+        if ($request->crew[0]['idCrewOperasional'] != 0) {
+            foreach ($crewData as $crew) {
+                $tcrew = TcrewOp::create([
+                    'idCrewOperasional' => $crew['idCrewOperasional'],
+                    'qty' => $crew['qty'],
+                    'hari' => $crew['hari'],
+                    'harga' => $crew['harga'],
+                    'jumlah' => $crew['jumlah'],
+                    'keterangan' => $crew['ketCrewOperasional'],
+                    'idQuotationTransaksion' => $quotationTransaksi->id,
+                    'created_at' => $request->created_at,
+                    'idQuotationRekomendasi' => 1,
+                    'updated_at' => $request->updated_at,
+                ]);
+            }
+        }
+
+        $fasilitasData = $request->fasilitas;
+        if ($request->fasilitas[0]['idFasilitasTour'] != 0) {
+            foreach ($fasilitasData as $fasilitas) {
+                $tfasilitas = TFasilitasTour::create([
+                    'idFasilitasTour' => $fasilitas['idFasilitasTour'],
+                    'qty' => $fasilitas['qty'],
+                    'hari' => $fasilitas['hari'],
+                    'harga' => $fasilitas['harga'],
+                    'jumlah' => $fasilitas['jumlah'],
+                    'keterangan' => $fasilitas['ketFasilitas'],
+                    'idQuotationTransaksion' => $quotationTransaksi->id,
+                    'created_at' => $request->created_at,
+                    'idQuotationRekomendasi' => 1,
+                    'updated_at' => $request->updated_at,
+                ]);
+            }
+        }
+
+        $destinasiData = $request->destinasi;
+        if ($request->destinasi[0]['idDestinasiWisata'] != 0) {
+            foreach ($destinasiData as $destinasi) {
+                $tDestinasiWisata = TDestinasiWisata::create([
+                    'idDestinasiWisata' => $destinasi['idDestinasiWisata'],
+                    'qty' => $destinasi['qty'],
+                    'hari' => $destinasi['hari'],
+                    'harga' => $destinasi['harga'],
+                    'jumlah' => $destinasi['jumlah'],
+                    'keterangan' => $destinasi['namaDestinasiWisata'],
+                    'idQuotationTransaksion' => $quotationTransaksi->id,
+                    'created_at' => $request->created_at,
+                    'idQuotationRekomendasi' => 1,
+                    'updated_at' => $request->updated_at,
+                ]);
+            }
+        }
+
+        $transportasiData = $request->transport;
+        if ($request->transport[0]['idTransportasi'] != 0) {
+            foreach ($transportasiData as $transport) {
+                $tTransportasi = Ttransportasi::create([
+                    'idTransportasi' => $transport['idTransportasi'],
+                    'qty' => $transport['qty'],
+                    'hari' => $transport['hari'],
+                    'harga' => $transport['harga'],
+                    'jumlah' => $transport['jumlah'],
+                    'keterangan' => $transport['namaTransportasi'],
+                    'idQuotationTransaksion' => $quotationTransaksi->id,
+                    'created_at' => $request->created_at,
+                    'idQuotationRekomendasi' => 1,
+                    'updated_at' => $request->updated_at,
+                ]);
+            }
+        }
+
+        $penginapanData = $request->penginapan;
+        if ($request->penginapan[0]['idPenginapan'] != 0) {
+            foreach ($penginapanData as $penginapan) {
+                $tpenginapan = Tpenginapan::create([
+                    'idPenginapan' => $penginapan['idPenginapan'],
+                    'qty' => $penginapan['qty'],
+                    'hari' => $penginapan['hari'],
+                    'harga' => $penginapan['harga'],
+                    'jumlah' => $penginapan['jumlah'],
+                    'keterangan' => $penginapan['namaPenginapan'],
+                    'idQuotationTransaksion' => $quotationTransaksi->id,
+                    'created_at' => $request->created_at,
+                    'idQuotationRekomendasi' => 1,
+                    'updated_at' => $request->updated_at,
+                ]);
+            }
+        }
+
+        $rmData = $request->rm;
+        if ($request->rm[0]['idRM'] != 0) {
+            foreach ($rmData as $rm) {
+                $tRumahMakan = TRumahMakan::create([
+                    'idRM' => $rm['idRM'],
+                    'qty' => $rm['qty'],
+                    'hari' => $rm['hari'],
+                    'harga' => $rm['harga'],
+                    'jumlah' => $rm['jumlah'],
+                    'keterangan' => $rm['namaRM'],
+                    'idQuotationTransaksion' => $quotationTransaksi->id,
+                    'created_at' => $request->created_at,
+                    'idQuotationRekomendasi' => 1,
+                    'updated_at' => $request->updated_at,
+                ]);
+            }
+        }
+
+        return Inertia::render('Quotation/QuotationsResult', [
+            'data' => quotationTransaksi::with('quotation.klien')
+                ->where('id', $quotationTransaksi->id)->get()
+        ]);
     }
 
     /**

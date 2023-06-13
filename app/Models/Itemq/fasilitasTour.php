@@ -12,6 +12,7 @@ class fasilitasTour extends Model
 
     protected $table = "fasilitas_tours";
     protected $primaryKey = "id";
+    
 
     // nggak punya id
     // jenis klien mempunyai banyak klien

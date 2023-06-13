@@ -11,7 +11,7 @@ class detailVendorPenginapan extends Model
 
     protected $table = "detail_vendor_penginapans";
     protected $primaryKey = "id";
-
+    
     // yang punya id one to many
     public function penginapan()
     {

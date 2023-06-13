@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('picDestinasiWisata', 100)->nullable();
             $table->string('hpDestinasiWisata', 13)->nullable();
             $table->string('linkGmaps', 255)->nullable();
+            $table->timestamp('tglBerlakuQuotation')->nullable();
             $table->timestamps();
         });
     }
