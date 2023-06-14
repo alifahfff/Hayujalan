@@ -12,6 +12,7 @@ use App\Models\Transaksi\TFasilitasTour;
 use App\Models\Transaksi\TcrewOp;
 use App\Models\Transaksi\Tevent;
 use App\Models\Transaksi\Tbonus;
+use App\Models\Report\Report;
 
 class quotationTransaksi extends Model
 {
@@ -19,6 +20,20 @@ class quotationTransaksi extends Model
 
     protected $table = "quotation_transaksis";
     protected $primaryKey = "id";
+    protected $fillable = [
+        'idQuotationTour',
+        'namaQtransaksi',
+        'productionPrice',
+        'nettPrice',
+        'paxPay',
+        'surcharge',
+        'sellingPrice',
+        'totalPrice',
+        'profit',
+        'status',
+        'created_at',
+        'updated_at',
+    ];
 
     // nggak punya id
     // jenis klien mempunyai banyak klien
@@ -72,5 +87,10 @@ class quotationTransaksi extends Model
     public function tbonus()
     {
         return $this->hasMany(Tbonus::class, 'idQuotationTransaksion', 'id');
+    }
+
+    public function report()
+    {
+        return $this->hasOne(Report::class, 'idQuotationTransaksion', 'id');
     }
 }

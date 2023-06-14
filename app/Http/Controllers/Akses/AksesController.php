@@ -12,6 +12,7 @@ use App\Models\Akses\userAdmin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class AksesController extends Controller
 {
@@ -46,23 +47,99 @@ class AksesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storeAdmin(Request $request)
     {
-        $klien = dataKlien::create([
-            'jenis_klien_id' => 1,
-            'namaKlien' => $request->namaKlien,
+        $users = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'idRoles' => $request->idRoles,
+            'password' => $request->password,
+            'created_at' => $request->created_at,
+            'updated_at' => $request->updated_at,
         ]);
 
-        $rekomendasi = new hasilQRekomendasi([
-            'b_areaWisata' => $request->b_areaWisata,
-            'b_kategori' => $request->b_kategori,
-            'b_budget' => $request->b_budget,
-            'b_durasi' => $request->b_durasi,
-            'b_jumlahOrang' => $request->b_jumlahOrang,
-            'idDataKlien' => $klien->id,
+        $admins = new userAdmin([
+            'namaAdmin' => $request->name,
+            'tlpAdmin' => $request->telepon,
+            'statusAdmin' => $request->status,
+            'idUser' => $users->id,
+            'created_at' => $request->created_at,
+            'updated_at' => $request->updated_at,
         ]);
 
-        $rekomendasi->save();
+        $admins->save();
+        return redirect()->back()->with('message', 'item berhasil dibuat');
+    }
+
+    public function storeKeuangan(Request $request)
+    {
+        $users = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'idRoles' => $request->idRoles,
+            'password' => $request->password,
+            'created_at' => $request->created_at,
+            'updated_at' => $request->updated_at,
+        ]);
+
+        $keuangan = new userKeuangan([
+            'namaKeuangan' => $request->name,
+            'tlpKeuangan' => $request->telepon,
+            'statusKeuangan' => $request->status,
+            'idUser' => $users->id,
+            'created_at' => $request->created_at,
+            'updated_at' => $request->updated_at,
+        ]);
+
+        $keuangan->save();
+        return redirect()->back()->with('message', 'item berhasil dibuat');
+    }
+
+    public function storeSales(Request $request)
+    {
+        $users = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'idRoles' => $request->idRoles,
+            'password' => $request->password,
+            'created_at' => $request->created_at,
+            'updated_at' => $request->updated_at,
+        ]);
+
+        $sales = new userSales([
+            'namaSales' => $request->name,
+            'tlpSales' => $request->telepon,
+            'statusSales' => $request->status,
+            'idUser' => $users->id,
+            'created_at' => $request->created_at,
+            'updated_at' => $request->updated_at,
+        ]);
+
+        $sales->save();
+        return redirect()->back()->with('message', 'item berhasil dibuat');
+    }
+
+    public function storeProgram(Request $request)
+    {
+        $users = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'idRoles' => $request->idRoles,
+            'password' => $request->password,
+            'created_at' => $request->created_at,
+            'updated_at' => $request->updated_at,
+        ]);
+
+        $program = new userProgram([
+            'namaPrograms' => $request->name,
+            'tlpPrograms' => $request->telepon,
+            'statusPrograms' => $request->status,
+            'idUser' => $users->id,
+            'created_at' => $request->created_at,
+            'updated_at' => $request->updated_at,
+        ]);
+
+        $program->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }
 
@@ -112,9 +189,84 @@ class AksesController extends Controller
      * @param  \App\Models\Akses  $akses
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Akses $akses)
+    public function updateAdmin(Request $request)
     {
-        //
+        User::where('id', $request->id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'idRoles' => $request->idRoles,
+            'password' => $request->password,
+            'updated_at' => Carbon::now(),
+        ]);
+        userAdmin::where('id', $request->idAdmin)->update([
+            'namaAdmin' => $request->name,
+            'tlpAdmin' => $request->telepon,
+            'statusAdmin' => $request->status,
+            'updated_at' => Carbon::now(),
+        ]);
+
+        // dd($request);
+        return redirect()->back()->with('message', 'item berhasil diupdate');
+    }
+
+    public function updateKeuangan(Request $request)
+    {
+        User::where('id', $request->id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'idRoles' => $request->idRoles,
+            'password' => $request->password,
+            'updated_at' => Carbon::now(),
+        ]);
+        userKeuangan::where('id', $request->idKeuangan)->update([
+            'namaKeuangan' => $request->name,
+            'tlpKeuangan' => $request->telepon,
+            'statusKeuangan' => $request->status,
+            'updated_at' => Carbon::now(),
+        ]);
+
+        // dd($request);
+        return redirect()->back()->with('message', 'item berhasil diupdate');
+    }
+
+    public function updateSales(Request $request)
+    {
+        User::where('id', $request->id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'idRoles' => $request->idRoles,
+            'password' => $request->password,
+            'updated_at' => Carbon::now(),
+        ]);
+        userSales::where('id', $request->idSales)->update([
+            'namaSales' => $request->name,
+            'tlpSales' => $request->telepon,
+            'statusSales' => $request->status,
+            'updated_at' => Carbon::now(),
+        ]);
+
+        // dd($request);
+        return redirect()->back()->with('message', 'item berhasil diupdate');
+    }
+
+    public function updateProgram(Request $request)
+    {
+        User::where('id', $request->id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'idRoles' => $request->idRoles,
+            'password' => $request->password,
+            'updated_at' => Carbon::now(),
+        ]);
+        userProgram::where('id', $request->idProgram)->update([
+            'namaPrograms' => $request->name,
+            'tlpPrograms' => $request->telepon,
+            'statusPrograms' => $request->status,
+            'updated_at' => Carbon::now(),
+        ]);
+
+        // dd($request);
+        return redirect()->back()->with('message', 'item berhasil diupdate');
     }
 
     /**
@@ -123,8 +275,10 @@ class AksesController extends Controller
      * @param  \App\Models\Akses  $akses
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Akses $akses)
+    public function destroy(Request $request)
     {
-        //
+        $Mydata = User::find($request->id);
+        $Mydata->delete();
+        return redirect()->back()->with('message', 'item berhasil dihapus');
     }
 }

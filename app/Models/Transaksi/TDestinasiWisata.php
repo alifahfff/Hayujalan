@@ -14,6 +14,18 @@ class TDestinasiWisata extends Model
 
     protected $table = "t_destinasi_wisatas";
     protected $primaryKey = "id";
+    protected $fillable = [
+        'idDestinasiWisata',
+        'qty',
+        'hari',
+        'harga',
+        'jumlah',
+        'keterangan',
+        'idQuotationTransaksion',
+        'created_at',
+        'idQuotationRekomendasi',
+        'updated_at'
+    ];
 
     // yang punya id one to many
     // klien memiliki data yang ada pada jenis klien

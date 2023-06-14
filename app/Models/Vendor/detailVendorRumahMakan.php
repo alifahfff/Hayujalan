@@ -11,6 +11,7 @@ class detailVendorRumahMakan extends Model
 
     protected $table = "detail_vendor_rumah_makans";
     protected $primaryKey = "id";
+   
 
     // yang punya id one to many
     public function vendorRM()

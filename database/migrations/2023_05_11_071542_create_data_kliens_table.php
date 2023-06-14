@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('jenis_klien_id');
             $table->string('namaKlien', 100);
-            $table->string('alamatKlien', 255);
-            $table->string('tlpKlien', 13);
-            $table->string('namaPicKlien', 100);
-            $table->string('tlpPicKlien', 13);
+            $table->string('alamatKlien', 255)->nullable();
+            $table->string('tlpKlien', 13)->nullable();
+            $table->string('namaPicKlien', 100)->nullable();
+            $table->string('tlpPicKlien', 13)->nullable();
             $table->timestamps();
 
             // $table->foreignId('jenis_klien_id')->constrained(

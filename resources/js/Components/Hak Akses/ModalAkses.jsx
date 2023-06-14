@@ -10,34 +10,137 @@ const ModalAkses = ({visible, onClose, data, roles}) => {
 
     const handleSubmit = () => {
         console.log('id', data.id)
-        if(data.id){
-            // update data
-            const dataE = {
-                id: datas.id,
-                name: datas.name, 
-                email: datas.email, 
-                idRoles: datas.idRoles,
-                password: datas.password,
-                telepon: datas.telepon,
-                status: datas.status,
-                updated_at: new Date(),
+        if(datas.idRoles == 1){
+            alert(1)
+            if(data.id){
+                // update data
+                const dataE = {
+                    id: datas.id,
+                    idAdmin: datas.user.idAdmin,
+                    name: datas.name, 
+                    email: datas.email, 
+                    idRoles: datas.idRoles,
+                    password: datas.password,
+                    telepon: datas.user.telepon,
+                    status: datas.user.status,
+                    updated_at: new Date(),
+                }
+                console.log('dataE', dataE)
+                Inertia.post('/akses/update/admin', dataE)
+            }else{
+                // tambah data
+                const dataT = {
+                    name: datas.name, 
+                    email: datas.email, 
+                    idRoles: datas.idRoles,
+                    password: datas.password,
+                    telepon: datas.user.telepon,
+                    status: datas.user.status,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                }
+                console.log('dataT', dataT)
+                Inertia.post('/akses/admin', dataT)
             }
-            console.log('dataE', dataE)
-            // Inertia.post('/bonus/update', dataE)
-        }else{
-            // tambah data
-            const dataT = {
-                name: datas.name, 
-                email: datas.email, 
-                idRoles: datas.idRoles,
-                password: datas.password,
-                telepon: datas.telepon,
-                status: datas.status,
-                created_at: new Date(),
-                updated_at: new Date(),
+        }
+        if(datas.idRoles == 2){
+            alert(4)
+            if(data.id){
+                // update data
+                const dataE = {
+                    id: datas.id,
+                    idProgram: datas.user.idProgram,
+                    name: datas.name, 
+                    email: datas.email, 
+                    idRoles: datas.idRoles,
+                    password: datas.password,
+                    telepon: datas.user.telepon,
+                    status: datas.user.status,
+                    updated_at: new Date(),
+                }
+                console.log('dataE', dataE)
+                Inertia.post('/akses/update/program', dataE)
+            }else{
+                // tambah data
+                const dataT = {
+                    name: datas.name, 
+                    email: datas.email, 
+                    idRoles: datas.idRoles,
+                    password: datas.password,
+                    telepon: datas.user.telepon,
+                    status: datas.user.status,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                }
+                console.log('dataT', dataT)
+                Inertia.post('/akses/program', dataT)
             }
-            console.log('dataT', dataT)
-            // Inertia.post('/bonus', dataT)
+        }
+        if(datas.idRoles == 3){
+            alert(5)
+            if(data.id){
+                // update data
+                const dataE = {
+                    id: datas.id,
+                    idSales: datas.user.idSales,
+                    name: datas.name, 
+                    email: datas.email, 
+                    idRoles: datas.idRoles,
+                    password: datas.password,
+                    telepon: datas.user.telepon,
+                    status: datas.user.status,
+                    updated_at: new Date(),
+                }
+                console.log('dataE', dataE)
+                Inertia.post('/akses/update/sales', dataE)
+            }else{
+                // tambah data
+                const dataT = {
+                    name: datas.name, 
+                    email: datas.email, 
+                    idRoles: datas.idRoles,
+                    password: datas.password,
+                    telepon: datas.user.telepon,
+                    status: datas.user.status,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                }
+                console.log('dataT', dataT)
+                Inertia.post('/akses/sales', dataT)
+            }
+        }
+        if(datas.idRoles == 4){
+            alert(6)
+            if(data.id){
+                // update data
+                const dataE = {
+                    id: datas.id,
+                    idKeuangan: datas.user.idKeuangan,
+                    name: datas.name, 
+                    email: datas.email, 
+                    idRoles: datas.idRoles,
+                    password: datas.password,
+                    telepon: datas.user.telepon,
+                    status: datas.user.status,
+                    updated_at: new Date(),
+                }
+                console.log('dataE', dataE)
+                Inertia.post('/akses/update/keuangan', dataE)
+            }else{
+                // tambah data
+                const dataT = {
+                    name: datas.name, 
+                    email: datas.email, 
+                    idRoles: datas.idRoles,
+                    password: datas.password,
+                    telepon: datas.user.telepon,
+                    status: datas.user.status,
+                    created_at: new Date(),
+                    updated_at: new Date(),
+                }
+                console.log('dataT', dataT)
+                Inertia.post('/akses/keuangan', dataT)
+            }
         }
     }
 
@@ -154,6 +257,7 @@ const ModalAkses = ({visible, onClose, data, roles}) => {
                                     placeholder="Roles" 
                                     defaultValue="default"
                                     className="w-3/5 border border-gray-700 p-2 rounded mb-5"
+                                    value={datas.user.status}
                                     onChange={(e) => 
                                         setDatas({
                                             ...datas,

@@ -14,6 +14,18 @@ class Ttransportasi extends Model
 
     protected $table = "ttransportasis";
     protected $primaryKey = "id";
+    protected $fillable = [
+        'idTransportasi',
+        'qty',
+        'hari',
+        'harga',
+        'jumlah',
+        'keterangan',
+        'idQuotationTransaksion',
+        'created_at',
+        'idQuotationRekomendasi',
+        'updated_at'
+    ];
 
     // yang punya id one to many
     // klien memiliki data yang ada pada jenis klien

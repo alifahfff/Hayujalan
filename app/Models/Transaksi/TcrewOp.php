@@ -14,6 +14,18 @@ class TcrewOp extends Model
 
     protected $table = "tcrew_ops";
     protected $primaryKey = "id";
+    protected $fillable = [
+        'idCrewOperasional',
+        'qty',
+        'hari',
+        'harga',
+        'jumlah',
+        'keterangan',
+        'idQuotationTransaksion',
+        'created_at',
+        'idQuotationRekomendasi',
+        'updated_at'
+    ];
 
     // yang punya id one to many
     // klien memiliki data yang ada pada jenis klien

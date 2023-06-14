@@ -11,9 +11,9 @@ import Layout from "@/Layouts/Layout";
 import PDFFile from "./QuotationsPDF";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 
-export default function Quotations(props, crewL) {
+export default function Quotations(props) {
   // const {data} = this.props.location;
-  console.log("CrewL", crewL);
+  console.log("Cr", props);
   return (
     <div className="min-h-screen bg-abu ">
       {/* Content */}
@@ -42,94 +42,98 @@ export default function Quotations(props, crewL) {
                 </button>
               </div>
             </div>
-            <div className="flex flex-col">
-              <div className="flex flex-row">
-                <div className="flex flex-col px-11 pt-6 pb-8">
-                  <a className="text-3xl font-bold text-black mb-6">
-                    Quotation ID001
-                  </a>
-                  <form className="space-y-3 font-medium text-left">
-                    <label className="label">
-                      <span className="label-text text-black mr-12">
-                        Nama Klien
-                      </span>
-                    </label>
-                    <label className="label">
-                      <span className="label-text text-black">Paket</span>
-                    </label>
-                    <label className="label">
-                      <span className="label-text text-black">
-                        Jumlah Orang
-                      </span>
-                    </label>
-                    <label className="label">
-                      <span className="label-text text-black">Area Wisata</span>
-                    </label>
-                    <label className="label">
-                      <span className="label-text text-black">Hari</span>
-                    </label>
-                    <label className="label">
-                      <span className="label-text text-black">Total</span>
-                    </label>
-                    <label className="label">
-                      <span className="label-text text-black">
-                        Total Keseluruhan
-                      </span>
-                    </label>
-                  </form>
-                </div>
+            {props.data.map((dt, index) => {
+              return (
+                <div className="flex flex-col">
+                  <div className="flex flex-row">
+                    <div className="flex flex-col px-11 pt-6 pb-8">
+                      <a className="text-3xl font-bold text-black mb-6">
+                        Quotation ID{dt.id}
+                      </a>
+                      <form className="space-y-3 font-medium text-left">
+                        <label className="label">
+                          <span className="label-text text-black mr-12">
+                            Nama Klien
+                          </span>
+                        </label>
+                        <label className="label">
+                          <span className="label-text text-black">Paket</span>
+                        </label>
+                        <label className="label">
+                          <span className="label-text text-black">
+                            Jumlah Orang
+                          </span>
+                        </label>
+                        {/* <label className="label">
+                          <span className="label-text text-black">Area Wisata</span>
+                        </label> */}
+                        <label className="label">
+                          <span className="label-text text-black">Hari</span>
+                        </label>
+                        <label className="label">
+                          <span className="label-text text-black">Total</span>
+                        </label>
+                        <label className="label">
+                          <span className="label-text text-black">
+                            Total Keseluruhan
+                          </span>
+                        </label>
+                      </form>
+                    </div>
 
-                <div className="flex flex-col pt-24 pb-8">
-                  <form className="space-y-3 font-medium text-left">
-                    <label className="label">
-                      <span className="label-text text-black mr-12">
-                        Nama Klien
-                      </span>
-                    </label>
-                    <label className="label">
-                      <span className="label-text text-black">Nova</span>
-                    </label>
-                    <label className="label">
-                      <span className="label-text text-black">
-                        Family Gathering
-                      </span>
-                    </label>
-                    <label className="label">
-                      <p className="label-text text-black">15</p>
-                    </label>
-                    <label className="label">
-                      <span className="label-text text-black">Yogyakarta</span>
-                    </label>
-                    <label className="label">
-                      <span className="label-text text-black">
-                        Rp.799.000/pax
-                      </span>
-                    </label>
-                    <label className="label">
-                      <span className="label-text text-black">11.985.000</span>
-                    </label>
-                  </form>
-                </div>
-              </div>
-              <div
-                className="flex justify-center gap-6"
-                style={{ marginTop: "14rem" }}
-              >
-                
-                <button className="btn btn-warning text-white px-8">PDF</button>
-                <PDFDownloadLink document={<PDFFile />} fileName="FORM">
-                {({ loading }) =>
-                  loading ? (
-                    <button></button>
-                  ) : (
-                    <button className="btn btn-secondary">PDF</button>
-                  )
-                }
-              </PDFDownloadLink>
+                    <div className="flex flex-col pt-24 pb-8">
+                      <form className="space-y-3 font-medium text-left">
+                        <label className="label">
+                          <span className="label-text text-black mr-12">
+                            -
+                          </span>
+                        </label>
+                        <label className="label">
+                          <span className="label-text text-black">{dt.quotation.klien.namaKlien}</span>
+                        </label>
+                        <label className="label">
+                          <span className="label-text text-black">
+                          {dt.namaQtransaksi}
+                          </span>
+                        </label>
+                        <label className="label">
+                          <p className="label-text text-black">{dt.quotation.qty}</p>
+                        </label>
+                        <label className="label">
+                          <span className="label-text text-black">Yogyakarta</span>
+                        </label>
+                        <label className="label">
+                          <span className="label-text text-black">
+                          Rp.{dt.sellingPrice}/pax
+                          </span>
+                        </label>
+                        <label className="label">
+                          <span className="label-text text-black">{dt.totalPrice}</span>
+                        </label>
+                      </form>
+                    </div>
+                  </div>
+                  <div
+                    className="flex justify-center gap-6"
+                    style={{ marginTop: "14rem" }}
+                  >
+                    
+                    <button className="btn btn-warning text-white px-8">PDF</button>
+                    <PDFDownloadLink document={<PDFFile />} fileName="FORM">
+                    {({ loading }) =>
+                      loading ? (
+                        <button></button>
+                      ) : (
+                        <button className="btn btn-secondary">PDF</button>
+                      )
+                    }
+                  </PDFDownloadLink>
 
-                <button className="btn btn-success text-white px-6">Excel</button>
-              </div>
-            </div>
+                    <button className="btn btn-success text-white px-6">Excel</button>
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>

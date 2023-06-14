@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "@/Layouts/Layout";
 import { useState } from "react";
-
+import { Inertia } from "@inertiajs/inertia";
 
 const Quotations = (props, crewL) => {
   // const {data} = this.props.location;
@@ -13,22 +13,40 @@ const Quotations = (props, crewL) => {
     qty:'',
     hari:'',
     harga:'',
-    jumlah:'',
+    jumlah:0,
   }]);
 
-  const [formTransport, setFormTransport] = useState([
+  const [formTransport, setFormTransport] = useState([{
+    namaTransportasi:'',
+    idTransportasi:'',
+    biaya:'',
+    nama:[],
+    qty:'',
+    hari:'',
+    harga:'',
+    jumlah:0,  
+  }]);
 
-  ]);
+  const [formPenginapan, setFormPenginapan] = useState([{
+    namaPenginapan:'',
+    idPenginapan:'',
+    biaya:'',
+    jenisKamar:[],
+    qty:'',
+    hari:'',
+    harga:'',
+    jumlah:0,
+  }]);
 
   const [formRM, setFormRM] = useState([{
     namaRM:'',
     idRM:'',
     biaya:'',
-    hargaMenu:'',
+    menuRM:[],
     qty:'',
     hari:'',
     harga:'',
-    jumlah:'',
+    jumlah:0,
   }]);
   
   const [formEvent, setFormEvent] = useState([{
@@ -38,7 +56,7 @@ const Quotations = (props, crewL) => {
     qty:'',
     hari:'',
     harga:'',
-    jumlah:'',
+    jumlah:0,
   }]);
   
   const [formBonus, setFormBonus] = useState([{
@@ -48,7 +66,7 @@ const Quotations = (props, crewL) => {
     qty:'',
     hari:'',
     harga:'',
-    jumlah:'',
+    jumlah:0,
   }]);
 
   const [formCrew, setFormCrew] = useState([{
@@ -58,7 +76,7 @@ const Quotations = (props, crewL) => {
     qty:'',
     hari:'',
     harga:'',
-    jumlah:'',
+    jumlah:0,
   }]);
 
   const [formFasilitas, setFormFasilitas] = useState([{
@@ -68,7 +86,7 @@ const Quotations = (props, crewL) => {
     qty:'',
     hari:'',
     harga:'',
-    jumlah:'',
+    jumlah:0,
   }]);
   
   const [datas, setDatas] = useState({
@@ -88,7 +106,7 @@ const Quotations = (props, crewL) => {
     totalOrang: '',
     planWaktuPelaksanaan: '',
     presentaseKeuntungan: '',
-    feemarketing: '',
+    feemarketing: 0,
     namaKlien: '',
     jenisKlien: '',
     jenis_klien_id: '',
@@ -100,9 +118,28 @@ const Quotations = (props, crewL) => {
   console.log("bonus", formBonus);
   console.log("crew", formCrew);
   console.log("fasilitas", formFasilitas);
+  console.log("destinasi", formDestinasi);
+  console.log('rumah makan', formRM);
+  console.log('penginapan', formPenginapan);
+  console.log('transportasi', formTransport);
 
   const [selectedDate, setSelectedDate] = useState('');
-  const [listRM, setListRM] = useState([]);
+  // const [listRM, setListRM] = useState(() => {
+  //   const matchingItem = [];
+  //   props.rumahMakan.forEach((lb) => {
+  //     console.log('cek lb1', lb)
+  //     if(lb.idAreaWIsata == datas.idAreaWisata){
+  //       console.log('cek lb2', lb)
+  //       matchingItem.push(lb)
+  //     }
+  //   })
+  //   console.log('matchingItem', matchingItem)
+  //   return matchingItem ? [matchingItem] : [];
+  // });
+  const [listRM, setListRM] = useState({
+    list: [],
+  });
+  
 
   const handleDateChange = (e) => {
     const selectedDateString = e.target.value;
@@ -117,18 +154,83 @@ const Quotations = (props, crewL) => {
       console.log('Selected date is a weekend.');
       setDatas({
         ...datas,
-        durasi: e.target.value,
+        planWaktuPelaksanaan: e.target.value,
         tipeDurasi: 'weekend',
       })
     } else {
       console.log('Selected date is a weekday.');
       setDatas({
         ...datas,
-        durasi: e.target.value,
+        planWaktuPelaksanaan: e.target.value,
         tipeDurasi: 'weekday',
       })
     }
   };
+
+  const findList = (e, index, params) => {
+    console.log('value', e.target.value)
+    console.log('name', e.target.name)
+    console.log('index', index)
+    console.log('params', params)
+    if(params == 'rm'){
+      const values = [...formRM]
+      const list = []; 
+      if(e.target.name == 'namaRumahMakan'){
+        // alert(1)
+        console.log('detailrm', props.detailRM)
+        
+        // setListRM(list)
+        props.detailRM.forEach((lb) => {
+          if(lb.idRM == e.target.value){
+            console.log('cek lb', lb)
+            list.push(lb)
+          }
+        })
+        console.log('list', list)
+      }
+      values[index]['menuRM'] = list
+      setFormRM(values)
+    }
+    if(params == 'penginapan'){
+      const values = [...formPenginapan]
+      const list = []; 
+      if(e.target.name == 'namaPenginapan'){
+        // alert(1)
+        console.log('detailrm', props.detailRM)
+        
+        // setListRM(list)
+        props.detailPenginapan.forEach((lb) => {
+          if(lb.idPenginapan == e.target.value){
+            console.log('cek lb', lb)
+            list.push(lb)
+          }
+        })
+        console.log('list', list)
+      }
+      values[index]['jenisKamar'] = list
+      values[index]['idPenginapan'] = e.target.value
+      setFormPenginapan(values)
+    }
+    if(params == 'transportasi'){
+      const values = [...formTransport]
+      const list = []; 
+      if(e.target.name == 'namaTransportasi'){
+        // alert(1)
+        console.log('detailrm', props.detaiTransportasi)
+        
+        // setListRM(list)
+        props.detaiTransportasi.forEach((lb) => {
+          if(lb.idTransportasi == e.target.value){
+            console.log('cek lb', lb)
+            list.push(lb)
+          }
+        })
+        console.log('list', list)
+      }
+      values[index]['nama'] = list
+      setFormTransport(values)
+    }
+  }
 
   const datasFind = (e, params) => {
     // console.log('eaaa', e)
@@ -171,6 +273,7 @@ const Quotations = (props, crewL) => {
     }
 
     if(params == 'area'){
+      const values = {...listRM}
       const find2 = props.areawisata.find((x) => {
         return x.id == e 
       });
@@ -181,20 +284,19 @@ const Quotations = (props, crewL) => {
         idAreaWisata: find2.id,
       })
 
-      if(find2){
-        props.rumahMakan.forEach((rm) => {
-          console.log('rm', rm)
-          if(rm.idAreaWIsata == find2.id){
-            console.log('rm', rm)
-            listRM.push(rm)
-          } 
-          // alert(2)
-          // // listRM.splice(rm, 1)
-        })
-      }
-
-      // setListRM(listRM2)
-      console.log('listRM', listRM)
+      // const list = [];
+      //   props.rumahMakan.forEach((rm) => {
+      //     console.log('rm', rm)
+      //     if(rm.idAreaWisata == find2.id){
+      //       console.log('rm2', rm)
+      //       list.push(rm)
+      //     } 
+      //   })
+      
+      // values['list'] = list;
+      // setListRM(values)
+      // console.log('listRM1', listRM)
+      // console.log('listRM2', list)
     }
   }
 
@@ -213,8 +315,43 @@ const Quotations = (props, crewL) => {
       }
       setFormDestinasi([...formDestinasi, object]);
     }
-    if(e == 'transport'){
-      let object = {}
+    if(e == 'penginapan'){
+      let object = {
+        namaPenginapan:'',
+        idPenginapan:'',
+        biaya:'',
+        jenisKamar:[],
+        qty:'',
+        hari:'',
+        harga:'',
+        jumlah:'',
+      }
+      setFormPenginapan([...formPenginapan, object]);
+    }
+    if(e == 'rm'){
+      let object = {
+        namaRM:'',
+        idRM:'',
+        biaya:'',
+        menuRM:[],
+        qty:'',
+        hari:'',
+        harga:'',
+        jumlah:'',
+      }
+      setFormRM([...formRM, object]);
+    }
+    if(e == 'transportasi'){
+      let object = {
+        namaTransportasi:'',
+        idTransportasi:'',
+        biaya:'',
+        nama:[],
+        qty:'',
+        hari:'',
+        harga:'',
+        jumlah:'',  
+      }
       setFormTransport([...formTransport, object]);
     }
     if(e == 'fasilitas'){
@@ -286,18 +423,18 @@ const Quotations = (props, crewL) => {
     console.log('params', params)
     
     if(params == 'destinasi'){
-      const values = [...formFasilitas]
+      const values = [...formDestinasi]
       if(e.target.name == 'namaDestinasiWisata'){
-        alert(1)
-        const find2 = props.detailDestinasi.find((x) => {
+        // alert(1)
+        const find2 = props.destinasi.find((x) => {
           return x.id == e.target.value 
         });
         const find3 = formDestinasi.find((x, key) => {
           console.log('find index', key)
           return key == index 
         });
-        // const list = [];
-        const list = '';
+        const list = [];
+        // const list = '';
         props.detailDestinasi.forEach((lb) => {
           if(lb.idDestinasiWisata == e.target.value){
             if(datas.tipeDurasi == 'weekend'){
@@ -311,27 +448,183 @@ const Quotations = (props, crewL) => {
           }
         })
         console.log('list', list)
-        console.log('find', find2)
-        console.log('find', find3)
+        console.log('find2', find2)
+        console.log('find3', find3)
         values[index]['namaDestinasiWisata'] = find2.namaDestinasiWisata,
         values[index]['idDestinasiWisata'] = find2.id,
-        values[index]['biaya'] = find2.biayaFasilitas,
-        values[index]['harga'] = find2.biayaFasilitas,
-        // setFormDestinasi(values) 
-        // values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
-        // setFormDestinasi(values)
+        values[index]['biaya'] = parseInt(list[0]),
+        values[index]['harga'] = parseInt(list[0]),
+        setFormDestinasi(values) 
+        values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
+        setFormDestinasi(values)
         console.log('values', values)
       }else{
-        alert(2)
-        // const find2 = formFasilitas.find((x, key) => {
-        //   console.log('finde index', key)
-        //   return key == index 
-        // });
-        // console.log('find', find2)
-        // values[index][e.target.name] = parseInt(e.target.value),
-        // setFormDestinasi(values)
-        // values[index]['jumlah'] = parseInt(find2.qty) * parseInt(find2.hari) * parseInt(find2.harga)
-        // setFormDestinasi(values)
+        // alert(2)
+        const find2 = formDestinasi.find((x, key) => {
+          console.log('finde index', key)
+          return key == index 
+        });
+        console.log('find22', find2)
+        values[index][e.target.name] = parseInt(e.target.value),
+        setFormDestinasi(values)
+        values[index]['jumlah'] = parseInt(find2.qty) * parseInt(find2.hari) * parseInt(find2.harga)
+        setFormDestinasi(values)
+      }
+    }
+    if(params == 'transportasi'){
+      const values = [...formTransport]
+      if(e.target.name == 'transportasi'){
+        const find2 = props.detaiTransportasi.find((x) => {
+          return x.id == e.target.value 
+        });
+        const find3 = formTransport.find((x, key) => {
+          console.log('find index', key)
+          return key == index 
+        });
+        const list = [];
+        // const list = '';
+        props.detaiTransportasi.forEach((lb) => {
+          console.log('cek lb1', lb)
+          if(lb.idTransportasi == find2.idTransportasi){
+            if(datas.namaArea != 'Bandung'){
+              if(datas.tipeDurasi == 'weekend'){
+                console.log('weekend')
+                list.push(lb.hargaSewaWeekendLuarKota)
+              }else{
+                console.log('weekday')
+                list.push(lb.hargaSewaWeekdayLuarKota)
+              }
+            }else{
+              if(datas.tipeDurasi == 'weekend'){
+                console.log('weekend')
+                list.push(lb.hargaSewaWeekendDalamKota)
+              }else{
+                console.log('weekday')
+                list.push(lb.hargaSewaWeekdayDalamKota)
+              }
+            }
+            console.log('cek lb2', lb)
+          }
+        })
+
+        console.log('list', list)
+        console.log('find2', find2)
+        console.log('find3', find3)
+        values[index]['namaTransportasi'] = find2.nama,
+        values[index]['idTransportasi'] = find2.idTransportasi,
+        values[index]['biaya'] = parseInt(list[0]),
+        values[index]['harga'] = parseInt(list[0]),
+        setFormTransport(values) 
+        values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
+        setFormTransport(values)
+        console.log('values', values)
+      }else{
+        const find2 = formTransport.find((x, key) => {
+          console.log('finde index', key)
+          return key == index 
+        });
+        console.log('find', find2)
+        values[index][e.target.name] = parseInt(e.target.value),
+        setFormTransport(values)
+        values[index]['jumlah'] = parseInt(find2.qty) * parseInt(find2.hari) * parseInt(find2.harga)
+        setFormTransport(values)
+      }
+    }
+    if(params == 'penginapan'){
+      const values = [...formPenginapan]
+      if(e.target.name == 'jenisKamar'){
+        const find2 = props.detailPenginapan.find((x) => {
+          return x.id == e.target.value 
+        });
+        const find3 = formPenginapan.find((x, key) => {
+          console.log('find index', key)
+          return key == index 
+        });
+        const list = [];
+        // const list = '';
+        props.detailPenginapan.forEach((lb) => {
+          console.log('cek lb1', lb)
+          if(lb.idPenginapan == find2.idPenginapan){
+            if(lb.id == e.target.value){
+              if(datas.tipeDurasi == 'weekend'){
+                console.log('weekend')
+                list.push(lb.hargaSewaWeekendPerKamar)
+              }else{
+                console.log('weekday')
+                list.push(lb.hargaSewaWeekdayPerKamar)
+              }
+            }
+            console.log('cek lb2', lb)
+          }
+        })
+
+        console.log('list', list)
+        console.log('find2', find2)
+        console.log('find3', find3)
+        values[index]['namaPenginapan'] = find2.namaJenisKamar,
+        values[index]['idPenginapan'] = find2.idPenginapan,
+        values[index]['biaya'] = parseInt(list[0]),
+        values[index]['harga'] = parseInt(list[0]),
+        setFormPenginapan(values) 
+        values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
+        setFormPenginapan(values)
+        console.log('values', values)
+      }else{
+        const find2 = formPenginapan.find((x, key) => {
+          console.log('finde index', key)
+          return key == index 
+        });
+        console.log('find', find2)
+        values[index][e.target.name] = parseInt(e.target.value),
+        setFormPenginapan(values)
+        values[index]['jumlah'] = parseInt(find2.qty) * parseInt(find2.hari) * parseInt(find2.harga)
+        setFormPenginapan(values)
+      }
+    }
+    if(params == 'rm'){
+      const values = [...formRM]
+      if(e.target.name == 'namaRumahMakan'){
+        const find2 = props.detailRM.find((x) => {
+          return x.id == e.target.value 
+        });
+        const find3 = formRM.find((x, key) => {
+          console.log('find index', key)
+          return key == index 
+        });
+
+        const list = [];
+        // const list = '';
+        props.detailRM.forEach((lb) => {
+          console.log('cek lb1', lb)
+          if(lb.idRM == find2.idRM){
+            if(lb.id == e.target.value){
+              list.push(lb.hargaMenu)
+            }
+            console.log('cek lb2', lb)
+          }
+        })
+
+        console.log('list', list)
+        console.log('find2', find2)
+        console.log('find3', find3)
+        values[index]['namaRM'] = find2.namaMenu,
+        values[index]['idRM'] = find2.idRM,
+        values[index]['biaya'] = parseInt(list[0]),
+        values[index]['harga'] = parseInt(list[0]),
+        setFormRM(values) 
+        values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
+        setFormRM(values)
+        console.log('values', values)
+      }else{
+        const find2 = formRM.find((x, key) => {
+          console.log('finde index', key)
+          return key == index 
+        });
+        console.log('find', find2)
+        values[index][e.target.name] = parseInt(e.target.value),
+        setFormRM(values)
+        values[index]['jumlah'] = parseInt(find2.qty) * parseInt(find2.hari) * parseInt(find2.harga)
+        setFormRM(values)
       }
     }
     if(params == 'fasilitas'){
@@ -347,7 +640,7 @@ const Quotations = (props, crewL) => {
         console.log('find', find2)
         values[index]['ketFasilitas'] = find2.ketFasilitas,
         values[index]['idFasilitasTour'] = find2.id,
-        values[index]['biayaCrewOperasional'] = find2.biayaFasilitas,
+        values[index]['biayaFasilitas'] = find2.biayaFasilitas,
         values[index]['harga'] = find2.biayaFasilitas,
         setFormFasilitas(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
@@ -358,7 +651,7 @@ const Quotations = (props, crewL) => {
           console.log('finde index', key)
           return key == index 
         });
-        console.log('find', find2)
+        console.log('find22', find2)
         values[index][e.target.name] = parseInt(e.target.value),
         setFormFasilitas(values)
         values[index]['jumlah'] = parseInt(find2.qty) * parseInt(find2.hari) * parseInt(find2.harga)
@@ -468,8 +761,18 @@ const Quotations = (props, crewL) => {
       data.splice(index, 1);
       setFormDestinasi(data);
     }
+    if(params == 'penginapan'){
+      let data = [...formPenginapan];
+      data.splice(index, 1);
+      setFormPenginapan(data);
+    }
+    if(params == 'rm'){
+      let data = [...formRM];
+      data.splice(index, 1);
+      setFormRM(data);
+    }
     if(params == 'transportasi'){
-      let data = [...formDestinasi];
+      let data = [...formTransport];
       data.splice(index, 1);
       setFormTransport(data);
     }
@@ -495,10 +798,59 @@ const Quotations = (props, crewL) => {
     }
   };
 
-  const handleChange = (e, i, params) => {
-    console.log('eaaa', e)
-    console.log('iiii', i)
-    console.log('pppp', params)
+  const handleSubmit = () => {
+    const JumlahDestinasi = formDestinasi.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const JumlahTransportasi = formTransport.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const JumlahPenginapan = formPenginapan.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const JumlahRM = formRM.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const JumlahEvent = formEvent.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const JumlahBonus = formBonus.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const JumlahCrew = formCrew.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const JumlahFasilitas = formFasilitas.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const productionPrice = JumlahDestinasi + JumlahTransportasi + JumlahPenginapan + JumlahRM + JumlahEvent + JumlahBonus + JumlahCrew + JumlahFasilitas;
+    const paxPay = datas.totalOrang;
+    const netPrice = parseInt(productionPrice / paxPay);
+    const surcharge = parseInt(((netPrice / (100/100 - parseInt(datas.presentaseKeuntungan)/100))* 100/100) - netPrice);
+    const sellingPrice = parseInt(netPrice + surcharge);
+    const totalPrice = parseInt(sellingPrice * paxPay);
+    const profit = parseInt(sellingPrice + parseInt(datas.feemarketing));
+    const data = {
+      quotationTour : datas,
+      destinasi : formDestinasi,
+      transport : formTransport,
+      rm : formRM,
+      penginapan : formPenginapan,
+      event : formEvent,
+      bonus : formBonus,
+      crew : formCrew,
+      fasilitas : formFasilitas,
+      productionPrice : productionPrice,
+      paxPay : paxPay,
+      surcharge : surcharge,
+      sellingPrice : sellingPrice,
+      totalPrice : totalPrice,
+      profit : profit,
+      status : 'menunggu',
+      created_at: new Date(),
+      updated_at: new Date(),
+    }
+    Inertia.post('/quotation/post', data)
+
+    console.log('JumlahDestinasi',JumlahDestinasi);
+    console.log('JumlahTransportasi',JumlahTransportasi);
+    console.log('JumlahPenginapan',JumlahPenginapan);
+    console.log('JumlahRM',JumlahRM);
+    console.log('JumlahEvent',JumlahEvent);
+    console.log('JumlahBonus',JumlahBonus);
+    console.log('JumlahCrew',JumlahCrew);
+    console.log('JumlahFasilitas',JumlahFasilitas);
+    console.log('productionPrice',productionPrice);
+    console.log('paxPay',paxPay);
+    console.log('netPrice',netPrice);
+    console.log('surcharge',surcharge);
+    console.log('sellingPrice',sellingPrice);
+    console.log('totalPrice',totalPrice);
+    console.log('data', data)
   }
 
   return (
@@ -733,7 +1085,7 @@ const Quotations = (props, crewL) => {
                       />
                   </div>
                   <div className="w-full">
-                      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Durasi Project</label>
+                      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Plan Waktu Pelaksanan</label>
                       <input 
                       type="date" 
                       name="brand" 
@@ -743,6 +1095,21 @@ const Quotations = (props, crewL) => {
                       onChange={(value) => 
                         handleDateChange(value)
                       }
+                      />
+                  </div>
+                  <div className="w-full">
+                      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Durasi Pelaksanaan</label>
+                      <input 
+                      type="text" 
+                      name="brand" 
+                      id="brand" 
+                      className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                      value={datas.durasiproject}
+                      onChange={(value) => 
+                        setDatas({
+                        ...datas,
+                        durasiproject: value.target.value,
+                      })}
                       />
                   </div>
                   <div className="w-full">
@@ -913,235 +1280,60 @@ const Quotations = (props, crewL) => {
 
               {/* Data Transportasi */}
               <div className="mb-5 mt-2 bg-gray-200 border-b border-gray-200 mt-10"></div>
-              <div className="grid gap-4 sm:grid-cols-3 sm:gap-4 ">
-                <div className="">
-                  <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Vendor Transportasi</label>
-                  <select 
-                    placeholder="Jenis Klien" 
-                    defaultValue="default"
-                    className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    // onChange={set}
-                    onChange={(e) => {
-                      find(e.target.value)
-                    }
-                    // setDatas({
-                    // ...datas,
-                    // namaArea: e.target.value
-                    // })
-                    }
-                  >
-                    <option value="default">--</option>
-                    {props.transportasi.map((ds, index) => {
-                      return (
-                        <option 
-                          value={ds.id} 
-                          key={ds.id}
-                        >
-                        {ds.namaTransportasi}
-                        </option>
-                    )})}
-                  </select>
-                </div>
-                <div className="">
-                  <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Transportasi</label>
-                  <select 
-                    placeholder="Jenis Klien" 
-                    defaultValue="default"
-                    className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    // onChange={set}
-                    onChange={(e) => {
-                      find(e.target.value)
-                    }
-                    // setDatas({
-                    // ...datas,
-                    // namaArea: e.target.value
-                    // })
-                    }
-                  >
-                    <option value="default">--</option>
-                    {props.transportasi.map((ds, index) => {
-                      return (
-                        <option 
-                          value={ds.id} 
-                          key={ds.id}
-                        >
-                        {ds.namaTransportasi}
-                        </option>
-                    )})}
-                  </select>
-                </div>
-                <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>
-                  <input type="number" name="brand" id="brand" className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"/>
-                </div>
-              </div>
-              <div className="grid gap-4 sm:grid-cols-5 mt-3">
-                <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Quantity</label>
-                  <input type="number" name="brand" id="brand" className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"/>
-                </div>
-                <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Hari</label>
-                  <input type="number" name="brand" id="brand" className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"/>
-                </div>
-                <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
-                  <input type="number" name="brand" id="brand" className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"/>
-                </div>
-                <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah</label>
-                  <input type="number" name="brand" id="brand" className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"/>
-                </div>
-                <div >
-                  <div className="">
-                    {/* <button
-                        className="btn btn-warning  text-white border-0 btn-md mt-6 mr-3"
-                        onClick={removeFields}
-                        >
-                        remove
-                        </button> */}
-                    <button
-                      className="btn bg-green-600 text-white border-0 btn-md mt-6 px-7"
-                      onClick={() => {
-                        addFields("transportasi")
-                      }}
-                    >
-                    add
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Data Penginapan */}
-              <div className="mb-5 mt-2 bg-gray-200 border-b border-gray-200 mt-10"></div>
-              <div className="grid gap-4 sm:grid-cols-3 sm:gap-4 ">
-                <div className="">
-                  <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">VendorPenginapan</label>
-                  <select 
-                    placeholder="Jenis Klien" 
-                    defaultValue="default"
-                    className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    // onChange={set}
-                    onChange={(e) => {
-                      find(e.target.value)
-                    }
-                    // setDatas({
-                    // ...datas,
-                    // namaArea: e.target.value
-                    // })
-                    }
-                  >
-                    <option value="default">--</option>
-                    {props.transportasi.map((ds, index) => {
-                      return (
-                        <option 
-                          value={ds.id} 
-                          key={ds.id}
-                        >
-                        {ds.namaTransportasi}
-                        </option>
-                    )})}
-                  </select>
-                </div>
-                <div className="">
-                  <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Penginapan</label>
-                  <select 
-                    placeholder="Jenis Klien" 
-                    defaultValue="default"
-                    className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    // onChange={set}
-                    onChange={(e) => {
-                      find(e.target.value)
-                    }
-                    // setDatas({
-                    // ...datas,
-                    // namaArea: e.target.value
-                    // })
-                    }
-                  >
-                    <option value="default">--</option>
-                    {props.transportasi.map((ds, index) => {
-                      return (
-                        <option 
-                          value={ds.id} 
-                          key={ds.id}
-                        >
-                        {ds.namaTransportasi}
-                        </option>
-                    )})}
-                  </select>
-                </div>
-                <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>
-                  <input type="number" name="brand" id="brand" className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"/>
-                </div>
-              </div>
-              <div className="grid gap-4 sm:grid-cols-5 mt-3">
-                <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Quantity</label>
-                  <input type="number" name="brand" id="brand" className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"/>
-                </div>
-                <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Hari</label>
-                  <input type="number" name="brand" id="brand" className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"/>
-                </div>
-                <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
-                  <input type="number" name="brand" id="brand" className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"/>
-                </div>
-                <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah</label>
-                  <input type="number" name="brand" id="brand" className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"/>
-                </div>
-                <div >
-                  <div className="">
-                    {/* <button
-                        className="btn btn-warning  text-white border-0 btn-md mt-6 mr-3"
-                        onClick={removeFields}
-                        >
-                        remove
-                        </button> */}
-                    <button
-                      className="btn bg-green-600 text-white border-0 btn-md mt-6 px-7"
-                      onClick={() => {
-                        addFields("transportasi")
-                      }}
-                    >
-                    add
-                    </button>
-                  </div>
-                </div>
-              </div>              
-
-              {/* Data Rumah Makan */}
-              <div className="mb-5 mt-2 bg-gray-200 border-b border-gray-200 mt-10"></div>
-              {formRM.map((ds, index) => {
+              {formTransport.map((ds, index) => {
                 return (
                   <div key={index}>
-                    <div className="grid gap-4 sm:grid-cols-2 sm:gap-4 mt-3">
+                    <div className="grid gap-4 sm:grid-cols-3 sm:gap-4 mt-3">
                       <div className="">
-                        <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Makan Dan Minum</label>
+                        <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Vendor Transportasi</label>
                         <select 
-                          name="namaDestinasiWisata"
+                          name="namaTransportasi"
                           placeholder="Jenis Klien" 
                           defaultValue="default"
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           // onChange={set}
                           onChange={(e) => {
-                            find(e, index, 'destinasi')
+                            findList(e, index, 'transportasi')
                           }}
                         >
                           <option 
                           value="default"
                           >--</option>
-                          {listRM.map((ds, index) => {
+                          {props.transportasi.map((ds, index) => {
                             return (
                               <option 
                                 value={ds.id} 
                                 key={ds.id}
                                 // name="ketDataEvent"
                               >
-                              {ds.namaRM}
+                              {ds.namaTransportasi}
+                              </option>
+                          )})}
+                        </select>
+                      </div>
+                      <div className="">
+                        <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Nama Transportasi</label>
+                        <select 
+                          name="transportasi"
+                          placeholder="Jenis Klien" 
+                          defaultValue="default"
+                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          // onChange={set}
+                          onChange={(e) => {
+                            find(e, index, 'transportasi')
+                          }}
+                        >
+                          <option 
+                          value="default"
+                          >--</option>
+                          {ds.nama.map((ds, index) => {
+                            return (
+                              <option 
+                                value={ds.id} 
+                                key={ds.id}
+                                // name="ketDataEvent"
+                              >
+                              {ds.nama}
                               </option>
                           )})}
                         </select>
@@ -1169,7 +1361,7 @@ const Quotations = (props, crewL) => {
                           value={ds.qty}
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           onChange={(e) => {
-                            find(e, index, 'destinasi')
+                            find(e, index, 'transportasi')
                           }}
                         />
                       </div>
@@ -1182,7 +1374,7 @@ const Quotations = (props, crewL) => {
                           value={ds.hari}
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           onChange={(e) => {
-                            find(e, index, 'destinasi')
+                            find(e, index, 'transportasi')
                           }}
                         />
                       </div>
@@ -1196,7 +1388,7 @@ const Quotations = (props, crewL) => {
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           value={ds.harga}
                           onChange={(e) => {
-                            find(e, index, 'destinasi')
+                            find(e, index, 'transportasi')
                           }}
                         />
                       </div>
@@ -1209,27 +1401,27 @@ const Quotations = (props, crewL) => {
                           value={ds.jumlah}
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           onChange={(e) => {
-                            find(e, index, 'destinasi')
+                            find(e, index, 'transportasi')
                           }}
                         />
                       </div>
                       <div >
                         <div className="">
-                          { formDestinasi.length!==1 &&
+                          { formTransport.length!==1 &&
                             <button
                               className="btn btn-warning  text-white border-0 btn-md mt-6 mr-3"
                               onClick={() => {
-                                removeFields(index, "destinasi")
+                                removeFields(index, "transportasi")
                               }}
                             >
                             remove
                             </button>
                           }
-                          { formDestinasi.length-1==index &&
+                          { formTransport.length-1==index &&
                             <button
                             className="btn bg-green-600 text-white border-0 btn-md mt-6 px-7"
                             onClick={() => {
-                              addFields("destinasi")
+                              addFields("transportasi")
                               }}
                             >
                             add
@@ -1241,79 +1433,318 @@ const Quotations = (props, crewL) => {
                   </div>
                 )
               })}
-              
-              {/* Data Fasilitas Peserta */}
+
+              {/* Data Penginapan */}
               <div className="mb-5 mt-2 bg-gray-200 border-b border-gray-200 mt-10"></div>
-              <div className="grid gap-4 sm:grid-cols-2 sm:gap-4 ">
-                <div className="">
-                  <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Fasilitas Tour</label>
-                  <select 
-                    placeholder="Jenis Klien" 
-                    defaultValue="default"
-                    className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    // onChange={set}
-                    onChange={(e) => {
-                      find(e.target.value)
-                    }
-                    // setDatas({
-                    // ...datas,
-                    // namaArea: e.target.value
-                    // })
-                    }
-                  >
-                    <option value="default">--</option>
-                    {props.fasilitasTour.map((ft, index) => {
-                      return (
-                        <option 
-                          value={ft.id} 
-                          key={ft.id}
+              {formPenginapan.map((ds, index) => {
+                return (
+                  <div key={index}>
+                    <div className="grid gap-4 sm:grid-cols-3 sm:gap-4 mt-3">
+                      <div className="">
+                        <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Vendor Penginapan</label>
+                        <select 
+                          name="namaPenginapan"
+                          placeholder="Jenis Klien" 
+                          defaultValue="default"
+                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          // onChange={set}
+                          onChange={(e) => {
+                            findList(e, index, 'penginapan')
+                          }}
                         >
-                        {ft.ketFasilitas}
-                        </option>
-                    )})}
-                  </select>
-                </div>
-                <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>
-                  <input type="number" name="brand" id="brand" className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"/>
-                </div>
-              </div>
-              <div className="grid gap-4 sm:grid-cols-5 mt-3">
-                <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Quantity</label>
-                  <input type="number" name="brand" id="brand" className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"/>
-                </div>
-                <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Hari</label>
-                  <input type="number" name="brand" id="brand" className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"/>
-                </div>
-                <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
-                  <input type="number" name="brand" id="brand" className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"/>
-                </div>
-                <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah</label>
-                  <input type="number" name="brand" id="brand" className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"/>
-                </div>
-                <div >
-                  <div className="">
-                    {/* <button
-                        className="btn btn-warning  text-white border-0 btn-md mt-6 mr-3"
-                        onClick={removeFields}
+                          <option 
+                          value="default"
+                          >--</option>
+                          {props.penginapan.map((ds, index) => {
+                            return (
+                              <option 
+                                value={ds.id} 
+                                key={ds.id}
+                                // name="ketDataEvent"
+                              >
+                              {ds.namaPenginapan}
+                              </option>
+                          )})}
+                        </select>
+                      </div>
+                      <div className="">
+                        <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jenis Kamar</label>
+                        <select 
+                          name="jenisKamar"
+                          placeholder="Jenis Klien" 
+                          defaultValue="default"
+                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          // onChange={set}
+                          onChange={(e) => {
+                            find(e, index, 'penginapan')
+                          }}
                         >
-                        remove
-                        </button> */}
-                    <button
-                      className="btn bg-green-600 text-white border-0 btn-md mt-6 px-7"
-                      onClick={() => {
-                        addFields("transportasi")
-                      }}
-                    >
-                    add
-                    </button>
+                          <option 
+                          value="default"
+                          >--</option>
+                          {ds.jenisKamar.map((ds, index) => {
+                            return (
+                              <option 
+                                value={ds.id} 
+                                key={ds.id}
+                                // name="ketDataEvent"
+                              >
+                              {ds.namaJenisKamar}
+                              </option>
+                          )})}
+                        </select>
+                      </div>
+                      <div className="">
+                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>
+                        <input 
+                          key={index}
+                          type="number" 
+                          name="biaya" 
+                          id="brand" 
+                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          value={ds.biaya}
+                          disabled readOnly
+                          />
+                      </div>
+                    </div>
+                    <div className="grid gap-4 sm:grid-cols-5 mt-3">
+                      <div className="">
+                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Quantity</label>
+                        <input 
+                          type="number" 
+                          name="qty" 
+                          id="brand" 
+                          value={ds.qty}
+                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          onChange={(e) => {
+                            find(e, index, 'penginapan')
+                          }}
+                        />
+                      </div>
+                      <div className="">
+                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Hari</label>
+                        <input 
+                          type="number" 
+                          name="hari" 
+                          id="brand" 
+                          value={ds.hari}
+                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          onChange={(e) => {
+                            find(e, index, 'penginapan')
+                          }}
+                        />
+                      </div>
+                      <div className="">
+                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
+                        <input 
+                          key={index}
+                          type="number" 
+                          name="harga" 
+                          id="brand" 
+                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          value={ds.harga}
+                          onChange={(e) => {
+                            find(e, index, 'penginapan')
+                          }}
+                        />
+                      </div>
+                      <div className="">
+                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah</label>
+                        <input 
+                          type="number" 
+                          name="jumlah" 
+                          id="brand" 
+                          value={ds.jumlah}
+                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          onChange={(e) => {
+                            find(e, index, 'penginapan')
+                          }}
+                        />
+                      </div>
+                      <div >
+                        <div className="">
+                          { formPenginapan.length!==1 &&
+                            <button
+                              className="btn btn-warning  text-white border-0 btn-md mt-6 mr-3"
+                              onClick={() => {
+                                removeFields(index, "penginapan")
+                              }}
+                            >
+                            remove
+                            </button>
+                          }
+                          { formPenginapan.length-1==index &&
+                            <button
+                            className="btn bg-green-600 text-white border-0 btn-md mt-6 px-7"
+                            onClick={() => {
+                              addFields("penginapan")
+                              }}
+                            >
+                            add
+                            </button>
+                          }
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+                )
+              })}          
+
+              {/* Data Rumah Makan */}
+              <div className="mb-5 mt-2 bg-gray-200 border-b border-gray-200 mt-10"></div>
+              {formRM.map((ds, index) => {
+                return (
+                  <div key={index}>
+                    <div className="grid gap-4 sm:grid-cols-3 sm:gap-4 mt-3">
+                      <div className="">
+                        <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Makan Dan Minum</label>
+                        <select 
+                          name="namaRumahMakan"
+                          placeholder="Jenis Klien" 
+                          defaultValue="default"
+                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          // onChange={set}
+                          onChange={(e) => {
+                            findList(e, index, 'rm')
+                          }}
+                        >
+                          <option 
+                          value="default"
+                          >--</option>
+                          {props.rumahMakan.map((ds, index) => {
+                            return (
+                              <option 
+                                value={ds.id} 
+                                key={ds.id}
+                                // name="ketDataEvent"
+                              >
+                              {ds.namaRM}
+                              </option>
+                          )})}
+                        </select>
+                      </div>
+                      <div className="">
+                        <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Menu</label>
+                        <select 
+                          name="namaRumahMakan"
+                          placeholder="Jenis Klien" 
+                          defaultValue="default"
+                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          // onChange={set}
+                          onChange={(e) => {
+                            find(e, index, 'rm')
+                          }}
+                        >
+                          <option 
+                          value="default"
+                          >--</option>
+                          {ds.menuRM.map((ds, index) => {
+                            return (
+                              <option 
+                                value={ds.id} 
+                                key={ds.id}
+                                // name="ketDataEvent"
+                              >
+                              {ds.namaMenu}
+                              </option>
+                          )})}
+                        </select>
+                      </div>
+                      <div className="">
+                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>
+                        <input 
+                          key={index}
+                          type="number" 
+                          name="biaya" 
+                          id="brand" 
+                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          value={ds.biaya}
+                          disabled readOnly
+                          />
+                      </div>
+                    </div>
+                    <div className="grid gap-4 sm:grid-cols-5 mt-3">
+                      <div className="">
+                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Quantity</label>
+                        <input 
+                          type="number" 
+                          name="qty" 
+                          id="brand" 
+                          value={ds.qty}
+                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          onChange={(e) => {
+                            find(e, index, 'rm')
+                          }}
+                        />
+                      </div>
+                      <div className="">
+                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Hari</label>
+                        <input 
+                          type="number" 
+                          name="hari" 
+                          id="brand" 
+                          value={ds.hari}
+                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          onChange={(e) => {
+                            find(e, index, 'rm')
+                          }}
+                        />
+                      </div>
+                      <div className="">
+                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
+                        <input 
+                          key={index}
+                          type="number" 
+                          name="harga" 
+                          id="brand" 
+                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          value={ds.harga}
+                          onChange={(e) => {
+                            find(e, index, 'rm')
+                          }}
+                        />
+                      </div>
+                      <div className="">
+                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah</label>
+                        <input 
+                          type="number" 
+                          name="jumlah" 
+                          id="brand" 
+                          value={ds.jumlah}
+                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          onChange={(e) => {
+                            find(e, index, 'rm')
+                          }}
+                        />
+                      </div>
+                      <div >
+                        <div className="">
+                          { formRM.length!==1 &&
+                            <button
+                              className="btn btn-warning  text-white border-0 btn-md mt-6 mr-3"
+                              onClick={() => {
+                                removeFields(index, "rm")
+                              }}
+                            >
+                            remove
+                            </button>
+                          }
+                          { formRM.length-1==index &&
+                            <button
+                            className="btn bg-green-600 text-white border-0 btn-md mt-6 px-7"
+                            onClick={() => {
+                              addFields("rm")
+                              }}
+                            >
+                            add
+                            </button>
+                          }
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
               
               {/* Data Fasilitas Tour */}
               <div className="mb-5 mt-2 bg-gray-200 border-b border-gray-200 mt-10"></div>
@@ -1847,7 +2278,11 @@ const Quotations = (props, crewL) => {
               
             </div>
             <div className="space-x-3">
-              <button className="btn bg-primary text-white border-0 btn-md mt-10">
+              <button className="btn bg-primary text-white border-0 btn-md mt-10"
+              onClick={() => {
+                  handleSubmit()
+              }}
+              >
                 simpan
               </button>
               <button className="btn bg-gray-400 text-white border-0 btn-md mt-10">

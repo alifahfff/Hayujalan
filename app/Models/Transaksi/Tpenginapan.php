@@ -14,6 +14,19 @@ class Tpenginapan extends Model
 
     protected $table = "tpenginapans";
     protected $primaryKey = "id";
+    protected $fillable = [
+        'idPenginapan',
+        'qty',
+        'hari',
+        'harga',
+        'jumlah',
+        'keterangan',
+        'idQuotationTransaksion',
+        'created_at',
+        'idQuotationRekomendasi',
+        'updated_at'
+    ];
+
 
     // yang punya id one to many
     // klien memiliki data yang ada pada jenis klien

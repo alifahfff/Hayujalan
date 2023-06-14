@@ -14,14 +14,15 @@ class ReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
-
-    public function report()
-    {
-        //
+        $keyword = $request->input('key');
+        $mydata = Report::with('qtransaksi')
+                ->where('namaProject', 'like', '%' . $keyword . '%')
+                ->paginate(4);
+        return Inertia::render('Laporan/LaporanQuotation', [
+            'Mydata' => $mydata,
+        ]);
     }
 
     /**
@@ -51,9 +52,16 @@ class ReportController extends Controller
      * @param  \App\Models\Report  $report
      * @return \Illuminate\Http\Response
      */
-    public function show(Report $report)
+    public function show(Request $request)
     {
-        return Inertia::render('Report/Report');
+        $keyword = $request->input('key');
+        $mydata = Report::with('qtransaksi.quotation.klien')
+                ->where('namaProject', 'like', '%' . $keyword . '%')
+                ->paginate(4);
+        return Inertia::render('Report/Reports', [
+            'Mydata' => $mydata,
+        ]);
+        // return Inertia::render('Report/Report');
     }
 
     /**
@@ -76,7 +84,12 @@ class ReportController extends Controller
      */
     public function update(Request $request, Report $report)
     {
-        //
+        Report::where('id', $request->id)->update([
+            'nilaiKlien' => $request->nilaiKlien,
+            'statusBerjalan' => $request->statusBerjalan,
+            'feedback' => $request->feedback,
+        ]);
+        return redirect()->back()->with('message', 'item berhasil diupdate');
     }
 
     /**

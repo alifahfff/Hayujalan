@@ -13,6 +13,12 @@ class userSales extends Model
 
     protected $table = "user_sales";
     protected $primaryKey = "id";
+    protected $fillable = [
+        'namaSales',
+        'tlpSales',
+        'statusSales',
+        'idUser',
+    ];
 
     // yang punya id one to one
     public function user()

@@ -4,6 +4,7 @@ namespace App\Models\Itemq;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Quotation\quotationTour;
 
 class dataKlien extends Model
 {
@@ -18,6 +19,11 @@ class dataKlien extends Model
     public function jenisKlien()
     {
         return $this->belongsTo(dataJenisKlien::class, 'jenis_klien_id', 'id');
+    }
+
+    public function quotation()
+    {
+        return $this->hasMany(quotationTour::class, 'idDataKlien', 'id');
     }
     
 }

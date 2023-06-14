@@ -12,6 +12,7 @@ class dataEvent extends Model
 
     protected $table = "data_events";
     protected $primaryKey = "id";
+    
 
     // nggak punya id
     // jenis klien mempunyai banyak klien
