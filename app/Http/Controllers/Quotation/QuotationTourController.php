@@ -170,7 +170,7 @@ class QuotationTourController extends Controller
     {   
         $kategori = dataKategoriTour::all();
         $area = areaWisata::all();
-        $quotation = quotationTransaksi::with('quotation.areaWisata','quotation.dataKategoriWisata')->get();
+        $quotation = quotationTransaksi::with('quotation.areaWisata')->get();
         return Inertia::render('Quotation/DataQuoResult', [
             'quotation' => $quotation,
             'area' => $area,
