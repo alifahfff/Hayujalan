@@ -9,6 +9,7 @@ use App\Models\Akses\userProgram;
 use App\Models\Akses\userSales;
 use App\Models\Vendor\areaWisata;
 use App\Models\Itemq\dataKlien;
+use App\Models\User;
 
 class quotationTour extends Model
 {
@@ -52,14 +53,9 @@ class quotationTour extends Model
         return $this->belongsTo(dataKategoriTour::class, 'idKategoriTour', 'id');
     }
 
-    public function userprogram()
+    public function user()
     {
-        return $this->belongsTo(userProgram::class, 'idUserProgram', 'id');
-    }
-
-    public function usersales()
-    {
-        return $this->belongsTo(userSales::class, 'idUserSales', 'id');
+        return $this->belongsTo(User::class, 'idUsers', 'id');
     }
 
     public function areawisata()

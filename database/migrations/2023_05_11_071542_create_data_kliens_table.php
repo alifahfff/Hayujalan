@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('tlpKlien', 13)->nullable();
             $table->string('namaPicKlien', 100)->nullable();
             $table->string('tlpPicKlien', 13)->nullable();
+            $table->date('tglBerlakuItem', 100)->nullable();
             $table->timestamps();
 
             // $table->foreignId('jenis_klien_id')->constrained(

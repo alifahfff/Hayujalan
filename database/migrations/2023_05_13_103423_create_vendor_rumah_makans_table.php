@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('picRM', 100)->nullable();
             $table->string('hpPicRM', 13)->nullable();
             $table->text('linkGmaps')->nullable();
+            $table->date('tglBerlakuQuotation')->nullable();
             $table->timestamps();
         });
     }
