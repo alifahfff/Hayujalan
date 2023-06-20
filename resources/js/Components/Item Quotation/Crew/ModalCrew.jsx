@@ -16,6 +16,7 @@ const ModalCrew = ({visible, onClose, crew}) => {
                 ketCrewOperasional: datas.ketCrewOperasional, 
                 biayaCrewOperasional: datas.biayaCrewOperasional, 
                 satuan: datas.satuan,
+                tglBerlakuItem: datas.tglBerlakuItem,
                 updated_at: new Date(),
             }
             Inertia.post('/crew/update', dataE)
@@ -25,6 +26,7 @@ const ModalCrew = ({visible, onClose, crew}) => {
                 ketCrewOperasional: datas.ketCrewOperasional, 
                 biayaCrewOperasional: datas.biayaCrewOperasional, 
                 satuan: datas.satuan,
+                tglBerlakuItem: datas.tglBerlakuItem,
                 created_at: new Date(),
                 updated_at: new Date(),
             }

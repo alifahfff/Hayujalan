@@ -7,7 +7,7 @@ import Crew from '@/Components/Item Quotation/Crew/Crew';
 import Pagination from '@/Components/Pagination';
 import { BsPlusSquare, BsSearch } from "react-icons/bs";
 import ModalCrew from '@/Components/Item Quotation/Crew/ModalCrew';
-import Search from '@/Components/Hak Akses/Search';
+// import Search from '@/Components/Hak Akses/Search';
 import { Inertia } from '@inertiajs/inertia';
 import Layout from '@/Layouts/Layout';
 
@@ -19,6 +19,7 @@ export default function ItemCrew(props) {
         ketCrewOperasional: '', 
         biayaCrewOperasional: '', 
         satuan: '',
+        tglBerlakuItem:'',
     })
     
     const search = (key) => {

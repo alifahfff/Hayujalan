@@ -21,6 +21,7 @@ export default function VendorRM (props) {
         picRM: '', 
         hpPicRM: '',
         linkGmaps: '',
+        tglBerlakuQuotation:'',
     })
     
     const [showModal, setShowModal] = useState(false);

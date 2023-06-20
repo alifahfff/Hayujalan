@@ -28,6 +28,7 @@ const JenisTransportasi = ({jenis, dataCrew}) => {
                         <th scope="col" className="px-6 py-4">Jenis Transportasi</th>
                         <th scope="col" className="px-6 py-4">Penggunaan Unit</th>
                         <th scope="col" className="px-6 py-4">Kapasitas Maksimal</th>
+                        <th scope="col" className="px-6 py-4">Last Update</th>
                         <th scope="col" className="px-6 py-4">Aksi</th>
                         </tr>
                     </thead>
@@ -41,6 +42,7 @@ const JenisTransportasi = ({jenis, dataCrew}) => {
                                 <td className="whitespace-nowrap px-6 py-4">{cr.namaJenis}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.PenggunaanUnit}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.MaxKapasitas}</td>                              
+                                <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">{cr.updated_at.substring(0,10)}</td>                              
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                                     <button 
                                         onClick={() => {

@@ -22,6 +22,7 @@ export default function VendorHotel (props) {
         hpPicPenginapan: '',
         linkGmaps: '',
         kapasitasParkirBus: '',
+        tglBerlakuQuotation:'',
     })
 
     const [showModal, setShowModal] = useState(false);

@@ -47,6 +47,7 @@ class VendorTransportasiController extends Controller
         $transportasi->tlpTransportasi = $request->tlpTransportasi;
         $transportasi->picTransportasi = $request->picTransportasi;
         $transportasi->hpPicTransportasi = $request->hpPicTransportasi;
+        $transportasi->tglBerlakuQuotation = $request->tglBerlakuQuotation;
         $transportasi->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }
@@ -121,6 +122,7 @@ class VendorTransportasiController extends Controller
             'tlpTransportasi' => $request->tlpTransportasi,
             'picTransportasi' => $request->picTransportasi,
             'hpPicTransportasi' => $request->hpPicTransportasi,
+            'tglBerlakuQuotation' => $request->tglBerlakuQuotation,
         ]);
         return redirect()->back()->with('message', 'item berhasil diupdate');
     }

@@ -29,6 +29,7 @@ const TKlien = ({data}) => {
                         <th scope="col" className="px-6 py-4">Telephone Klien</th>
                         <th scope="col" className="px-6 py-4">Nama PIC</th>
                         <th scope="col" className="px-6 py-4">Telephone PIC</th>
+                        <th scope="col" className="px-6 py-4">Last Update</th>
                         <th scope="col" className="px-6 py-4">Aksi</th>
                         </tr>
                     </thead>
@@ -44,6 +45,7 @@ const TKlien = ({data}) => {
                                 <td className="whitespace-nowrap px-6 py-4">{dt.tlpKlien}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{dt.namaPicKlien}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{dt.tlpPicKlien}</td>
+                                <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">{dt.updated_at.substring(0,10)}</td>
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                                     <button 
                                         onClick={() => {

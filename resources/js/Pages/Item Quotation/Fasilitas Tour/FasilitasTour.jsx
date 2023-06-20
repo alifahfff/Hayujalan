@@ -18,6 +18,7 @@ export default function FasilitasTour(props) {
         ketFasilitas: '', 
         biayaFasilitas: '', 
         satuan: '',
+        tglBerlakuItem: '',
     })
     
     const search = (key) => {

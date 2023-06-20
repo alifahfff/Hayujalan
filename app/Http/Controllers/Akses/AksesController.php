@@ -154,10 +154,10 @@ class AksesController extends Controller
         $roles = roles::all();
         $mydata = User::with('roles')
             ->paginate(4);
-        $sales = userSales::all();
-        $keuangan = userKeuangan::all();
-        $program = userProgram::all();
-        $admin = userAdmin::all();
+        $sales = user::all();
+        $keuangan = user::all();
+        $program = user::all();
+        $admin = user::all();
         $user = [
             'keuangan' => $keuangan, 
             'program' => $program, 

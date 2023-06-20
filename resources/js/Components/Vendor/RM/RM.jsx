@@ -21,15 +21,11 @@ const RM = ({rm}) => {
                     <table className="min-w-full text-left text-sm text-black">
                     <thead className="border-b bg-abu font-medium dark:border-neutral-500 dark:text-neutral-800">
                         <tr>
-                        <th scope="col" className="px-6 py-4">Area Wisata</th>
                         <th scope="col" className="px-6 py-4">ID RM</th>
                         <th scope="col" className="px-6 py-4">Nama Rumah Makan</th>
-                        <th scope="col" className="px-6 py-4">Kapasitas RM</th>
-                        <th scope="col" className="px-6 py-4">Kapasitas Parkir Bus</th>
                         <th scope="col" className="px-6 py-4">Alamat </th>
-                        <th scope="col" className="px-6 py-4">No Telepon</th>
-                        <th scope="col" className="px-6 py-4">PIC</th>
-                        <th scope="col" className="px-6 py-4">No HP PIC</th>
+                        <th scope="col" className="px-6 py-4">Tanggal Berlaku</th>
+                        <th scope="col" className="px-6 py-4">Last Update</th>
                         <th scope="col" className="px-6 py-4">Aksi</th>
                         </tr>
                     </thead>
@@ -38,15 +34,11 @@ const RM = ({rm}) => {
                         return (
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
-                                <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.idAreaWisata}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.id}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.namaRM}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{cr.kapasitasRM}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{cr.kapasitasParkirBus}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{cr.alamatRM}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{cr.tlpRM}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{cr.picRM}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{cr.hpPicRM}</td>                                
+                                <td className="whitespace-nowrap px-6 py-4">{cr.alamatRM.substring(0,40)}</td>
+                                <td className="whitespace-nowrap px-6 py-4 text-merah font-bold">{cr.tglBerlakuQuotation}</td>
+                                <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">{cr.updated_at.substring(0,10)}</td>
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                                     <button className="btn btn-ghost btn-sm mr-2">
                                         <Link href={route('rumahmakan.detail')} data={{id: cr.id}}>
