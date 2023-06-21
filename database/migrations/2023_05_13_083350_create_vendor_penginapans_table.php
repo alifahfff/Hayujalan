@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('hpPicPenginapan', 13)->nullable();
             $table->text('linkGmaps')->nullable();
             $table->integer('kapasitasParkirBus')->nullable();
+            $table->date('tglBerlakuQuotation')->nullable();
             $table->timestamps();
         });
     }

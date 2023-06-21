@@ -49,6 +49,7 @@ class VendorPenginapanController extends Controller
         $hotel->hpPicPenginapan = $request->hpPicPenginapan;
         $hotel->linkGmaps = $request->linkGmaps;
         $hotel->kapasitasParkirBus = $request->kapasitasParkirBus;
+        $hotel->tglBerlakuQuotation = $request->tglBerlakuQuotation;
         $hotel->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }
@@ -119,6 +120,7 @@ class VendorPenginapanController extends Controller
             'hpPicPenginapan' => $request->hpPicPenginapan,
             'linkGmaps' => $request->linkGmaps,
             'kapasitasParkirBus' => $request->kapasitasParkirBus,
+            'tglBerlakuQuotation' => $request->tglBerlakuQuotation,
         ]);
         return redirect()->back()->with('message', 'item berhasil diupdate');
     }

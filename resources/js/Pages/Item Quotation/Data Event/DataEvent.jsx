@@ -15,6 +15,7 @@ export default function DataEvent(props) {
         ketFasilitas: '', 
         biayaFasilitas: '', 
         satuan: '',
+        tglBerlakuItem: '',
     })
     
     const search = (key) => {

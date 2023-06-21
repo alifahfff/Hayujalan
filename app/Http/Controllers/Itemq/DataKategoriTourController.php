@@ -40,6 +40,7 @@ class DataKategoriTourController extends Controller
         $Mydata = new dataKategoriTour();
         $Mydata->namaKategoriTour = $request->namaKategoriTour;
         $Mydata->presentaseKeuntungan = $request->presentaseKeuntungan;
+        // $Mydata->tglBerlakuItem = $request->tglBerlakuItem;
         $Mydata->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }

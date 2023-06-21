@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('tlpTransportasi', 13)->nullable();
             $table->string('picTransportasi', 100)->nullable();
             $table->string('hpPicTransportasi', 13)->nullable();
+            $table->date('tglBerlakuQuotation')->nullable();
             $table->timestamps();
         });
     }

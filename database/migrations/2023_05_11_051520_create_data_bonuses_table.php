@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('ketDataBonus', 100);
             $table->float('biayaDataBonus', 10);
             $table->string('satuan', 100);
+            $table->date('tglBerlakuItem', 100)->nullable();
             $table->timestamps();
         });
     }

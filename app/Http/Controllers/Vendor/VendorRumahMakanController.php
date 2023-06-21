@@ -49,6 +49,7 @@ class VendorRumahMakanController extends Controller
         $rm->picRM = $request->picRM;
         $rm->hpPicRM = $request->hpPicRM;
         $rm->linkGmaps = $request->linkGmaps;
+        $rm->tglBerlakuQuotation = $request->tglBerlakuQuotation;
         $rm->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }
@@ -117,6 +118,7 @@ class VendorRumahMakanController extends Controller
             'picRM' => $request->picRM,
             'hpPicRM' => $request->hpPicRM,
             'linkGmaps' => $request->linkGmaps,
+            'tglBerlakuQuotation' => $request->tglBerlakuQuotation,
         ]);
         return redirect()->back()->with('message', 'item berhasil diupdate');
     }

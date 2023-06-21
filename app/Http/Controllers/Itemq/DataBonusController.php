@@ -41,6 +41,7 @@ class DataBonusController extends Controller
         $Mydata->ketDataBonus = $request->ketDataBonus;
         $Mydata->biayaDataBonus = $request->biayaDataBonus;
         $Mydata->satuan = $request->satuan;
+        $Mydata->tglBerlakuItem = $request->tglBerlakuItem;
         $Mydata->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }

@@ -42,6 +42,7 @@ class CrewOperasionalController extends Controller
         $crew->ketCrewOperasional = $request->ketCrewOperasional;
         $crew->biayaCrewOperasional = $request->biayaCrewOperasional;
         $crew->satuan = $request->satuan;
+        $crew->tglBerlakuItem = $request->tglBerlakuItem;
         $crew->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }

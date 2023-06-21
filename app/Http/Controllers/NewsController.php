@@ -16,6 +16,10 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function login()
+    {
+        return Inertia::render('Login');
+    }
     public function index()
     {
         $count = quotationTransaksi::where('status', 'ditolak')->count();

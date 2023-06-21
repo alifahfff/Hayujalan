@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('ketFasilitas', 100);
             $table->float('biayaFasilitas', 10);
             $table->string('satuan', 100);
+            $table->date('tglBerlakuItem', 100)->nullable();
             $table->timestamps();
         });
     }

@@ -14,11 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('quotation_tours', function (Blueprint $table) {
-            $table->foreignId('idUserProgram')->constrained(
-                table: 'user_programs'
-            )->onDelete('cascade')->change();
-            $table->foreignId('idUserSales')->constrained(
-                table: 'user_sales'
+            $table->foreignId('idUsers')->constrained(
+                table: 'users'
             )->onDelete('cascade')->change();
             $table->foreignId('idAreaWisata')->constrained(
                 table: 'area_wisatas'

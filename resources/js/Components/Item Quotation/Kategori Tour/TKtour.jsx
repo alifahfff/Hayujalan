@@ -26,6 +26,8 @@ const TKtour = ({data}) => {
                         <th scope="col" className="px-6 py-4">ID</th>
                         <th scope="col" className="px-6 py-4">Kategori Tour</th>
                         <th scope="col" className="px-6 py-4">Persentase Keuntungan</th>
+                        {/* <th scope="col" className="px-6 py-4">Tanggal Berlaku Item</th> */}
+                        <th scope="col" className="px-6 py-4">Last Update</th>
                         <th scope="col" className="px-6 py-4">Aksi</th>
                         </tr>
                     </thead>
@@ -37,6 +39,7 @@ const TKtour = ({data}) => {
                                 <td className="whitespace-nowrap px-6 py-4 font-medium">{data.from + index}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{dt.namaKategoriTour}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{dt.presentaseKeuntungan}</td>
+                                <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">{dt.updated_at.substring(0,10)}</td>
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                                     <button 
                                         onClick={() => {

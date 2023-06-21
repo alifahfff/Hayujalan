@@ -36,13 +36,14 @@ use App\Http\Controllers\Vendor\AreaWisataController;
 |
 */
 
-Route::get('/', [NewsController::class, 'index']);
+// Route::get('/', [NewsController::class, 'index']);
 Route::get('/homepage', [NewsController::class, 'index'])->name('Homepage');
 
 
-// Item Quotation
-// Route::get('/itemQuotation', function () {
-//     return Inertia::render('Dashboard');
+// Login
+Route::get('/', function () {
+    return view('auth/login');
+});
 // })->name('itemQuitation');
 
 Route::controller(CrewOperasionalController::class)->group(function () {
