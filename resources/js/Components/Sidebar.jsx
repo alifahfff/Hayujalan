@@ -42,7 +42,7 @@ const Sidebar = () => {
         {
           title: "Quotation",
           icon: <BsFillFileEarmarkTextFill />,
-          path: "#",
+          path: "/quotation/qhistory/",
         },
       ],
     },

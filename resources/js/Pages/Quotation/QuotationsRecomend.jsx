@@ -14,7 +14,7 @@ import { Inertia } from "@inertiajs/inertia";
 export default function Quotations(props) {
   // const {data} = this.props.location;
   console.log("cek", props);
-
+  console.log("referensi", props.referensi);
   const [data, setData] = useState({
       namaKlien: '',
       b_areaWisata: '',
@@ -22,11 +22,11 @@ export default function Quotations(props) {
       b_budget: '',
       b_durasi: '',
       b_jumlahOrang: '',
-      b_kriteria1: '',
-      b_kriteria2: '',
-      b_kriteria3: '',
-      b_kriteria4: '',
-      b_kriteria5: '',
+      k_area: '',
+      k_kategori: '',
+      k_jumlahOrang: '',
+      k_durasi: '',
+      k_budget: '',
   })
 
   console.log('cek data', data);
@@ -78,6 +78,84 @@ export default function Quotations(props) {
   }
 
   const handleSubmit = () => {
+    let results = [];
+    const hasilarea = data.b_areaWisata;
+    const hasilKategori = data.b_kategori;
+    const hasilQty = data.b_jumlahOrang;
+    const hasilDurasi = data.b_durasi;
+    const hasilBudget = data.b_budget;
+
+    props.referensi.forEach((row) => {
+      const id = row.id;
+      const b_areaWisata = row.b_areaWisata;
+      const b_kategori = row.b_kategori;
+      const b_budget = row.b_budget;
+      const b_durasi = row.b_durasi;
+      const b_jumlahOrang = row.b_jumlahOrang;
+
+      // const areaWisata = parseFloat(Math.pow((b_areaWisata - hasilarea), 2) * (data.k_area));
+      // const roundedArea = parseFloat(areaWisata.toFixed(5)); // Bulatkan ke lima angka desimal
+      // const kategori = parseFloat(Math.pow((b_kategori - hasilKategori), 2) * (data.k_kategori));
+      // const roundedKategori = parseFloat(kategori.toFixed(5)); // Bulatkan ke lima angka desimal
+      // const jumlahOrang = parseFloat(Math.pow((b_jumlahOrang - hasilQty), 2) * (data.k_jumlahOrang));
+      // const roundedJumlahOrang = parseFloat(jumlahOrang.toFixed(5)); // Bulatkan ke lima angka desimal
+      // const durasi = parseFloat(Math.pow((b_durasi - hasilDurasi), 2) * (data.k_durasi));
+      // const roundedDurasi = parseFloat(durasi.toFixed(5)); // Bulatkan ke lima angka desimal
+      // const budget = parseFloat(Math.pow((b_budget - hasilBudget), 2) * (data.k_budget));
+      // const roundedBudget = parseFloat(budget.toFixed(5)); // Bulatkan ke lima angka desimal
+      
+
+      // console.log('id', id)
+      // console.log('areawisata', areaWisata)
+      // console.log('roundedArea',roundedArea);
+      // console.log('kategori', kategori)
+      // console.log('roundedKatgeori',roundedKategori);
+      // console.log('qty', jumlahOrang)
+      // console.log('roundedJumlahOrang',roundedJumlahOrang);
+      // console.log('durasi', durasi)
+      // console.log('roundedDurasi',roundedDurasi);
+      // console.log('budget', budget)
+      // console.log('roundedBudget',roundedBudget);
+
+      // const sum = roundedArea + roundedKategori + roundedJumlahOrang + roundedDurasi + roundedBudget;
+      // const devided = sum / (1);
+      // const total2 =  Math.sqrt(devided);
+      // const similarity2 = 1 - total2;
+
+      const total = Math.sqrt((parseFloat(Math.pow((b_areaWisata - hasilarea), 2) * (data.k_area)) + 
+      parseFloat(Math.pow((b_kategori - hasilKategori), 2) * (data.k_kategori)) +
+      parseFloat(Math.pow((b_jumlahOrang - hasilQty), 2) * (data.k_jumlahOrang)) + 
+      parseFloat(Math.pow((b_durasi - hasilDurasi), 2) * (data.k_durasi)) +
+      parseFloat(Math.pow((b_budget - hasilBudget), 2) * (data.k_budget))) / 1)
+      const roundedTotal = parseFloat(total.toFixed(5)); // Bulatkan ke lima angka desimal
+      const similarity = 1 - roundedTotal;
+      const roundedSim = parseFloat(similarity.toFixed(5)); // Bulatkan ke lima angka desimal
+      // const total = Math.sqrt(areaWisata + kategori + jumlahOrang + durasi + budget) / 1;
+      // const similarity = 1 - total;
+
+      // console.log('sum', sum)
+      // console.log('devided', devided)
+      // console.log('total2', total2)
+      // console.log('similarty', similarity2)
+      console.log('id', id)
+      console.log('total', total)
+      console.log('roundedTotal', roundedTotal)
+      console.log('similarty', similarity)
+      const result = {
+        id: id,
+        total: roundedTotal,
+        similarity: roundedSim,
+      };
+
+      // Save calculation results in the array
+      results.push(result);
+    });
+
+    //Sort the calculation results based on the highest similarity value
+    results.sort((a, b) => b.similarity - a.similarity);
+
+    console.log('results',results);
+
     const dataSubmit = {
       namaKlien: data.namaKlien,
       b_areaWisata: data.b_areaWisata,
@@ -85,23 +163,10 @@ export default function Quotations(props) {
       b_budget: data.b_budget,
       b_durasi: data.b_durasi,
       b_jumlahOrang: data.b_jumlahOrang,
-      b_kriteria1: data.b_kriteria1,
-      b_kriteria2: data.b_kriteria2,
-      b_kriteria3: data.b_kriteria3,
-      b_kriteria4: data.b_kriteria4,
-      b_kriteria5: data.b_kriteria5,
+      result: results, 
     }
     console.log('data submit', dataSubmit)
     Inertia.post('/quotation/qrecomend', dataSubmit)
-
-    const bobotKriteria = {
-      b_kriteria1: data.b_kriteria1,
-      b_kriteria2: data.b_kriteria2,
-      b_kriteria3: data.b_kriteria3,
-      b_kriteria4: data.b_kriteria4,
-      b_kriteria5: data.b_kriteria5,
-    }
-    // Inertia.post('/quotation/qrecomend/bobot', bobotKriteria)
   }
 
   return (
@@ -167,7 +232,7 @@ export default function Quotations(props) {
                     onChange={(e) => 
                       setData({
                         ...data,
-                        b_kriteria1: parseFloat(e.target.value)
+                        k_area: parseFloat(e.target.value)
                       })
                     }
                   >
@@ -175,8 +240,8 @@ export default function Quotations(props) {
                     <option value={parseFloat(0.3)}>1</option> 
                     <option value={parseFloat(0.25)}>2</option> 
                     <option value={parseFloat(0.2)}>3</option> 
-                    <option value={parseFloat(0.1)}>4</option> 
-                    <option value={parseFloat(0.15)}>5</option>   
+                    <option value={parseFloat(0.15)}>4</option> 
+                    <option value={parseFloat(0.1)}>5</option>   
                   </select>
                 </div>
 
@@ -211,7 +276,7 @@ export default function Quotations(props) {
                     onChange={(e) => 
                       setData({
                         ...data,
-                        b_kriteria2: parseFloat(e.target.value)
+                        k_kategori: parseFloat(e.target.value)
                       })
                     }
                   >
@@ -219,8 +284,8 @@ export default function Quotations(props) {
                     <option value={parseFloat(0.3)}>1</option> 
                     <option value={parseFloat(0.25)}>2</option> 
                     <option value={parseFloat(0.2)}>3</option> 
-                    <option value={parseFloat(0.1)}>4</option> 
-                    <option value={parseFloat(0.15)}>5</option>  
+                    <option value={parseFloat(0.15)}>4</option> 
+                    <option value={parseFloat(0.1)}>5</option>  
                   </select>
                 </div>
 
@@ -255,7 +320,7 @@ export default function Quotations(props) {
                     onChange={(e) => 
                       setData({
                         ...data,
-                        b_kriteria3: parseFloat(e.target.value)
+                        k_jumlahOrang: parseFloat(e.target.value)
                       })
                     }
                   >
@@ -263,8 +328,8 @@ export default function Quotations(props) {
                     <option value={parseFloat(0.3)}>1</option> 
                     <option value={parseFloat(0.25)}>2</option> 
                     <option value={parseFloat(0.2)}>3</option> 
-                    <option value={parseFloat(0.1)}>4</option> 
-                    <option value={parseFloat(0.15)}>5</option>  
+                    <option value={parseFloat(0.15)}>4</option> 
+                    <option value={parseFloat(0.1)}>5</option>  
                   </select>
                 </div>
 
@@ -299,7 +364,7 @@ export default function Quotations(props) {
                     onChange={(e) => 
                       setData({
                         ...data,
-                        b_kriteria4: parseFloat(e.target.value)
+                        k_durasi: parseFloat(e.target.value)
                       })
                     }
                   >
@@ -307,8 +372,8 @@ export default function Quotations(props) {
                     <option value={parseFloat(0.3)}>1</option> 
                     <option value={parseFloat(0.25)}>2</option> 
                     <option value={parseFloat(0.2)}>3</option> 
-                    <option value={parseFloat(0.1)}>4</option> 
-                    <option value={parseFloat(0.15)}>5</option>  
+                    <option value={parseFloat(0.15)}>4</option> 
+                    <option value={parseFloat(0.1)}>5</option>   
                   </select>
                 </div>
 
@@ -343,7 +408,7 @@ export default function Quotations(props) {
                     onChange={(e) => 
                       setData({
                         ...data,
-                        b_kriteria5: parseFloat(e.target.value)
+                        k_budget: parseFloat(e.target.value)
                       })
                     }
                   >
@@ -351,8 +416,8 @@ export default function Quotations(props) {
                     <option value={parseFloat(0.3)}>1</option> 
                     <option value={parseFloat(0.25)}>2</option> 
                     <option value={parseFloat(0.2)}>3</option> 
-                    <option value={parseFloat(0.1)}>4</option> 
-                    <option value={parseFloat(0.15)}>5</option>  
+                    <option value={parseFloat(0.15)}>4</option> 
+                    <option value={parseFloat(0.1)}>5</option>  
                   </select>
                 </div>
               </div>
