@@ -45,6 +45,7 @@ class DataKlienController extends Controller
         $Mydata->namaPicKlien = $request->namaPicKlien;
         $Mydata->tlpPicKlien = $request->tlpPicKlien;
         $Mydata->jenis_klien_id = $request->jenis_klien_id;
+        $Mydata->tglBerlakuItem = $request->tglBerlakuItem;
         $Mydata->save();
         
         return redirect()->back()->with('message', 'item berhasil dibuat');

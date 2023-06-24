@@ -41,6 +41,7 @@ class DataEventController extends Controller
         $Mydata->ketDataEvent = $request->ketDataEvent;
         $Mydata->biayaDataEvent = $request->biayaDataEvent;
         $Mydata->satuan = $request->satuan;
+        $Mydata->tglBerlakuItem = $request->tglBerlakuItem;
         $Mydata->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }

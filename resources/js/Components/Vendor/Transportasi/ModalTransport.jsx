@@ -17,6 +17,7 @@ const ModalTransport = ({visible, onClose, data, dataArea}) => {
                 tlpTransportasi: datas.tlpTransportasi, 
                 picTransportasi: datas.picTransportasi, 
                 hpPicTransportasi: datas.hpPicTransportasi,
+                tglBerlakuQuotation: datas.tglBerlakuQuotation,
                 updated_at: new Date(),
             }
             Inertia.post('/transportasi/update', dataUpdate)
@@ -29,6 +30,7 @@ const ModalTransport = ({visible, onClose, data, dataArea}) => {
                 tlpTransportasi: datas.tlpTransportasi, 
                 picTransportasi: datas.picTransportasi, 
                 hpPicTransportasi: datas.hpPicTransportasi,
+                tglBerlakuQuotation: datas.tglBerlakuQuotation,
                 created_at: new Date(),
                 updated_at: new Date(),
             }

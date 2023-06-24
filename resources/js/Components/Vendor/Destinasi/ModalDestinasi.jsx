@@ -22,6 +22,7 @@ const ModalDestinasi = ({visible, onClose, data, dataArea}) => {
                 picDestinasiWisata: datas.picDestinasiWisata, 
                 hpDestinasiWisata: datas.hpDestinasiWisata, 
                 linkGmaps: datas.linkGmaps, 
+                tglBerlakuQuotation : datas.tglBerlakuQuotation,
                 updated_at: new Date(),
             }
             Inertia.post('/destinasiwisata/update', dataUpdate)
@@ -37,6 +38,7 @@ const ModalDestinasi = ({visible, onClose, data, dataArea}) => {
                 picDestinasiWisata: datas.picDestinasiWisata, 
                 hpDestinasiWisata: datas.hpDestinasiWisata, 
                 linkGmaps: datas.linkGmaps,
+                tglBerlakuQuotation : datas.tglBerlakuQuotation,
                 created_at: new Date(),
                 updated_at: new Date(),
             }
@@ -189,6 +191,19 @@ const ModalDestinasi = ({visible, onClose, data, dataArea}) => {
                                         setDatas({
                                             ...datas,
                                             linkGmaps	: value.target.value
+                                        })}
+                                />
+                            </div>
+                            <div className="flex flex-row justify-between">
+                                <a className="mr-5 mt-2 text-black">Tanggal Berlaku</a>
+                                <input
+                                    type="date"
+                                    className="border border-gray-700 p-2 rounded mb-5"
+                                    value={datas.tglBerlakuQuotation	 || ''}
+                                    onChange={(value) => 
+                                        setDatas({
+                                            ...datas,
+                                            tglBerlakuQuotation	: value.target.value
                                         })}
                                 />
                             </div>

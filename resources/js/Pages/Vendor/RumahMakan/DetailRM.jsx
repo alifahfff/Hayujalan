@@ -80,6 +80,10 @@ export default function DetailRM(props) {
                                             <td>Link Gmaps </td>
                                             <td>: {props.rm.linkGmaps}</td>
                                         </tr>
+                                        <tr>
+                                            <td>Tanggal Berlaku Vendor </td>
+                                            <td className='text-merah font-bold'>: {props.rm.tglBerlakuQuotation}</td>
+                                        </tr>
                                 </table>
                         </div>
                 <div className="p-6 bg-white border-b border-gray-200">

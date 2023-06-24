@@ -29,6 +29,8 @@ const Crew = ({crew}) => {
                         <th scope="col" className="px-6 py-4">Crew Operasional</th>
                         <th scope="col" className="px-6 py-4">Biaya</th>
                         <th scope="col" className="px-6 py-4">Satuan</th>
+                        {/* <th scope="col" className="px-6 py-4">Tanggal Berlaku</th> */}
+                        <th scope="col" className="px-6 py-4">Last Update</th>
                         <th scope="col" className="px-6 py-4">Aksi</th>
                         </tr>
                     </thead>
@@ -41,6 +43,7 @@ const Crew = ({crew}) => {
                                 <td className="whitespace-nowrap px-6 py-4">{cr.ketCrewOperasional}</td>
                                 <td className="whitespace-nowrap px-6 py-4">Rp. {number(cr.biayaCrewOperasional)},-</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.satuan}</td>
+                                <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">{cr.updated_at.substring(0,10)}</td>
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                                     <button 
                                         onClick={() => {

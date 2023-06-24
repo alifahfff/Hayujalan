@@ -744,7 +744,7 @@ class QuotationTourController extends Controller
         if ($request->fasilitas[0]['idTfasilitas'] != 0) {
             foreach ($fasilitasData as $fasilitas) {
                 if ($fasilitas['idFasilitasTour'] != 0) {
-                    $existingCrew = TFasilitasTour::find($fasilitas['idTfasilitas']);
+                    $existingCrew = TcrewOp::find($fasilitas['idTcrew']);
                     if ($existingCrew) {
                         // Memeriksa perubahan pada data sebelumnya
                         $isChanged = false;

@@ -50,6 +50,7 @@ class VendorDestinasiWisataController extends Controller
         $destinasi->tlpDestinasiWisata = $request->tlpDestinasiWisata;
         $destinasi->picDestinasiWisata = $request->picDestinasiWisata;
         $destinasi->hpDestinasiWisata = $request->hpDestinasiWisata;
+        $destinasi->tglBerlakuQuotation = $request->tglBerlakuQuotation;
         $destinasi->linkGmaps = $request->linkGmaps;
         $destinasi->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
@@ -136,6 +137,7 @@ class VendorDestinasiWisataController extends Controller
             'picDestinasiWisata' => $request->picDestinasiWisata,
             'hpDestinasiWisata' => $request->hpDestinasiWisata,
             'linkGmaps' => $request->linkGmaps,
+            'tglBerlakuQuotation' => $request->tglBerlakuQuotation,
         ]);
         return redirect()->back()->with('message', 'item berhasil diupdate');
     }

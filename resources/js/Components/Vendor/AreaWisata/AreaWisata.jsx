@@ -25,6 +25,7 @@ const AreaWisata = ({area}) => {
                         <tr>
                         <th scope="col" className="px-6 py-4">ID Area Wisata</th>
                         <th scope="col" className="px-6 py-4">Area Wisata</th>
+                        <th scope="col" className="px-6 py-4">Last Update</th>
                         <th scope="col" className="px-6 py-4">Aksi</th>
                         </tr>
                     </thead>
@@ -35,6 +36,7 @@ const AreaWisata = ({area}) => {
                                 <tr className="border-b dark:border-neutral-500">
                                 <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.id}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.namaArea}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{cr.updated_at.substring(0,10)}</td>
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                                 <button 
                                         onClick={() => {

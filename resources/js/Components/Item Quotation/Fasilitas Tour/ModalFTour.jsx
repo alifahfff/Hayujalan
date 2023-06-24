@@ -16,6 +16,7 @@ const ModalFTour = ({visible, onClose, data}) => {
                 ketFasilitas: datas.ketFasilitas, 
                 biayaFasilitas: datas.biayaFasilitas, 
                 satuan: datas.satuan,
+                tglBerlakuItem: datas.tglBerlakuItem,
                 updated_at: new Date(),
             }
             Inertia.post('/fasilitasTour/update', dataE)
@@ -25,6 +26,7 @@ const ModalFTour = ({visible, onClose, data}) => {
                 ketFasilitas: datas.ketFasilitas, 
                 biayaFasilitas: datas.biayaFasilitas, 
                 satuan: datas.satuan,
+                tglBerlakuItem: datas.tglBerlakuItem,
                 created_at: new Date(),
                 updated_at: new Date(),
             }

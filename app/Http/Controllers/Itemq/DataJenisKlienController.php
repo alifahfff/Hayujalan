@@ -39,6 +39,7 @@ class DataJenisKlienController extends Controller
     {
         $Mydata = new dataJenisKlien();
         $Mydata->namaJenisKlien = $request->namaJenisKlien;
+        // $Mydata->tglBerlakuItem = $request->tglBerlakuItem;
         $Mydata->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }

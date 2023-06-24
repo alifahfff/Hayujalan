@@ -41,6 +41,7 @@ class FasilitasTourController extends Controller
         $Mydata->ketFasilitas = $request->ketFasilitas;
         $Mydata->biayaFasilitas = $request->biayaFasilitas;
         $Mydata->satuan = $request->satuan;
+        $Mydata->tglBerlakuItem = $request->tglBerlakuItem;
         $Mydata->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }

@@ -81,6 +81,10 @@ export default function DetailDestinasi(props) {
                                                 <td>Link Gmaps </td>
                                                 <td>: {props.destinasi.linkGmaps}</td>
                                             </tr>
+                                            <tr>
+                                                <td>Tanggal Berlaku Vendor </td>
+                                                <td className='text-merah font-bold'>: {props.destinasi.tglBerlakuQuotation}</td>
+                                            </tr>
                                     </table>
                         </div>
                 <div className="p-6 bg-white border-b border-gray-200">
