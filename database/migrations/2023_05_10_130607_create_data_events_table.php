@@ -13,13 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('data_events', function (Blueprint $table) {
-            $table->id();
-            $table->string('ketDataEvent', 100);
-            $table->float('biayaDataEvent', 10);
-            $table->string('satuan', 100);
-            $table->date('tglBerlakuItem', 100)->nullable();
+        Schema::create('M_dataEvent', function (Blueprint $table) {
+            $table->smallIncrements('idDataEvent');
+            $table->string('ketDataEvent', 100)->comment('');
+            $table->integer('biayaDataEvent')->comment('');
+            $table->date('tglUpdateEvent')->comment('');
+            $table->string('satuanEvent', 50)->comment('');
             $table->timestamps();
+            
         });
     }
 
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data_events');
+        Schema::dropIfExists('M_dataEvent');
     }
 };

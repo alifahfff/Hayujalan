@@ -188,7 +188,7 @@ class QuotationRekomendasiController extends Controller
         // $ids = array_column($topResults, 'id');
         
         // $solusi = DB::table('quotation_rekomendasis')
-        //             ->join('quotation_transaksis', 'quotation_transaksis.id', '=', 'quotation_rekomendasis.idQuotationTransaksion')
+        //             ->join('quotation_transaksis', 'quotation_transaksis.id', '=', 'quotation_rekomendasis.idQuotationTransaksi')
         //             ->whereIn('quotation_rekomendasis.id', $ids)
         //             ->select('quotation_transaksis.*', 'quotation_rekomendasis.*')
         //             ->addSelect(DB::raw($topResults[0]['total'] . ' as total'), DB::raw($topResults[0]['similarity'] . ' as similarity'))
@@ -199,10 +199,10 @@ class QuotationRekomendasiController extends Controller
         $ids = array_column($topResults, 'id');
 
         $solusi = DB::table('quotation_rekomendasis')
-            ->join('quotation_transaksis', 'quotation_transaksis.id', '=', 'quotation_rekomendasis.idQuotationTransaksion')
+            ->join('quotation_transaksis', 'quotation_transaksis.id', '=', 'quotation_rekomendasis.idQuotationTransaksi')
             ->whereIn('quotation_rekomendasis.id', $ids)
             ->select('quotation_transaksis.idQuotationTour', 
-            'quotation_rekomendasis.idQuotationTransaksion',
+            'quotation_rekomendasis.idQuotationTransaksi',
             'quotation_rekomendasis.id',
             )
             ->get();
@@ -215,7 +215,7 @@ class QuotationRekomendasiController extends Controller
             $data = collect($solusi)->firstWhere('id', $id);
 
             // Menggabungkan data dari $results dengan data dari $solusi
-            $result['idQuotationTransaksi'] = $data->idQuotationTransaksion; 
+            $result['idQuotationTransaksi'] = $data->idQuotationTransaksi; 
             $result['idQuotationTour'] = $data->idQuotationTour; 
             // Menyimpan hasil penggabungan pada array $response
             $response['data'][] = $result;

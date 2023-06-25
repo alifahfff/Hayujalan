@@ -13,19 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('quotation_tours', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('idKategoriTour')->default(1)->constrained(
-                table: 'data_kategori_tours'
-            )->onDelete('cascade')->onUpdate('cascade');
-            $table->string('namaProject', 100)->nullable();
-            $table->integer('durasiProject');
-            $table->integer('qty');
-            $table->integer('foc');
-            $table->date('planWaktuPelaksanaan', 100)->nullable();
-            $table->float('presentaseKeuntungan');
-            $table->float('feeMarketing');
+        Schema::create('M_quotationTour', function (Blueprint $table) {
+            $table->smallInteger('idQuotationTour')->comment('');
+            $table->string('namaProject', 100)->comment('');
+            $table->smallInteger('durasiProject')->nullable()->comment('');
+            $table->smallInteger('qty')->nullable()->comment('');
+            $table->smallInteger('foc')->nullable()->comment('');
+            $table->date('planWaktuPelaksanaan')->nullable()->comment('');
+            $table->decimal('persentaseKeuntungan')->nullable()->comment('');
+            $table->integer('feeMarketing')->nullable()->comment('');
+            $table->date('tglBerlakuQuotation')->nullable()->comment('');
             $table->timestamps();
+
+            $table->primary('idQuotationTour');
         });
     }
 
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quotation_tours');
+        Schema::dropIfExists('M_quotationTour');
     }
 };

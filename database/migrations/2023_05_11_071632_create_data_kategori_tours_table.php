@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('data_kategori_tours', function (Blueprint $table) {
-            $table->id();
-            $table->string('namaKategoriTour', 100);
-            $table->float('presentaseKeuntungan');
+        Schema::create('M_dataKategoriTour', function (Blueprint $table) {
+            $table->smallIncrements('idKategoriTour');
+            $table->string('namaKategoriTour', 100)->comment('');
+            $table->decimal('presentaseKeuntungan', 8, 2)->nullable()->comment('');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data_kategori_tours');
+        Schema::dropIfExists('M_dataKategoriTour');
     }
 };

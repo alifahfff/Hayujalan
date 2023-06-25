@@ -13,17 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ttransportasis', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('idTransportasi')->constrained(
-                table: 'vendor_transportasis'
-            )->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('qty');
-            $table->integer('hari');
-            $table->float('harga', 10, 2);
-            $table->float('jumlah', 10, 2);
-            $table->text('keterangan');
-            $table->timestamps();
+        Schema::create('T_transportasi', function (Blueprint $table) {
+            $table->smallIncrements('idTtransportasi')->comment('');
+            $table->smallInteger('idQuotationTransaksi')->nullable()->comment('');
+            $table->smallInteger('idTransportasi')->nullable()->comment('');
+            $table->string('namaTtransportasi', 100)->nullable()->comment('');
+            $table->integer('hargaTtransportasi')->nullable()->comment('');
+            $table->smallInteger('jumlahTtransportasi')->nullable()->comment('');
+            $table->smallInteger('qtyTtransportasi')->nullable()->comment('');
+            $table->smallInteger('jmlHariTtransportasi')->nullable()->comment('');
+            $table->string('ketTranportasi', 100)->nullable()->comment('');
+            $table->primary('idTtransportasi');
         });
     }
 
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ttransportasis');
+        Schema::dropIfExists('T_transportasi');
     }
 };

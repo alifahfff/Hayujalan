@@ -13,15 +13,23 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('detail_vendor_rumah_makans', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('idRM')->default(1)->constrained(
-                table: 'vendor_rumah_makans'
-            )->onDelete('cascade')->onUpdate('cascade');
-            $table->string('namaMenu', 100)->nullable();
-            $table->text('detailMenu')->nullable();
-            $table->float('hargaMenu', 10, 2)->nullable();
+        Schema::create('M_detailVendorRumahMakan', function (Blueprint $table) {
+            $table->smallIncrements('idDetailRM');
+            $table->smallInteger('idRM')->nullable()->comment('');
+            $table->char('namaMenu', 100)->nullable()->comment('');
+            $table->text('detailMenu')->nullable()->comment('');
+            $table->integer('hargaMenu')->nullable()->comment('');
+            $table->date('expiredDetailRm')->nullable()->comment('');
+            $table->string('statusDetailRm', 20)->nullable()->comment('');
+            $table->date('tglUpdateDetailRm')->nullable()->comment('');
+            $table->primary('idDetailRM');
             $table->timestamps();
+
+            $table->foreign('idRM')
+                ->references('idRM')
+                ->on('M_vendorRumahMakan')
+                ->onDelete('cascade')
+                ->onUpdate('restrict');
         });
     }
 
@@ -32,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detail_vendor_rumah_makans');
+        Schema::dropIfExists('M_detailVendorRumahMakan');
     }
 };

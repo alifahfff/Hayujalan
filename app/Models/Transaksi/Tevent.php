@@ -12,35 +12,27 @@ class Tevent extends Model
 {
     use HasFactory;
 
-    protected $table = "tevents";
-    protected $primaryKey = "id";
+    protected $table = 'T_event';
+    protected $primaryKey = 'idTevent';
     protected $fillable = [
         'idDataEvent',
-        'qty',
-        'hari',
-        'harga',
-        'jumlah',
-        'keterangan',
-        'idQuotationTransaksion',
-        'created_at',
-        'idQuotationRekomendasi',
-        'updated_at'
+        'idQuotationTransaksi',
+        'namaTevent',
+        'hargaTevent',
+        'jumlahTevent',
+        'qtyTevent',
+        'jmlHariTevent',
     ];
 
     // yang punya id one to many
     // klien memiliki data yang ada pada jenis klien
     public function event()
     {
-        return $this->belongsTo(dataEvent::class, 'idDataEvent', 'id');
+        return $this->belongsTo(dataEvent::class, 'idDataEvent', 'idDataEvent');
     }
 
     public function qtransaksi()
     {
-        return $this->belongsTo(quotationTransaksi::class, 'idQuotationTransaksion', 'id');
-    }
-
-    public function qrekomendasi()
-    {
-        return $this->belongsTo(quotationRekomendasi::class, 'idQuotationRekomendasi', 'id');
+        return $this->belongsTo(quotationTransaksi::class, 'idQuotationTransaksi', 'idQuotationTransaksi');
     }
 }

@@ -13,25 +13,35 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('detail_vendor_transportasis', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('idTransportasi')->default(1)->constrained(
-                table: 'vendor_transportasis'
-            )->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('idJenisTransportasi')->default(1)->constrained(
-                table: 'jenis_transportasis'
-            )->onDelete('cascade')->onUpdate('cascade');
-            $table->string('nama', 100)->nullable();
-            $table->string('tahun', 5)->nullable();
-            $table->integer('kapasitas')->nullable();
-            $table->integer('qtyKetersediaanUnit')->nullable();
-            $table->double('hargaSewaWeekendDalamKota', 10, 2)->nullable();
-            $table->double('hargaSewaWeekdayDalamKota', 10, 2)->nullable();
-            $table->double('hargaSewaWeekendLuarKota', 10, 2)->nullable();
-            $table->double('hargaSewaWeekdayLuarKota', 10, 2)->nullable();
-            $table->text('urlInterior')->nullable();
-            $table->text('urlEksterior')->nullable();
-            $table->timestamps();
+        Schema::create('M_detailVendorTransportasi', function (Blueprint $table) {
+            $table->smallIncrements('idDetailTransportasi')->comment('');
+            $table->smallInteger('idJenisTransportasi')->comment('');
+            $table->smallInteger('idTransportasi')->nullable()->comment('');
+            $table->string('nama', 100)->nullable()->comment('');
+            $table->smallInteger('tahun')->nullable()->comment('');
+            $table->smallInteger('kapasitas')->nullable()->comment('');
+            $table->smallInteger('qtyKetersediaan')->nullable()->comment('');
+            $table->integer('hargaSewaWeekendDalamKota')->nullable()->comment('');
+            $table->integer('hargaSewaWeekdayDalamKota')->nullable()->comment('');
+            $table->integer('hargaSewaWeekenLuarKota')->nullable()->comment('');
+            $table->integer('hargaSewaWeekdayLuarKota')->nullable()->comment('');
+            $table->string('urlInterior', 255)->nullable()->comment('');
+            $table->string('urlEksterior', 255)->nullable()->comment('');
+            $table->date('expiredDetailTransportasi')->nullable()->comment('');
+            $table->string('statusDetailTransportasi', 20)->nullable()->comment('');
+            $table->date('tglUpdateDetailTransportasi')->nullable()->comment('');
+            $table->primary('idDetailTransportasi');
+            $table->foreign('idTransportasi')
+                ->references('idTransportasi')
+                ->on('M_vendorTransportasi')
+                ->onDelete('cascade')
+                ->onUpdate('restrict');
+
+            $table->foreign('idJenisTransportasi')
+                ->references('idJenisTransportasi')
+                ->on('jenisTransportasi')
+                ->onDelete('cascade')
+                ->onUpdate('restrict');
         });
     }
 
@@ -42,6 +52,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detail_vendor_transportasis');
+        Schema::dropIfExists('M_detailVendorTransportasi');
     }
 };

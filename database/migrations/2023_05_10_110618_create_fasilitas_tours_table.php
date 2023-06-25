@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('fasilitas_tours', function (Blueprint $table) {
-            $table->id();
-            $table->string('ketFasilitas', 100);
-            $table->float('biayaFasilitas', 10);
-            $table->string('satuan', 100);
-            $table->date('tglBerlakuItem', 100)->nullable();
+        Schema::create('M_fasilitasTour', function (Blueprint $table) {
+            $table->smallIncrements('idFasilitasTour');
+            $table->string('ketFasilitasTour', 255)->comment('');
+            $table->integer('biayaFasilitas')->comment('');
+            $table->date('tglUpdatedFasilitas')->comment('');
+            $table->string('satuanFasilitas', 50)->comment('');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fasilitas_tours');
+        Schema::dropIfExists('M_fasilitasTour');
     }
 };

@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('area_wisatas', function (Blueprint $table) {
-            $table->id();
-            $table->string('namaArea', 100);
+        Schema::create('M_areaWisata', function (Blueprint $table) {
+            $table->smallInteger('idAreaWisata')->comment('');
+            $table->string('namaArea', 100)->comment('');
             $table->timestamps();
+            $table->primary('idAreaWisata');
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('area_wisatas');
+        Schema::dropIfExists('M_areaWisata');
     }
 };

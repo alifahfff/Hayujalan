@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->id();
-            $table->string('namaRoles', 100);
-            $table->timestamps();
+        Schema::table('M_dataKategoriTour', function (Blueprint $table) {
+            $table->smallInteger('idBobot')->comment('');
+            $table->foreign('idBobot')->references('idBobot')->on('M_bobot')->onDelete('cascade')->onUpdate('restrict');
         });
     }
 
@@ -27,7 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
-        Schema::enableForeignKeyConstraints();
+        //
     }
 };

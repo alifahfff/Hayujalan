@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('data_kriterias', function (Blueprint $table) {
-            $table->id();
-            $table->string('namaKriteria', 100);
-            $table->string('ketKriteria', 100);
+        Schema::create('M_kriteria', function (Blueprint $table) {
+            $table->smallIncrements('idKriteria');
+            $table->string('namaKriteria', 100)->comment('');
+            $table->text('ketKriteria')->nullable()->comment('');
             $table->timestamps();
+
+            $table->primary('idKriteria');
         });
     }
 
@@ -28,7 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data_kriterias');
-        Schema::dropIfExists('kriteria_bobot');
+        Schema::dropIfExists('M_kriteria');
     }
 };

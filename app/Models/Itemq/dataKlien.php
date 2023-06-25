@@ -10,20 +10,20 @@ class dataKlien extends Model
 {
     use HasFactory;
 
-    protected $table = "data_kliens";
-    protected $primaryKey = "id";
-    protected $fillable = ['namaKlien', 'jenis_klien_id'];
+    protected $table = 'M_dataJenisKlien';
+    protected $primaryKey = 'idJenisKlien';
+    protected $fillable = [
+        'namaJenisKlien',
+    ];
 
     // yang punya id one to many
     // klien memiliki data yang ada pada jenis klien
     public function jenisKlien()
     {
-        return $this->belongsTo(dataJenisKlien::class, 'jenis_klien_id', 'id');
+        return $this->belongsTo(dataJenisKlien::class, 'idJenisKlien', 'idJenisKlien');
     }
-
     public function quotation()
     {
-        return $this->hasMany(quotationTour::class, 'idDataKlien', 'id');
+        return $this->hasMany(quotationTour::class, 'idDataKlien', 'idDataKlien');
     }
-    
 }

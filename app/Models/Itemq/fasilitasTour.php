@@ -10,14 +10,20 @@ class fasilitasTour extends Model
 {
     use HasFactory;
 
-    protected $table = "fasilitas_tours";
-    protected $primaryKey = "id";
+    protected $table = 'M_fasilitasTour';
+    protected $primaryKey = 'idFasilitasTour';
+    protected $fillable = [
+        'ketFasilitasTour',
+        'biayaFasilitas',
+        'tglUpdatedFasilitas',
+        'satuanFasilitas',
+    ];
     
 
     // nggak punya id
     // jenis klien mempunyai banyak klien
     public function tfasilitasTour()
     {
-        return $this->hasMany(TFasilitasTour::class, 'idFasilitasTour', 'id');
+        return $this->hasMany(TFasilitasTour::class, 'idFasilitasTour', 'idFasilitasTour');
     }
 }

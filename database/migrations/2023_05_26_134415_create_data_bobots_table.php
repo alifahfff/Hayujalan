@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('data_bobots', function (Blueprint $table) {
-            $table->id();
-            $table->string('namaBobot', 100);
-            $table->integer('jmlBobot');
+        Schema::create('M_bobot', function (Blueprint $table) {
+            $table->smallInteger('idBobot')->comment('');
+            $table->string('namaBobot', 100)->comment('');
+            $table->smallInteger('jumlahBobot')->nullable()->comment('');
             $table->timestamps();
+            $table->primary('idBobot');
         });
     }
 
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data_bobots');
+        Schema::dropIfExists('M_bobot');
     }
 };

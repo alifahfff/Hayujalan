@@ -170,7 +170,7 @@ class QuotationTourController extends Controller
                     'harga' => $bonus['harga'],
                     'jumlah' => $bonus['jumlah'],
                     'keterangan' => $bonus['ketDataBonus'],
-                    'idQuotationTransaksion' => $quotationTransaksi->id,
+                    'idQuotationTransaksi' => $quotationTransaksi->id,
                     'created_at' => $request->created_at,
                     'idQuotationRekomendasi' => 1,
                     'updated_at' => $request->updated_at,
@@ -188,7 +188,7 @@ class QuotationTourController extends Controller
                     'harga' => $event['harga'],
                     'jumlah' => $event['jumlah'],
                     'keterangan' => $event['ketDataEvent'],
-                    'idQuotationTransaksion' => $quotationTransaksi->id,
+                    'idQuotationTransaksi' => $quotationTransaksi->id,
                     'created_at' => $request->created_at,
                     'idQuotationRekomendasi' => 1,
                     'updated_at' => $request->updated_at,
@@ -206,7 +206,7 @@ class QuotationTourController extends Controller
                     'harga' => $crew['harga'],
                     'jumlah' => $crew['jumlah'],
                     'keterangan' => $crew['ketCrewOperasional'],
-                    'idQuotationTransaksion' => $quotationTransaksi->id,
+                    'idQuotationTransaksi' => $quotationTransaksi->id,
                     'created_at' => $request->created_at,
                     'idQuotationRekomendasi' => 1,
                     'updated_at' => $request->updated_at,
@@ -224,7 +224,7 @@ class QuotationTourController extends Controller
                     'harga' => $fasilitas['harga'],
                     'jumlah' => $fasilitas['jumlah'],
                     'keterangan' => $fasilitas['ketFasilitas'],
-                    'idQuotationTransaksion' => $quotationTransaksi->id,
+                    'idQuotationTransaksi' => $quotationTransaksi->id,
                     'created_at' => $request->created_at,
                     'idQuotationRekomendasi' => 1,
                     'updated_at' => $request->updated_at,
@@ -242,7 +242,7 @@ class QuotationTourController extends Controller
                     'harga' => $destinasi['harga'],
                     'jumlah' => $destinasi['jumlah'],
                     'keterangan' => $destinasi['namaDestinasiWisata'],
-                    'idQuotationTransaksion' => $quotationTransaksi->id,
+                    'idQuotationTransaksi' => $quotationTransaksi->id,
                     'created_at' => $request->created_at,
                     'idQuotationRekomendasi' => 1,
                     'updated_at' => $request->updated_at,
@@ -260,7 +260,7 @@ class QuotationTourController extends Controller
                     'harga' => $transport['harga'],
                     'jumlah' => $transport['jumlah'],
                     'keterangan' => $transport['namaTransportasi'],
-                    'idQuotationTransaksion' => $quotationTransaksi->id,
+                    'idQuotationTransaksi' => $quotationTransaksi->id,
                     'created_at' => $request->created_at,
                     'idQuotationRekomendasi' => 1,
                     'updated_at' => $request->updated_at,
@@ -278,7 +278,7 @@ class QuotationTourController extends Controller
                     'harga' => $penginapan['harga'],
                     'jumlah' => $penginapan['jumlah'],
                     'keterangan' => $penginapan['namaPenginapan'],
-                    'idQuotationTransaksion' => $quotationTransaksi->id,
+                    'idQuotationTransaksi' => $quotationTransaksi->id,
                     'created_at' => $request->created_at,
                     'idQuotationRekomendasi' => 1,
                     'updated_at' => $request->updated_at,
@@ -296,7 +296,7 @@ class QuotationTourController extends Controller
                     'harga' => $rm['harga'],
                     'jumlah' => $rm['jumlah'],
                     'keterangan' => $rm['namaRM'],
-                    'idQuotationTransaksion' => $quotationTransaksi->id,
+                    'idQuotationTransaksi' => $quotationTransaksi->id,
                     'created_at' => $request->created_at,
                     'idQuotationRekomendasi' => 1,
                     'updated_at' => $request->updated_at,
@@ -314,14 +314,14 @@ class QuotationTourController extends Controller
     public function getQuotationResult(Request $request, $id)
     {
         $quotationTransaksi = quotationTransaksi::with('quotation.klien', 'quotation.areawisata', 'quotation.kategori')->find($id);
-        $Tbonus = Tbonus::where('idQuotationTransaksion', $id)->first();
-        $TDestinasiWisata = TDestinasiWisata::where('idQuotationTransaksion', $id)->get();
-        $Ttransportasi = Ttransportasi::with('transportasi.detailTransportasi')->where('idQuotationTransaksion', $id)->get();
-        $Tpenginapan = Tpenginapan::with('penginapan.detailPenginapan')->where('idQuotationTransaksion', $id)->get();
-        $TRumahMakan = TRumahMakan::where('idQuotationTransaksion', $id)->get();
-        $TFasilitasTour = TFasilitasTour::where('idQuotationTransaksion', $id)->get();
-        $Tevent = Tevent::where('idQuotationTransaksion', $id)->get();
-        $TcrewOp = TcrewOp::where('idQuotationTransaksion', $id)->get();
+        $Tbonus = Tbonus::where('idQuotationTransaksi', $id)->first();
+        $TDestinasiWisata = TDestinasiWisata::where('idQuotationTransaksi', $id)->get();
+        $Ttransportasi = Ttransportasi::with('transportasi.detailTransportasi')->where('idQuotationTransaksi', $id)->get();
+        $Tpenginapan = Tpenginapan::with('penginapan.detailPenginapan')->where('idQuotationTransaksi', $id)->get();
+        $TRumahMakan = TRumahMakan::where('idQuotationTransaksi', $id)->get();
+        $TFasilitasTour = TFasilitasTour::where('idQuotationTransaksi', $id)->get();
+        $Tevent = Tevent::where('idQuotationTransaksi', $id)->get();
+        $TcrewOp = TcrewOp::where('idQuotationTransaksi', $id)->get();
 
         return Inertia::render('Quotation/QuotationsResult', [
             'data' => $quotationTransaksi,
@@ -368,14 +368,14 @@ class QuotationTourController extends Controller
         $dataBonus = dataBonus::all();
         $jenisKlien = dataJenisKlien::all();
         $quotationTransaksi = quotationTransaksi::with('quotation.klien.jenisKlien', 'quotation.areawisata', 'quotation.kategori')->find($request->id);
-        $Tbonus = Tbonus::where('idQuotationTransaksion', $request->id)->get();
-        $TDestinasiWisata = TDestinasiWisata::with('destinasi.detaildw')->where('idQuotationTransaksion', $request->id)->get();
-        $Ttransportasi = Ttransportasi::with('transportasi.detailTransportasi')->where('idQuotationTransaksion', $request->id)->get();
-        $Tpenginapan = Tpenginapan::with('penginapan.detailPenginapan')->where('idQuotationTransaksion', $request->id)->get();
-        $TRumahMakan = TRumahMakan::with('rumahMakan.detailRM')->where('idQuotationTransaksion', $request->id)->get();
-        $TFasilitasTour = TFasilitasTour::with('fasilitasTour')->where('idQuotationTransaksion', $request->id)->get();
-        $Tevent = Tevent::where('idQuotationTransaksion', $request->id)->get();
-        $TcrewOp = TcrewOp::with('crew')->where('idQuotationTransaksion', $request->id)->get();
+        $Tbonus = Tbonus::where('idQuotationTransaksi', $request->id)->get();
+        $TDestinasiWisata = TDestinasiWisata::with('destinasi.detaildw')->where('idQuotationTransaksi', $request->id)->get();
+        $Ttransportasi = Ttransportasi::with('transportasi.detailTransportasi')->where('idQuotationTransaksi', $request->id)->get();
+        $Tpenginapan = Tpenginapan::with('penginapan.detailPenginapan')->where('idQuotationTransaksi', $request->id)->get();
+        $TRumahMakan = TRumahMakan::with('rumahMakan.detailRM')->where('idQuotationTransaksi', $request->id)->get();
+        $TFasilitasTour = TFasilitasTour::with('fasilitasTour')->where('idQuotationTransaksi', $request->id)->get();
+        $Tevent = Tevent::where('idQuotationTransaksi', $request->id)->get();
+        $TcrewOp = TcrewOp::with('crew')->where('idQuotationTransaksi', $request->id)->get();
         return Inertia::render('Quotation/QuotationsFormEdit', [
             'areawisata' => $areawisata,
             'userprogram' => $userprogram,
@@ -488,7 +488,7 @@ class QuotationTourController extends Controller
             }
         }
 
-        $existingQuotationTransaksi = quotationTransaksi::where('id', $request->quotationTour['idQuotationTransaksion'])->first();
+        $existingQuotationTransaksi = quotationTransaksi::where('id', $request->quotationTour['idQuotationTransaksi'])->first();
         if ($existingQuotationTransaksi) {
             // Data klien sudah ada, lakukan operasi update jika ada perubahan
             $isChanged = false;
@@ -572,8 +572,8 @@ class QuotationTourController extends Controller
                             $existingBonus->keterangan = $bonus['keterangan'];
                             $isChanged = true;
                         }
-                        if ($existingBonus->idQuotationTransaksion != $bonus['idQuotationTransaksion']) {
-                            $existingBonus->idQuotationTransaksion = $bonus['idQuotationTransaksion'];
+                        if ($existingBonus->idQuotationTransaksi != $bonus['idQuotationTransaksi']) {
+                            $existingBonus->idQuotationTransaksi = $bonus['idQuotationTransaksi'];
                             $isChanged = true;
                         }   
                         if ($existingBonus->idQuotationRekomendasi != $bonus['idQuotationRekomendasi']) {
@@ -597,7 +597,7 @@ class QuotationTourController extends Controller
                         'harga' => $bonus['harga'],
                         'jumlah' => $bonus['jumlah'],
                         'keterangan' => $bonus['ketDataBonus'],
-                        'idQuotationTransaksion' => $quotationTransaksi->id,
+                        'idQuotationTransaksi' => $quotationTransaksi->id,
                         'created_at' => $request->created_at,
                         'idQuotationRekomendasi' => 1,
                         'updated_at' => $request->updated_at,
@@ -639,8 +639,8 @@ class QuotationTourController extends Controller
                             $existingEvent->keterangan = $event['keterangan'];
                             $isChanged = true;
                         }
-                        if ($existingEvent->idQuotationTransaksion != $event['idQuotationTransaksion']) {
-                            $existingEvent->idQuotationTransaksion = $event['idQuotationTransaksion'];
+                        if ($existingEvent->idQuotationTransaksi != $event['idQuotationTransaksi']) {
+                            $existingEvent->idQuotationTransaksi = $event['idQuotationTransaksi'];
                             $isChanged = true;
                         }   
                         if ($existingEvent->idQuotationRekomendasi != $event['idQuotationRekomendasi']) {
@@ -664,7 +664,7 @@ class QuotationTourController extends Controller
                         'harga' => $event['harga'],
                         'jumlah' => $event['jumlah'],
                         'keterangan' => $event['ketDataEvent'],
-                        'idQuotationTransaksion' => $quotationTransaksi->id,
+                        'idQuotationTransaksi' => $quotationTransaksi->id,
                         'created_at' => $request->created_at,
                         'idQuotationRekomendasi' => 1,
                         'updated_at' => $request->updated_at,
@@ -706,8 +706,8 @@ class QuotationTourController extends Controller
                             $existingCrew->keterangan = $crew['keterangan'];
                             $isChanged = true;
                         }
-                        if ($existingCrew->idQuotationTransaksion != $crew['idQuotationTransaksion']) {
-                            $existingCrew->idQuotationTransaksion = $crew['idQuotationTransaksion'];
+                        if ($existingCrew->idQuotationTransaksi != $crew['idQuotationTransaksi']) {
+                            $existingCrew->idQuotationTransaksi = $crew['idQuotationTransaksi'];
                             $isChanged = true;
                         }   
                         if ($existingCrew->idQuotationRekomendasi != $crew['idQuotationRekomendasi']) {
@@ -731,7 +731,7 @@ class QuotationTourController extends Controller
                         'harga' => $crew['harga'],
                         'jumlah' => $crew['jumlah'],
                         'keterangan' => $crew['ketCrewOperasional'],
-                        'idQuotationTransaksion' => $quotationTransaksi->id,
+                        'idQuotationTransaksi' => $quotationTransaksi->id,
                         'created_at' => $request->created_at,
                         'idQuotationRekomendasi' => 1,
                         'updated_at' => $request->updated_at,
@@ -773,8 +773,8 @@ class QuotationTourController extends Controller
                             $existingCrew->keterangan = $fasilitas['keterangan'];
                             $isChanged = true;
                         }
-                        if ($existingCrew->idQuotationTransaksion != $fasilitas['idQuotationTransaksion']) {
-                            $existingCrew->idQuotationTransaksion = $fasilitas['idQuotationTransaksion'];
+                        if ($existingCrew->idQuotationTransaksi != $fasilitas['idQuotationTransaksi']) {
+                            $existingCrew->idQuotationTransaksi = $fasilitas['idQuotationTransaksi'];
                             $isChanged = true;
                         }   
                         if ($existingCrew->idQuotationRekomendasi != $fasilitas['idQuotationRekomendasi']) {
@@ -798,7 +798,7 @@ class QuotationTourController extends Controller
                         'harga' => $fasilitas['harga'],
                         'jumlah' => $fasilitas['jumlah'],
                         'keterangan' => $fasilitas['ketFasilitas'],
-                        'idQuotationTransaksion' => $quotationTransaksi->id,
+                        'idQuotationTransaksi' => $quotationTransaksi->id,
                         'created_at' => $request->created_at,
                         'idQuotationRekomendasi' => 1,
                         'updated_at' => $request->updated_at,
@@ -858,14 +858,14 @@ class QuotationTourController extends Controller
     public function editQhistory(Request $request)
     {
         $quotationTransaksi = quotationTransaksi::with('quotation.klien', 'quotation.areawisata', 'quotation.kategori')->find($request->id);
-        $Tbonus = Tbonus::where('idQuotationTransaksion', $request->id)->first();
-        $TDestinasiWisata = TDestinasiWisata::where('idQuotationTransaksion', $request->id)->get();
-        $Ttransportasi = Ttransportasi::with('transportasi.detailTransportasi')->where('idQuotationTransaksion', $request->id)->get();
-        $Tpenginapan = Tpenginapan::with('penginapan.detailPenginapan')->where('idQuotationTransaksion', $request->id)->get();
-        $TRumahMakan = TRumahMakan::where('idQuotationTransaksion', $request->id)->get();
-        $TFasilitasTour = TFasilitasTour::where('idQuotationTransaksion', $request->id)->get();
-        $Tevent = Tevent::where('idQuotationTransaksion', $request->id)->get();
-        $TcrewOp = TcrewOp::where('idQuotationTransaksion', $request->id)->get();
+        $Tbonus = Tbonus::where('idQuotationTransaksi', $request->id)->first();
+        $TDestinasiWisata = TDestinasiWisata::where('idQuotationTransaksi', $request->id)->get();
+        $Ttransportasi = Ttransportasi::with('transportasi.detailTransportasi')->where('idQuotationTransaksi', $request->id)->get();
+        $Tpenginapan = Tpenginapan::with('penginapan.detailPenginapan')->where('idQuotationTransaksi', $request->id)->get();
+        $TRumahMakan = TRumahMakan::where('idQuotationTransaksi', $request->id)->get();
+        $TFasilitasTour = TFasilitasTour::where('idQuotationTransaksi', $request->id)->get();
+        $Tevent = Tevent::where('idQuotationTransaksi', $request->id)->get();
+        $TcrewOp = TcrewOp::where('idQuotationTransaksi', $request->id)->get();
 
         return Inertia::render('Quotation/QuotationsResult', [
             'data' => $quotationTransaksi,

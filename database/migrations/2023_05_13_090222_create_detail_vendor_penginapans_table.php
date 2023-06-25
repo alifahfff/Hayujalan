@@ -13,17 +13,25 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('detail_vendor_penginapans', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('idPenginapan')->default(1)->constrained(
-                table: 'vendor_penginapans'
-            )->onDelete('cascade')->onUpdate('cascade');
-            $table->string('namaJenisKamar', 100)->nullable();
-            $table->integer('kapasitasKamar')->nullable();
-            $table->integer('qtyKetersediaanKamar')->nullable();
-            $table->double('hargaSewaWeekdayPerKamar', 10, 2)->nullable();
-            $table->double('hargaSewaWeekendPerKamar', 10, 2)->nullable();
+        Schema::create('M_detailVendorPenginapan', function (Blueprint $table) {
+            $table->smallIncrements('idDetailPenginapan');
+            $table->smallInteger('idPenginapan')->nullable()->comment('');
+            $table->string('namaJenisKamar', 100)->nullable()->comment('');
+            $table->smallInteger('kapasitasKamar')->nullable()->comment('');
+            $table->smallInteger('qtyKetersediaanKamar')->nullable()->comment('');
+            $table->integer('hargaSewaWeekdayPerKamar')->nullable()->comment('');
+            $table->integer('hargaSewaWeekendPerKamar')->nullable()->comment('');
+            $table->date('expiredDetailPenginapan')->nullable()->comment('');
+            $table->string('statusDetailPenginapan', 20)->nullable()->comment('');
+            $table->date('tglUpdateDetailPenginapan')->nullable()->comment('');
+            $table->primary('idDetailPenginapan');
             $table->timestamps();
+
+            $table->foreign('idPenginapan')
+                ->references('idPenginapan')
+                ->on('M_vendorPenginapan')
+                ->onDelete('cascade')
+                ->onUpdate('restrict');
         });
     }
 
@@ -34,6 +42,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detail_vendor_penginapans');
+        Schema::dropIfExists('M_detail_vendor_penginapans');
     }
 };

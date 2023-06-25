@@ -4,12 +4,21 @@ namespace App\Models\Quotation;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Itemq\dataKategoriTour;
+use App\Models\Vendor\areaWisata;
 
 class dataBobot extends Model
 {
     use HasFactory;
 
-    protected $table = "data_bobots";
+    protected $table = 'M_bobot';
+    protected $primaryKey = ['idKriteria', 'idBobot'];
+    protected $fillable = [
+        'idKriteria',
+        'idBobot',
+        'namaBobot',
+        'jumlahBobot',
+    ];
 
     // public function kriteria()
     // {
@@ -23,13 +32,16 @@ class dataBobot extends Model
     // klien memiliki data yang ada pada jenis klien
     public function kriteria()
     {
-        return $this->belongsTo(dataKriteria::class, 'idKriteria', 'id');
+        return $this->belongsTo(dataKriteria::class, 'idKriteria', 'idKriteria');
     }
 
-    // nggak punya id
-    // jenis klien mempunyai banyak klien
-    public function quotation()
+    public function mDataKategoriTour()
     {
-        return $this->hasMany(quotationTour::class, 'idBobot', 'id');
+        return $this->hasMany(dataKategoriTour::class, 'idBobot', 'idBobot');
+    }
+
+    public function mAreaWisata()
+    {
+        return $this->hasMany(areaWisata::class, 'idBobot', 'idBobot');
     }
 }

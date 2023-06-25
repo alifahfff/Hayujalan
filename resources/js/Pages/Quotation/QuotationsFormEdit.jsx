@@ -106,7 +106,7 @@ const QuotationsFormEdit = (props, crewL) => {
   const [formFasilitas, setFormFasilitas] = useState(initialFormFasilitas);
 
   const [datas, setDatas] = useState({
-    idQuotationTransaksion:props.quotationTransaksi.id,
+    idQuotationTransaksi:props.quotationTransaksi.id,
     idProgram: '1',
     namaProgram: 'Ryan',
     idAreaWisata: props.quotationTransaksi.quotation.idAreaWisata,

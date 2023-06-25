@@ -13,17 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tcrew_ops', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('idCrewOperasional')->constrained(
-                table: 'crew_operasionals'
-            )->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('qty');
-            $table->integer('hari');
-            $table->float('harga', 10, 2);
-            $table->float('jumlah', 10, 2);
-            $table->text('keterangan');
+        Schema::create('T_crew', function (Blueprint $table) {
+            $table->smallIncrements('idTcrew');
+            $table->string('namaTcrew', 100)->comment('');
+            $table->integer('hargaTcrew')->comment('');
+            $table->smallInteger('jumlahTcrew')->comment('');
+            $table->smallInteger('qtyTcrew')->comment('');
+            $table->smallInteger('jmlHariTcrew')->comment('');
             $table->timestamps();
+            $table->primary('idTcrew');
         });
     }
 
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tcrew_ops');
+        Schema::dropIfExists('T_crew');
     }
 };

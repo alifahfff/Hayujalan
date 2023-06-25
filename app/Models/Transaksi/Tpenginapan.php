@@ -12,19 +12,19 @@ class Tpenginapan extends Model
 {
     use HasFactory;
 
-    protected $table = "tpenginapans";
-    protected $primaryKey = "id";
+    protected $table = 'T_penginapan';
+    protected $primaryKey = 'idTpenginapan';
+    public $timestamps = true;
+
     protected $fillable = [
+        'idQuotationTransaksi',
         'idPenginapan',
-        'qty',
-        'hari',
-        'harga',
-        'jumlah',
-        'keterangan',
-        'idQuotationTransaksion',
-        'created_at',
-        'idQuotationRekomendasi',
-        'updated_at'
+        'namaTpenginapan',
+        'hargaTpenginapan',
+        'jumlahTpenginapan',
+        'qtyTpenginapan',
+        'jmlHariTpenginapan',
+        'ketPenginapan',
     ];
 
 
@@ -32,16 +32,11 @@ class Tpenginapan extends Model
     // klien memiliki data yang ada pada jenis klien
     public function penginapan()
     {
-        return $this->belongsTo(vendorPenginapan::class, 'idPenginapan', 'id');
+        return $this->belongsTo(vendorPenginapan::class, 'idPenginapan', 'idPenginapan');
     }
 
     public function qtransaksi()
     {
-        return $this->belongsTo(quotationTransaksi::class, 'idQuotationTransaksion', 'id');
-    }
-
-    public function qrekomendasi()
-    {
-        return $this->belongsTo(quotationRekomendasi::class, 'idQuotationRekomendasi', 'id');
+        return $this->belongsTo(quotationTransaksi::class, 'idQuotationTransaksi', 'idQuotationTransaksi');
     }
 }

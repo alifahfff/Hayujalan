@@ -12,35 +12,30 @@ class Ttransportasi extends Model
 {
     use HasFactory;
 
-    protected $table = "ttransportasis";
-    protected $primaryKey = "id";
+    protected $table = 'T_transportasi';
+    protected $primaryKey = 'idTtransportasi';
+    public $timestamps = false;
+
     protected $fillable = [
+        'idQuotationTransaksi',
         'idTransportasi',
-        'qty',
-        'hari',
-        'harga',
-        'jumlah',
-        'keterangan',
-        'idQuotationTransaksion',
-        'created_at',
-        'idQuotationRekomendasi',
-        'updated_at'
+        'namaTtransportasi',
+        'hargaTtransportasi',
+        'jumlahTtransportasi',
+        'qtyTtransportasi',
+        'jmlHariTtransportasi',
+        'ketTranportasi',
     ];
 
     // yang punya id one to many
     // klien memiliki data yang ada pada jenis klien
     public function transportasi()
     {
-        return $this->belongsTo(vendorTransportasi::class, 'idTransportasi', 'id');
+        return $this->belongsTo(vendorTransportasi::class, 'idTransportasi', 'idTransportasi');
     }
 
     public function qtransaksi()
     {
-        return $this->belongsTo(quotationTransaksi::class, 'idQuotationTransaksion', 'id');
-    }
-
-    public function qrekomendasi()
-    {
-        return $this->belongsTo(quotationRekomendasi::class, 'idQuotationRekomendasi', 'id');
+        return $this->belongsTo(quotationTransaksi::class, 'idQuotationTransaksi', 'idQuotationTransaksi');
     }
 }

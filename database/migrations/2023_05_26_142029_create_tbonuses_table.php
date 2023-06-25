@@ -13,17 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tbonuses', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('idDataBonus')->constrained(
-                table: 'data_bonuses'
-            )->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('qty');
-            $table->integer('hari');
-            $table->float('harga', 10, 2);
-            $table->float('jumlah', 10, 2);
-            $table->text('keterangan');
+        Schema::create('T_bonus', function (Blueprint $table) {
+            $table->smallIncrements('idTbonus');
+            $table->smallInteger('idQuotationTransaksi')->nullable()->comment('');
+            $table->smallInteger('idDataBonus')->nullable()->comment('');
+            $table->string('namaTbonus', 100)->comment('');
+            $table->integer('hargaTbonus')->comment('');
+            $table->smallInteger('jumlahTbonus')->comment('');
+            $table->smallInteger('qtyTbonus')->comment('');
+            $table->smallInteger('jmlHariTbonus')->comment('');
             $table->timestamps();
+            $table->primary('idTbonus');
         });
     }
 
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbonuses');
+        Schema::dropIfExists('T_bonus');
     }
 };

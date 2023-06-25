@@ -13,21 +13,26 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vendor_rumah_makans', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('idAreaWisata')->default(1)->constrained(
-                table: 'area_wisatas'
-            )->onDelete('cascade')->onUpdate('cascade');
-            $table->string('namaRM', 100)->nullable();
-            $table->integer('kapasitasRM')->nullable();
-            $table->integer('kapasitasParkirBus')->nullable();
-            $table->text('alamatRM')->nullable();
-            $table->string('tlpRM', 13)->nullable();
-            $table->string('picRM', 100)->nullable();
-            $table->string('hpPicRM', 13)->nullable();
-            $table->text('linkGmaps')->nullable();
-            $table->date('tglBerlakuQuotation')->nullable();
+        Schema::create('M_vendorRumahMakan', function (Blueprint $table) {
+            $table->smallIncrements('idRM');
+            $table->smallInteger('idAreaWisata')->nullable()->comment('');
+            $table->string('namaRM', 100)->nullable()->comment('');
+            $table->smallInteger('kapasitasRM')->nullable()->comment('');
+            $table->string('AlamatRM', 100)->nullable()->comment('');
+            $table->string('tlpRM', 13)->nullable()->comment('');
+            $table->string('picRM', 50)->nullable()->comment('');
+            $table->string('hpPicRM', 13)->nullable()->comment('');
+            $table->smallInteger('kapasitasParkirBusRM')->nullable()->comment('');
+            $table->string('linkGmapsRM', 255)->nullable()->comment('');
+            $table->date('tglBerlakuRm')->nullable()->comment('');
+            $table->primary('idRM');
             $table->timestamps();
+
+            $table->foreign(['idKriteria', 'idBobot', 'idAreaWisata'])
+                ->references(['idKriteria', 'idBobot', 'idAreaWisata'])
+                ->on('M_areaWisata')
+                ->onDelete('cascade')
+                ->onUpdate('restrict');
         });
     }
 
@@ -38,6 +43,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vendor_rumah_makans');
+        Schema::dropIfExists('M_vendorRumahMakan');
     }
 };

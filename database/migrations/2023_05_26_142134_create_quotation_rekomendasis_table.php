@@ -13,18 +13,29 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('quotation_rekomendasis', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('idQuotationTransaksion')->constrained(
-                table: 'quotation_transaksis'
-            )->onDelete('cascade')->onUpdate('cascade');
-            //
-            $table->foreignId('idQuotationTour')->constrained(
-                table: 'quotation_tours'
-            )->onDelete('cascade')->onUpdate('cascade');
-            //
-            $table->float('totalPrice', 10, 2);
-            $table->timestamps();
+        Schema::create('R_quotationRekomendasi', function (Blueprint $table) {
+            $table->smallInteger('idQuotationTransaksi')->comment('');
+            $table->smallInteger('idDataKlien')->comment('');
+            $table->smallInteger('idQuotationTour')->comment('');
+            $table->smallInteger('idQuotatioRekomendasi')->comment('');
+            $table->integer('totalPriceRef')->nullable()->comment('');
+            $table->float('bref_areaWisata', 4)->nullable()->comment('');
+            $table->float('bref_kategori', 4)->nullable()->comment('');
+            $table->float('bref_durasi', 4)->nullable()->comment('');
+            $table->float('bref_budget', 4)->nullable()->comment('');
+            $table->float('bref_jumlahOrang', 4)->nullable()->comment('');
+            $table->primary('idQuotatioRekomendasi');
+            $table->foreign('idQuotationTransaksi')
+                ->references('idQuotationTransaksi')
+                ->on('T_quotationTransaksi')
+                ->onDelete('cascade')
+                ->onUpdate('restrict');
+
+            $table->foreign(['idDataKlien', 'idQuotationTour'])
+                ->references(['idDataKlien', 'idQuotationTour'])
+                ->on('M_quotationTour')
+                ->onDelete('cascade')
+                ->onUpdate('restrict');
         });
     }
 
@@ -35,6 +46,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quotation_rekomendasis');
+        Schema::dropIfExists('R_quotationRekomendasi');
     }
 };

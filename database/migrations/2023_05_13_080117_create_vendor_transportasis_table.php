@@ -13,18 +13,26 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vendor_transportasis', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('idAreaWisata')->default(1)->constrained(
-                table: 'area_wisatas'
-            )->onDelete('cascade')->onUpdate('cascade');
-            $table->string('namaTransportasi', 100)->nullable();
-            $table->text('alamatTransportasi')->nullable();
-            $table->string('tlpTransportasi', 13)->nullable();
-            $table->string('picTransportasi', 100)->nullable();
-            $table->string('hpPicTransportasi', 13)->nullable();
-            $table->date('tglBerlakuQuotation')->nullable();
-            $table->timestamps();
+        Schema::create('M_vendorTransportasi', function (Blueprint $table) {
+            $table->smallIncrements('idTransportasi')->comment('');
+            $table->smallInteger('idKriteria')->comment('');
+            $table->smallInteger('idBobot')->comment('');
+            $table->smallInteger('idAreaWisata')->comment('');
+            $table->string('namaTransportasi', 100)->nullable()->comment('');
+            $table->string('alamatTransportasi', 255)->nullable()->comment('');
+            $table->string('tlpTransportasi', 13)->nullable()->comment('');
+            $table->string('picTransportasi', 50)->nullable()->comment('');
+            $table->string('hpPicTransportasi', 13)->nullable()->comment('');
+            $table->date('tglBerlakuTransportasi')->nullable()->comment('');
+            $table->date('createdTransportasi')->nullable()->comment('');
+            $table->date('updatedTransportasi')->nullable()->comment('');
+            $table->primary('idTransportasi');
+
+            $table->foreign('idAreaWisata')
+                ->references('idAreaWisata')
+                ->on('M_areaWisata')
+                ->onDelete('cascade')
+                ->onUpdate('restrict');
         });
     }
 
@@ -35,6 +43,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vendor_transportasis');
+        Schema::dropIfExists('M_vendorTransportasi');
     }
 };
