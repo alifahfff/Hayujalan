@@ -42,7 +42,7 @@ Route::get('/homepage', [NewsController::class, 'index'])->name('Homepage');
 
 // Login
 // Route::get('/', function () {
-//     return view('auth/login');
+//     return view('index');
 // });
 // })->name('itemQuitation');
 
