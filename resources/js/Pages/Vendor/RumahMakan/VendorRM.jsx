@@ -15,13 +15,13 @@ export default function VendorRM (props) {
         idAreaWisata:'',
         namaRM: '', 
         kapasitasRM: '', 
-        kapasitasParkirBus: '', 
+        kapasitasParkirBusRM: '', 
         alamatRM: '', 
         tlpRM: '',
         picRM: '', 
         hpPicRM: '',
-        linkGmaps: '',
-        tglBerlakuQuotation:'',
+        linkGmapsRM: '',
+        tglBerlakuRm:'',
     })
     
     const [showModal, setShowModal] = useState(false);

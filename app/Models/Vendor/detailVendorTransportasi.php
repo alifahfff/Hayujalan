@@ -9,7 +9,7 @@ class detailVendorTransportasi extends Model
 {
     use HasFactory;
 
-    protected $table = 'M_detailVendorTransportasi';
+    protected $table = 'detailVendorTransportasi';
     protected $primaryKey = 'idDetailTransportasi';
     public $timestamps = false;
 

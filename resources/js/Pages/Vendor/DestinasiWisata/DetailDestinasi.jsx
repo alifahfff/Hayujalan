@@ -6,13 +6,15 @@ import Layout from '@/Layouts/Layout';
 import DeleteDestinasi from '@/Components/Vendor/Destinasi/DeleteDestinasi';
 import DeleteDetail from '@/Components/Vendor/Destinasi/DeleteDetail';
 import ModalDestinasi from '@/Components/Vendor/Destinasi/ModalDestinasi';
+import number from "@/Components/number";
+
 
 export default function DetailDestinasi(props) {
     const [data, setData] = useState({
         rangePeserta: '',
         tiketMasukWeekday: '',
         tiketMasukWeekend: '',
-        idDestinasiWisata : props.destinasi.id,
+        idDestinasiWisata : props.destinasi.idDestinasiWisata,
     })
     
     const [dataL, setDataL] = useState([])
@@ -59,7 +61,7 @@ export default function DetailDestinasi(props) {
                                         </tr>
                                         <tr>
                                             <td>Kapasitas Parkir Bus  </td>
-                                            <td>: {props.destinasi.kapasitasParkirBus}</td>
+                                            <td>: {props.destinasi.kapasitasParkirBusWisata}</td>
                                         </tr>
                                         <tr>
                                             <td>Alamat  </td>
@@ -79,11 +81,11 @@ export default function DetailDestinasi(props) {
                                             </tr>
                                             <tr>
                                                 <td>Link Gmaps </td>
-                                                <td>: {props.destinasi.linkGmaps}</td>
+                                                <td>: {props.destinasi.linkGmapDestinasiWisata}</td>
                                             </tr>
                                             <tr>
                                                 <td>Tanggal Berlaku Vendor </td>
-                                                <td className='text-merah font-bold'>: {props.destinasi.tglBerlakuQuotation}</td>
+                                                <td className='text-merah font-bold'>: {props.destinasi.tglBerlakuDestinasi}</td>
                                             </tr>
                                     </table>
                         </div>
@@ -116,16 +118,9 @@ export default function DetailDestinasi(props) {
                                         <tbody key={index}>
                                             <tr className="border-b dark:border-neutral-500">
                                             <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.rangePeserta}</td>
-                                            <td className="whitespace-nowrap px-6 py-4">{cr.tiketMasukWeekday}</td>
-                                            <td className="whitespace-nowrap px-6 py-4">{cr.tiketMasukWeekend}</td>
+                                            <td className="whitespace-nowrap px-6 py-4">Rp. {number(cr.tiketMasukWeekday)}</td>
+                                            <td className="whitespace-nowrap px-6 py-4">Rp. {number(cr.tiketMasukWeekend)}</td>
                                             <td className="whitespace-nowrap px-6 py-4">
-                                                <button 
-                                                    onClick={() => {
-                                                        setShowModal(true)
-                                                        setDataL(cr)
-                                                    }}
-                                                    className="btn btn-ghost btn-sm mr-2"
-                                                ><BsPencilSquare/></button>
                                                 <button 
                                                     onClick={() => {
                                                         setShowDelete(true)

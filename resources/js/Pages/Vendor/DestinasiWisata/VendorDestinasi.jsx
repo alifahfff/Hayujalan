@@ -21,8 +21,8 @@ export default function VendorDestinasi (props) {
         tlpDestinasiWisata: '',
         picDestinasiWisata: '',
         hpDestinasiWisata: '',
-        linkGmaps: '',
-        tglBerlakuQuotation:'',
+        linkGmapDestinasiWisata: '',
+        tglBerlakuDestinasi:'',
     })
 
     const [showModal, setShowModal] = useState(false);

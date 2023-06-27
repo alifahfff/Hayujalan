@@ -8,19 +8,19 @@ const ModalHotel = ({visible, onClose, data, dataArea}) => {
 
     const handleSubmit = () => {
         console.log('id', data.id)
-        if(data.id){
+        if(data.idPenginapan){
             // update data
             const dataUpdate = {
-                id: data.id,
+                id: data.idPenginapan,
                 namaPenginapan: datas.namaPenginapan,
                 bintangPenginapan: datas.bintangPenginapan,
                 alamatPenginapan: datas.alamatPenginapan,
                 tlpPenginapan: datas.tlpPenginapan,
                 picPenginapan: datas.picPenginapan,
                 hpPicPenginapan: datas.hpPicPenginapan,
-                linkGmaps: datas.linkGmaps,
-                kapasitasParkirBus: datas.kapasitasParkirBus,
-                tglBerlakuQuotation: datas.tglBerlakuQuotation,
+                linkGmapsPenginapan: datas.linkGmapsPenginapan,
+                kapasitasParkirBusPenginapan: datas.kapasitasParkirBusPenginapan,
+                tglBerlakuPenginapan: datas.tglBerlakuPenginapan,
                 updated_at: new Date(),
             }
             Inertia.post('/hotel/update', dataUpdate)
@@ -34,9 +34,9 @@ const ModalHotel = ({visible, onClose, data, dataArea}) => {
                 tlpPenginapan: datas.tlpPenginapan,
                 picPenginapan: datas.picPenginapan,
                 hpPicPenginapan: datas.hpPicPenginapan,
-                linkGmaps: datas.linkGmaps,
-                kapasitasParkirBus: datas.kapasitasParkirBus,
-                tglBerlakuQuotation: datas.tglBerlakuQuotation,
+                linkGmapsPenginapan: datas.linkGmapsPenginapan,
+                kapasitasParkirBusPenginapan: datas.kapasitasParkirBusPenginapan,
+                tglBerlakuPenginapan: datas.tglBerlakuPenginapan,
                 created_at: new Date(),
                 updated_at: new Date(),
             }
@@ -79,8 +79,8 @@ const ModalHotel = ({visible, onClose, data, dataArea}) => {
                                     {dataArea.map((aw, index) => {
                                         return (
                                         <option 
-                                        value={aw.id} 
-                                        key={aw.id}
+                                        value={aw.idAreaWisata} 
+                                        key={aw.idAreaWisata}
                                         >
                                             {aw.namaArea}
                                         </option>
@@ -170,11 +170,11 @@ const ModalHotel = ({visible, onClose, data, dataArea}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
-                                    value={datas.kapasitasParkirBus	 || ''}
+                                    value={datas.kapasitasParkirBusPenginapan	 || ''}
                                     onChange={(value) => 
                                         setDatas({
                                             ...datas,
-                                            kapasitasParkirBus	: value.target.value
+                                            kapasitasParkirBusPenginapan	: value.target.value
                                         })}
                                 />
                             </div>
@@ -183,11 +183,11 @@ const ModalHotel = ({visible, onClose, data, dataArea}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
-                                    value={datas.linkGmaps	 || ''}
+                                    value={datas.linkGmapsPenginapan	 || ''}
                                     onChange={(value) => 
                                         setDatas({
                                             ...datas,
-                                            linkGmaps	: value.target.value
+                                            linkGmapsPenginapan	: value.target.value
                                         })}
                                 />
                             </div>
@@ -196,11 +196,11 @@ const ModalHotel = ({visible, onClose, data, dataArea}) => {
                                 <input
                                     type="date"
                                     className="border border-gray-700 p-2 rounded mb-5"
-                                    value={datas.tglBerlakuQuotation	 || ''}
+                                    value={datas.tglBerlakuPenginapan	 || ''}
                                     onChange={(value) => 
                                         setDatas({
                                             ...datas,
-                                            tglBerlakuQuotation	: value.target.value
+                                            tglBerlakuPenginapan	: value.target.value
                                         })}
                                 />
                             </div>

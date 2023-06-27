@@ -8,19 +8,19 @@ const ModalRM = ({visible, onClose, data, dataArea}) => {
 
     const handleSubmit = () => {
         console.log('id', data.id)
-        if(data.id){
+        if(data.idRM){
             // update data
             const dataUpdate = {
-                id: data.id,
+                id: data.idRM,
                 namaRM: datas.namaRM, 
                 kapasitasRM: datas.kapasitasRM, 
-                kapasitasParkirBus: datas.kapasitasParkirBus, 
-                alamatRM: datas.alamatRM, 
+                kapasitasParkirBusRM: datas.kapasitasParkirBusRM, 
+                AlamatRM: datas.AlamatRM, 
                 tlpRM: datas.tlpRM,
                 picRM: datas.picRM, 
                 hpPicRM: datas.hpPicRM,
-                linkGmaps: datas.linkGmaps,
-                tglBerlakuQuotation: datas.tglBerlakuQuotation,
+                linkGmapsRM: datas.linkGmapsRM,
+                tglBerlakuRm: datas.tglBerlakuRm,
                 updated_at: new Date(),
             }
             Inertia.post('/rumahmakan/update', dataUpdate)
@@ -30,13 +30,13 @@ const ModalRM = ({visible, onClose, data, dataArea}) => {
                 idAreaWisata: datas.idAreaWisata,
                 namaRM: datas.namaRM, 
                 kapasitasRM: datas.kapasitasRM, 
-                kapasitasParkirBus: datas.kapasitasParkirBus, 
-                alamatRM: datas.alamatRM, 
+                kapasitasParkirBusRM: datas.kapasitasParkirBusRM, 
+                AlamatRM: datas.AlamatRM, 
                 tlpRM: datas.tlpRM,
                 picRM: datas.picRM, 
                 hpPicRM: datas.hpPicRM,
-                linkGmaps: datas.linkGmaps,
-                tglBerlakuQuotation: datas.tglBerlakuQuotation,
+                linkGmapsRM: datas.linkGmapsRM,
+                tglBerlakuRm: datas.tglBerlakuRm,
                 created_at: new Date(),
                 updated_at: new Date(),
             }
@@ -78,8 +78,8 @@ const ModalRM = ({visible, onClose, data, dataArea}) => {
                                     {dataArea.map((aw, index) => {
                                         return (
                                         <option 
-                                        value={aw.id} 
-                                        key={aw.id}
+                                        value={aw.idAreaWisata} 
+                                        key={aw.idAreaWisata}
                                         >
                                             {aw.namaArea}
                                         </option>
@@ -117,11 +117,11 @@ const ModalRM = ({visible, onClose, data, dataArea}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
-                                    value={datas.kapasitasParkirBus	 || ''}
+                                    value={datas.kapasitasParkirBusRM	 || ''}
                                     onChange={(value) => 
                                         setDatas({
                                             ...datas,
-                                            kapasitasParkirBus	: value.target.value
+                                            kapasitasParkirBusRM	: value.target.value
                                         })}
                                 />
                             </div>
@@ -130,11 +130,11 @@ const ModalRM = ({visible, onClose, data, dataArea}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
-                                    value={datas.alamatRM	 || ''}
+                                    value={datas.AlamatRM	 || ''}
                                     onChange={(value) => 
                                         setDatas({
                                             ...datas,
-                                            alamatRM	: value.target.value
+                                            AlamatRM	: value.target.value
                                         })}
                                 />
                             </div>
@@ -182,11 +182,11 @@ const ModalRM = ({visible, onClose, data, dataArea}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
-                                    value={datas.linkGmaps	 || ''}
+                                    value={datas.linkGmapsRM	 || ''}
                                     onChange={(value) => 
                                         setDatas({
                                             ...datas,
-                                            linkGmaps	: value.target.value
+                                            linkGmapsRM	: value.target.value
                                         })}
                                 />
                             </div>
@@ -195,11 +195,11 @@ const ModalRM = ({visible, onClose, data, dataArea}) => {
                                 <input
                                     type="date"
                                     className="border border-gray-700 p-2 rounded mb-5"
-                                    value={datas.tglBerlakuQuotation	 || ''}
+                                    value={datas.tglBerlakuRm	 || ''}
                                     onChange={(value) => 
                                         setDatas({
                                             ...datas,
-                                            tglBerlakuQuotation	: value.target.value
+                                            tglBerlakuRm	: value.target.value
                                         })}
                                 />
                             </div>

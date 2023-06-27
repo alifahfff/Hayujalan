@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Vendor;
 
 use App\Models\Vendor\areaWisata;
+use App\Models\Quotation\dataKriteria;
+use App\Models\Quotation\dataBobot;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
@@ -37,6 +39,9 @@ class AreaWisataController extends Controller
      */
     public function store(Request $request)
     {
+        $kriteria = dataKriteria::where('namaKriteria' == 'areawisata');
+        $bobot::create('idKriteria' -> $kriteria->idKriteria);
+        $areaWisata::create('idBobot' -> $bobot->idBobot);
         $Mydata = new areaWisata();
         $Mydata->namaArea = $request->namaArea;
         $Mydata->save();
@@ -52,6 +57,7 @@ class AreaWisataController extends Controller
     public function show(areaWisata $areaWisata)
     {
         $area = areaWisata::all();
+        $bobot = dataBobot::all();
         return Inertia::render('Vendor/AreaWisata/VendorArea', [
             'area' => $area,
         ]);

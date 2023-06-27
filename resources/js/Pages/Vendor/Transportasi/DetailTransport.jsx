@@ -9,12 +9,12 @@ import ModalTransport from '@/Components/Vendor/Transportasi/ModalTransport';
 
 export default function DetailTransport(props) {
     const [data, setData] = useState({
-        idTransportasi: props.transportasi.id,
+        idTransportasi: props.transportasi.idTransportasi,
         idJenisTransportasi:'',
         nama: '', 
         tahun: '', 
         kapasitas: '', 
-        qtyKetersediaanUnit: '', 
+        qtyKetersediaan: '', 
         hargaSewaWeekendDalamKota: '',
         hargaSewaWeekdayDalamKota: '', 
         hargaSewaWeekendLuarKota: '', 
@@ -76,7 +76,7 @@ export default function DetailTransport(props) {
                                         </tr>
                                         <tr>
                                             <td>Tanggal Berlaku Vendor </td>
-                                            <td className='text-merah font-bold'>: {props.transportasi.tglBerlakuQuotation}</td>
+                                            <td className='text-merah font-bold'>: {props.transportasi.tglBerlakuTransportasi}</td>
                                         </tr>
                                 </table>
                         </div>
@@ -113,15 +113,8 @@ export default function DetailTransport(props) {
                                             <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.nama}</td>
                                             <td className="whitespace-nowrap px-6 py-4">{cr.tahun}</td>
                                             <td className="whitespace-nowrap px-6 py-4">{cr.kapasitas}</td>
-                                            <td className="whitespace-nowrap px-6 py-4">{cr.qtyKetersediaanUnit}</td>
+                                            <td className="whitespace-nowrap px-6 py-4">{cr.qtyKetersediaan}</td>
                                             <td className="whitespace-nowrap px-6 py-4 justify-item-center">
-                                                <button 
-                                                    onClick={() => {
-                                                        setShowModal(true)
-                                                        setDataL(cr)
-                                                    }}
-                                                    className="btn btn-ghost btn-sm mr-2"
-                                                ><BsPencilSquare/></button>
                                                 <button 
                                                     onClick={() => {
                                                         setShowDelete(true)

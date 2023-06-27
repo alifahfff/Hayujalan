@@ -5,6 +5,7 @@ import TambahDetailRM from '@/Components/Vendor/RM/TambahDetailRM';
 import Layout from '@/Layouts/Layout';
 import DeleteDetail from '@/Components/Vendor/RM/DeleteDetail';
 import ModalRM from '@/Components/Vendor/RM/ModelRM';
+import number from "@/Components/number";
 
 
 export default function DetailRM(props) {
@@ -12,7 +13,7 @@ export default function DetailRM(props) {
         namaMenu: '', 
         detailMenu: '', 
         hargaMenu: '', 
-        idRM: props.rm.id,
+        idRM: props.rm.idRM,
     })
 
     const [dataL, setDataL] = useState([])
@@ -53,7 +54,7 @@ export default function DetailRM(props) {
                         <table>
                                     <tr>
                                         <td>Alamat Rumah Makan </td>
-                                        <td>: {props.rm.alamatRM} </td>
+                                        <td>: {props.rm.AlamatRM} </td>
                                     </tr>
                                     <tr>
                                             <td>Kapasitas Parkir Bus </td>
@@ -62,7 +63,7 @@ export default function DetailRM(props) {
                                     <tr></tr>
                                     <tr>
                                             <td>Kapasitas Parkir Bus </td>
-                                            <td>: {props.rm.kapasitasParkirBus}</td>
+                                            <td>: {props.rm.kapasitasParkirBusRM}</td>
                                         </tr>
                                     <tr>
                                             <td>No Telpon </td>
@@ -78,11 +79,11 @@ export default function DetailRM(props) {
                                         </tr>
                                         <tr>
                                             <td>Link Gmaps </td>
-                                            <td>: {props.rm.linkGmaps}</td>
+                                            <td>: {props.rm.linkGmapsRM}</td>
                                         </tr>
                                         <tr>
                                             <td>Tanggal Berlaku Vendor </td>
-                                            <td className='text-merah font-bold'>: {props.rm.tglBerlakuQuotation}</td>
+                                            <td className='text-merah font-bold'>: {props.rm.tglBerlakuRm}</td>
                                         </tr>
                                 </table>
                         </div>
@@ -117,15 +118,8 @@ export default function DetailRM(props) {
                                             <tr className="border-b dark:border-neutral-500">
                                             <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.namaMenu}</td>
                                             <td className="whitespace-nowrap px-6 py-4">{cr.detailMenu}</td>
-                                            <td className="whitespace-nowrap px-6 py-4">{cr.hargaMenu}</td>
+                                            <td className="whitespace-nowrap px-6 py-4">Rp. {number(cr.hargaMenu)}</td>
                                             <td className="whitespace-nowrap px-6 py-4 justify-item-center">
-                                            <button 
-                                                    onClick={() => {
-                                                        setShowModal(true)
-                                                        setDataL(cr)
-                                                    }}
-                                                    className="btn btn-ghost btn-sm mr-2"
-                                                ><BsPencilSquare/></button>
                                                 <button 
                                                     onClick={() => {
                                                         setShowDelete(true)

@@ -45,13 +45,13 @@ class VendorDestinasiWisataController extends Controller
         $destinasi->idAreaWisata = $request->idAreaWisata;
         $destinasi->namaDestinasiWisata = $request->namaDestinasiWisata;
         $destinasi->kapasitasDestinasiWisata = $request->kapasitasDestinasiWisata;
-        $destinasi->kapasitasParkirBus = $request->kapasitasParkirBus;
+        $destinasi->kapasitasParkirBusWisata = $request->kapasitasParkirBusWisata;
         $destinasi->alamatDestinasiWisata = $request->alamatDestinasiWisata;
         $destinasi->tlpDestinasiWisata = $request->tlpDestinasiWisata;
         $destinasi->picDestinasiWisata = $request->picDestinasiWisata;
         $destinasi->hpDestinasiWisata = $request->hpDestinasiWisata;
-        $destinasi->tglBerlakuQuotation = $request->tglBerlakuQuotation;
-        $destinasi->linkGmaps = $request->linkGmaps;
+        $destinasi->tglBerlakuDestinasi = $request->tglBerlakuDestinasi;
+        $destinasi->linkGmapDestinasiWisata = $request->linkGmapDestinasiWisata;
         $destinasi->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }
@@ -128,16 +128,16 @@ class VendorDestinasiWisataController extends Controller
      */
     public function update(Request $request)
     {
-        vendorDestinasiWisata::where('id', $request->id)->update([
+        vendorDestinasiWisata::where('idDestinasiWisata', $request->id)->update([
             'namaDestinasiWisata' => $request->namaDestinasiWisata,
             'kapasitasDestinasiWisata' => $request->kapasitasDestinasiWisata,
-            'kapasitasParkirBus' => $request->kapasitasParkirBus,
+            'kapasitasParkirBusWisata' => $request->kapasitasParkirBusWisata,
             'alamatDestinasiWisata' => $request->alamatDestinasiWisata,
             'tlpDestinasiWisata' => $request->tlpDestinasiWisata,
             'picDestinasiWisata' => $request->picDestinasiWisata,
             'hpDestinasiWisata' => $request->hpDestinasiWisata,
-            'linkGmaps' => $request->linkGmaps,
-            'tglBerlakuQuotation' => $request->tglBerlakuQuotation,
+            'linkGmapDestinasiWisata' => $request->linkGmaps,
+            'tglBerlakuDestinasi' => $request->tglBerlakuDestinasi,
         ]);
         return redirect()->back()->with('message', 'item berhasil diupdate');
     }

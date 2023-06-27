@@ -24,7 +24,7 @@ const DeleteRM = ({visible, onClose, data}) => {
                             <button  
                                 className="btn bg-[#3E9E3E] text-putih outline-none border-transparent"
                                 onClick={onClose}
-                            ><Link href={route('delete.rumahmakan')} method="post" data={{ id: data.id }} as="button">
+                            ><Link href={route('delete.rumahmakan')} method="post" data={{ id: data.idRM }} as="button">
                             IYA
                             </Link></button>
                         </div> 

@@ -8,21 +8,19 @@ const ModalJenisTransport = ({visible, onClose, data, dataCrew}) => {
 
     const handleSubmit = () => {
         console.log('id', data.id)
-        if(data.id){
+        if(data.idJenisTransportasi){
             // update data
             const dataUpdate = {
-                id: data.id,
-                idCrewOperasional: datas.idCrewOperasional,
+                id: data.idJenisTransportasi,
                 namaJenis: datas.namaJenis, 
-                PenggunaanUnit: datas.PenggunaanUnit, 
-                MaxKapasitas: datas.MaxKapasitas, 
+                penggunaanUnit: datas.PenggunaanUnit, 
+                maxKapasitas: datas.MaxKapasitas, 
                 updated_at: new Date(),
             }
             Inertia.post('/jenisTransportasi/update', dataUpdate)
         }else{
             // tambah data
             const TambahData = {
-                idCrewOperasional: datas.idCrewOperasional,
                 namaJenis: datas.namaJenis, 
                 PenggunaanUnit: datas.PenggunaanUnit, 
                 MaxKapasitas: datas.MaxKapasitas,  
@@ -52,31 +50,6 @@ const ModalJenisTransport = ({visible, onClose, data, dataCrew}) => {
                         <div className="flex flex-col">
                         <div className="grid grid-cols-2 gap-2">
                             <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Crew Operasional</a>
-                                <select 
-                                    placeholder="Jenis Klien" 
-                                    defaultvalue="default"
-                                    className="w-3/5 border border-gray-700 p-2 rounded mb-5"
-                                    onChange={(e) => 
-                                        setDatas({
-                                            ...datas,
-                                            idCrewOperasional: e.target.value
-                                        })
-                                    }
-                                >
-                                    <option value="default">-{datas.ketCrewOperasional}-</option>
-                                    {dataCrew.map((aw, index) => {
-                                        return (
-                                        <option 
-                                        value={aw.id} 
-                                        key={aw.id}
-                                        >
-                                            {aw.ketCrewOperasional}
-                                        </option>
-                                    )})}
-                                </select>
-                            </div>
-                            <div className="flex flex-row justify-between">
                                 <a className="mr-5 mt-2 text-black">Nama Jenis</a>
                                 <input
                                     type="text"
@@ -94,11 +67,11 @@ const ModalJenisTransport = ({visible, onClose, data, dataCrew}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
-                                    value={datas.PenggunaanUnit || ''}
+                                    value={datas.penggunaanUnit || ''}
                                     onChange={(value) => 
                                         setDatas({
                                             ...datas,
-                                            PenggunaanUnit: value.target.value
+                                            penggunaanUnit: value.target.value
                                         })}
                                 />
                             </div>
@@ -107,11 +80,11 @@ const ModalJenisTransport = ({visible, onClose, data, dataCrew}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
-                                    value={datas.MaxKapasitas || ''}
+                                    value={datas.maxKapasitas || ''}
                                     onChange={(value) => 
                                         setDatas({
                                             ...datas,
-                                            MaxKapasitas: value.target.value
+                                            maxKapasitas: value.target.value
                                         })}
                                 />
                             </div>
