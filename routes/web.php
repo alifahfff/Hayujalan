@@ -41,9 +41,9 @@ Route::get('/homepage', [NewsController::class, 'index'])->name('Homepage');
 
 
 // Login
-Route::get('/', function () {
-    return view('auth/login');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
 // })->name('itemQuitation');
 
 Route::controller(CrewOperasionalController::class)->group(function () {
