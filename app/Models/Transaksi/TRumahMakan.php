@@ -12,35 +12,30 @@ class TRumahMakan extends Model
 {
     use HasFactory;
 
-    protected $table = "t_rumah_makans";
-    protected $primaryKey = "id";
+    protected $table = 'T_rumahMakan';
+    protected $primaryKey = 'idTrm';
+    public $timestamps = true;
+
     protected $fillable = [
+        'idQuotationTransaksi',
         'idRM',
-        'qty',
-        'hari',
-        'harga',
-        'jumlah',
-        'keterangan',
-        'idQuotationTransaksion',
-        'created_at',
-        'idQuotationRekomendasi',
-        'updated_at'
+        'namaTrm',
+        'hargaTrm',
+        'jumlahTrm',
+        'qtyTrm',
+        'jmlHariTrm',
+        'ketRm',
     ];
 
     // yang punya id one to many
     // klien memiliki data yang ada pada jenis klien
     public function rumahMakan()
     {
-        return $this->belongsTo(vendorRumahMakan::class, 'idRm', 'id');
+        return $this->belongsTo(vendorRumahMakan::class, 'idRm', 'idRm');
     }
 
     public function qtransaksi()
     {
-        return $this->belongsTo(quotationTransaksi::class, 'idQuotationTransaksion', 'id');
-    }
-
-    public function qrekomendasi()
-    {
-        return $this->belongsTo(quotationRekomendasi::class, 'idQuotationRekomendasi', 'id');
+        return $this->belongsTo(quotationTransaksi::class, 'idQuotationTransaksi', 'idQuotationTransaksi');
     }
 }

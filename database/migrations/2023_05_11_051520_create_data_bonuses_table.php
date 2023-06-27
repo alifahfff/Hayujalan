@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('data_bonuses', function (Blueprint $table) {
-            $table->id();
-            $table->string('ketDataBonus', 100);
-            $table->float('biayaDataBonus', 10);
-            $table->string('satuan', 100);
-            $table->date('tglBerlakuItem', 100)->nullable();
+        Schema::create('M_dataBonus', function (Blueprint $table) {
+            $table->smallIncrements('idDataBonus');
+            $table->string('ketDataBonus', 255)->comment('');
+            $table->integer('biayaDataBonus')->comment('');
+            $table->date('tglUpdateBonus')->comment('');
+            $table->string('satuanBonus', 50)->comment('');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data_bonuses');
+        Schema::dropIfExists('M_dataBonus');
     }
 };

@@ -12,35 +12,27 @@ class TFasilitasTour extends Model
 {
     use HasFactory;
 
-    protected $table = "t_fasilitas_tours";
-    protected $primaryKey = "id";
+    protected $table = 'T_fasilitasTour';
+    protected $primaryKey = 'idTft';
     protected $fillable = [
         'idFasilitasTour',
-        'qty',
-        'hari',
-        'harga',
-        'jumlah',
-        'keterangan',
-        'idQuotationTransaksion',
-        'created_at',
-        'idQuotationRekomendasi',
-        'updated_at'
+        'idQuotationTransaksi',
+        'namaTft',
+        'hargaTft',
+        'jumlahTft',
+        'qtyTft',
+        'jmlHariTft',
     ];
 
     // yang punya id one to many
     // klien memiliki data yang ada pada jenis klien
     public function fasilitasTour()
     {
-        return $this->belongsTo(fasilitasTour::class, 'idFasilitasTour', 'id');
+        return $this->belongsTo(fasilitasTour::class, 'idQuotationTransaksi', 'idQuotationTransaksi');
     }
 
     public function qtransaksi()
     {
-        return $this->belongsTo(quotationTransaksi::class, 'idQuotationTransaksion', 'id');
-    }
-
-    public function qrekomendasi()
-    {
-        return $this->belongsTo(quotationRekomendasi::class, 'idQuotationRekomendasi', 'id');
+        return $this->belongsTo(quotationTransaksi::class, 'idQuotationTransaksi', 'id');
     }
 }

@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('data_bobots', function (Blueprint $table) {
-            $table->foreignId('idKriteria')->constrained(
-                table: 'data_kriterias'
-            )->onDelete('cascade')->change();
+        Schema::table('M_bobot', function (Blueprint $table) {
+            $table->smallInteger('idKriteria')->comment('');
+            $table->foreign('idKriteria')->references('idKriteria')->on('M_kriteria')->onDelete('cascade')->onUpdate('restrict');
         });
     }
 

@@ -13,17 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('t_fasilitas_tours', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('idFasilitasTour')->constrained(
-                table: 'fasilitas_tours'
-            )->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('qty');
-            $table->integer('hari');
-            $table->float('harga', 10, 2);
-            $table->float('jumlah', 10, 2);
-            $table->text('keterangan');
+        Schema::create('T_fasilitasTour', function (Blueprint $table) {
+            $table->smallIncrements('idTft');
+            $table->string('namaTft', 100)->comment('');
+            $table->integer('hargaTft')->comment('');
+            $table->smallInteger('jumlahTft')->comment('');
+            $table->smallInteger('qtyTft')->comment('');
+            $table->smallInteger('jmlHariTft')->comment('');
             $table->timestamps();
+            $table->primary('idTft');
         });
     }
 
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('t_fasilitas_tours');
+        Schema::dropIfExists('T_fasilitasTour');
     }
 };

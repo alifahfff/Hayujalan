@@ -10,14 +10,20 @@ class crewOperasional extends Model
 {
     use HasFactory;
 
-    protected $table = "crew_operasionals";
-    protected $primaryKey = "id";
+    protected $table = 'M_crewOperasional';
+    protected $primaryKey = 'idCrewOperasional';
+    protected $fillable = [
+        'ketCrewOperasional',
+        'biyaCrewOperasional',
+        'tglUpdateCrew',
+        'satuanCrew',
+    ];
    
 
     // nggak punya id
     // jenis klien mempunyai banyak klien
     public function tcrew()
     {
-        return $this->hasMany(TcrewOp::class, 'idCrewOperasional', 'id');
+        return $this->hasMany(TcrewOp::class, 'idCrewOperasional', 'idCrewOperasional');
     }
 }

@@ -107,6 +107,18 @@ class VendorDestinasiWisataController extends Controller
         ]);
     }
 
+    public function editQuotation(Request $request)
+     {
+         $area = areaWisata::all();
+         $destinasi = vendorDestinasiWisata::findOrFail($request->id); 
+         $detail = detailVendorDestinasiWisata::where('idDestinasiWisata','=',$request->id)->get();
+         return Inertia::render('Vendor/DestinasiWisata/DetailDestinasi',[
+             'destinasi' => $destinasi,  
+             'detail' => $detail,
+             'area' => $area,
+         ]);
+     }
+
     /**
      * Update the specified resource in storage.
      *

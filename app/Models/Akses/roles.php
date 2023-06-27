@@ -10,12 +10,14 @@ class roles extends Model
 {
     use HasFactory;
 
-    protected $table = "roles";
-    protected $primaryKey = "id";
+    protected $table = 'm_roles';
+    protected $primaryKey = 'idRoles';
+    public $incrementing = false;
+    public $timestamps = true;
 
     // nggak punya id
     public function user()
     {
-        return $this->hasMany(User::class, 'idRoles', 'id');
+        return $this->hasMany(User::class, 'idRoles', 'idRoles');
     }
 }

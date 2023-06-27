@@ -10,14 +10,20 @@ class dataEvent extends Model
 {
     use HasFactory;
 
-    protected $table = "data_events";
-    protected $primaryKey = "id";
+    protected $table = 'M_dataEvent';
+    protected $primaryKey = 'idDataEvent';
+    protected $fillable = [
+        'ketDataEvent',
+        'biayaDataEvent',
+        'tglUpdateEvent',
+        'satuanEvent',
+    ];
     
 
     // nggak punya id
     // jenis klien mempunyai banyak klien
     public function tevent()
     {
-        return $this->hasMany(Tevent::class, 'idDataEvent', 'id');
+        return $this->hasMany(Tevent::class, 'idDataEvent', 'idDataEvent');
     }
 }

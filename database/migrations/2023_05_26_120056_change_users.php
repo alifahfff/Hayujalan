@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('idRoles')
-                ->constrained('roles', 'id')
-                ->change();
+        Schema::table('m_users', function (Blueprint $table) {
+            $table->smallInteger('idRoles');
+            $table->foreign('idRoles')->references('idRoles')->on('m_roles')->onDelete('cascade')->onUpdate('restrict');
         });
     }
 

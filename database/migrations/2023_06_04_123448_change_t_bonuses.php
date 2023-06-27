@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('tbonuses', function (Blueprint $table) {
-            $table->foreignId('idQuotationTransaksion')->constrained(
-                table: 'quotation_transaksis'
-            )->onDelete('cascade')->onUpdate('cascade');
-            //
-            $table->foreignId('idQuotationRekomendasi')->constrained(
-                table: 'quotation_rekomendasis'
-            )->onDelete('cascade')->onUpdate('cascade');
+        Schema::table('T_bonus', function (Blueprint $table) {
+            $table->smallInteger('idQuotationTransaksi')->nullable()->comment('');
+            $table->smallInteger('idDataBonus')->nullable()->comment('');
+            $table->foreign('idQuotationTransaksi')->references('idQuotationTransaksi')->on('T_quotationTransaksi')->onDelete('cascade')->onUpdate('restrict');
+            $table->foreign('idDataBonus')->references('idDataBonus')->on('M_dataBonus')->onDelete('cascade')->onUpdate('restrict');
         });
     }
 

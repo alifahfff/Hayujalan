@@ -13,21 +13,26 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vendor_penginapans', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('idAreaWisata')->default(1)->constrained(
-                table: 'area_wisatas'
-            )->onDelete('cascade')->onUpdate('cascade');
-            $table->string('namaPenginapan', 100)->nullable();
-            $table->string('bintangPenginapan', 10)->nullable();
-            $table->text('alamatPenginapan')->nullable();
-            $table->string('tlpPenginapan', 13)->nullable();
-            $table->string('picPenginapan', 100)->nullable();
-            $table->string('hpPicPenginapan', 13)->nullable();
-            $table->text('linkGmaps')->nullable();
-            $table->integer('kapasitasParkirBus')->nullable();
-            $table->date('tglBerlakuQuotation')->nullable();
+        Schema::create('M_vendorPenginapan', function (Blueprint $table) {
+            $table->smallIncrements('idPenginapan');
+            $table->smallInteger('idAreaWisata')->comment('');
+            $table->string('namaPenginapan', 100)->comment('');
+            $table->smallInteger('bintangPenginapan')->nullable()->comment('');
+            $table->string('alamatPenginapan', 255)->nullable()->comment('');
+            $table->string('tlpPenginapan', 13)->nullable()->comment('');
+            $table->string('picPenginapan', 50)->nullable()->comment('');
+            $table->string('hpPicPenginapan', 13)->nullable()->comment('');
+            $table->smallInteger('kapasitasParkirBusPenginapan')->nullable()->comment('');
+            $table->string('linkGmapsPenginapan', 255)->nullable()->comment('');
+            $table->date('tglBerlakuPenginapan')->nullable()->comment('');
+            $table->primary('idPenginapan');
             $table->timestamps();
+
+            $table->foreign('idAreaWisata')
+                ->references('idAreaWisata')
+                ->on('M_areaWisata')
+                ->onDelete('cascade')
+                ->onUpdate('restrict');
         });
     }
 

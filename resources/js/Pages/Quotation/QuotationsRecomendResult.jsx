@@ -11,7 +11,7 @@ import Layout from "@/Layouts/Layout";
 
 export default function Quotations(props, crewL) {
   // const {data} = this.props.location;
-  console.log("CrewL", crewL);
+  console.log("props", props);
   return (
     <div className="min-h-screen bg-abu ">
       {/* Content */}

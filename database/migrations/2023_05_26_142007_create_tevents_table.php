@@ -13,17 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tevents', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('idDataEvent')->constrained(
-                table: 'data_events'
-            )->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('qty');
-            $table->integer('hari');
-            $table->float('harga', 10, 2);
-            $table->float('jumlah', 10, 2);
-            $table->text('keterangan');
+        Schema::create('T_event', function (Blueprint $table) {
+            $table->smallIncrements('idTevent');
+            $table->string('namaTevent', 100)->comment('');
+            $table->integer('hargaTevent')->comment('');
+            $table->smallInteger('jumlahTevent')->comment('');
+            $table->smallInteger('qtyTevent')->comment('');
+            $table->smallInteger('jmlHariTevent')->comment('');
             $table->timestamps();
+            $table->primary('idTevent');
         });
     }
 
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tevents');
+        Schema::dropIfExists('T_event');
     }
 };

@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
-  Page,
-  Text,
-  Image,
-  Document,
-  StyleSheet,
-  View,
-} from "@react-pdf/renderer";
-import tourItenary from "../../../../public/assets/borobudur.jpg";
-import { wrap } from "lodash";
+    PDFViewer,
+    Page,
+    Text,
+    Image,
+    Document,
+    StyleSheet,
+    View,
+  } from "@react-pdf/renderer";
+  import tourItenary from "../../../../public/assets/borobudur.jpg";
+import { forEach, wrap } from "lodash";
 import {Font} from '@react-pdf/renderer';
 import MyCustomFont from '../../../../public/assets/fonts/Roboto-Regular.ttf'
 import number from "@/Components/number";
-
 
 Font.register({
     family: 'Roboto',
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const PDFFile = ({data}) => {
+const MyPDFViewer = ({data}) => {
 
 const [destinasiDurasi, setDestinasiDurasi] = useState('');
 const Destinasi = () => {
@@ -135,9 +135,11 @@ useEffect(() => {
 }, []);
 
 console.log('data', data)
+
   return (
-    <Document>
-       <Page
+    <PDFViewer style={{ width: '500px', height: '500px' }}>
+      <Document>
+      <Page
         className={styles.body}
         style={{ paddingHorizontal: 60, paddingVertical: 60 }}
       >
@@ -275,8 +277,9 @@ console.log('data', data)
           </div>
         </div>
       </Page>
-    </Document>
+      </Document>
+    </PDFViewer>
   );
 };
 
-export default PDFFile;
+export default MyPDFViewer;

@@ -13,16 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('t_rumah_makans', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('idRm')->constrained(
-                table: 'vendor_rumah_makans'
-            )->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('qty');
-            $table->integer('hari');
-            $table->float('harga', 10, 2);
-            $table->float('jumlah', 10, 2);
-            $table->text('keterangan');
+        Schema::create('T_rumahMakan', function (Blueprint $table) {
+            $table->smallIncrements('idTrm');
+            $table->string('namaTrm', 100)->nullable()->comment('');
+            $table->integer('hargaTrm')->nullable()->comment('');
+            $table->smallInteger('jumlahTrm')->nullable()->comment('');
+            $table->smallInteger('qtyTrm')->nullable()->comment('');
+            $table->smallInteger('jmlHariTrm')->nullable()->comment('');
+            $table->string('ketRm', 100)->nullable()->comment('');
+            $table->primary('idTrm');
             $table->timestamps();
         });
     }
@@ -34,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('t_rumah_makans');
+        Schema::dropIfExists('T_rumahMakan');
     }
 };

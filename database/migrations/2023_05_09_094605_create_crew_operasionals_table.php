@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('crew_operasionals', function (Blueprint $table) {
-            $table->id();
-            $table->string('ketCrewOperasional', 100);
-            $table->float('biayaCrewOperasional', 10);
-            $table->string('satuan', 100);
-            $table->date('tglBerlakuItem', 100)->nullable();
+        Schema::create('M_crewOperasional', function (Blueprint $table) {
+            $table->smallIncrements('idCrewOperasional');
+            $table->string('ketCrewOperasional', 100)->comment('');
+            $table->integer('biyaCrewOperasional')->comment('');
+            $table->date('tglUpdateCrew')->comment('');
+            $table->string('satuanCrew', 50)->comment('');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('crew_operasionals');
+        Schema::dropIfExists('M_crewOperasional');
     }
 };

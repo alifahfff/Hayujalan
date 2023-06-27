@@ -13,23 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('quotation_transaksis', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('idQuotationTour')->constrained(
-                table: 'quotation_tours'
-            )->onDelete('cascade')->onUpdate('cascade');
-            //
-            $table->string('namaQtransaksi', 100)->nullable();
-            $table->float('productionPrice', 10, 2)->nullable();
-            $table->float('nettPrice', 10, 2)->nullable();
-            $table->integer('paxPay')->nullable();
-            $table->float('surcharge', 10, 2)->nullable();
-            $table->float('sellingPrice', 10, 2)->nullable();
-            $table->float('totalPrice', 10, 2)->nullable();
-            $table->float('profit', 10, 2)->nullable();
-            $table->string('status', 100)->nullable();
-            $table->timestamp('tglBerlakuQuotation')->nullable();
-            $table->timestamps();
+        Schema::create('T_quotationTransaksi', function (Blueprint $table) {
+            $table->smallIncrements('idQuotationTransaksi')->comment('');
+            $table->integer('productionPrice')->nullable()->comment('');
+            $table->integer('nettPrice')->nullable()->comment('');
+            $table->smallInteger('paxPay')->nullable()->comment('');
+            $table->integer('surcharge')->nullable()->comment('');
+            $table->integer('sellingPrice')->nullable()->comment('');
+            $table->integer('profit')->nullable()->comment('');
+            $table->string('statusTransaksi', 50)->nullable()->comment('');
+            $table->string('nilaiKlien', 100)->nullable()->comment('');
+            $table->string('statusBerjalan', 100)->nullable()->comment('');
+            $table->text('feedback')->nullable()->comment('');
+            $table->date('createdQuotation')->nullable()->comment('');
+            $table->date('updatedQuotation')->nullable()->comment('');
+            $table->primary('idQuotationTransaksi');
         });
     }
 
@@ -40,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quotation_transaksis');
+        Schema::dropIfExists('T_quotationTransaksi');
     }
 };

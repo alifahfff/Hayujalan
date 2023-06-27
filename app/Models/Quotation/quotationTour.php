@@ -15,23 +15,25 @@ class quotationTour extends Model
 {
     use HasFactory;
 
-    protected $table = "quotation_tours";
-    protected $primaryKey = "id";
+    protected $table = 'M_quotationTour';
+    protected $primaryKey = 'idQuotationTour';
     protected $fillable = [
+        'idDataKlien',
+        'idQuotationTour',
+        'idKriteria',
+        'idBobot',
+        'idAreaWisata',
+        'M_d_idKriteria',
+        'M_d_idBobot',
         'idKategoriTour',
         'namaProject',
         'durasiProject',
         'qty',
         'foc',
         'planWaktuPelaksanaan',
-        'presentaseKeuntungan',
+        'persentaseKeuntungan',
         'feeMarketing',
-        'idUserProgram',
-        'idUserSales',
-        'idAreaWisata',
-        'idDataKlien',
-        'created_at',
-        'updated_at',
+        'tglBerlakuQuotation',
     ];
 
      // nggak punya id
@@ -40,41 +42,28 @@ class quotationTour extends Model
     {
         return $this->hasMany(quotationRekomendasi::class, 'idQuotationTour', 'id');
     }
-    
-    public function qtransaksi()
-    {
-        return $this->hasMany(quotationTransaksi::class, 'idQuotationTour', 'id');
-    }
 
      // yang punya id one to many
     // klien memiliki data yang ada pada jenis klien
     public function kategori()
     {
-        return $this->belongsTo(dataKategoriTour::class, 'idKategoriTour', 'id');
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'idUsers', 'id');
+        return $this->belongsTo(dataKategoriTour::class, 'idKategoriTour', 'idKategoriTour');
     }
 
     public function areawisata()
     {
-        return $this->belongsTo(areaWisata::class, 'idAreaWisata', 'id');
-    }
-
-    public function kriteria()
-    {
-        return $this->belongsTo(dataKriteria::class, 'idKriteria', 'id');
-    }
-
-    public function bobot()
-    {
-        return $this->belongsTo(dataBobot::class, 'idBobot', 'id');
+        return $this->belongsTo(areaWisata::class, 'idAreaWisata', 'idAreaWisata');
     }
 
     public function klien()
     {
-        return $this->belongsTo(dataKlien::class, 'idDataKlien', 'id');
+        return $this->belongsTo(dataKlien::class, 'idDataKlien', 'idDataKlien');
+    }
+
+    public function mUsers()
+    {
+        return $this->belongsToMany(User::class, 'user_quotationTour', 'idQuotationTour')
+            ->withPivot('idRoles', 'idUser')
+            ->withTimestamps();
     }
 }

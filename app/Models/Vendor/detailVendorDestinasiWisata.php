@@ -9,12 +9,23 @@ class detailVendorDestinasiWisata extends Model
 {
     use HasFactory;
 
-    protected $table = "detail_vendor_destinasi_wisatas";
-    protected $primaryKey = "id";
+    protected $table = 'M_detailVendorDestinasiWisata';
+    protected $primaryKey = 'idDetailDestinasiWisata';
+    public $incrementing = false;
+    protected $fillable = [
+        'idDestinasiWisata',
+        'rangePeserta',
+        'tiketMasukWeekday',
+        'tiketMasukWeekend',
+        'jenisPeserta',
+        'expireDetailDestinasi',
+        'statusDetailDestinasi',
+        'tglUpdateDetailDestinasi',
+    ];
 
     // yang punya id one to many
     public function vendorDW()
     {
-        return $this->belongsTo(vendorDestinasiWisata::class, 'idDestinasiWisata', 'id');
+        return $this->belongsTo(vendorDestinasiWisata::class, 'idDestinasiWisata', 'idDestinasiWisata');
     }
 }

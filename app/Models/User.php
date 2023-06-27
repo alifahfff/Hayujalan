@@ -8,9 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Akses\roles;
-use App\Models\Akses\userKeuangan;
-use App\Models\Akses\userProgram;
-use App\Models\Akses\userSales;
+use App\Models\Quotation\quotationTour;
 
 class User extends Authenticatable
 {
@@ -21,23 +19,26 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $hidden = [
-        // 'password',
-        'remember_token',
-    ];
+    // protected $hidden = [
+    //     // 'password',
+    //     'remember_token',
+    // ];
 
     /**
      * The attributes that should be cast.
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    // protected $casts = [
+    //     'email_verified_at' => 'datetime',
+    // ];
 
-    protected $table = "users";
-    protected $primaryKey = "id";
-    protected $fillable = ['name','email','created_at','updated_at','password', 'idRoles', 'hashed_password'];
+    protected $table = 'm_users';
+    protected $primaryKey = ['idRoles', 'idUser'];
+    public $incrementing = false;
+    public $timestamps = true;
+    
+    protected $fillable = ['email', 'password', 'namaUser'];
 
     public function setPassword($password)
     {
@@ -47,28 +48,12 @@ class User extends Authenticatable
     // yang punya id one to many
     public function roles()
     {
-        return $this->belongsTo(roles::class, 'idRoles', 'id');
+        return $this->belongsTo(roles::class, 'idRoles', 'idRoles');
     }
-
-    // 1 user keuangan hanya memiliki 1 user
-    // yang nggak punya id one to one
-    public function keuangan() 
-	{
-		return $this->hasOne(userKeuangan::class, 'idUser', 'id');
-	}
-
-    public function program() 
-	{
-		return $this->hasOne(userProgram::class, 'idUser', 'id');
-	}
-
-    public function sales() 
-	{
-		return $this->hasOne(userSales::class, 'idUser', 'id');
-	}
-
-    public function admin() 
-	{
-		return $this->hasOne(userAdmin::class, 'idUser', 'id');
-	}
+    public function mQuotationTours()
+    {
+        return $this->belongsToMany(quotationTour::class, 'user_quotationTour', 'idRoles', 'idUser')
+            ->withPivot('idQuotationTour')
+            ->withTimestamps();
+    }
 }

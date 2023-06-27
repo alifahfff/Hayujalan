@@ -12,35 +12,27 @@ class Tbonus extends Model
 {
     use HasFactory;
 
-    protected $table = "tbonuses";
-    protected $primaryKey = "id";
+    protected $table = 'T_bonus';
+    protected $primaryKey = 'idTbonus';
     protected $fillable = [
+        'idQuotationTransaksi',
         'idDataBonus',
-        'qty',
-        'hari',
-        'harga',
-        'jumlah',
-        'keterangan',
-        'idQuotationTransaksion',
-        'created_at',
-        'idQuotationRekomendasi',
-        'updated_at'
+        'namaTbonus',
+        'hargaTbonus',
+        'jumlahTbonus',
+        'qtyTbonus',
+        'jmlHariTbonus',
     ];
 
     // yang punya id one to many
     // klien memiliki data yang ada pada jenis klien
     public function bonus()
     {
-        return $this->belongsTo(dataBonus::class, 'idDataBonus', 'id');
+        return $this->belongsTo(dataBonus::class, 'idDataBonus', 'idDataBonus');
     }
 
     public function qtransaksi()
     {
-        return $this->belongsTo(quotationTransaksi::class, 'idQuotationTransaksion', 'id');
-    }
-
-    public function qrekomendasi()
-    {
-        return $this->belongsTo(quotationRekomendasi::class, 'idQuotationRekomendasi', 'id');
+        return $this->belongsTo(quotationTransaksi::class, 'idQuotationTransaksi', 'idQuotationTransaksi');
     }
 }

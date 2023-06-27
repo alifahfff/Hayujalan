@@ -10,14 +10,19 @@ class dataBonus extends Model
 {
     use HasFactory;
 
-    protected $table = "data_bonuses";
-    protected $primaryKey = "id";
-    
+    protected $table = 'M_dataBonus';
+    protected $primaryKey = 'idDataBonus';
+    protected $fillable = [
+        'ketDataBonus',
+        'biayaDataBonus',
+        'tglUpdateBonus',
+        'satuanBonus',
+    ];
 
     // nggak punya id
     // jenis klien mempunyai banyak klien
     public function tbonus()
     {
-        return $this->hasMany(Tbonus::class, 'idDataBonus', 'id');
+        return $this->hasMany(Tbonus::class, 'idDataBonus', 'idDataBonus');
     }
 }

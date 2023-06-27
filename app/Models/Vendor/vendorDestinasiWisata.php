@@ -10,25 +10,39 @@ class vendorDestinasiWisata extends Model
 {
     use HasFactory;
 
-    protected $table = "vendor_destinasi_wisatas";
-    protected $primaryKey = "id";
+    protected $table = 'M_vendorDestinasiWisata';
+    protected $primaryKey = 'idDestinasiWisata';
+    public $incrementing = false;
+    protected $fillable = [
+        'idAreaWisata',
+        'namaDestinasiWisata',
+        'kapasitasDestinasiWisata',
+        'alamatDestinasiWisata',
+        'tlpDestinasiWisata',
+        'picDestinasiWisata',
+        'hpDestinasiWisata',
+        'kapasitasParkirBusWisata',
+        'linkGmapDestinasiWisata',
+        'kapasitasParkirBus',
+        'tglBerlakuDestinasi',
+    ];
 
     // nggak punya id
     public function detaildw()
     {
-        return $this->hasMany(detailVendorDestinasiWisata::class, 'idDestinasiWisata', 'id');
+        return $this->hasMany(detailVendorDestinasiWisata::class, 'idDestinasiWisata', 'idDestinasiWisata');
     }
 
     // yang punya id one to many
     public function AWdestinasi()
     {
-        return $this->belongsTo(areaWisata::class, 'idAreaWisata', 'id');
+        return $this->belongsTo(areaWisata::class, 'idAreaWisata', 'idAreaWisata');
     }
 
     // nggak punya id
     // jenis klien mempunyai banyak klien
     public function tdestinasi()
     {
-        return $this->hasMany(TDestinasiWisata::class, 'idDestinasiWisata', 'id');
+        return $this->hasMany(TDestinasiWisata::class, 'idDestinasiWisata', 'idDestinasiWisata');
     }
 }

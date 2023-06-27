@@ -9,12 +9,25 @@ class detailVendorPenginapan extends Model
 {
     use HasFactory;
 
-    protected $table = "detail_vendor_penginapans";
-    protected $primaryKey = "id";
+    protected $table = 'M_detailVendorPenginapan';
+    protected $primaryKey = 'idDetailPenginapan';
+    public $timestamps = true;
+
+    protected $fillable = [
+        'idPenginapan',
+        'namaJenisKamar',
+        'kapasitasKamar',
+        'qtyKetersediaanKamar',
+        'hargaSewaWeekdayPerKamar',
+        'hargaSewaWeekendPerKamar',
+        'expiredDetailPenginapan',
+        'statusDetailPenginapan',
+        'tglUpdateDetailPenginapan',
+    ];
     
     // yang punya id one to many
     public function penginapan()
     {
-        return $this->belongsTo(vendorPenginapan::class, 'idPenginapan', 'id');
+        return $this->belongsTo(vendorPenginapan::class, 'idPenginapan', 'idPenginapan');
     }
 }

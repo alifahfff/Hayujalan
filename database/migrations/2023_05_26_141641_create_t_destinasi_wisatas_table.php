@@ -13,17 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('t_destinasi_wisatas', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('idDestinasiWisata')->constrained(
-                table: 'vendor_destinasi_wisatas'
-            )->onDelete('cascade')->onUpdate('cascade');
-            $table->integer('qty');
-            $table->integer('hari');
-            $table->float('harga', 10, 2);
-            $table->float('jumlah', 10, 2);
-            $table->text('keterangan');
+        Schema::create('T_destinasiWisata', function (Blueprint $table) {
+            $table->smallInteger('idTdestinasiWisata')->comment('');
+            $table->string('namaTdestinasiWisata', 100)->nullable()->comment('');
+            $table->integer('hargaTdestinasiWisata')->nullable()->comment('');
+            $table->smallInteger('jumlahTdestinasiWisata')->nullable()->comment('');
+            $table->smallInteger('qtyTdestinasiWisata')->nullable()->comment('');
+            $table->smallInteger('jmlHariTdestinasiWisata')->nullable()->comment('');
             $table->timestamps();
+
+            $table->primary('idTdestinasiWisata');
         });
     }
 
@@ -34,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('t_destinasi_wisatas');
+        Schema::dropIfExists('T_destinasiWisata');
     }
 };

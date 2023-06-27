@@ -13,21 +13,23 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vendor_destinasi_wisatas', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('idAreaWisata')->default(1)->constrained(
-                table: 'area_wisatas'
-            )->onDelete('cascade')->onUpdate('cascade');
-            $table->string('namaDestinasiWisata', 100);
-            $table->integer('kapasitasDestinasiWisata')->nullable();
-            $table->integer('kapasitasParkirBus')->nullable();
-            $table->text('alamatDestinasiWisata')->nullable();
-            $table->string('tlpDestinasiWisata', 13)->nullable();
-            $table->string('picDestinasiWisata', 100)->nullable();
-            $table->string('hpDestinasiWisata', 13)->nullable();
-            $table->string('linkGmaps', 255)->nullable();
-            $table->date('tglBerlakuQuotation')->nullable();
+        Schema::create('M_vendorDestinasiWisata', function (Blueprint $table) {
+            $table->smallInteger('idDestinasiWisata')->comment('');
+            $table->smallInteger('idAreaWisata')->comment('');
+            $table->string('namaDestinasiWisata', 100)->nullable()->comment('');
+            $table->smallInteger('kapasitasDestinasiWisata')->nullable()->comment('');
+            $table->string('alamatDestinasiWisata', 150)->nullable()->comment('');
+            $table->string('tlpDestinasiWisata', 13)->nullable()->comment('');
+            $table->string('picDestinasiWisata', 50)->nullable()->comment('');
+            $table->string('hpDestinasiWisata', 13)->nullable()->comment('');
+            $table->integer('kapasitasParkirBusWisata')->nullable()->comment('');
+            $table->string('linkGmapDestinasiWisata', 255)->nullable()->comment('');
+            $table->smallInteger('kapasitasParkirBus')->nullable()->comment('');
+            $table->date('tglBerlakuDestinasi')->nullable()->comment('');
             $table->timestamps();
+
+            $table->primary('idDestinasiWisata');
+            $table->foreign('idAreaWisata')->references('idAreaWisata')->on('M_areaWisata')->onDelete('cascade')->onUpdate('restrict');
         });
     }
 
@@ -38,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vendor_destinasi_wisatas');
+        Schema::dropIfExists('M_vendorDestinasiWisata');
     }
 };

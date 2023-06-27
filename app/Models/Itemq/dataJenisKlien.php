@@ -9,14 +9,17 @@ class dataJenisKlien extends Model
 {
     use HasFactory;
 
-    protected $table = "data_jenis_kliens";
-    protected $primaryKey = "id";
+    protected $table = 'M_dataJenisKlien';
+    protected $primaryKey = 'idJenisKlien';
+    protected $fillable = [
+        'namaJenisKlien',
+    ];
 
     // nggak punya id
     // jenis klien mempunyai banyak klien
     public function klien()
     {
-        return $this->hasMany(dataKlien::class, 'jenis_klien_id', 'id');
+        return $this->hasMany(dataKlien::class, 'idJenisKlien', 'idJenisKlien');
     }
     
 }

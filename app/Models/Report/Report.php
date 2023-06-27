@@ -14,6 +14,6 @@ class Report extends Model
 
     public function qtransaksi()
     {
-        return $this->belongsTo(quotationTransaksi::class, 'idQuotationTransaksion', 'id');
+        return $this->belongsTo(quotationTransaksi::class, 'idQuotationTransaksi', 'id');
     }
 }

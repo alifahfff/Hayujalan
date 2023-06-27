@@ -9,12 +9,20 @@ class jenisTransportasi extends Model
 {
     use HasFactory;
 
-    protected $table = "jenis_transportasis";
-    protected $primaryKey = "id";
+    protected $table = 'jenisTransportasi';
+    protected $primaryKey = 'idJenisTransportasi';
+    public $timestamps = false;
+
+    protected $fillable = [
+        'namaJenis',
+        'penggunaanUnit',
+        'crew',
+        'maxKapasitas',
+    ];
 
     // nggak punya id
     public function detailJTransportasi()
     {
-        return $this->hasMany(detailVendorTransportasi::class, 'idJenisTransportasi', 'id');
+        return $this->hasMany(detailVendorTransportasi::class, 'idJenisTransportasi', 'idJenisTransportasi');
     }
 }

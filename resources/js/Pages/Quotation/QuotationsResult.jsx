@@ -10,10 +10,17 @@ import ModalCrew from "@/Components/Item Quotation/Crew/ModalCrew";
 import Layout from "@/Layouts/Layout";
 import PDFFile from "./QuotationsPDF";
 import { PDFDownloadLink } from "@react-pdf/renderer";
+import number from "@/Components/number";
+import { usePage } from '@inertiajs/inertia-react';
+import MyPDFViewer from "./QuotationPDFView";
+import { Link } from "@inertiajs/inertia-react";
 
-export default function Quotations(props) {
+export default function QuotationsResult(props) {
+  // const { props } = usePage()
   // const {data} = this.props.location;
+  const id = props.data.id;
   console.log("Cr", props);
+  console.log("id", props.data.id);
   return (
     <div className="min-h-screen bg-abu ">
       {/* Content */}
@@ -27,28 +34,29 @@ export default function Quotations(props) {
         <div className="p-4 bg-kuning border-b border-gray-200"></div>
         <div className="bg-white border-b border-gray-200">
           <div className="flex flex-row">
-            <div className="flex flex-col px-11 pt-6 pb-8">
-              <img
+            <div className="flex flex-col pl-5 pt-6 pb-8">
+              {/* <img
                 src="/assets/touritenary.jpeg"
                 alt=""
                 className="max-w-md max-h-md border-2"
-              />
+              /> */}
+              <MyPDFViewer data={props}/>
               <div className="flex justify-center mt-6">
                 <button
                   className="btn bg-gray-400 text-white border-0"
                   style={{ maxWidth: "8rem" }}
                 >
-                  edit mode
+                  <Link href={route('qmanual.edit')} method="get" data={{id: id}}>
+                    Edit Mode
+                  </Link>
                 </button>
               </div>
             </div>
-            {props.data.map((dt, index) => {
-              return (
                 <div className="flex flex-col">
                   <div className="flex flex-row">
-                    <div className="flex flex-col px-11 pt-6 pb-8">
+                    <div className="flex flex-col pl-5 pt-6 pb-8">
                       <a className="text-3xl font-bold text-black mb-6">
-                        Quotation ID{dt.id}
+                        Quotation ID{props.data.id}
                       </a>
                       <form className="space-y-3 font-medium text-left">
                         <label className="label">
@@ -64,11 +72,11 @@ export default function Quotations(props) {
                             Jumlah Orang
                           </span>
                         </label>
-                        {/* <label className="label">
-                          <span className="label-text text-black">Area Wisata</span>
-                        </label> */}
                         <label className="label">
-                          <span className="label-text text-black">Hari</span>
+                          <span className="label-text text-black">Area Wisata</span>
+                        </label>
+                        <label className="label">
+                          <span className="label-text text-black">Kategori Wisata</span>
                         </label>
                         <label className="label">
                           <span className="label-text text-black">Total</span>
@@ -85,41 +93,40 @@ export default function Quotations(props) {
                       <form className="space-y-3 font-medium text-left">
                         <label className="label">
                           <span className="label-text text-black mr-12">
-                            -
+                          {props.data.quotation.klien.namaKlien}
                           </span>
                         </label>
                         <label className="label">
-                          <span className="label-text text-black">{dt.quotation.klien.namaKlien}</span>
+                          <span className="label-text text-black">{props.data.namaQtransaksi}</span>
                         </label>
                         <label className="label">
                           <span className="label-text text-black">
-                          {dt.namaQtransaksi}
+                          {props.data.quotation.qty}
                           </span>
                         </label>
                         <label className="label">
-                          <p className="label-text text-black">{dt.quotation.qty}</p>
+                          <p className="label-text text-black">{props.data.quotation.areawisata.namaArea}</p>
                         </label>
                         <label className="label">
-                          <span className="label-text text-black">Yogyakarta</span>
+                          <span className="label-text text-black">{props.data.quotation.kategori.namaKategoriTour}</span>
                         </label>
                         <label className="label">
                           <span className="label-text text-black">
-                          Rp.{dt.sellingPrice}/pax
+                          Rp.{number(props.data.sellingPrice)}/pax
                           </span>
                         </label>
                         <label className="label">
-                          <span className="label-text text-black">{dt.totalPrice}</span>
+                          <span className="label-text text-black">Rp.{number(props.data.totalPrice)},-</span>
                         </label>
                       </form>
                     </div>
                   </div>
                   <div
-                    className="flex justify-center gap-6"
-                    style={{ marginTop: "14rem" }}
+                    className="flex justify-center gap-6 pb-10"
                   >
                     
-                    <button className="btn btn-warning text-white px-8">PDF</button>
-                    <PDFDownloadLink document={<PDFFile />} fileName="FORM">
+                    {/* <button className="btn btn-warning text-white px-8">PDF</button> */}
+                    <PDFDownloadLink document={<PDFFile data={props}/>} fileName="FORM">
                     {({ loading }) =>
                       loading ? (
                         <button></button>
@@ -132,8 +139,6 @@ export default function Quotations(props) {
                     <button className="btn btn-success text-white px-6">Excel</button>
                   </div>
                 </div>
-              )
-            })}
           </div>
         </div>
       </div>
@@ -141,4 +146,4 @@ export default function Quotations(props) {
   );
 }
 
-Quotations.layout = (page) => <Layout children={page} />;
+QuotationsResult.layout = (page) => <Layout children={page} />;

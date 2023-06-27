@@ -53,7 +53,7 @@ const DataQuo = ({ quotation }) => {
                       <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                         <button className="btn btn-ghost btn-sm mr-2">
                           <Link
-                            href={route('quotation.detail')} method="get" data={{id: cr.id}}
+                            href={route('qhistory.detail')} method="get" data={{id: cr.id}}
                           >
                             <BsPencilSquare />
                           </Link>

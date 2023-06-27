@@ -39,58 +39,48 @@ class quotationTransaksi extends Model
     // jenis klien mempunyai banyak klien
     public function rekomendasi()
     {
-        return $this->hasOne(quotationRekomendasi::class, 'idQuotationTransaksion', 'id');
+        return $this->hasOne(quotationRekomendasi::class, 'idQuotationTransaksi', 'idQuotationTransaksi');
     }
 
     // yang punya id one to many
     // klien memiliki data yang ada pada jenis klien
-    public function quotation()
-    {
-        return $this->belongsTo(quotationTour::class, 'idQuotationTour', 'id');
-    }
-
     public function tdestinasi()
     {
-        return $this->hasMany(TDestinasiWisata::class, 'idQuotationTransaksion', 'id');
+        return $this->hasMany(TDestinasiWisata::class, 'idQuotationTransaksi', 'idQuotationTransaksi');
     }
 
     public function ttransportasi()
     {
-        return $this->hasMany(Ttransportasi::class, 'idQuotationTransaksion', 'id');
+        return $this->hasMany(Ttransportasi::class, 'idQuotationTransaksi', 'idQuotationTransaksi');
     }
 
     public function tpenginapan()
     {
-        return $this->hasMany(Tpenginapan::class, 'idQuotationTransaksion', 'id');
+        return $this->hasMany(Tpenginapan::class, 'idQuotationTransaksi', 'idQuotationTransaksi');
     }
 
     public function trumahmakan()
     {
-        return $this->hasMany(TRumahMakan::class, 'idQuotationTransaksion', 'id');
+        return $this->hasMany(TRumahMakan::class, 'idQuotationTransaksi', 'idQuotationTransaksi');
     }
 
     public function tfasilitas()
     {
-        return $this->hasMany(TFasilitasTour::class, 'idQuotationTransaksion', 'id');
+        return $this->hasMany(TFasilitasTour::class, 'idQuotationTransaksi', 'idQuotationTransaksi');
     }
 
     public function tcrew()
     {
-        return $this->hasMany(TcrewOp::class, 'idQuotationTransaksion', 'id');
+        return $this->hasMany(TcrewOp::class, 'idQuotationTransaksi', 'idQuotationTransaksi');
     }
 
     public function tevent()
     {
-        return $this->hasMany(Tevent::class, 'idQuotationTransaksion', 'id');
+        return $this->hasMany(Tevent::class, 'idQuotationTransaksi', 'idQuotationTransaksi');
     }
 
     public function tbonus()
     {
-        return $this->hasMany(Tbonus::class, 'idQuotationTransaksion', 'id');
-    }
-
-    public function report()
-    {
-        return $this->hasOne(Report::class, 'idQuotationTransaksion', 'id');
+        return $this->hasMany(Tbonus::class, 'idQuotationTransaksi', 'idQuotationTransaksi');
     }
 }
