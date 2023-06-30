@@ -10,10 +10,15 @@ class dataKlien extends Model
 {
     use HasFactory;
 
-    protected $table = 'M_dataJenisKlien';
-    protected $primaryKey = 'idJenisKlien';
+    protected $table = 'M_dataKlien';
+    protected $primaryKey = 'idDataKlien';
     protected $fillable = [
-        'namaJenisKlien',
+        'namaKlien',
+        'alamatKlien',
+        'tlpKlien',
+        'namaPicKlien',
+        'tlpPicKlien',
+        'tglUpdateKlien',
     ];
 
     // yang punya id one to many

@@ -126,7 +126,7 @@ const QuotationsFormEdit = (props, crewL) => {
     feemarketing: props.quotationTransaksi.quotation.feeMarketing,
     namaKlien: props.quotationTransaksi.quotation.klien.namaKlien,
     jenisKlien: props.quotationTransaksi.quotation.klien.jenis_klien.namaJenisKlien,
-    jenis_klien_id: props.quotationTransaksi.quotation.klien.jenis_klien_id,
+    idJenisKlien: props.quotationTransaksi.quotation.klien.idJenisKlien,
     idKlien: props.quotationTransaksi.quotation.klien.id,
     idQuotationTour: props.quotationTransaksi.quotation.id,
   })
@@ -274,7 +274,7 @@ const QuotationsFormEdit = (props, crewL) => {
       setDatas({
         ...datas,
         jenisKlien: find2.namaJenisKlien,
-        jenis_klien_id: find2.id,
+        idJenisKlien: find2.id,
       })
     }
 

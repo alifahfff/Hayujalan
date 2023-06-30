@@ -40,8 +40,10 @@ const TEvent = ({data}) => {
                                 <td className="whitespace-nowrap px-6 py-4 font-medium">{data.from + index}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{dt.ketDataEvent}</td>
                                 <td className="whitespace-nowrap px-6 py-4">Rp. {number(dt.biayaDataEvent)},-</td>
-                                <td className="whitespace-nowrap px-6 py-4">{dt.satuan}</td>
-                                <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">{dt.updated_at.substring(0,10)}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{dt.satuanEvent}</td>
+                                <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">
+                                {dt.tglUpdateEvent && dt.tglUpdateEvent.substring(0, 10)}
+                                </td>
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                                     <button 
                                         onClick={() => {

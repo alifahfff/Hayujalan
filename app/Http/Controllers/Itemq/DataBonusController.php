@@ -6,6 +6,7 @@ use App\Models\Itemq\dataBonus;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class DataBonusController extends Controller
 {
@@ -40,8 +41,8 @@ class DataBonusController extends Controller
         $Mydata = new dataBonus();
         $Mydata->ketDataBonus = $request->ketDataBonus;
         $Mydata->biayaDataBonus = $request->biayaDataBonus;
-        $Mydata->satuan = $request->satuan;
-        $Mydata->tglBerlakuItem = $request->tglBerlakuItem;
+        $Mydata->satuanBonus = $request->satuanBonus;
+        $Mydata->tglUpdateBonus = Carbon::now();
         $Mydata->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }
@@ -83,10 +84,11 @@ class DataBonusController extends Controller
      */
     public function update(Request $request)
     {
-        dataBonus::where('id', $request->id)->update([
+        dataBonus::where('idDataBonus', $request->id)->update([
             'ketDataBonus' => $request->ketDataBonus,
             'biayaDataBonus' => $request->biayaDataBonus,
-            'satuan' => $request->satuan,
+            'satuanBonus' => $request->satuanBonus,
+            'tglUpdateBonus' => Carbon::now(),
         ]);
         return redirect()->back()->with('message', 'item berhasil diupdate');
     }

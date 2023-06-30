@@ -30,7 +30,7 @@ const ModalDeleteKlien = ({visible, onClose, data}) => {
                                     onClose()
                                     Dback()
                                 }}
-                            ><Link href={route('delete.klien')} method="post" data={{ id: data.id }} as="button">
+                            ><Link href={route('delete.klien')} method="post" data={{ id: data.idDataKlien }} as="button">
                             IYA
                             </Link></button>
                         </div> 

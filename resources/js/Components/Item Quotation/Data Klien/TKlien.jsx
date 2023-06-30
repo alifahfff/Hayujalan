@@ -13,7 +13,7 @@ const TKlien = ({data}) => {
     const handleOnClose = () => setShowModal(false);
     const handleOnCloseD = () => setShowDelete(false);
 
-    console.log('dataK', data.dataK)
+    console.log('data', data)
     return (
         <div className="flex flex-col">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -33,19 +33,21 @@ const TKlien = ({data}) => {
                         <th scope="col" className="px-6 py-4">Aksi</th>
                         </tr>
                     </thead>
-                    {data.dataK && data.dataK.length > 0 ? data.dataK.map((dt, index) => {
+                    {data.Mydata.data && data.Mydata.data.length > 0 ? data.Mydata.data.map((dt, index) => {
                         // console.log('cr', cr)
                         return (
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
-                                <td className="whitespace-nowrap px-6 py-4 font-medium">{index + 1}</td>
+                                <td className="whitespace-nowrap px-6 py-4 font-medium">{data.Mydata.from + index}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{dt.namaKlien}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{dt.jenis_klien.namaJenisKlien}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{dt.alamatKlien}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{dt.tlpKlien}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{dt.namaPicKlien}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{dt.tlpPicKlien}</td>
-                                <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">{dt.updated_at.substring(0,10)}</td>
+                                <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">
+                                {dt.tglUpdateKlien && dt.tglUpdateKlien.substring(0, 10)}
+                                </td>
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                                     <button 
                                         onClick={() => {
@@ -80,7 +82,7 @@ const TKlien = ({data}) => {
                 }} 
                 visible={showModal}
                 data={dataL}
-                dataJK={data.dataJK}
+                dataJK={data.jenisKlien}
             />
 
             <ModalDeleteKlien

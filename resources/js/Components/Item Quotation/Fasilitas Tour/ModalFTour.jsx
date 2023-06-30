@@ -9,23 +9,23 @@ const ModalFTour = ({visible, onClose, data}) => {
 
     const handleSubmit = () => {
         console.log('id', data.id)
-        if(data.id){
+        if(data.idFasilitasTour){
             // update data
             const dataE = {
-                id: data.id,
-                ketFasilitas: datas.ketFasilitas, 
+                id: data.idFasilitasTour,
+                ketFasilitasTour: datas.ketFasilitasTour, 
                 biayaFasilitas: datas.biayaFasilitas, 
-                satuan: datas.satuan,
-                tglBerlakuItem: datas.tglBerlakuItem,
+                satuanFasilitas: datas.satuanFasilitas,
+                tglUpdatedFasilitas: datas.tglBerlakuItem,
                 updated_at: new Date(),
             }
             Inertia.post('/fasilitasTour/update', dataE)
         }else{
             // tambah data
             const dataT = {
-                ketFasilitas: datas.ketFasilitas, 
+                ketFasilitasTour: datas.ketFasilitasTour, 
                 biayaFasilitas: datas.biayaFasilitas, 
-                satuan: datas.satuan,
+                satuanFasilitas: datas.satuanFasilitas,
                 tglBerlakuItem: datas.tglBerlakuItem,
                 created_at: new Date(),
                 updated_at: new Date(),
@@ -58,11 +58,11 @@ const ModalFTour = ({visible, onClose, data}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
-                                    value={datas.ketFasilitas || ''}
+                                    value={datas.ketFasilitasTour || ''}
                                     onChange={(value) => 
                                         setDatas({
                                             ...datas,
-                                            ketFasilitas: value.target.value
+                                            ketFasilitasTour: value.target.value
                                         })}
                                 />
                             </div>
@@ -87,9 +87,9 @@ const ModalFTour = ({visible, onClose, data}) => {
                                     onChange={(value) => 
                                         setDatas({
                                             ...datas,
-                                            satuan: value.target.value
+                                            satuanFasilitas: value.target.value
                                         })}
-                                    value={datas.satuan}
+                                    value={datas.satuanFasilitas}
                                 />
                             </div>
                         </div>

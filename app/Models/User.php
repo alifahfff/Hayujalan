@@ -33,8 +33,8 @@ class User extends Authenticatable
     //     'email_verified_at' => 'datetime',
     // ];
 
-    protected $table = 'm_users';
-    protected $primaryKey = ['idRoles', 'idUser'];
+    protected $table = 'M_user';
+    protected $primaryKey = 'idUser';
     public $incrementing = false;
     public $timestamps = true;
     

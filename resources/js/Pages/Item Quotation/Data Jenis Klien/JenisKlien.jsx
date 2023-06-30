@@ -15,9 +15,7 @@ export default function JenisKlien(props) {
     console.log('props', props)
     console.log('data', props.Mydata.data)
     const [data, setData] = useState({
-        ketFasilitas: '', 
-        biayaFasilitas: '', 
-        satuan: '',
+        namaJenisKlien: '', 
     })
     
     const search = (key) => {

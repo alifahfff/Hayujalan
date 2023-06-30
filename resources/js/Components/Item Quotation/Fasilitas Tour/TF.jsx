@@ -28,7 +28,7 @@ const TF = ({data}) => {
                         <th scope="col" className="px-6 py-4">Biaya</th>
                         <th scope="col" className="px-6 py-4">Satuan</th>
                         {/* <th scope="col" className="px-6 py-4">Tanggal Berlaku</th> */}
-                        <th scope="col" className="px-6 py-4">Last Update</th>
+                        <th scope="col" className="px-6 py-4">Tanggal Update</th>
                         <th scope="col" className="px-6 py-4">Aksi</th>
                         </tr>
                     </thead>
@@ -38,10 +38,12 @@ const TF = ({data}) => {
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
                                 <td className="whitespace-nowrap px-6 py-4 font-medium">{data.from + index}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{dt.ketFasilitas}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{dt.ketFasilitasTour}</td>
                                 <td className="whitespace-nowrap px-6 py-4">Rp. {number(dt.biayaFasilitas)},-</td>
-                                <td className="whitespace-nowrap px-6 py-4">{dt.satuan}</td>
-                                <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">{dt.updated_at.substring(0,10)}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{dt.satuanFasilitas}</td>
+                                <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">
+                                {dt.tglUpdatedFasilitas && dt.tglUpdatedFasilitas.substring(0, 10)}
+                                </td>
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                                     <button 
                                         onClick={() => {

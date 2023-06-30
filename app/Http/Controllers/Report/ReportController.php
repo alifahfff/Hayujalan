@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Report;
 
 use Inertia\Inertia;
 use App\Models\Report\Report;
+use App\Models\Quotation\quotationTransaksi;
+use App\Models\Quotation\quotationTour;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -17,8 +19,7 @@ class ReportController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->input('key');
-        $mydata = Report::with('qtransaksi')
-                ->where('namaProject', 'like', '%' . $keyword . '%')
+        $mydata = quotationTour::where('namaProject', 'like', '%' . $keyword . '%')
                 ->paginate(4);
         return Inertia::render('Laporan/LaporanQuotation', [
             'Mydata' => $mydata,
@@ -55,8 +56,7 @@ class ReportController extends Controller
     public function show(Request $request)
     {
         $keyword = $request->input('key');
-        $mydata = Report::with('qtransaksi.quotation.klien')
-                ->where('namaProject', 'like', '%' . $keyword . '%')
+        $mydata = quotationTour::where('namaProject', 'like', '%' . $keyword . '%')
                 ->paginate(4);
         return Inertia::render('Report/Reports', [
             'Mydata' => $mydata,

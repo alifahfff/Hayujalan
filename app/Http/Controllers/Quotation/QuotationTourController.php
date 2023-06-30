@@ -31,6 +31,7 @@ use App\Models\Transaksi\TcrewOp;
 use App\Models\Transaksi\Tevent;
 use App\Models\Transaksi\Tbonus;
 use App\Models\Itemq\dataKlien;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
@@ -77,8 +78,7 @@ class QuotationTourController extends Controller
     public function show(quotationTour $quotationTour)
     {
         $areawisata = areaWisata::all();
-        $userprogram = userProgram::all();
-        $usersales = userSales::all();
+        $user = User::all();
         $kategoriwisata = dataKategoriTour::all();
         $destinasi = vendorDestinasiWisata::all();
         $detailDestinasi = detailVendorDestinasiWisata::join('vendor_destinasi_wisatas', 'detail_vendor_destinasi_wisatas.idDestinasiWisata', '=', 'vendor_destinasi_wisatas.id')
@@ -100,8 +100,7 @@ class QuotationTourController extends Controller
         $jenisKlien = dataJenisKlien::all();
         return Inertia::render('Quotation/QuotationsForm', [
             'areawisata' => $areawisata,
-            'userprogram' => $userprogram,
-            'usersales' => $usersales,
+            'user' => $user,
             'kategoriwisata' => $kategoriwisata,
             'destinasi' => $destinasi,
             'detailDestinasi' => $detailDestinasi,
@@ -122,7 +121,7 @@ class QuotationTourController extends Controller
     public function storeQuotationForm(Request $request)
     {
         $klien = dataKlien::create([
-            'jenis_klien_id' => $request->quotationTour['jenis_klien_id'],
+            'idJenisKlien' => $request->quotationTour['idJenisKlien'],
             'namaKlien' => $request->quotationTour['namaKlien'],
             'created_at' => $request->created_at,
             'updated_at' => $request->updated_at,
@@ -414,8 +413,8 @@ class QuotationTourController extends Controller
             // Data klien sudah ada, lakukan operasi update jika ada perubahan
             $isChanged = false;
 
-            if ($existingKlien->jenis_klien_id != $request->quotationTour['jenis_klien_id']) {
-                $existingKlien->jenis_klien_id = $request->quotationTour['jenis_klien_id'];
+            if ($existingKlien->idJenisKlien != $request->quotationTour['idJenisKlien']) {
+                $existingKlien->idJenisKlien = $request->quotationTour['idJenisKlien'];
                 $isChanged = true;
             }
             if ($existingKlien->namaKlien != $request->quotationTour['namaKlien']) {

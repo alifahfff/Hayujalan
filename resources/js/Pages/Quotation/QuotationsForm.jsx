@@ -110,7 +110,7 @@ const Quotations = (props, crewL) => {
     feemarketing: 0,
     namaKlien: '',
     jenisKlien: '',
-    jenis_klien_id: '',
+    idJenisKlien: '',
   })
 
   console.log("data quotation", props);
@@ -244,7 +244,7 @@ const Quotations = (props, crewL) => {
       setDatas({
         ...datas,
         jenisKlien: find2.namaJenisKlien,
-        jenis_klien_id: find2.id,
+        idJenisKlien: find2.id,
       })
     }
 
@@ -974,8 +974,8 @@ const Quotations = (props, crewL) => {
                           datasFind(e.target.value, 'sales')
                         }}
                       >
-                        <option value="default">-{datas.namaSales}-</option>
-                        {props.usersales.map((us, index) => {
+                        <option value="default">--</option>
+                        {/* {props.usersales.map((us, index) => {
                           return (
                             <option 
                               value={us.id} 
@@ -983,7 +983,7 @@ const Quotations = (props, crewL) => {
                             >
                             {us.namaSales}
                             </option>
-                        )})}
+                        )})} */}
                       </select>
                   </div>
               </div>

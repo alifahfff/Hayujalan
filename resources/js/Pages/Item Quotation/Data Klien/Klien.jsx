@@ -13,8 +13,8 @@ import Layout from '@/Layouts/Layout';
 import { Inertia } from '@inertiajs/inertia';
 
 export default function Klien(props) {
-    console.log('props', props)
-    console.log('data', props.Mydata.data)
+    // console.log('props', props)
+    // console.log('data', props.Mydata.data)
     const [datas, setDatas] = useState({
         dataK: props.Mydata.data,
         dataJK: props.jenisKlien
@@ -26,7 +26,7 @@ export default function Klien(props) {
         jenis_klien: [{
             namaJenisKlien: '',
         }],
-        jenis_klien_id: '',
+        idJenisKlien: '',
     })
     
     const search = (key) => {
@@ -85,7 +85,7 @@ export default function Klien(props) {
                 <div className='p-4 bg-kuning border-b border-gray-200'></div>
                 <div className='bg-white border-b border-gray-200'>
                     <div className=''>
-                        <TKlien data={datas}/>
+                        <TKlien data={props}/>
                         <div className='m-2 flex justify-between items-center'>
                         {props.Mydata.data.length > 0 && (
                             <a className='text-[10px] text-black'>Showing {props.Mydata.from} - {props.Mydata.from + props.Mydata.data.length -1} of {props.Mydata.total}</a>

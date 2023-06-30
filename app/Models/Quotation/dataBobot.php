@@ -12,12 +12,14 @@ class dataBobot extends Model
     use HasFactory;
 
     protected $table = 'M_bobot';
-    protected $primaryKey = ['idKriteria', 'idBobot'];
+    protected $primaryKey = 'idBobot';
     protected $fillable = [
         'idKriteria',
         'idBobot',
         'namaBobot',
         'jumlahBobot',
+        'created_at', 
+        'updated_at'
     ];
 
     // public function kriteria()

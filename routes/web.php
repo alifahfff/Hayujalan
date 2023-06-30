@@ -98,6 +98,7 @@ Route::controller(DataKlienController::class)->group(function () {
     Route::get('/klien', 'show')->name('klien');
     // Route::get('/klien/search', 'search')->name('search.klien');
     Route::post('/klien', 'store')->name('create.klien');
+    Route::post('/klien/post', 'postKlien')->name('create.klien');
     Route::get('/klien/edit', 'edit')->name('edit.klien');
     Route::post('/klien/update', 'update')->name('update.klien');
     Route::post('/klien/delete', 'destroy')->name('delete.klien');
