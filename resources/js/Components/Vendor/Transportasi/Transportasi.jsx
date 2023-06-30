@@ -32,14 +32,14 @@ const Transportasi = ({transportasi}) => {
                         return (
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
-                                <td className="whitespace-nowrap px-6 py-4">{cr.id}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{cr.idTransportasi}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.namaTransportasi}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.alamatTransportasi.substring(0,10)}</td>
-                                <td className="whitespace-nowrap px-6 py-4 text-merah font-bold">{cr.tglBerlakuQuotation}</td>
+                                <td className="whitespace-nowrap px-6 py-4 text-merah font-bold">{cr.tglBerlakuTransportasi}</td>
                                 <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">{cr.updated_at.substring(0,10)}</td>                                
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                                     <button className="btn btn-ghost btn-sm mr-2">
-                                        <Link href={route('transportasi.detail')} method="get" data={{id: cr.id}}>
+                                        <Link href={route('transportasi.detail')} method="get" data={{id: cr.idTransportasi}}>
                                             <BsThreeDots/>
                                         </Link>
                                     </button>

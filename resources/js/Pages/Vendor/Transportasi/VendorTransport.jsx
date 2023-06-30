@@ -18,7 +18,7 @@ export default function VendorTransport (props) {
         tlpTransportasi: '', 
         picTransportasi: '', 
         hpPicTransportasi: '',
-        tglBerlakuQuotation: '',
+        tglBerlakuTransportasi: '',
     })
 
     const [showModal, setShowModal] = useState(false);

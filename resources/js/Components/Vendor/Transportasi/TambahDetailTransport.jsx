@@ -18,7 +18,7 @@ const TambahDetailTransport = ({visible, onClose, data, dataJenis}) => {
                 nama: datas.nama, 
                 tahun: datas.tahun, 
                 kapasitas: datas.kapasitas, 
-                qtyKetersediaanUnit: datas.qtyKetersediaanUnit, 
+                qtyKetersediaan: datas.qtyKetersediaan, 
                 hargaSewaWeekendDalamKota: datas.hargaSewaWeekendDalamKota,
                 hargaSewaWeekdayDalamKota: datas.hargaSewaWeekdayDalamKota, 
                 hargaSewaWeekendLuarKota: datas.hargaSewaWeekendLuarKota, 
@@ -36,7 +36,7 @@ const TambahDetailTransport = ({visible, onClose, data, dataJenis}) => {
                 nama: datas.nama, 
                 tahun: datas.tahun, 
                 kapasitas: datas.kapasitas, 
-                qtyKetersediaanUnit: datas.qtyKetersediaanUnit, 
+                qtyKetersediaan: datas.qtyKetersediaan, 
                 hargaSewaWeekendDalamKota: datas.hargaSewaWeekendDalamKota,
                 hargaSewaWeekdayDalamKota: datas.hargaSewaWeekdayDalamKota, 
                 hargaSewaWeekendLuarKota: datas.hargaSewaWeekendLuarKota, 
@@ -85,8 +85,8 @@ const TambahDetailTransport = ({visible, onClose, data, dataJenis}) => {
                                     {dataJenis.map((aw, index) => {
                                         return (
                                         <option 
-                                        value={aw.id} 
-                                        key={aw.id}
+                                        value={aw.idJenisTransportasi} 
+                                        key={aw.idJenisTransportasi}
                                         >
                                             {aw.namaJenis}
                                         </option>
@@ -137,11 +137,11 @@ const TambahDetailTransport = ({visible, onClose, data, dataJenis}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
-                                    value={datas.qtyKetersediaanUnit	 || ''}
+                                    value={datas.qtyKetersediaan	 || ''}
                                     onChange={(value) => 
                                         setDatas({
                                             ...datas,
-                                            qtyKetersediaanUnit	: value.target.value
+                                            qtyKetersediaan	: value.target.value
                                         })}
                                 />
                             </div>

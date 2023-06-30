@@ -9,20 +9,20 @@ const ModalDestinasi = ({visible, onClose, data, dataArea}) => {
 
     const handleSubmit = () => {
         console.log('id', data.id)
-        if(data.id){
+        if(data.idDestinasiWisata){
             // update data
             const dataUpdate = {
-                id: data.id,
+                id: data.idDestinasiWisata,
                 idAreaWisata: datas.idAreaWisata,
                 namaDestinasiWisata: datas.namaDestinasiWisata, 
                 kapasitasDestinasiWisata: datas.kapasitasDestinasiWisata, 
-                kapasitasParkirBus: datas.kapasitasParkirBus, 
+                kapasitasParkirBusWisata: datas.kapasitasParkirBusWisata, 
                 alamatDestinasiWisata: datas.alamatDestinasiWisata, 
                 tlpDestinasiWisata: datas.tlpDestinasiWisata, 
                 picDestinasiWisata: datas.picDestinasiWisata, 
                 hpDestinasiWisata: datas.hpDestinasiWisata, 
-                linkGmaps: datas.linkGmaps, 
-                tglBerlakuQuotation : datas.tglBerlakuQuotation,
+                linkGmapDestinasiWisata: datas.linkGmapDestinasiWisata,
+                tglBerlakuDestinasi : datas.tglBerlakuDestinasi,
                 updated_at: new Date(),
             }
             Inertia.post('/destinasiwisata/update', dataUpdate)
@@ -32,13 +32,13 @@ const ModalDestinasi = ({visible, onClose, data, dataArea}) => {
                 idAreaWisata: datas.idAreaWisata,
                 namaDestinasiWisata: datas.namaDestinasiWisata, 
                 kapasitasDestinasiWisata: datas.kapasitasDestinasiWisata, 
-                kapasitasParkirBus: datas.kapasitasParkirBus, 
+                kapasitasParkirBusWisata: datas.kapasitasParkirBusWisata, 
                 alamatDestinasiWisata: datas.alamatDestinasiWisata, 
                 tlpDestinasiWisata: datas.tlpDestinasiWisata, 
                 picDestinasiWisata: datas.picDestinasiWisata, 
                 hpDestinasiWisata: datas.hpDestinasiWisata, 
-                linkGmaps: datas.linkGmaps,
-                tglBerlakuQuotation : datas.tglBerlakuQuotation,
+                linkGmapDestinasiWisata: datas.linkGmapDestinasiWisata,
+                tglBerlakuDestinasi : datas.tglBerlakuDestinasi,
                 created_at: new Date(),
                 updated_at: new Date(),
             }
@@ -82,8 +82,8 @@ const ModalDestinasi = ({visible, onClose, data, dataArea}) => {
                                     {dataArea.map((aw, index) => {
                                         return (
                                         <option 
-                                        value={aw.id} 
-                                        key={aw.id}
+                                        value={aw.idAreaWisata} 
+                                        key={aw.idAreaWisata}
                                         >
                                             {aw.namaArea}
                                         </option>
@@ -121,11 +121,11 @@ const ModalDestinasi = ({visible, onClose, data, dataArea}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
-                                    value={datas.kapasitasParkirBus	 || ''}
+                                    value={datas.kapasitasParkirBusWisata	 || ''}
                                     onChange={(value) => 
                                         setDatas({
                                             ...datas,
-                                            kapasitasParkirBus	: value.target.value
+                                            kapasitasParkirBusWisata	: value.target.value
                                         })}
                                 />
                             </div>
@@ -186,11 +186,11 @@ const ModalDestinasi = ({visible, onClose, data, dataArea}) => {
                                 <input
                                     type="text"
                                     className="border border-gray-700 p-2 rounded mb-5"
-                                    value={datas.linkGmaps	 || ''}
+                                    value={datas.linkGmapDestinasiWisata	 || ''}
                                     onChange={(value) => 
                                         setDatas({
                                             ...datas,
-                                            linkGmaps	: value.target.value
+                                            linkGmapDestinasiWisata	: value.target.value
                                         })}
                                 />
                             </div>
@@ -199,11 +199,11 @@ const ModalDestinasi = ({visible, onClose, data, dataArea}) => {
                                 <input
                                     type="date"
                                     className="border border-gray-700 p-2 rounded mb-5"
-                                    value={datas.tglBerlakuQuotation	 || ''}
+                                    value={datas.tglBerlakuDestinasi	 || ''}
                                     onChange={(value) => 
                                         setDatas({
                                             ...datas,
-                                            tglBerlakuQuotation	: value.target.value
+                                            tglBerlakuDestinasi	: value.target.value
                                         })}
                                 />
                             </div>

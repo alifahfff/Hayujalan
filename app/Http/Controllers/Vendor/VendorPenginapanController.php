@@ -47,9 +47,9 @@ class VendorPenginapanController extends Controller
         $hotel->tlpPenginapan = $request->tlpPenginapan;
         $hotel->picPenginapan = $request->picPenginapan;
         $hotel->hpPicPenginapan = $request->hpPicPenginapan;
-        $hotel->linkGmaps = $request->linkGmaps;
-        $hotel->kapasitasParkirBus = $request->kapasitasParkirBus;
-        $hotel->tglBerlakuQuotation = $request->tglBerlakuQuotation;
+        $hotel->linkGmapsPenginapan = $request->linkGmapsPenginapan;
+        $hotel->kapasitasParkirBusPenginapan = $request->kapasitasParkirBusPenginapan;
+        $hotel->tglBerlakuPenginapan = $request->tglBerlakuPenginapan;
         $hotel->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }
@@ -111,16 +111,16 @@ class VendorPenginapanController extends Controller
      */
     public function update(Request $request)
     {
-        vendorPenginapan::where('id', $request->id)->update([
+        vendorPenginapan::where('idPenginapan', $request->id)->update([
             'namaPenginapan' => $request->namaPenginapan,
             'bintangPenginapan' => $request->bintangPenginapan,
             'alamatPenginapan' => $request->alamatPenginapan,
             'tlpPenginapan' => $request->tlpPenginapan,
             'picPenginapan' => $request->picPenginapan,
             'hpPicPenginapan' => $request->hpPicPenginapan,
-            'linkGmaps' => $request->linkGmaps,
-            'kapasitasParkirBus' => $request->kapasitasParkirBus,
-            'tglBerlakuQuotation' => $request->tglBerlakuQuotation,
+            'linkGmapsPenginapan' => $request->linkGmapsPenginapan,
+            'kapasitasParkirBusPenginapan' => $request->kapasitasParkirBusPenginapan,
+            'tglBerlakuPenginapan' => $request->tglBerlakuPenginapan,
         ]);
         return redirect()->back()->with('message', 'item berhasil diupdate');
     }

@@ -8,16 +8,16 @@ const ModalTransport = ({visible, onClose, data, dataArea}) => {
 
     const handleSubmit = () => {
         console.log('id', data.id)
-        if(data.id){
+        if(data.idTransportasi){
             // update data
             const dataUpdate = {
-                id: data.id,
+                id: data.idTransportasi,
                 namaTransportasi: datas.namaTransportasi, 
                 alamatTransportasi: datas.alamatTransportasi, 
                 tlpTransportasi: datas.tlpTransportasi, 
                 picTransportasi: datas.picTransportasi, 
                 hpPicTransportasi: datas.hpPicTransportasi,
-                tglBerlakuQuotation: datas.tglBerlakuQuotation,
+                tglBerlakuTransportasi: datas.tglBerlakuTransportasi,
                 updated_at: new Date(),
             }
             Inertia.post('/transportasi/update', dataUpdate)
@@ -30,7 +30,7 @@ const ModalTransport = ({visible, onClose, data, dataArea}) => {
                 tlpTransportasi: datas.tlpTransportasi, 
                 picTransportasi: datas.picTransportasi, 
                 hpPicTransportasi: datas.hpPicTransportasi,
-                tglBerlakuQuotation: datas.tglBerlakuQuotation,
+                tglBerlakuTransportasi: datas.tglBerlakuTransportasi,
                 created_at: new Date(),
                 updated_at: new Date(),
             }
@@ -73,8 +73,8 @@ const ModalTransport = ({visible, onClose, data, dataArea}) => {
                                     {dataArea.map((aw, index) => {
                                         return (
                                         <option 
-                                        value={aw.id} 
-                                        key={aw.id}
+                                        value={aw.idAreaWisata} 
+                                        key={aw.idAreaWisata}
                                         >
                                             {aw.namaArea}
                                         </option>
@@ -143,6 +143,19 @@ const ModalTransport = ({visible, onClose, data, dataArea}) => {
                                         setDatas({
                                             ...datas,
                                             hpPicTransportasi	: value.target.value
+                                        })}
+                                />
+                            </div>
+                            <div className="flex flex-row justify-between">
+                                <a className="mr-5 mt-2 text-black">Tanggal Berlaku</a>
+                                <input
+                                    type="date"
+                                    className="border border-gray-700 p-2 rounded mb-5"
+                                    value={datas.tglBerlakuTransportasi	 || ''}
+                                    onChange={(value) => 
+                                        setDatas({
+                                            ...datas,
+                                            tglBerlakuTransportasi	: value.target.value
                                         })}
                                 />
                             </div>
