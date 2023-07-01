@@ -22,7 +22,7 @@ export default function KategoriTour(props) {
       console.log('key', key)
       Inertia.get(
         route(route().current()),
-        { term: key },  {
+        { term: key }, {
             preserveState: true,
             replace: true,
         }
