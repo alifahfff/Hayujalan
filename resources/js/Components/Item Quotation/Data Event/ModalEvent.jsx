@@ -8,14 +8,15 @@ const ModalEvent = ({visible, onClose, data}) => {
     // console.log('datas', datas)
 
     const handleSubmit = () => {
-        console.log('id', data.id)
-        if(data.id){
+        console.log('id', data.idDataEvent)
+        if(data.idDataEvent){
             // update data
             const dataE = {
-                id: data.id,
+                id: data.idDataEvent,
                 ketDataEvent: datas.ketDataEvent, 
                 biayaDataEvent: datas.biayaDataEvent, 
-                satuan: datas.satuan,
+                satuanEvent: datas.satuanEvent,
+                tglUpdateEvent:new Date(),
                 updated_at: new Date(),
             }
             Inertia.post('/event/update', dataE)
@@ -24,7 +25,8 @@ const ModalEvent = ({visible, onClose, data}) => {
             const dataT = {
                 ketDataEvent: datas.ketDataEvent, 
                 biayaDataEvent: datas.biayaDataEvent, 
-                satuan: datas.satuan,
+                satuanEvent: datas.satuanEvent,
+                glUpdateEvent:new Date(),
                 created_at: new Date(),
                 updated_at: new Date(),
             }
@@ -83,9 +85,9 @@ const ModalEvent = ({visible, onClose, data}) => {
                                     onChange={(value) => 
                                         setDatas({
                                             ...datas,
-                                            satuan: value.target.value
+                                            satuanEvent: value.target.value
                                         })}
-                                    value={datas.satuan}
+                                    value={datas.satuanEvent}
                                 />
                             </div>
                         </div>

@@ -111,12 +111,12 @@ export default function QuotationsResult(props) {
                           <span className="label-text text-black">{props.data.quotation.kategori.namaKategoriTour}</span>
                         </label>
                         <label className="label">
-                          <span className="label-text text-black">
+                          {/* <span className="label-text text-black">
                           Rp.{number(props.data.sellingPrice)}/pax
-                          </span>
+                          </span> */}
                         </label>
                         <label className="label">
-                          <span className="label-text text-black">Rp.{number(props.data.totalPrice)},-</span>
+                          {/* <span className="label-text text-black">Rp.{number(props.data.totalPrice)},-</span> */}
                         </label>
                       </form>
                     </div>

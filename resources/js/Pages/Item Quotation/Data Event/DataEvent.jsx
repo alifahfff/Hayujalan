@@ -12,10 +12,10 @@ export default function DataEvent(props) {
     console.log('props', props)
     console.log('data', props.Mydata.data)
     const [data, setData] = useState({
-        ketFasilitas: '', 
-        biayaFasilitas: '', 
-        satuan: '',
-        tglBerlakuItem: '',
+        ketDataEvent: '', 
+        biayaDataEvent: '', 
+        satuanEvent: '',
+        tglUpdateEvent: '',
     })
     
     const search = (key) => {

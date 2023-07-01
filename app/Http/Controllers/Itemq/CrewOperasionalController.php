@@ -6,6 +6,7 @@ use App\Models\Itemq\crewOperasional;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class CrewOperasionalController extends Controller
 {
@@ -41,8 +42,8 @@ class CrewOperasionalController extends Controller
         $crew = new crewOperasional();
         $crew->ketCrewOperasional = $request->ketCrewOperasional;
         $crew->biayaCrewOperasional = $request->biayaCrewOperasional;
-        $crew->satuan = $request->satuan;
-        $crew->tglBerlakuItem = $request->tglBerlakuItem;
+        $crew->satuanCrew = $request->satuanCrew ;
+        $crew->tglUpdateCrew = Carbon::now();
         $crew->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }
@@ -84,10 +85,11 @@ class CrewOperasionalController extends Controller
      */
     public function update(Request $request)
     {
-        crewOperasional::where('id', $request->id)->update([
+        crewOperasional::where('idCrewOperasional', $request->id)->update([
             'ketCrewOperasional' => $request->ketCrewOperasional,
             'biayaCrewOperasional' => $request->biayaCrewOperasional,
-            'satuan' => $request->satuan,
+            'satuanCrew' => $request->satuanCrew,
+            'tglUpdateCrew' => Carbon::now(),
         ]);
         return redirect()->back()->with('message', 'item berhasil diupdate');
     }

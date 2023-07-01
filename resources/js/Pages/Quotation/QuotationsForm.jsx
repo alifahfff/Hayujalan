@@ -42,6 +42,7 @@ const Quotations = (props, crewL) => {
   const [formRM, setFormRM] = useState([{
     namaRM:'',
     idRM:'',
+    idMenuRm: '',
     biaya:'',
     menuRM:[],
     qty:'',
@@ -81,7 +82,7 @@ const Quotations = (props, crewL) => {
   }]);
 
   const [formFasilitas, setFormFasilitas] = useState([{
-    ketFasilitas:'',
+    ketFasilitasTour:'',
     idFasilitasTour :'',
     biayaFasilitas:'',
     qty:'',
@@ -103,14 +104,20 @@ const Quotations = (props, crewL) => {
     durasiproject: '',
     tipeDurasi: '',
     jumlahOrang: '',
-    foc: '',
+    foc: 0,
     totalOrang: '',
     planWaktuPelaksanaan: '',
     presentaseKeuntungan: '',
     feemarketing: 0,
     namaKlien: '',
     jenisKlien: '',
-    jenis_klien_id: '',
+    idJenisKlien: '',
+    tglBerlakuQuotation: '',
+    bref_kategori: '',
+    bref_areaWisata: '',
+    bref_jumlahOrang: '',
+    bref_durasi: '',
+    bref_budget: 1,
   })
 
   console.log("data quotation", props);
@@ -125,46 +132,123 @@ const Quotations = (props, crewL) => {
   console.log('transportasi', formTransport);
 
   const [selectedDate, setSelectedDate] = useState('');
-  // const [listRM, setListRM] = useState(() => {
-  //   const matchingItem = [];
-  //   props.rumahMakan.forEach((lb) => {
-  //     console.log('cek lb1', lb)
-  //     if(lb.idAreaWIsata == datas.idAreaWisata){
-  //       console.log('cek lb2', lb)
-  //       matchingItem.push(lb)
-  //     }
-  //   })
-  //   console.log('matchingItem', matchingItem)
-  //   return matchingItem ? [matchingItem] : [];
-  // });
+  const [selectedDateBerlaku, setSelectedDateBerlaku] = useState('');
+  
   const [listRM, setListRM] = useState({
     list: [],
   });
   
+  const rekomendasi = () => {
+    const bref_durasi = [];
+    const bref_jumlahOrang = [];
 
-  const handleDateChange = (e) => {
+    if(datas.durasiproject){
+      if(datas.durasiproject == 1){
+        bref_durasi.push(1)
+      }
+      if(datas.durasiproject == 2){
+        bref_durasi.push(2)
+      }
+      if(datas.durasiproject == 3){
+        bref_durasi.push(3)
+      }
+      if(datas.durasiproject == 4){
+        bref_durasi.push(4)
+      }
+      if(datas.durasiproject == 5){
+        bref_durasi.push(5)
+      }
+      if(datas.durasiproject == 6){
+        bref_durasi.push(6)
+      }
+      if(datas.durasiproject >= 7){
+        bref_durasi.push(7)
+      }
+    }
+    if(datas.jumlahOrang){
+      if(datas.jumlahOrang >= 1 && datas.jumlahOrang <= 5){
+        bref_jumlahOrang.push(1)
+      }
+      if(datas.jumlahOrang >= 6 && datas.jumlahOrang <= 12){
+        bref_jumlahOrang.push(2)
+      }
+      if(datas.jumlahOrang >= 13 && datas.jumlahOrang <= 18){
+        bref_jumlahOrang.push(3)
+      }
+      if(datas.jumlahOrang >= 19 && datas.jumlahOrang <= 31){
+        bref_jumlahOrang.push(4)
+      }
+      if(datas.jumlahOrang >= 32 && datas.jumlahOrang <= 35){
+        bref_jumlahOrang.push(5)
+      }
+      if(datas.jumlahOrang >= 36 && datas.jumlahOrang <= 39){
+        bref_jumlahOrang.push(6)
+      }
+      if(datas.jumlahOrang >= 40 && datas.jumlahOrang <= 59){
+        bref_jumlahOrang.push(7)
+      }
+      if(datas.jumlahOrang >= 100 && datas.jumlahOrang <= 150){
+        bref_jumlahOrang.push(8)
+      }
+      if(datas.jumlahOrang > 150){
+        bref_jumlahOrang.push(9)
+      }
+    }
+
+    console.log('durasi', bref_durasi)
+    console.log('orang', bref_jumlahOrang)
+
+    setDatas({
+      ...datas,
+      bref_durasi: bref_durasi[0],
+      bref_jumlahOrang: bref_jumlahOrang[0],
+    })
+
+  }
+
+  const handleDateChange = (e, nama) => {
     const selectedDateString = e.target.value;
     const selectedDateObj = new Date(selectedDateString);
     const dayOfWeek = selectedDateObj.getDay();
 
     const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
 
-    setSelectedDate(selectedDateString);
+    if (nama == 'plan') {
+      setSelectedDate(selectedDateString);
+      if (isWeekend) {
+        console.log('Selected date is a weekend.');
+        setDatas({
+          ...datas,
+          planWaktuPelaksanaan: e.target.value,
+          tipeDurasi: 'weekend',
+        })
+      } else {
+        console.log('Selected date is a weekday.');
+        setDatas({
+          ...datas,
+          planWaktuPelaksanaan: e.target.value,
+          tipeDurasi: 'weekday',
+        })
+      }
+    }
 
-    if (isWeekend) {
-      console.log('Selected date is a weekend.');
-      setDatas({
-        ...datas,
-        planWaktuPelaksanaan: e.target.value,
-        tipeDurasi: 'weekend',
-      })
-    } else {
-      console.log('Selected date is a weekday.');
-      setDatas({
-        ...datas,
-        planWaktuPelaksanaan: e.target.value,
-        tipeDurasi: 'weekday',
-      })
+    if (nama == 'berlaku') {
+      setSelectedDateBerlaku(selectedDateString);
+      if (isWeekend) {
+        console.log('Selected date is a weekend.');
+        setDatas({
+          ...datas,
+          tglBerlakuQuotation: e.target.value,
+          tipeDurasi: 'weekend',
+        })
+      } else {
+        console.log('Selected date is a weekday.');
+        setDatas({
+          ...datas,
+          tglBerlakuQuotation: e.target.value,
+          tipeDurasi: 'weekday',
+        })
+      }
     }
   };
 
@@ -189,9 +273,11 @@ const Quotations = (props, crewL) => {
         })
         console.log('list', list)
       }
+      values[index]['idRM'] = parseInt(e.target.value),
       values[index]['menuRM'] = list
       setFormRM(values)
     }
+
     if(params == 'penginapan'){
       const values = [...formPenginapan]
       const list = []; 
@@ -212,6 +298,7 @@ const Quotations = (props, crewL) => {
       values[index]['idPenginapan'] = e.target.value
       setFormPenginapan(values)
     }
+
     if(params == 'transportasi'){
       const values = [...formTransport]
       const list = []; 
@@ -234,17 +321,17 @@ const Quotations = (props, crewL) => {
   }
 
   const datasFind = (e, params) => {
-    // console.log('eaaa', e)
-    // console.log('pppp', params)
+    console.log('eaaa', e)
+    console.log('pppp', params)
     if(params == 'jenisKlien'){
       const find2 = props.jenisKlien.find((x) => {
-        return x.id == e 
+        return x.idJenisKlien == e 
       });
       console.log('find', find2)
       setDatas({
         ...datas,
         jenisKlien: find2.namaJenisKlien,
-        jenis_klien_id: find2.id,
+        idJenisKlien: find2.idJenisKlien,
       })
     }
 
@@ -262,27 +349,38 @@ const Quotations = (props, crewL) => {
 
     if(params == 'kategori'){
       const find2 = props.kategoriwisata.find((x) => {
-        return x.id == e 
+        return x.idKategoriTour == e 
+      });
+      const find3 = props.dataBobot.find((x) => {
+        return x.idBobot == find2.idBobot 
       });
       // console.log('find', find2)
+      console.log('find', find3)
       setDatas({
         ...datas,
         namaKategoriTour: find2.namaKategoriTour,
-        idKategoriTour: find2.id,
+        idKategoriTour: find2.idKategoriTour,
         presentaseKeuntungan: find2.presentaseKeuntungan,
+        bref_kategori: find3.jumlahBobot
       })
     }
 
     if(params == 'area'){
       const values = {...listRM}
       const find2 = props.areawisata.find((x) => {
-        return x.id == e 
+        return x.idAreaWisata == e 
       });
+      const find3 = props.dataBobot.find((x) => {
+        return x.idBobot == find2.idBobot 
+      });
+      console.log('e', e)
+      console.log('find area', find2)
 
       setDatas({
         ...datas,
         namaArea: find2.namaArea,
-        idAreaWisata: find2.id,
+        idAreaWisata: find2.idAreaWisata,
+        bref_areaWisata: find3.jumlahBobot
       })
 
       // const list = [];
@@ -357,7 +455,7 @@ const Quotations = (props, crewL) => {
     }
     if(e == 'fasilitas'){
       let object = {
-        ketFasilitas:'',
+        ketFasilitasTour:'',
         idFasilitasTour :'',
         biayaFasilitas:'',
         qty:'',
@@ -428,7 +526,7 @@ const Quotations = (props, crewL) => {
       if(e.target.name == 'namaDestinasiWisata'){
         // alert(1)
         const find2 = props.destinasi.find((x) => {
-          return x.id == e.target.value 
+          return x.idDestinasiWisata == e.target.value 
         });
         const find3 = formDestinasi.find((x, key) => {
           console.log('find index', key)
@@ -452,7 +550,7 @@ const Quotations = (props, crewL) => {
         console.log('find2', find2)
         console.log('find3', find3)
         values[index]['namaDestinasiWisata'] = find2.namaDestinasiWisata,
-        values[index]['idDestinasiWisata'] = find2.id,
+        values[index]['idDestinasiWisata'] = find2.idDestinasiWisata,
         values[index]['biaya'] = parseInt(list[0]),
         values[index]['harga'] = parseInt(list[0]),
         setFormDestinasi(values) 
@@ -472,11 +570,12 @@ const Quotations = (props, crewL) => {
         setFormDestinasi(values)
       }
     }
+
     if(params == 'transportasi'){
       const values = [...formTransport]
       if(e.target.name == 'transportasi'){
         const find2 = props.detaiTransportasi.find((x) => {
-          return x.id == e.target.value 
+          return x.idDetailTransportasi == e.target.value 
         });
         const find3 = formTransport.find((x, key) => {
           console.log('find index', key)
@@ -487,24 +586,26 @@ const Quotations = (props, crewL) => {
         props.detaiTransportasi.forEach((lb) => {
           console.log('cek lb1', lb)
           if(lb.idTransportasi == find2.idTransportasi){
-            if(datas.namaArea != 'Bandung'){
-              if(datas.tipeDurasi == 'weekend'){
-                console.log('weekend')
-                list.push(lb.hargaSewaWeekendLuarKota)
+            if(lb.idDetailTransportasi == e.target.value){
+              if(datas.namaArea != 'Bandung'){
+                if(datas.tipeDurasi == 'weekend'){
+                  console.log('weekend')
+                  list.push(lb.hargaSewaWeekendLuarKota)
+                }else{
+                  console.log('weekday')
+                  list.push(lb.hargaSewaWeekdayLuarKota)
+                }
               }else{
-                console.log('weekday')
-                list.push(lb.hargaSewaWeekdayLuarKota)
+                if(datas.tipeDurasi == 'weekend'){
+                  console.log('weekend')
+                  list.push(lb.hargaSewaWeekendDalamKota)
+                }else{
+                  console.log('weekday')
+                  list.push(lb.hargaSewaWeekdayDalamKota)
+                }
               }
-            }else{
-              if(datas.tipeDurasi == 'weekend'){
-                console.log('weekend')
-                list.push(lb.hargaSewaWeekendDalamKota)
-              }else{
-                console.log('weekday')
-                list.push(lb.hargaSewaWeekdayDalamKota)
-              }
+              console.log('cek lb2', lb)
             }
-            console.log('cek lb2', lb)
           }
         })
 
@@ -531,11 +632,12 @@ const Quotations = (props, crewL) => {
         setFormTransport(values)
       }
     }
+
     if(params == 'penginapan'){
       const values = [...formPenginapan]
       if(e.target.name == 'jenisKamar'){
         const find2 = props.detailPenginapan.find((x) => {
-          return x.id == e.target.value 
+          return x.idDetailPenginapan == e.target.value 
         });
         const find3 = formPenginapan.find((x, key) => {
           console.log('find index', key)
@@ -546,7 +648,7 @@ const Quotations = (props, crewL) => {
         props.detailPenginapan.forEach((lb) => {
           console.log('cek lb1', lb)
           if(lb.idPenginapan == find2.idPenginapan){
-            if(lb.id == e.target.value){
+            if(lb.idDetailPenginapan == e.target.value){
               if(datas.tipeDurasi == 'weekend'){
                 console.log('weekend')
                 list.push(lb.hargaSewaWeekendPerKamar)
@@ -582,11 +684,12 @@ const Quotations = (props, crewL) => {
         setFormPenginapan(values)
       }
     }
+    
     if(params == 'rm'){
       const values = [...formRM]
       if(e.target.name == 'namaRumahMakan'){
         const find2 = props.detailRM.find((x) => {
-          return x.id == e.target.value 
+          return x.idDetailRM == e.target.value 
         });
         const find3 = formRM.find((x, key) => {
           console.log('find index', key)
@@ -598,18 +701,18 @@ const Quotations = (props, crewL) => {
         props.detailRM.forEach((lb) => {
           console.log('cek lb1', lb)
           if(lb.idRM == find2.idRM){
-            if(lb.id == e.target.value){
+            if(lb.idDetailRM == e.target.value){
               list.push(lb.hargaMenu)
+              console.log('cek lb2', lb)
             }
-            console.log('cek lb2', lb)
           }
         })
 
         console.log('list', list)
         console.log('find2', find2)
         console.log('find3', find3)
+        values[index]['idMenuRm'] = find2.idRM,
         values[index]['namaRM'] = find2.namaMenu,
-        values[index]['idRM'] = find2.idRM,
         values[index]['biaya'] = parseInt(list[0]),
         values[index]['harga'] = parseInt(list[0]),
         setFormRM(values) 
@@ -628,19 +731,20 @@ const Quotations = (props, crewL) => {
         setFormRM(values)
       }
     }
+
     if(params == 'fasilitas'){
       const values = [...formFasilitas]
-      if(e.target.name == 'ketFasilitas'){
+      if(e.target.name == 'ketFasilitasTour'){
         const find2 = props.fasilitasTour.find((x) => {
-          return x.id == e.target.value 
+          return x.idFasilitasTour == e.target.value 
         });
         const find3 = formFasilitas.find((x, key) => {
           console.log('find index', key)
           return key == index 
         });
         console.log('find', find2)
-        values[index]['ketFasilitas'] = find2.ketFasilitas,
-        values[index]['idFasilitasTour'] = find2.id,
+        values[index]['ketFasilitasTour'] = find2.ketFasilitasTour,
+        values[index]['idFasilitasTour'] = find2.idFasilitasTour,
         values[index]['biayaFasilitas'] = find2.biayaFasilitas,
         values[index]['harga'] = find2.biayaFasilitas,
         setFormFasilitas(values) 
@@ -659,11 +763,12 @@ const Quotations = (props, crewL) => {
         setFormFasilitas(values)
       }
     }
+
     if(params == 'crew'){
       const values = [...formCrew]
       if(e.target.name == 'ketCrewOperasional'){
         const find2 = props.crewOperasional.find((x) => {
-          return x.id == e.target.value 
+          return x.idCrewOperasional == e.target.value 
         });
         const find3 = formCrew.find((x, key) => {
           console.log('find index', key)
@@ -671,7 +776,7 @@ const Quotations = (props, crewL) => {
         });
         console.log('find', find2)
         values[index]['ketCrewOperasional'] = find2.ketCrewOperasional,
-        values[index]['idCrewOperasional'] = find2.id,
+        values[index]['idCrewOperasional'] = find2.idCrewOperasional,
         values[index]['biayaCrewOperasional'] = find2.biayaCrewOperasional,
         values[index]['harga'] = find2.biayaCrewOperasional,
         setFormCrew(values) 
@@ -690,11 +795,12 @@ const Quotations = (props, crewL) => {
         setFormCrew(values)
       }
     }
+
     if(params == 'event'){
       const values = [...formEvent]
       if(e.target.name == 'ketDataEvent'){
         const find2 = props.dataEvent.find((x) => {
-          return x.id == e.target.value 
+          return x.idDataEvent == e.target.value 
         });
         const find3 = formEvent.find((x, key) => {
           console.log('finde idnex', key)
@@ -702,7 +808,7 @@ const Quotations = (props, crewL) => {
         });
         console.log('find', find2)
         values[index]['ketDataEvent'] = find2.ketDataEvent,
-        values[index]['idDataEvent'] = find2.id,
+        values[index]['idDataEvent'] = find2.idDataEvent,
         values[index]['biayaDataEvent'] = find2.biayaDataEvent,
         values[index]['harga'] = find2.biayaDataEvent,
         setFormEvent(values) 
@@ -721,11 +827,12 @@ const Quotations = (props, crewL) => {
         setFormEvent(values)
       }
     }
+
     if(params == 'bonus'){
       const values = [...formBonus]
       if(e.target.name == 'ketDataBonus'){
         const find2 = props.dataBonus.find((x) => {
-          return x.id == e.target.value 
+          return x.idDataBonus == e.target.value 
         });
         const find3 = formBonus.find((x, key) => {
           console.log('finde idnex', key)
@@ -733,7 +840,7 @@ const Quotations = (props, crewL) => {
         });
         console.log('find', find2)
         values[index]['ketDataBonus'] = find2.ketDataBonus,
-        values[index]['idDataBonus'] = find2.id,
+        values[index]['idDataBonus'] = find2.idDataBonus,
         values[index]['biayaDataBonus'] = find2.biayaDataBonus,
         values[index]['harga'] = find2.biayaDataBonus,
         setFormBonus(values) 
@@ -815,6 +922,61 @@ const Quotations = (props, crewL) => {
     const sellingPrice = parseInt(netPrice + surcharge);
     const totalPrice = parseInt(sellingPrice * paxPay);
     const profit = parseInt(sellingPrice + parseInt(datas.feemarketing));
+    const bref_budget2 = [];
+    if (sellingPrice >= 0 && sellingPrice <= 50000) {
+      bref_budget2.push(1);
+    }
+    if (sellingPrice >= 600000 && sellingPrice <= 1000000) {
+      bref_budget2.push(2);
+    }
+    if (sellingPrice >= 1100000 && sellingPrice <= 1500000) {
+      bref_budget2.push(3);
+    }
+    if (sellingPrice >= 1600000 && sellingPrice <= 2000000) {
+      bref_budget2.push(4);
+    }
+    if (sellingPrice >= 2100000 && sellingPrice <= 2500000) {
+      bref_budget2.push(5);
+    }
+    if (sellingPrice > 2500000) {
+      bref_budget2.push(6);
+    }
+    // if (sellingPrice) {
+    //   console.log('Selling price:', sellingPrice);
+    //   alert(1)
+    //   if (sellingPrice >= 0 && sellingPrice <= 50000){
+    //     alert(2)
+    //     bref_budget2.push(1)
+    //   }
+    //   if (sellingPrice >= 600000 && sellingPrice <= 1000000){
+    //     alert(3)
+    //     bref_budget2.push(2)
+    //   }
+    //   if (sellingPrice >= 1100000 && sellingPrice <= 1500000){
+    //     alert(4)
+    //     bref_budget2.push(3)
+    //   }
+    //   if (sellingPrice >= 1600000 && sellingPrice <= 2000000){
+    //     alert(5)
+    //     bref_budget2.push(4)
+    //   }
+    //   if (sellingPrice >= 2100000 && sellingPrice <= 2500000){
+    //     alert(6)
+    //     bref_budget2.push(5)
+    //   }
+    //   if (sellingPrice > 2500000){
+    //     alert(7)
+    //     bref_budget2.push(6)
+    //   }
+    // }
+
+    setDatas({
+      ...datas,
+      bref_budget: bref_budget2[0],
+    })
+
+    console.log('budget', bref_budget2)
+
     const data = {
       quotationTour : datas,
       destinasi : formDestinasi,
@@ -926,7 +1088,7 @@ const Quotations = (props, crewL) => {
                         {props.jenisKlien.map((us, index) => {
                           return (
                             <option 
-                              value={us.id} 
+                              value={us.idJenisKlien} 
                               key={us.id}
                             >
                             {us.namaJenisKlien}
@@ -974,8 +1136,8 @@ const Quotations = (props, crewL) => {
                           datasFind(e.target.value, 'sales')
                         }}
                       >
-                        <option value="default">-{datas.namaSales}-</option>
-                        {props.usersales.map((us, index) => {
+                        <option value="default">--</option>
+                        {/* {props.usersales.map((us, index) => {
                           return (
                             <option 
                               value={us.id} 
@@ -983,7 +1145,7 @@ const Quotations = (props, crewL) => {
                             >
                             {us.namaSales}
                             </option>
-                        )})}
+                        )})} */}
                       </select>
                   </div>
               </div>
@@ -1008,7 +1170,7 @@ const Quotations = (props, crewL) => {
                         {props.kategoriwisata.map((kw, index) => {
                           return (
                             <option 
-                              value={kw.id} 
+                              value={kw.idKategoriTour} 
                               key={kw.id}
                             >
                             {kw.namaKategoriTour}
@@ -1031,7 +1193,7 @@ const Quotations = (props, crewL) => {
                         {props.areawisata.map((ar, index) => {
                           return (
                             <option 
-                              value={ar.id} 
+                              value={ar.idAreaWisata} 
                               key={ar.id}
                             >
                             {ar.namaArea}
@@ -1095,7 +1257,7 @@ const Quotations = (props, crewL) => {
                       value={selectedDate} 
                       className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                       onChange={(value) => 
-                        handleDateChange(value)
+                        handleDateChange(value, 'plan')
                       }
                       />
                   </div>
@@ -1144,6 +1306,21 @@ const Quotations = (props, crewL) => {
                       })}
                       />
                   </div>
+                  <div className="w-full">
+                      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Tanggal Berlaku Quotation</label>
+                      <input 
+                      type="date" 
+                      name="brand" 
+                      id="brand"
+                      value={selectedDateBerlaku} 
+                      className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                      onChange={(value) => {
+                        handleDateChange(value, 'berlaku')
+                        rekomendasi()
+                      }
+                      }
+                      />
+                  </div>
               </div>
             </div>
 
@@ -1173,15 +1350,18 @@ const Quotations = (props, crewL) => {
                           value="default"
                           >--</option>
                           {props.destinasi.map((ds, index) => {
-                            return (
-                              <option 
-                                value={ds.id} 
-                                key={ds.id}
-                                // name="ketDataEvent"
-                              >
-                              {ds.namaDestinasiWisata}
-                              </option>
-                          )})}
+                            if (ds.idAreaWisata === datas.idAreaWisata) {
+                              return (
+                                <option 
+                                  value={ds.idDestinasiWisata} 
+                                  key={ds.id}
+                                  // name="ketDataEvent"
+                                >
+                                {ds.namaDestinasiWisata}
+                                </option>
+                              );
+                            }
+                           })}
                         </select>
                       </div>
                       <div className="">
@@ -1304,7 +1484,7 @@ const Quotations = (props, crewL) => {
                           {props.transportasi.map((ds, index) => {
                             return (
                               <option 
-                                value={ds.id} 
+                                value={ds.idTransportasi} 
                                 key={ds.id}
                                 // name="ketDataEvent"
                               >
@@ -1331,7 +1511,7 @@ const Quotations = (props, crewL) => {
                           {ds.nama.map((ds, index) => {
                             return (
                               <option 
-                                value={ds.id} 
+                                value={ds.idDetailTransportasi} 
                                 key={ds.id}
                                 // name="ketDataEvent"
                               >
@@ -1458,15 +1638,18 @@ const Quotations = (props, crewL) => {
                           value="default"
                           >--</option>
                           {props.penginapan.map((ds, index) => {
-                            return (
-                              <option 
-                                value={ds.id} 
-                                key={ds.id}
-                                // name="ketDataEvent"
-                              >
-                              {ds.namaPenginapan}
-                              </option>
-                          )})}
+                            if (ds.idAreaWisata === datas.idAreaWisata) {
+                              return (
+                                <option 
+                                  value={ds.idPenginapan} 
+                                  key={ds.id}
+                                  // name="ketDataEvent"
+                                >
+                                {ds.namaPenginapan}
+                                </option>
+                              )
+                            }
+                          })}
                         </select>
                       </div>
                       <div className="">
@@ -1487,7 +1670,7 @@ const Quotations = (props, crewL) => {
                           {ds.jenisKamar.map((ds, index) => {
                             return (
                               <option 
-                                value={ds.id} 
+                                value={ds.idDetailPenginapan} 
                                 key={ds.id}
                                 // name="ketDataEvent"
                               >
@@ -1614,15 +1797,18 @@ const Quotations = (props, crewL) => {
                           value="default"
                           >--</option>
                           {props.rumahMakan.map((ds, index) => {
-                            return (
-                              <option 
-                                value={ds.id} 
-                                key={ds.id}
-                                // name="ketDataEvent"
-                              >
-                              {ds.namaRM}
-                              </option>
-                          )})}
+                            if (ds.idAreaWisata === datas.idAreaWisata) {
+                              return (
+                                <option 
+                                  value={ds.idRM} 
+                                  key={ds.id}
+                                  // name="ketDataEvent"
+                                >
+                                {ds.namaRM}
+                                </option>
+                              )
+                            }
+                          })}
                         </select>
                       </div>
                       <div className="">
@@ -1636,20 +1822,21 @@ const Quotations = (props, crewL) => {
                           onChange={(e) => {
                             find(e, index, 'rm')
                           }}
-                        >
+                        > 
                           <option 
                           value="default"
                           >--</option>
                           {ds.menuRM.map((ds, index) => {
                             return (
                               <option 
-                                value={ds.id} 
+                                value={ds.idDetailRM} 
                                 key={ds.id}
                                 // name="ketDataEvent"
                               >
                               {ds.namaMenu}
                               </option>
-                          )})}
+                          )
+                          })}
                         </select>
                       </div>
                       <div className="">
@@ -1757,7 +1944,7 @@ const Quotations = (props, crewL) => {
                       <div className="">
                         <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Fasilitas Tour</label>
                         <select 
-                          name="ketFasilitas"
+                          name="ketFasilitasTour"
                           placeholder="Jenis Klien" 
                           defaultValue="default"
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -1772,11 +1959,11 @@ const Quotations = (props, crewL) => {
                           {props.fasilitasTour.map((ds, index) => {
                             return (
                               <option 
-                                value={ds.id} 
+                                value={ds.idFasilitasTour} 
                                 key={ds.id}
                                 // name="ketDataEvent"
                               >
-                              {ds.ketFasilitas}
+                              {ds.ketFasilitasTour}
                               </option>
                           )})}
                         </select>
@@ -1901,7 +2088,7 @@ const Quotations = (props, crewL) => {
                           {props.crewOperasional.map((ds, index) => {
                             return (
                               <option 
-                                value={ds.id} 
+                                value={ds.idCrewOperasional} 
                                 key={ds.id}
                                 // name="ketDataEvent"
                               >
@@ -2030,7 +2217,7 @@ const Quotations = (props, crewL) => {
                           {props.dataEvent.map((ds, index) => {
                             return (
                               <option 
-                                value={ds.id} 
+                                value={ds.idDataEvent} 
                                 key={ds.id}
                                 // name="ketDataEvent"
                               >
@@ -2173,7 +2360,7 @@ const Quotations = (props, crewL) => {
                           {props.dataBonus.map((ds, index) => {
                             return (
                               <option 
-                                value={ds.id} 
+                                value={ds.idDataBonus} 
                                 key={ds.id}
                                 // name="ketDataEvent"
                               >

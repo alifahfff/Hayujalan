@@ -8,14 +8,15 @@ const ModalBonus = ({visible, onClose, data}) => {
     // console.log('datas', datas)
 
     const handleSubmit = () => {
-        console.log('id', data.id)
-        if(data.id){
+        console.log('id', data.idDataBonus)
+        if(data.idDataBonus){
             // update data
             const dataE = {
-                id: data.id,
+                id: data.idDataBonus,
                 ketDataBonus: datas.ketDataBonus, 
                 biayaDataBonus: datas.biayaDataBonus, 
-                satuan: datas.satuan,
+                satuanBonus: datas.satuanBonus,
+                tglUpdateBonus: new Date(),
                 updated_at: new Date(),
             }
             Inertia.post('/bonus/update', dataE)
@@ -24,7 +25,8 @@ const ModalBonus = ({visible, onClose, data}) => {
             const dataT = {
                 ketDataBonus: datas.ketDataBonus, 
                 biayaDataBonus: datas.biayaDataBonus, 
-                satuan: datas.satuan,
+                satuanBonus: datas.satuanBonus,
+                tglUpdateBonus: new Date(),
                 created_at: new Date(),
                 updated_at: new Date(),
             }
@@ -83,9 +85,9 @@ const ModalBonus = ({visible, onClose, data}) => {
                                     onChange={(value) => 
                                         setDatas({
                                             ...datas,
-                                            satuan: value.target.value
+                                            satuanBonus: value.target.value
                                         })}
-                                    value={datas.satuan}
+                                    value={datas.satuanBonus}
                                 />
                             </div>
                         </div>

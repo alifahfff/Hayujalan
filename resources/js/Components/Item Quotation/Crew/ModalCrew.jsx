@@ -8,15 +8,15 @@ const ModalCrew = ({visible, onClose, crew}) => {
     // console.log('datas', datas)
 
     const handleSubmit = () => {
-        console.log('id', crew.id)
-        if(crew.id){
+        console.log('id', crew.idCrewOperasional )
+        if(crew.idCrewOperasional ){
             // update data
             const dataE = {
-                id: crew.id,
+                id: crew.idCrewOperasional ,
                 ketCrewOperasional: datas.ketCrewOperasional, 
                 biayaCrewOperasional: datas.biayaCrewOperasional, 
-                satuan: datas.satuan,
-                tglBerlakuItem: datas.tglBerlakuItem,
+                satuanCrew: datas.satuanCrew,
+                tglUpdateCrew: datas.tglUpdateCrew,
                 updated_at: new Date(),
             }
             Inertia.post('/crew/update', dataE)
@@ -25,8 +25,8 @@ const ModalCrew = ({visible, onClose, crew}) => {
             const data = {
                 ketCrewOperasional: datas.ketCrewOperasional, 
                 biayaCrewOperasional: datas.biayaCrewOperasional, 
-                satuan: datas.satuan,
-                tglBerlakuItem: datas.tglBerlakuItem,
+                satuanCrew: datas.satuanCrew,
+                tglUpdateCrew: datas.tglUpdateCrew,
                 created_at: new Date(),
                 updated_at: new Date(),
             }
@@ -87,9 +87,9 @@ const ModalCrew = ({visible, onClose, crew}) => {
                                     onChange={(value) => 
                                         setDatas({
                                             ...datas,
-                                            satuan: value.target.value
+                                            satuanCrew: value.target.value
                                         })}
-                                    value={datas.satuan}
+                                    value={datas.satuanCrew}
                                 />
                             </div>
                         </div>

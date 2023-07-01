@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Itemq;
 
 use App\Models\Itemq\dataKategoriTour;
+use App\Models\Quotation\dataBobot;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
@@ -37,10 +38,18 @@ class DataKategoriTourController extends Controller
      */
     public function store(Request $request)
     {
+        $count = DataBobot::where('idKriteria', '=', 2)->count();
+
+        $bobot = dataBobot::create([
+            'idKriteria' => 2,
+            'namaBobot' => $request->namaKategoriTour,
+            'jumlahBobot' => $count + 1,
+        ]);
+
         $Mydata = new dataKategoriTour();
         $Mydata->namaKategoriTour = $request->namaKategoriTour;
         $Mydata->presentaseKeuntungan = $request->presentaseKeuntungan;
-        // $Mydata->tglBerlakuItem = $request->tglBerlakuItem;
+        $Mydata->idBobot = $bobot->idBobot;
         $Mydata->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }
@@ -82,9 +91,10 @@ class DataKategoriTourController extends Controller
      */
     public function update(Request $request)
     {
-        dataKategoriTour::where('id', $request->id)->update([
+        dataKategoriTour::where('idKategoriTour', $request->id)->update([
             'namaKategoriTour' => $request->namaKategoriTour,
             'presentaseKeuntungan' => $request->presentaseKeuntungan,
+            'idBobot' => $request->idBobot,
         ]);
         return redirect()->back()->with('message', 'item berhasil diupdate');
     }
@@ -95,7 +105,7 @@ class DataKategoriTourController extends Controller
      * @param  \App\Models\dataKategoriTour  $dataKategoriTour
      * @return \Illuminate\Http\Response
      */
-    public function destroy(dataKategoriTour $dataKategoriTour)
+    public function destroy(Request $request)
     {
         $Mydata = dataKategoriTour::find($request->id);
         $Mydata->delete();

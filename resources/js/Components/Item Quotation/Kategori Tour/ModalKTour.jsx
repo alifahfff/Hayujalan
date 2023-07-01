@@ -9,12 +9,13 @@ const ModalKTour = ({visible, onClose, data}) => {
 
     const handleSubmit = () => {
         console.log('id', data.id)
-        if(data.id){
+        if(data.idKategoriTour){
             // update data
             const dataE = {
-                id: data.id,
+                id: data.idKategoriTour,
                 namaKategoriTour: datas.namaKategoriTour, 
-                presentaseKeuntungan: datas.presentaseKeuntungan, 
+                presentaseKeuntungan: datas.presentaseKeuntungan,
+                idBobot: datas.idBobot, 
                 updated_at: new Date(),
             }
             Inertia.post('/kategoriTour/update', dataE)

@@ -30,6 +30,8 @@ class DataKlienController extends Controller
         //
     }
 
+    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -38,17 +40,31 @@ class DataKlienController extends Controller
      */
     public function store(Request $request)
     {
-        $Mydata = new dataKlien();
-        $Mydata->namaKlien = $request->namaKlien;
-        $Mydata->alamatKlien = $request->alamatKlien;
-        $Mydata->tlpKlien = $request->tlpKlien;
-        $Mydata->namaPicKlien = $request->namaPicKlien;
-        $Mydata->tlpPicKlien = $request->tlpPicKlien;
-        $Mydata->jenis_klien_id = $request->jenis_klien_id;
-        $Mydata->tglBerlakuItem = $request->tglBerlakuItem;
-        $Mydata->save();
+        dd($request);
+        // $klien = dataKlien::create([
+        //     'idJenisKlien' => $request->idJenisKlien,
+        //     'namaKlien' => $request->namaKlien,
+        //     'alamatKlien' => $request->alamatKlien,
+        //     'tlpKlien' => $request->tlpKlien,
+        //     'namaPicKlien' => $request->namaPicKlien,
+        //     'tlpPicKlien' => $request->tlpPicKlien,
+        //     'tglUpdateKlien' => $request->tglUpdateKlien,
+        //     'created_at' => $request->created_at,
+        //     'updated_at' => $request->updated_at,
+        // ]);
+
+        // dd($klien);
+        // $Mydata = new dataKlien();
+        // $Mydata->namaKlien = $request->namaKlien;
+        // $Mydata->alamatKlien = $request->alamatKlien;
+        // $Mydata->tlpKlien = $request->tlpKlien;
+        // $Mydata->namaPicKlien = $request->namaPicKlien;
+        // $Mydata->tlpPicKlien = $request->tlpPicKlien;
+        // $Mydata->idJenisKlien = $request->idJenisKlien;
+        // $Mydata->tglUpdateKlien = $request->tglUpdateKlien;
+        // $Mydata->save();
         
-        return redirect()->back()->with('message', 'item berhasil dibuat');
+        // return redirect()->back()->with('message', 'item berhasil dibuat');
     }
 
     /**
@@ -64,12 +80,7 @@ class DataKlienController extends Controller
         $mydata = dataKlien::with('jenisKlien')
             ->where('namaKlien', 'like', '%' . $keyword . '%')
             ->paginate(4);
-        // $mydata = dataKlien::with('jenisKlien')->paginate(4);
-        //$mydata = dataKlien::with('jenisKlien')->get();
         return Inertia::render('Item Quotation/Data Klien/Klien', [
-            // 'Mydata' => dataKlien::whereHas('jenisKlien', function ($query) use ($keyword) {
-            //     $query->where('namaKlien', 'LIKE', '%' . $keyword . '%');
-            // }) ->paginate(4),
             'Mydata' => $mydata,
             'jenisKlien' => $jenisKlien,
         ]);
@@ -115,13 +126,14 @@ class DataKlienController extends Controller
      */
     public function update(Request $request)
     {
-        dataKlien::where('id', $request->id)->update([
+        dataKlien::where('idDataKlien', $request->id)->update([
             'namaKlien' => $request->namaKlien,
             'alamatKlien' => $request->alamatKlien,
             'tlpKlien' => $request->tlpKlien,
             'namaPicKlien' => $request->namaPicKlien,
             'tlpPicKlien' => $request->tlpPicKlien,
-            'jenis_klien_id' => $request->jenis_klien_id,
+            'idJenisKlien' => $request->idJenisKlien,
+            'tglUpdateKlien' => $request->tglUpdateKlien,
         ]);
         return redirect()->back()->with('message', 'item berhasil diupdate');
     }

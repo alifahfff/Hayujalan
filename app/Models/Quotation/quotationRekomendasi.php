@@ -18,12 +18,11 @@ class quotationRekomendasi extends Model
     use HasFactory;
 
     protected $table = 'R_quotationRekomendasi';
-    protected $primaryKey = ['idQuotationTransaksi', 'idDataKlien', 'idQuotationTour', 'idQuotatioRekomendasi'];
+    protected $primaryKey = 'idQuotatioRekomendasi';
     public $timestamps = false;
 
     protected $fillable = [
         'idQuotationTransaksi',
-        'idDataKlien',
         'idQuotationTour',
         'idQuotatioRekomendasi',
         'totalPriceRef',
@@ -32,6 +31,8 @@ class quotationRekomendasi extends Model
         'bref_durasi',
         'bref_budget',
         'bref_jumlahOrang',
+        'created_at',
+        'updated_at',
     ];
     // yang punya id one to many
     // klien memiliki data yang ada pada jenis klien

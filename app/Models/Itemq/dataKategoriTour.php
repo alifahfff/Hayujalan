@@ -12,7 +12,7 @@ class dataKategoriTour extends Model
     use HasFactory;
 
     protected $table = 'M_dataKategoriTour';
-    protected $primaryKey = ['idBobot', 'idKategoriTour'];
+    protected $primaryKey = 'idKategoriTour';
     protected $fillable = [
         'idBobot',
         'namaKategoriTour',

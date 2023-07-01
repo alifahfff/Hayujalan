@@ -81,7 +81,7 @@ class DataJenisKlienController extends Controller
      */
     public function update(Request $request)
     {
-        dataJenisKlien::where('id', $request->id)->update([
+        dataJenisKlien::where('idJenisKlien', $request->id)->update([
             'namaJenisKlien' => $request->namaJenisKlien,
         ]);
         return redirect()->back()->with('message', 'item berhasil diupdate');

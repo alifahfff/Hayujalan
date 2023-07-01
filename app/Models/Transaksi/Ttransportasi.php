@@ -25,6 +25,8 @@ class Ttransportasi extends Model
         'qtyTtransportasi',
         'jmlHariTtransportasi',
         'ketTranportasi',
+        'created_at',
+        'updated_at',
     ];
 
     // yang punya id one to many

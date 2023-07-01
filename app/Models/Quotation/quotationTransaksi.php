@@ -18,8 +18,8 @@ class quotationTransaksi extends Model
 {
     use HasFactory;
 
-    protected $table = "quotation_transaksis";
-    protected $primaryKey = "id";
+    protected $table = "T_quotationTransaksi";
+    protected $primaryKey = "idQuotationTransaksi";
     protected $fillable = [
         'idQuotationTour',
         'namaQtransaksi',

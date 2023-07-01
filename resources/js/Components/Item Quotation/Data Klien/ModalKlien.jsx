@@ -13,21 +13,24 @@ const ModalKlien = ({visible, onClose, data, dataJK}) => {
 
     const handleSubmit = () => {
         console.log('id', datas.id)
-        if(datas.id){
+        if(datas.idDataKlien){
+            alert(1)
             // update data
             const dataE = {
-                id: datas.id,
+                id: datas.idDataKlien,
                 namaKlien: datas.namaKlien, 
                 alamatKlien: datas.alamatKlien,
                 tlpKlien: datas.tlpKlien,
                 namaPicKlien: datas.namaPicKlien,
-                jenis_klien_id: datas.jenis_klien_id,
+                idJenisKlien: datas.idJenisKlien,
                 tlpPicKlien: datas.tlpPicKlien,
+                tglUpdateKlien: new Date(),
                 updated_at: new Date(),
             }
-            console.log('dataE', dataE)
+            // console.log('dataE', dataE)
             Inertia.post('/klien/update', dataE)
         }else{
+            alert(2)
             // tambah data
             const dataT = {
                 namaKlien: datas.namaKlien, 
@@ -35,11 +38,12 @@ const ModalKlien = ({visible, onClose, data, dataJK}) => {
                 tlpKlien: datas.tlpKlien,
                 namaPicKlien: datas.namaPicKlien,
                 tlpPicKlien: datas.tlpPicKlien,
-                jenis_klien_id: datas.jenis_klien_id,
+                idJenisKlien: datas.idJenisKlien,
+                tglUpdateKlien: new Date(),
                 created_at: new Date(),
                 updated_at: new Date(),
             }
-            Inertia.post('/klien', dataT)
+            Inertia.post('/klien/post', dataT)
         }
     }
 
@@ -83,7 +87,7 @@ const ModalKlien = ({visible, onClose, data, dataJK}) => {
                                     onChange={(e) => 
                                         setDatas({
                                             ...datas,
-                                            jenis_klien_id: e.target.value
+                                            idJenisKlien: e.target.value
                                         })
                                     }
                                 >

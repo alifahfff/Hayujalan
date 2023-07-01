@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('biayaFasilitas')->comment('');
             $table->date('tglUpdatedFasilitas')->comment('');
             $table->string('satuanFasilitas', 50)->comment('');
-            $table->timestamps();
+            // $table->timestamps();
         });
     }
 
