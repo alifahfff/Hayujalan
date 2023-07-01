@@ -22,6 +22,8 @@ class Tevent extends Model
         'jumlahTevent',
         'qtyTevent',
         'jmlHariTevent',
+        'created_at',
+        'updated_at',
     ];
 
     // yang punya id one to many

@@ -14,7 +14,7 @@ const ModalCrew = ({visible, onClose, crew}) => {
             const dataE = {
                 id: crew.idCrewOperasional ,
                 ketCrewOperasional: datas.ketCrewOperasional, 
-                biyaCrewOperasional: datas.biyaCrewOperasional, 
+                biayaCrewOperasional: datas.biayaCrewOperasional, 
                 satuanCrew: datas.satuanCrew,
                 tglUpdateCrew: datas.tglUpdateCrew,
                 updated_at: new Date(),
@@ -24,7 +24,7 @@ const ModalCrew = ({visible, onClose, crew}) => {
             // tambah data
             const data = {
                 ketCrewOperasional: datas.ketCrewOperasional, 
-                biyaCrewOperasional: datas.biyaCrewOperasional, 
+                biayaCrewOperasional: datas.biayaCrewOperasional, 
                 satuanCrew: datas.satuanCrew,
                 tglUpdateCrew: datas.tglUpdateCrew,
                 created_at: new Date(),
@@ -74,9 +74,9 @@ const ModalCrew = ({visible, onClose, crew}) => {
                                     onChange={(value) => 
                                         setDatas({
                                             ...datas,
-                                            biyaCrewOperasional: value.target.value
+                                            biayaCrewOperasional: value.target.value
                                         })}
-                                    value={datas.biyaCrewOperasional}
+                                    value={datas.biayaCrewOperasional}
                                 />
                             </div>
                             <div className="flex flex-row justify-between">

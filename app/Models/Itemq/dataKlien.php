@@ -13,12 +13,15 @@ class dataKlien extends Model
     protected $table = 'M_dataKlien';
     protected $primaryKey = 'idDataKlien';
     protected $fillable = [
+        'idJenisKlien',
         'namaKlien',
         'alamatKlien',
         'tlpKlien',
         'namaPicKlien',
         'tlpPicKlien',
         'tglUpdateKlien',
+        'created_at',
+        'updated_at',
     ];
 
     // yang punya id one to many

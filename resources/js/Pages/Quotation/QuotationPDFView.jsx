@@ -259,12 +259,12 @@ console.log('data', data)
                   Untuk minimal peserta {data.data.paxPay} orang
                 </Text>
 
-                <Text
+                {/* <Text
                   style={{ fontSize: "24", fontWeight: "bold" }}
                   className={styles.header}
                 >
                   Rp.{number(data.data.sellingPrice)}/pax
-                </Text>
+                </Text> */}
               </View>
               <View style={{ flexDirection: "col" }}>
                 <Image

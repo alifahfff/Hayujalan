@@ -41,7 +41,7 @@ const Crew = ({crew}) => {
                                 <tr className="border-b dark:border-neutral-500">
                                 <td className="whitespace-nowrap px-6 py-4 font-medium">{crew.from + index}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.ketCrewOperasional}</td>
-                                <td className="whitespace-nowrap px-6 py-4">Rp. {number(cr.biyaCrewOperasional)},-</td>
+                                <td className="whitespace-nowrap px-6 py-4">Rp. {number(cr.biayaCrewOperasional)},-</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.satuanCrew}</td>
                                 <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">
                                 {cr.tglUpdateCrew && cr.tglUpdateCrew.substring(0, 10)}

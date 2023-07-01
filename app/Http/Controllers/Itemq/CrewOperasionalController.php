@@ -41,7 +41,7 @@ class CrewOperasionalController extends Controller
     {
         $crew = new crewOperasional();
         $crew->ketCrewOperasional = $request->ketCrewOperasional;
-        $crew->biyaCrewOperasional = $request->biyaCrewOperasional;
+        $crew->biayaCrewOperasional = $request->biayaCrewOperasional;
         $crew->satuanCrew = $request->satuanCrew ;
         $crew->tglUpdateCrew = Carbon::now();
         $crew->save();
@@ -87,7 +87,7 @@ class CrewOperasionalController extends Controller
     {
         crewOperasional::where('idCrewOperasional', $request->id)->update([
             'ketCrewOperasional' => $request->ketCrewOperasional,
-            'biyaCrewOperasional' => $request->biyaCrewOperasional,
+            'biayaCrewOperasional' => $request->biayaCrewOperasional,
             'satuanCrew' => $request->satuanCrew,
             'tglUpdateCrew' => Carbon::now(),
         ]);

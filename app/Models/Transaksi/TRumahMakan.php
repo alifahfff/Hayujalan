@@ -25,6 +25,8 @@ class TRumahMakan extends Model
         'qtyTrm',
         'jmlHariTrm',
         'ketRm',
+        'created_at',
+        'updated_at',
     ];
 
     // yang punya id one to many

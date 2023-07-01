@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('M_crewOperasional', function (Blueprint $table) {
             $table->smallIncrements('idCrewOperasional');
             $table->string('ketCrewOperasional', 100)->comment('');
-            $table->integer('biyaCrewOperasional')->comment('');
+            $table->integer('biayaCrewOperasional')->comment('');
             $table->date('tglUpdateCrew')->comment('');
             $table->string('satuanCrew', 50)->comment('');
             $table->timestamps();
