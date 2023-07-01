@@ -3,10 +3,11 @@ import { BsPlusSquare, BsSearch } from "react-icons/bs";
 import { Inertia } from "@inertiajs/inertia";
 import Layout from '@/Layouts/Layout';
 import DataQuo from '@/Components/Quotations/DataQuo';
+import Pagination from '@/Components/Pagination';
 
 
 export default function QuotationHistory(props) {
-    // console.log('props', props)
+    console.log('props', props)
     // console.log('length', props.crew.data.length)
     // const [data, setData] = useState({
     //     ketCrewOperasional: '', 
@@ -55,13 +56,13 @@ export default function QuotationHistory(props) {
                     </form>
                     
                     {/* Tambah Data */}
-                    <button 
+                    {/* <button 
                     onClick={() => setShowModal(true)}
                     className="btn ml-2 gap-2 btn-outline px-5 bg-white hover:bg-gray-100 text-[#C1C0BF]"
                     >
                     Tambah Data | 
                     <BsPlusSquare/>
-                    </button>
+                    </button> */}
                 </div>
             </div>
             <div className='relative bg-white shadow-xl m-6 mt-3 md:max-xl:flex ring-1 ring-gray-900/5'>
@@ -72,7 +73,15 @@ export default function QuotationHistory(props) {
                     <div className=''>
                     <DataQuo quotation={props.quotation}/>
                         <div className='m-2 flex justify-between items-center'>
-                        <a className='text-[10px] text-black'>Showing 1 - 4 of 10</a>                    </div>
+                        {props.quotation.data.length > 0 && (
+                            <a className='text-[10px] text-black'>Showing {props.quotation.from} - {props.quotation.from + props.quotation.data.length -1} of {props.quotation.total}</a>
+                         )} 
+                         
+                         {props.quotation.data.length == 0 && (
+                            <a className='text-[10px] text-black'>Showing {props.quotation.total} data</a>
+                         )}
+                        <Pagination meta={props.quotation}/>
+                        </div>
                     </div>
                 </div>
             </div>

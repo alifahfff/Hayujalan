@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Report;
 use Inertia\Inertia;
 use App\Models\Report\Report;
 use App\Models\Quotation\quotationTransaksi;
-use App\Models\Quotation\quotationTour;
+use App\Models\Quotation\quotationRekomendasi;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -56,8 +56,14 @@ class ReportController extends Controller
     public function show(Request $request)
     {
         $keyword = $request->input('key');
-        $mydata = quotationTour::where('namaProject', 'like', '%' . $keyword . '%')
-                ->paginate(4);
+        $mydata =  quotationRekomendasi::with('quotation.klien', 'quotation.areawisata', 'quotation.kategori', 'qTransaksi')
+                    ->whereHas('quotation', function ($query) use ($keyword) {
+                        $query->where('namaProject', 'like', '%' . $keyword . '%');
+                    })
+                    ->whereHas('qtransaksi', function ($query) {
+                        $query->where('statusTransaksi', '!=', 'menunggu');
+                    })
+                    ->paginate(4);
         return Inertia::render('Report/Reports', [
             'Mydata' => $mydata,
         ]);
@@ -84,7 +90,7 @@ class ReportController extends Controller
      */
     public function update(Request $request, Report $report)
     {
-        Report::where('id', $request->id)->update([
+        quotationTransaksi::where('idQuotationTransaksi', $request->id)->update([
             'nilaiKlien' => $request->nilaiKlien,
             'statusBerjalan' => $request->statusBerjalan,
             'feedback' => $request->feedback,

@@ -2,6 +2,7 @@ import { BsPencilSquare, BsTrash3, BsList, BsThreeDots } from "react-icons/bs";
 import { Link } from "@inertiajs/inertia-react";
 
 const DataQuo = ({ quotation }) => {
+  console.log('quotation', quotation)
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -11,7 +12,10 @@ const DataQuo = ({ quotation }) => {
               <thead className="border-b bg-abu font-medium dark:border-neutral-500 dark:text-neutral-800">
                 <tr>
                   <th scope="col" className="px-6 py-4">
-                    ID
+                    No
+                  </th>
+                  <th scope="col" className="px-6 py-4">
+                    Nama Project
                   </th>
                   <th scope="col" className="px-6 py-4">
                     Nama
@@ -20,7 +24,7 @@ const DataQuo = ({ quotation }) => {
                     Area Wisata
                   </th>
                   <th scope="col" className="px-6 py-4">
-                    Total
+                    Selling Price
                   </th>
                   <th scope="col" className="px-6 py-4">
                     Status
@@ -30,30 +34,33 @@ const DataQuo = ({ quotation }) => {
                   </th>
                 </tr>
               </thead>
-              {quotation.map((cr, index) => {
+              {quotation.data.map((cr, index) => {
                 console.log("cr", cr);
                 return (
                   <tbody key={index}>
                     <tr className="border-b dark:border-neutral-500">
                       <td className="whitespace-nowrap px-6 py-4 font-medium">
-                        {cr.id}
+                      {quotation.from + index}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 font-medium">
-                        {cr.namaKlien}
+                        {cr.quotation.namaProject}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 font-medium">
-                        {cr.quotation.area_wisata.namaArea}
+                        {cr.quotation.klien.namaKlien}
+                      </td>
+                      <td className="whitespace-nowrap px-6 py-4 font-medium">
+                        {cr.quotation.areawisata.namaArea}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
-                        {cr.sellingPrice}
+                        {cr.q_transaksi.sellingPrice}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
-                        {cr.status}
+                        {cr.q_transaksi.statusTransaksi}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                         <button className="btn btn-ghost btn-sm mr-2">
                           <Link
-                            href={route('qhistory.detail')} method="get" data={{id: cr.id}}
+                            href={route('qhistory.detail')} method="get" data={{id: cr.idQuotatioRekomendasi}}
                           >
                             <BsPencilSquare />
                           </Link>

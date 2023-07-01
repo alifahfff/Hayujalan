@@ -15,20 +15,42 @@ import { usePage } from '@inertiajs/inertia-react';
 import MyPDFViewer from "./QuotationPDFView";
 import { Link } from "@inertiajs/inertia-react";
 
-export default function QuotationsResult(props) {
+export default function QuotationsHistoryResult(props) {
   // const { props } = usePage()
   // const {data} = this.props.location;
   const id = props.data.id;
   console.log("Cr", props);
-  console.log("id", props.data.id);
+
   return (
     <div className="min-h-screen bg-abu ">
       {/* Content */}
       <div className="ml-6">
-        <a>Quotation Manual</a>
+      <div class="text-sm breadcrumbs">
+        <ul>
+          <li><Link href={route('quotationhistory')}>
+          Quotation History
+          </Link></li>
+          <li>Quotation ID{props.data.quotation.idQuotationTour}</li>
+        </ul>
+      </div>
       </div>
       <div className="flex justify-between m-6 mt-2 mb-3">
-        <a className="text-2xl font-bold text-black">Quotation Manual</a>
+        <a className="text-2xl font-bold text-black">Quotation ID{props.data.quotation.idQuotationTour}</a>
+        {props.data.q_transaksi.statusTransaksi === 'menunggu' && (
+          <div className="px-10 py-2 bg-abu2 border-b border-gray-200 rounded-lg">
+            <a className="text-white font-bold">MENUNGGU</a>
+          </div>
+        )}
+        {props.data.q_transaksi.statusTransaksi === 'diterima' && (
+          <div className="px-10 py-2 bg-hijau border-b border-gray-200 rounded-lg">
+            <a className="text-white font-bold">DITERIMA</a>
+          </div>
+        )}
+        {props.data.q_transaksi.statusTransaksi === 'ditolak' && (
+          <div className="px-10 py-2 bg-merah border-b border-gray-200 rounded-lg">
+            <a className="text-white font-bold">DITOLAK</a>
+          </div>
+        )}
       </div>
       <div className="relative bg-white shadow-xl m-6 mt-3 md:max-xl:flex ring-1 ring-gray-900/5">
         <div className="p-4 bg-kuning border-b border-gray-200"></div>
@@ -41,16 +63,18 @@ export default function QuotationsResult(props) {
                 className="max-w-md max-h-md border-2"
               /> */}
               <MyPDFViewer data={props}/>
-              <div className="flex justify-center mt-6">
-                <button
-                  className="btn bg-gray-400 text-white border-0"
-                  style={{ maxWidth: "8rem" }}
-                >
-                  <Link href={route('qmanual.edit')} method="get" data={{id: id}}>
-                    Edit Mode
-                  </Link>
-                </button>
+              {props.data.q_transaksi.statusTransaksi === 'menunggu' && (
+                <div className="flex justify-center mt-6">
+                  <button
+                    className="btn bg-gray-400 text-white border-0"
+                    style={{ maxWidth: "8rem" }}
+                  >
+                    <Link href={route('qmanual.edit')} method="get" data={{id: id}}>
+                      Edit Mode
+                    </Link>
+                  </button>
               </div>
+              )}
             </div>
                 <div className="flex flex-col">
                   <div className="flex flex-row">
@@ -77,6 +101,12 @@ export default function QuotationsResult(props) {
                         </label>
                         <label className="label">
                           <span className="label-text text-black">Kategori Wisata</span>
+                        </label>
+                        <label className="label">
+                          <span className="label-text text-black">Waktu Pelaksanaan</span>
+                        </label>
+                        <label className="label">
+                          <span className="label-text text-black">Tanggal Berlaku</span>
                         </label>
                         <label className="label">
                           <span className="label-text text-black">Total</span>
@@ -109,6 +139,12 @@ export default function QuotationsResult(props) {
                         </label>
                         <label className="label">
                           <span className="label-text text-black">{props.data.quotation.kategori.namaKategoriTour}</span>
+                        </label>
+                        <label className="label">
+                          <span className="label-text text-black">{props.data.quotation.planWaktuPelaksanaan}</span>
+                        </label>
+                        <label className="label">
+                          <span className="label-text text-black">{props.data.quotation.tglBerlakuQuotation}</span>
                         </label>
                         <label className="label">
                           <span className="label-text text-black">
@@ -146,4 +182,4 @@ export default function QuotationsResult(props) {
   );
 }
 
-QuotationsResult.layout = (page) => <Layout children={page} />;
+QuotationsHistoryResult.layout = (page) => <Layout children={page} />;

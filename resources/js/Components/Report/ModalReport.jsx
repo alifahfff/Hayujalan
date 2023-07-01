@@ -10,11 +10,11 @@ const ModalReport = ({visible, onClose, data}) => {
     // console.log('datas', datas)
 
     const handleSubmit = () => {
-        console.log('id', data.id)
-        if(data.id){
+        console.log('id', data.idQuotationTransaksi)
+        if(data.idQuotationTransaksi){
             // update data
             const dataE = {
-                id: data.id,
+                id: data.idQuotationTransaksi,
                 nilaiKlien: datas.nilaiKlien, 
                 statusBerjalan: datas.statusBerjalan, 
                 feedback: datas.feedback,
@@ -50,7 +50,7 @@ const ModalReport = ({visible, onClose, data}) => {
                                 name="name" 
                                 id="name" 
                                 class="bg-abu border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-abu dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-                                value={data.qtransaksi.quotation.klien.namaKlien}/>
+                                value={data.quotation.klien.namaKlien}/>
                             </div>
                             <div class="w-full">
                                 <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Nama Project</label>
@@ -60,7 +60,7 @@ const ModalReport = ({visible, onClose, data}) => {
                                 name="brand" 
                                 id="brand" 
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-abu dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-                                value={data.qtransaksi.quotation.namaProject}/>
+                                value={data.quotation.namaProject}/>
                             </div>
                             <div class="w-full">
                                 <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga per-Pax</label>
@@ -70,7 +70,7 @@ const ModalReport = ({visible, onClose, data}) => {
                                 name="price" 
                                 id="price" 
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-abu dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-                                value={number(data.qtransaksi.sellingPrice)}/>
+                                value={number(data.q_transaksi.sellingPrice)}/>
                             </div>
                             <div class="w-full">
                                 <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Total Harga</label>
@@ -80,7 +80,7 @@ const ModalReport = ({visible, onClose, data}) => {
                                 name="price" 
                                 id="price" 
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-abu dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-                                value={number(data.qtransaksi.totalPrice)}/>
+                                value={number(data.q_transaksi.totalPrice)}/>
                             </div>
                             <div>
                                 <label for="item-weight" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Status Quotation</label>
@@ -90,7 +90,7 @@ const ModalReport = ({visible, onClose, data}) => {
                                 name="item-weight" 
                                 id="item-weight" 
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-abu dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-                                value={data.qtransaksi.status}/>
+                                value={data.q_transaksi.statusTransaksi}/>
                             </div> 
                             <div class="w-full">
                                 <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Tanggal Dibuat</label>
@@ -100,11 +100,11 @@ const ModalReport = ({visible, onClose, data}) => {
                                 name="price" 
                                 id="price" 
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-abu dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-                                value={moment(data.timestamp).format('YYYY-MM-DD')}
+                                value={moment(data.created_at).format('YYYY-MM-DD')}
                                 />
                             </div>
                             <div class="w-full">
-                                <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Tanggal Dibuat</label>
+                                <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Status Berjalan</label>
                                 <select 
                                 id="category" 
                                 class="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-abu dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -115,7 +115,7 @@ const ModalReport = ({visible, onClose, data}) => {
                                     })
                                 }
                                 >
-                                    <option selected="">-{data.statusBerjalan}-</option>
+                                    <option selected="">-{data.q_transaksi.statusBerjalan}-</option>
                                     <option value="Berjalan">Berjalan</option>
                                     <option value="Berhenti">Berhenti</option>
                                 </select>
@@ -132,7 +132,7 @@ const ModalReport = ({visible, onClose, data}) => {
                                     })
                                 }
                                 >
-                                    <option selected="">-{data.nilaiKlien}-</option>
+                                    <option selected="">-{data.q_transaksi.nilaiKlien}-</option>
                                     <option value="Bagus">Bagus</option>
                                     <option value="Biasa">Biasa</option>
                                     <option value="Buruk">Buruk</option>
@@ -144,11 +144,14 @@ const ModalReport = ({visible, onClose, data}) => {
                                 id="description" 
                                 rows="4" 
                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-abu dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500" 
-                                value={datas.feedback}
+                                value={datas.q_transaksi.feedback}
                                 onChange={(e) => 
                                     setDatas({
                                         ...datas,
-                                        feedback: e.target.value
+                                        q_transaksi: {
+                                            ...datas.q_transaksi,
+                                            feedback: e.target.value
+                                        }
                                     })
                                 }
                                 ></textarea>

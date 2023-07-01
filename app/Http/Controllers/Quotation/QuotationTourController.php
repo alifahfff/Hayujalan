@@ -150,7 +150,7 @@ class QuotationTourController extends Controller
             'sellingPrice' => $request->sellingPrice,
             'totalPrice' => $request->totalPrice,
             'profit' => $request->profit,
-            'statusTransaksi' => $request->status,
+            'statusTransaksi' => 'menunggu',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
@@ -227,7 +227,7 @@ class QuotationTourController extends Controller
                     'jmlHariTft' => $fasilitas['hari'],
                     'hargaTft' => $fasilitas['harga'],
                     'jumlahTft' => $fasilitas['jumlah'],
-                    'namaTft' => $fasilitas['ketFasilitas'],
+                    'namaTft' => $fasilitas['ketFasilitasTour'],
                     'idQuotationTransaksi' => $quotationTransaksi->idQuotationTransaksi,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
@@ -312,8 +312,6 @@ class QuotationTourController extends Controller
 
     public function getQuotationResult($id)
     {
-        
-
         $quotationRekomendasi = quotationRekomendasi::with('quotation.klien', 'quotation.areawisata', 'quotation.kategori', 'qTransaksi')->where('idQuotatioRekomendasi', $id)->first();
         $Tbonus = Tbonus::where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
         $TDestinasiWisata = TDestinasiWisata::where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
@@ -835,13 +833,16 @@ class QuotationTourController extends Controller
         return Inertia::render('Quotation/QuotationsPDF');
     }
 
-    public function qhistory(quotationTransaksi $quotationTour)
+    public function qhistory(Request $request)
     {
-        $area = areaWisata::all();
-        $quotation = quotationTransaksi::with('quotation.areaWisata')->get();
+        $keyword = $request->input('key');
+        $quotation = quotationRekomendasi::with('quotation.klien', 'quotation.areawisata', 'quotation.kategori', 'qTransaksi')
+                    ->whereHas('quotation', function ($query) use ($keyword) {
+                        $query->where('namaProject', 'like', '%' . $keyword . '%');
+                    })
+                    ->paginate(4);
         return Inertia::render('Quotation/QuotationsHistory', [
             'quotation' => $quotation,
-            'area' => $area,
         ]);
     }
 
@@ -859,18 +860,18 @@ class QuotationTourController extends Controller
 
     public function editQhistory(Request $request)
     {
-        $quotationTransaksi = quotationTransaksi::with('quotation.klien', 'quotation.areawisata', 'quotation.kategori')->find($request->id);
-        $Tbonus = Tbonus::where('idQuotationTransaksi', $request->id)->first();
-        $TDestinasiWisata = TDestinasiWisata::where('idQuotationTransaksi', $request->id)->get();
-        $Ttransportasi = Ttransportasi::with('transportasi.detailTransportasi')->where('idQuotationTransaksi', $request->id)->get();
-        $Tpenginapan = Tpenginapan::with('penginapan.detailPenginapan')->where('idQuotationTransaksi', $request->id)->get();
-        $TRumahMakan = TRumahMakan::where('idQuotationTransaksi', $request->id)->get();
-        $TFasilitasTour = TFasilitasTour::where('idQuotationTransaksi', $request->id)->get();
-        $Tevent = Tevent::where('idQuotationTransaksi', $request->id)->get();
-        $TcrewOp = TcrewOp::where('idQuotationTransaksi', $request->id)->get();
+        $quotationRekomendasi = quotationRekomendasi::with('quotation.klien', 'quotation.areawisata', 'quotation.kategori', 'qTransaksi')->where('idQuotatioRekomendasi', $request->id)->first();
+        $Tbonus = Tbonus::where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $TDestinasiWisata = TDestinasiWisata::where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $Ttransportasi = Ttransportasi::with('transportasi.detailTransportasi')->where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $Tpenginapan = Tpenginapan::with('penginapan.detailPenginapan')->where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $TRumahMakan = TRumahMakan::where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $TFasilitasTour = TFasilitasTour::where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $Tevent = Tevent::where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $TcrewOp = TcrewOp::where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
 
-        return Inertia::render('Quotation/QuotationsResult', [
-            'data' => $quotationTransaksi,
+        return Inertia::render('Quotation/QuotationsHistoryResult', [
+            'data' => $quotationRekomendasi,
             'bonus' => $Tbonus,
             'destinasi' => $TDestinasiWisata,
             'transportasi' => $Ttransportasi,
