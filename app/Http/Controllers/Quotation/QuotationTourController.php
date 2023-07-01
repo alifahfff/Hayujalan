@@ -227,7 +227,7 @@ class QuotationTourController extends Controller
                     'jmlHariTft' => $fasilitas['hari'],
                     'hargaTft' => $fasilitas['harga'],
                     'jumlahTft' => $fasilitas['jumlah'],
-                    'namaTft' => $fasilitas['ketFasilitas'],
+                    'namaTft' => $fasilitas['ketFasilitasTour'],
                     'idQuotationTransaksi' => $quotationTransaksi->idQuotationTransaksi,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
