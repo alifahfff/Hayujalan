@@ -38,12 +38,19 @@ const TReport = ({data}) => {
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
                                 <td className="whitespace-nowrap px-6 py-4 font-medium">{data.from + index}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{dt.qtransaksi.quotation.klien.namaKlien}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{dt.qtransaksi.quotation.namaProject}</td>
-                                <td className="whitespace-nowrap px-6 py-4">Rp. {number(dt.qtransaksi.totalPrice)},-</td>
-                                <td className="whitespace-nowrap px-6 py-4">{dt.qtransaksi.status}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{dt.statusBerjalan}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{moment(dt.timestamp).format('YYYY-MM-DD')}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{dt.quotation.klien.namaKlien}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{dt.quotation.namaProject}</td>
+                                <td className="whitespace-nowrap px-6 py-4">Rp. {number(dt.q_transaksi.totalPrice)},-</td>
+                                <td className="whitespace-nowrap px-6 py-4">
+                                    {dt.q_transaksi.statusTransaksi === 'diterima' ? (
+                                    <td className="whitespace-nowrap px-6 py-4 text-hijau">Diterima</td>
+                                    ) : null}
+                                    {dt.q_transaksi.statusTransaksi === 'ditolak' ? (
+                                    <td className="whitespace-nowrap px-6 py-4 text-merah">Ditolak</td>
+                                    ) : null}
+                                </td>
+                                <td className="whitespace-nowrap px-6 py-4">{dt.q_transaksi.statusBerjalan}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{moment(dt.created_at).format('YYYY-MM-DD')}</td>
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                                     <button 
                                         onClick={() => {

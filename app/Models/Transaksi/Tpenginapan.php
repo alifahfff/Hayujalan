@@ -25,6 +25,8 @@ class Tpenginapan extends Model
         'qtyTpenginapan',
         'jmlHariTpenginapan',
         'ketPenginapan',
+        'created_at',
+        'updated_at',
     ];
 
 

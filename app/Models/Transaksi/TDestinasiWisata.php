@@ -22,6 +22,8 @@ class TDestinasiWisata extends Model
         'jumlahTdestinasiWisata',
         'qtyTdestinasiWisata',
         'jmlHariTdestinasiWisata',
+        'created_at',
+        'updated_at',
     ];
 
     // yang punya id one to many

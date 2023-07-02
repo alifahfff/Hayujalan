@@ -39,7 +39,6 @@ class JenisTransportasiController extends Controller
     public function store(Request $request)
     {
         $jenis = new jenisTransportasi();
-        $jenis->idCrewOperasional = $request->idCrewOperasional;
         $jenis->namaJenis = $request->namaJenis;
         $jenis->PenggunaanUnit = $request->PenggunaanUnit;
         $jenis->MaxKapasitas = $request->MaxKapasitas;

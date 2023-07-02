@@ -40,8 +40,10 @@ const TBonus = ({data}) => {
                                 <td className="whitespace-nowrap px-6 py-4 font-medium">{data.from + index}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{dt.ketDataBonus}</td>
                                 <td className="whitespace-nowrap px-6 py-4">Rp. {number(dt.biayaDataBonus)},-</td>
-                                <td className="whitespace-nowrap px-6 py-4">{dt.satuan}</td>
-                                <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">{dt.updated_at.substring(0,10)}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{dt.satuanBonus}</td>
+                                <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">
+                                {dt.tglUpdateBonus && dt.tglUpdateBonus.substring(0, 10)}
+                                </td>
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                                     <button 
                                         onClick={() => {

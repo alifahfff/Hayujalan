@@ -14,7 +14,7 @@ class crewOperasional extends Model
     protected $primaryKey = 'idCrewOperasional';
     protected $fillable = [
         'ketCrewOperasional',
-        'biyaCrewOperasional',
+        'biayaCrewOperasional',
         'tglUpdateCrew',
         'satuanCrew',
     ];

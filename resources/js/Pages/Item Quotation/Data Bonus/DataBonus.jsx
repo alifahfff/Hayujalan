@@ -15,9 +15,10 @@ export default function DataBonus(props) {
     console.log('props', props)
     console.log('data', props.Mydata.data)
     const [data, setData] = useState({
-        ketFasilitas: '', 
-        biayaFasilitas: '', 
-        satuan: '',
+        ketDataBonus: '', 
+        biayaDataBonus: '', 
+        satuanBonus: '',
+        tglUpdateBonus: '',
     })
     
     const search = (key) => {

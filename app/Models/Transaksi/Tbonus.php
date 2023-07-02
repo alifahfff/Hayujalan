@@ -22,6 +22,8 @@ class Tbonus extends Model
         'jumlahTbonus',
         'qtyTbonus',
         'jmlHariTbonus',
+        'created_at',
+        'updated_at',
     ];
 
     // yang punya id one to many

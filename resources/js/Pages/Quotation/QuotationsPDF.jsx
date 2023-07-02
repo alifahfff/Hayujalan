@@ -38,106 +38,107 @@ const styles = StyleSheet.create({
 
 const PDFFile = ({data}) => {
 
-const [destinasiDurasi, setDestinasiDurasi] = useState('');
-const Destinasi = () => {
-    const durasi = data.data.quotation.durasiProject;
-    
-    if (durasi) {
-      const destinasis = data.destinasi.map((ds) => ds.keterangan);
-      setDestinasiDurasi(`${destinasis.join(', ')}`);
-    } 
-};
-
-const rumahMakan = () => {
-    const airmineral = data.rm.find((dtr) => {
-        return 'Air Mineral' === dtr.keterangan;
-    });
-    const snack = data.rm.find((dtr) => {
-        return 'Welcome Snack' === dtr.keterangan;
-    });
-    const makanan = data.rm.filter((dtr) => {
-        return dtr.keterangan !== 'Welcome Snack' && dtr.keterangan !== 'Air Mineral';
-    }).length;
-    // console.log('airmineral', airmineral)
-    // console.log('snack', snack)
-    // console.log('makanan', makanan)
-    let rumahMakanElement = null;
-
-  if (airmineral) {
-    if (snack) {
-      if (makanan) {
-        rumahMakanElement = (
-          <Text className={styles.header} style={{ fontSize: "12" }}>
-            {airmineral.hari}x {airmineral.keterangan}, {snack.hari}x {snack.keterangan}, {makanan}x Makan
-          </Text>
-        );
+  const [destinasiDurasi, setDestinasiDurasi] = useState('');
+  const Destinasi = () => {
+      const durasi = data.data.quotation.durasiProject;
+      
+      if (durasi) {
+        const destinasis = data.destinasi.map((ds) => ds.namaTdestinasiWisata);
+        setDestinasiDurasi(`${destinasis.join(', ')}`);
+      } 
+  };
+  
+  const rumahMakan = () => {
+      const airmineral = data.rm.find((dtr) => {
+          return 'Air Mineral' === dtr.namaTrm;
+      });
+      const snack = data.rm.find((dtr) => {
+          return 'Welcome Snack' === dtr.namaTrm;
+      });
+      const makanan = data.rm.filter((dtr) => {
+          return dtr.namaTrm !== 'Welcome Snack' && dtr.namaTrm !== 'Air Mineral';
+      }).length;
+      // console.log('airmineral', airmineral)
+      // console.log('snack', snack)
+      // console.log('makanan', makanan)
+      let rumahMakanElement = null;
+  
+    if (airmineral) {
+      if (snack) {
+        if (makanan) {
+          rumahMakanElement = (
+            <Text className={styles.header} style={{ fontSize: "12" }}>
+              {airmineral.hari}x {airmineral.namaTrm}, {snack.hari}x {snack.namaTrm}, {makanan}x Makan
+            </Text>
+          );
+        } else {
+          rumahMakanElement = (
+            <Text className={styles.header} style={{ fontSize: "12" }}>
+              {airmineral.hari}x {airmineral.namaTrm}, {snack.hari}x {snack.namaTrm}
+            </Text>
+          );
+        }
       } else {
-        rumahMakanElement = (
-          <Text className={styles.header} style={{ fontSize: "12" }}>
-            {airmineral.hari}x {airmineral.keterangan}, {snack.hari}x {snack.keterangan}
-          </Text>
-        );
+        if (makanan) {
+          rumahMakanElement = (
+            <Text className={styles.header} style={{ fontSize: "12" }}>
+              {airmineral.hari}x {airmineral.namaTrm}, {makanan}x Makan
+            </Text>
+          );
+        } else {
+          rumahMakanElement = (
+            <Text className={styles.header} style={{ fontSize: "12" }}>
+              {airmineral.hari}x {airmineral.namaTrm}
+            </Text>
+          );
+        }
       }
     } else {
-      if (makanan) {
-        rumahMakanElement = (
-          <Text className={styles.header} style={{ fontSize: "12" }}>
-            {airmineral.hari}x {airmineral.keterangan}, {makanan}x Makan
-          </Text>
-        );
+      if (snack) {
+        if (makanan) {
+          rumahMakanElement = (
+            <Text className={styles.header} style={{ fontSize: "12" }}>
+              {snack.hari}x {snack.namaTrm}, {makanan}x Makan
+            </Text>
+          );
+        } else {
+          rumahMakanElement = (
+            <Text className={styles.header} style={{ fontSize: "12" }}>
+              {snack.hari}x {snack.namaTrm}
+            </Text>
+          );
+        }
       } else {
-        rumahMakanElement = (
-          <Text className={styles.header} style={{ fontSize: "12" }}>
-            {airmineral.hari}x {airmineral.keterangan}
-          </Text>
-        );
+        if (makanan) {
+          rumahMakanElement = (
+            <Text className={styles.header} style={{ fontSize: "12" }}>
+              {makanan}x Makan
+            </Text>
+          );
+        }
       }
     }
-  } else {
-    if (snack) {
-      if (makanan) {
-        rumahMakanElement = (
-          <Text className={styles.header} style={{ fontSize: "12" }}>
-            {snack.hari}x {snack.keterangan}, {makanan}x Makan
-          </Text>
-        );
-      } else {
-        rumahMakanElement = (
-          <Text className={styles.header} style={{ fontSize: "12" }}>
-            {snack.hari}x {snack.keterangan}
-          </Text>
-        );
-      }
-    } else {
-      if (makanan) {
-        rumahMakanElement = (
-          <Text className={styles.header} style={{ fontSize: "12" }}>
-            {makanan}x Makan
-          </Text>
-        );
-      }
-    }
+  
+    return rumahMakanElement;
   }
-
-  return rumahMakanElement;
-}
-
-const [fasilitas, setFasilitas] = useState('');
-const fasilitasTour = () => {
-      const fasilitass = data.fasilitas.map((ds) => ds.keterangan);
-      setFasilitas(`${fasilitass.join(', ')}`);
-};
-
-useEffect(() => {
-    Destinasi();
-    rumahMakan();
-    fasilitasTour();
-}, []);
-
-console.log('data', data)
+  
+  const [fasilitas, setFasilitas] = useState('');
+  const fasilitasTour = () => {
+        const fasilitass = data.fasilitas.map((ds) => ds.namaTft);
+        setFasilitas(`${fasilitass.join(', ')}`);
+  };
+  
+  useEffect(() => {
+      Destinasi();
+      rumahMakan();
+      fasilitasTour();
+  }, []);
+  
+  console.log('data', data)
+  
   return (
     <Document>
-       <Page
+      <Page
         className={styles.body}
         style={{ paddingHorizontal: 60, paddingVertical: 60 }}
       >
@@ -156,14 +157,14 @@ console.log('data', data)
           style={{ fontSize: "36", fontWeight: "black", marginBottom: "30", fontFamily:"Roboto" }}
           className={styles.header}
         >
-          {data.data.namaQtransaksi}
+          {data.data.quotation.namaProject}
         </Text>
 
         <div className="flex flex-row">
           <div className="flex flex-col">
             <View style={{ flexDirection: "row" }}>
             <View style={{ flexDirection: "col", flexWrap: "wrap", flex: 1 }}>
-              <Text className={styles.header}>Higlight: </Text>
+              <Text className={styles.header}>Highlight: </Text>
               <Text className={styles.header} style={{ fontSize: "12", marginBottom: "20"  }}>
                 {destinasiDurasi}
               </Text>
@@ -178,7 +179,7 @@ console.log('data', data)
                             </Text>
                             {data.transportasi.map((tr) => {
                             const detailTransportasi = tr.transportasi.detail_transportasi.find((dtr) => {
-                                return dtr.nama === tr.keterangan;
+                                return dtr.nama === tr.namaTtransportasi;
                             });
 
                             if (detailTransportasi) {
@@ -239,7 +240,7 @@ console.log('data', data)
                 <>
                     {data.bonus.map((tr) => (
                         <Text className={styles.header} style={{ fontSize: "12" }}>
-                            {tr.keterangan}
+                            {tr.namaTbonus}
                         </Text>
                     ))}
                 </>
@@ -254,14 +255,14 @@ console.log('data', data)
 
                 <Text className={styles.header}>Harga</Text>
                 <Text className={styles.header} style={{ fontSize: "14" }}>
-                  Untuk minimal peserta {data.data.paxPay} orang
+                  Untuk minimal peserta {data.data.q_transaksi.paxPay} orang
                 </Text>
 
                 <Text
                   style={{ fontSize: "24", fontWeight: "bold" }}
                   className={styles.header}
                 >
-                  Rp.{number(data.data.sellingPrice)}/pax
+                  Rp.{number(data.data.q_transaksi.sellingPrice)}/pax
                 </Text>
               </View>
               <View style={{ flexDirection: "col" }}>
@@ -275,7 +276,7 @@ console.log('data', data)
           </div>
         </div>
       </Page>
-    </Document>
+      </Document>
   );
 };
 

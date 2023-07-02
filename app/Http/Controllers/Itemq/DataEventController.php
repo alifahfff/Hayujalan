@@ -6,6 +6,7 @@ use App\Models\Itemq\dataEvent;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class DataEventController extends Controller
 {
@@ -40,8 +41,8 @@ class DataEventController extends Controller
         $Mydata = new dataEvent();
         $Mydata->ketDataEvent = $request->ketDataEvent;
         $Mydata->biayaDataEvent = $request->biayaDataEvent;
-        $Mydata->satuan = $request->satuan;
-        $Mydata->tglBerlakuItem = $request->tglBerlakuItem;
+        $Mydata->satuanEvent = $request->satuanEvent;
+        $Mydata->tglUpdateEvent = Carbon::now();
         $Mydata->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }
@@ -83,10 +84,11 @@ class DataEventController extends Controller
      */
     public function update(Request $request)
     {
-        dataEvent::where('id', $request->id)->update([
+        dataEvent::where('idDataEvent', $request->id)->update([
             'ketDataEvent' => $request->ketDataEvent,
             'biayaDataEvent' => $request->biayaDataEvent,
-            'satuan' => $request->satuan,
+            'satuanEvent' => $request->satuanEvent,
+            'tglUpdateEvent' => Carbon::now(),
         ]);
         return redirect()->back()->with('message', 'item berhasil diupdate');
     }

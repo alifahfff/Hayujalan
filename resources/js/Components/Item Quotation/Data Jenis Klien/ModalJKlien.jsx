@@ -8,11 +8,11 @@ const ModalJKlien = ({visible, onClose, data}) => {
     // console.log('datas', datas)
 
     const handleSubmit = () => {
-        console.log('id', data.id)
-        if(data.id){
+        console.log('id', data.idJenisKlien)
+        if(data.idJenisKlien){
             // update data
             const dataE = {
-                id: data.id,
+                id: data.idJenisKlien,
                 namaJenisKlien: datas.namaJenisKlien, 
                 updated_at: new Date(),
             }

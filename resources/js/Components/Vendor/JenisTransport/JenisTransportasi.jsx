@@ -37,11 +37,11 @@ const JenisTransportasi = ({jenis, dataCrew}) => {
                         return (
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
-                                <td className="whitespace-nowrap px-6 py-4">{cr.id}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{cr.idCrewOperasional}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{cr.idJenisTransportasi}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{cr.crew}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.namaJenis}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{cr.PenggunaanUnit}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{cr.MaxKapasitas}</td>                              
+                                <td className="whitespace-nowrap px-6 py-4">{cr.penggunaanUnit}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{cr.maxKapasitas}</td>                              
                                 <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">{cr.updated_at.substring(0,10)}</td>                              
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                                     <button 

@@ -43,13 +43,13 @@ class VendorRumahMakanController extends Controller
         $rm->idAreaWisata = $request->idAreaWisata;
         $rm->namaRM = $request->namaRM;
         $rm->kapasitasRM = $request->kapasitasRM;
-        $rm->kapasitasParkirBus = $request->kapasitasParkirBus;
+        $rm->kapasitasParkirBusRM = $request->kapasitasParkirBusRM;
         $rm->alamatRM = $request->alamatRM;
         $rm->tlpRM = $request->tlpRM;
         $rm->picRM = $request->picRM;
         $rm->hpPicRM = $request->hpPicRM;
-        $rm->linkGmaps = $request->linkGmaps;
-        $rm->tglBerlakuQuotation = $request->tglBerlakuQuotation;
+        $rm->linkGmapsRM = $request->linkGmapsRM;
+        $rm->tglBerlakuRm = $request->tglBerlakuRm;
         $rm->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }
@@ -109,16 +109,16 @@ class VendorRumahMakanController extends Controller
      */
     public function update(Request $request)
     {
-        vendorRumahMakan::where('id', $request->id)->update([
+        vendorRumahMakan::where('idRM', $request->id)->update([
             'namaRM' => $request->namaRM,
             'kapasitasRM' => $request->kapasitasRM,
-            'kapasitasParkirBus' => $request->kapasitasParkirBus,
-            'alamatRM' => $request->alamatRM,
+            'kapasitasParkirBusRM' => $request->kapasitasParkirBusRM,
+            'AlamatRM' => $request->AlamatRM,
             'tlpRM' => $request->tlpRM,
             'picRM' => $request->picRM,
             'hpPicRM' => $request->hpPicRM,
-            'linkGmaps' => $request->linkGmaps,
-            'tglBerlakuQuotation' => $request->tglBerlakuQuotation,
+            'linkGmapsRM' => $request->linkGmapsRM,
+            'tglBerlakuRm' => $request->tglBerlakuRm,
         ]);
         return redirect()->back()->with('message', 'item berhasil diupdate');
     }

@@ -6,6 +6,7 @@ use App\Models\Itemq\fasilitasTour;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class FasilitasTourController extends Controller
 {
@@ -38,10 +39,10 @@ class FasilitasTourController extends Controller
     public function store(Request $request)
     {
         $Mydata = new fasilitasTour();
-        $Mydata->ketFasilitas = $request->ketFasilitas;
+        $Mydata->ketFasilitasTour = $request->ketFasilitasTour;
         $Mydata->biayaFasilitas = $request->biayaFasilitas;
-        $Mydata->satuan = $request->satuan;
-        $Mydata->tglBerlakuItem = $request->tglBerlakuItem;
+        $Mydata->satuanFasilitas = $request->satuanFasilitas;
+        $Mydata->tglUpdatedFasilitas = Carbon::now();
         $Mydata->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }
@@ -83,10 +84,12 @@ class FasilitasTourController extends Controller
      */
     public function update(Request $request)
     {
-        fasilitasTour::where('id', $request->id)->update([
-            'ketFasilitas' => $request->ketFasilitas,
+        
+        fasilitasTour::where('idFasilitasTour', $request->id)->update([
+            'ketFasilitasTour' => $request->ketFasilitasTour,
             'biayaFasilitas' => $request->biayaFasilitas,
-            'satuan' => $request->satuan,
+            'satuanFasilitas' => $request->satuanFasilitas,
+            'tglUpdatedFasilitas' => Carbon::now(),
         ]);
         return redirect()->back()->with('message', 'item berhasil diupdate');
     }
@@ -99,6 +102,7 @@ class FasilitasTourController extends Controller
      */
     public function destroy(Request $request)
     {
+        
         $Mydata = fasilitasTour::find($request->id);
         $Mydata->delete();
         return redirect()->back()->with('message', 'item berhasil dihapus');

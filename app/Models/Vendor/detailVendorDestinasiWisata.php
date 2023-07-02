@@ -9,7 +9,7 @@ class detailVendorDestinasiWisata extends Model
 {
     use HasFactory;
 
-    protected $table = 'M_detailVendorDestinasiWisata';
+    protected $table = 'detailVendorDestinasiWisata';
     protected $primaryKey = 'idDetailDestinasiWisata';
     public $incrementing = false;
     protected $fillable = [

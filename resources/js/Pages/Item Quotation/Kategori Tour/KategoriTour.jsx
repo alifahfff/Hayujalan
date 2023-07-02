@@ -14,16 +14,15 @@ export default function KategoriTour(props) {
     console.log('props', props)
     console.log('data', props.Mydata.data)
     const [data, setData] = useState({
-        ketFasilitas: '', 
-        biayaFasilitas: '', 
-        satuan: '',
+        namaKategoriTour: '', 
+        presentaseKeuntungan: '', 
     })
     
     const search = (key) => {
       console.log('key', key)
       Inertia.get(
         route(route().current()),
-        { term: key },  {
+        { term: key }, {
             preserveState: true,
             replace: true,
         }

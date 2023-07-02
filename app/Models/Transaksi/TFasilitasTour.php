@@ -22,6 +22,8 @@ class TFasilitasTour extends Model
         'jumlahTft',
         'qtyTft',
         'jmlHariTft',
+        'created_at',
+        'updated_at',
     ];
 
     // yang punya id one to many

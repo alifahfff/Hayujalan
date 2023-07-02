@@ -36,7 +36,7 @@ use App\Http\Controllers\Vendor\AreaWisataController;
 |
 */
 
-// Route::get('/', [NewsController::class, 'index']);
+Route::get('/', [NewsController::class, 'index']);
 Route::get('/homepage', [NewsController::class, 'index'])->name('Homepage');
 
 
@@ -98,6 +98,7 @@ Route::controller(DataKlienController::class)->group(function () {
     Route::get('/klien', 'show')->name('klien');
     // Route::get('/klien/search', 'search')->name('search.klien');
     Route::post('/klien', 'store')->name('create.klien');
+    Route::post('/klien/post', 'postKlien')->name('create.klien');
     Route::get('/klien/edit', 'edit')->name('edit.klien');
     Route::post('/klien/update', 'update')->name('update.klien');
     Route::post('/klien/delete', 'destroy')->name('delete.klien');
@@ -167,7 +168,7 @@ Route::controller(VendorDestinasiWisataController::class)->group(function(){
     Route::post('/destinasiwisata/detail', 'storeDetail')->name('create.detail');
     Route::post('/destinasiwisata/update/detail', 'updateDetail')->name('update.detail');
     Route::post('/destinasiwisata/delete', 'destroy')->name('delete.destinasi');
-    Route::post('/destinasiwisata/delete/detail', 'destroyDetail')->name('delete.detail');
+    Route::post('/destinasiwisata/delete/detail', 'destroyDetail')->name('delete.detaildestinasi');
     Route::get('/destinasiwisata/details', 'detail')->name('destinasiwisata.details');
 });
 
@@ -191,7 +192,7 @@ Route::controller(VendorTransportasiController::class)->group(function (){
     Route::post('/transportasi/detail', 'storeDetail')->name('create.detail');
     Route::post('/transportasi/update/detail', 'updateDetail')->name('update.detail');
     Route::post('/transportasi/delete', 'destroy')->name('delete.transport');
-    Route::post('/transportasi/delete/detail', 'destroyDetail')->name('delete.detail');
+    Route::post('/transportasi/delete/detail', 'destroyDetail')->name('delete.detailtransportasi');
 });
 
 //Vendor Jenis Transportasi
@@ -214,7 +215,7 @@ Route::controller(VendorPenginapanController::class)->group(function() {
     Route::post('/hotel/detail', 'storeDetail')->name('create.detail');
     Route::post('/hotel/update/detail', 'updateDetail')->name('update.detail');
     Route::post('/hotel/delete', 'destroy')->name('delete.hotel');
-    Route::post('/hotel/delete/detail', 'destroyDetail')->name('delete.detail');
+    Route::post('/hotel/delete/detail', 'destroyDetail')->name('delete.detailpenginapan');
 });
 
 
@@ -227,7 +228,7 @@ Route::controller(VendorRumahMakanController::class)->group(function(){
     Route::post('/rumahmakan/detail', 'storeDetail')->name('create.detail');
     Route::post('/rumahmakan/update/detail', 'updateDetail')->name('update.detail'); 
     Route::post('/rumahmakan/delete', 'destroy')->name('delete.rumahmakan');
-    Route::post('/rumahmakan/delete/detail', 'destroyDetail')->name('delete.detail'); 
+    Route::post('/rumahmakan/delete/detail', 'destroyDetail')->name('delete.detailrm'); 
 });
 
 // Quotation

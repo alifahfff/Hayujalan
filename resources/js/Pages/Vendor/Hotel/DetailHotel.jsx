@@ -5,7 +5,8 @@ import TambahDetailHotel from '@/Components/Vendor/Hotel/TambahDetailHotel';
 import Layout from '@/Layouts/Layout';
 import DeleteDetail from '@/Components/Vendor/Hotel/DeleteDetail';
 import ModalHotel from '@/Components/Vendor/Hotel/ModalHotel';
-
+import number from "@/Components/number";
+import { RiNumbersLine } from 'react-icons/ri';
 
 
 export default function DetailHotel(props) {
@@ -15,7 +16,7 @@ export default function DetailHotel(props) {
         qtyKetersediaanKamar: '',
         hargaSewaWeekdayPerKamar: '',
         hargaSewaWeekendPerKamar: '',
-        idPenginapan : props.hotel.id,
+        idPenginapan : props.hotel.idPenginapan,
     })
 
     const [dataL, setDataL] = useState([])
@@ -60,7 +61,7 @@ export default function DetailHotel(props) {
                                     </tr>
                                     <tr>
                                             <td>Kapasitas Parkir Bus </td>
-                                            <td>: {props.hotel.kapasitasParkirBus}</td>
+                                            <td>: {props.hotel.kapasitasParkirBusPenginapan}</td>
                                         </tr>
                                     <tr>
                                             <td>No Telpon </td>
@@ -76,11 +77,11 @@ export default function DetailHotel(props) {
                                         </tr>
                                         <tr>
                                             <td>Link Gmaps </td>
-                                            <td>: {props.hotel.linkGmaps}</td>
+                                            <td>: {props.hotel.linkGmapsPenginapan}</td>
                                         </tr>
                                         <tr>
                                             <td>Tanggal Berlaku Vendor </td>
-                                            <td className='text-merah font-bold'>: {props.hotel.tglBerlakuQuotation}</td>
+                                            <td className='text-merah font-bold'>: {props.hotel.tglBerlakuPenginapan}</td>
                                         </tr>
                                 </table>
                         </div>
@@ -118,16 +119,9 @@ export default function DetailHotel(props) {
                                             <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.namaJenisKamar}</td>
                                             <td className="whitespace-nowrap px-6 py-4">{cr.kapasitasKamar}</td>
                                             <td className="whitespace-nowrap px-6 py-4">{cr.qtyKetersediaanKamar}</td>
-                                            <td className="whitespace-nowrap px-6 py-4">{cr.hargaSewaWeekdayPerKamar}</td>
-                                            <td className="whitespace-nowrap px-6 py-4">{cr.hargaSewaWeekendPerKamar}</td>
+                                            <td className="whitespace-nowrap px-6 py-4">Rp. {number(cr.hargaSewaWeekdayPerKamar)}</td>
+                                            <td className="whitespace-nowrap px-6 py-4">Rp. {number(cr.hargaSewaWeekendPerKamar)}</td>
                                             <td className="whitespace-nowrap px-6 py-4 justify-item-center">
-                                            <button 
-                                                    onClick={() => {
-                                                        setShowModal(true)
-                                                        setDataL(cr)
-                                                    }}
-                                                    className="btn btn-ghost btn-sm mr-2"
-                                                ><BsPencilSquare/></button>
                                                 <button 
                                                     onClick={() => {
                                                         setShowDelete(true)

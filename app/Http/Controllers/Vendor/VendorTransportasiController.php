@@ -47,7 +47,7 @@ class VendorTransportasiController extends Controller
         $transportasi->tlpTransportasi = $request->tlpTransportasi;
         $transportasi->picTransportasi = $request->picTransportasi;
         $transportasi->hpPicTransportasi = $request->hpPicTransportasi;
-        // $transportasi->tglBerlakuQuotation = $request->tglBerlakuQuotation;
+        $transportasi->tglBerlakuTransportasi = $request->tglBerlakuTransportasi;
         $transportasi->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }
@@ -56,10 +56,11 @@ class VendorTransportasiController extends Controller
     {
         $transportasi = new detailVendorTransportasi();
         $transportasi->idTransportasi = $request->idTransportasi;
+        $transportasi->idJenisTransportasi = $request->idJenisTransportasi;
         $transportasi->nama = $request->nama;
         $transportasi->tahun = $request->tahun;
         $transportasi->kapasitas = $request->kapasitas;
-        $transportasi->qtyKetersediaanUnit = $request->qtyKetersediaanUnit;
+        $transportasi->qtyKetersediaan = $request->qtyKetersediaan;
         $transportasi->hargaSewaWeekendDalamKota = $request->hargaSewaWeekendDalamKota;
         $transportasi->hargaSewaWeekdayDalamKota = $request->hargaSewaWeekdayDalamKota;
         $transportasi->hargaSewaWeekendLuarKota = $request->hargaSewaWeekendLuarKota;
@@ -116,13 +117,13 @@ class VendorTransportasiController extends Controller
      */
     public function update(Request $request)
     {
-        vendorTransportasi::where('id', $request->id)->update([
+        vendorTransportasi::where('idTransportasi', $request->id)->update([
             'namaTransportasi' => $request->namaTransportasi,
             'alamatTransportasi' => $request->alamatTransportasi,
             'tlpTransportasi' => $request->tlpTransportasi,
             'picTransportasi' => $request->picTransportasi,
             'hpPicTransportasi' => $request->hpPicTransportasi,
-            'tglBerlakuQuotation' => $request->tglBerlakuQuotation,
+            'tglBerlakuTransportasi' => $request->tglBerlakuTransportasi,
         ]);
         return redirect()->back()->with('message', 'item berhasil diupdate');
     }

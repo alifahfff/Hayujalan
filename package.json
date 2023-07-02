@@ -27,6 +27,7 @@
         "avataaars": "^2.0.0",
         "daisyui": "^2.51.6",
         "moment": "^2.29.4",
+        "react-csv": "^2.2.2",
         "react-icons": "^4.8.0"
     }
 }

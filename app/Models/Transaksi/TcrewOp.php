@@ -22,6 +22,8 @@ class TcrewOp extends Model
         'jumlahTcrew',
         'qtyTcrew',
         'jmlHariTcrew',
+        'created_at',
+        'updated_at',
     ];
 
     // yang punya id one to many

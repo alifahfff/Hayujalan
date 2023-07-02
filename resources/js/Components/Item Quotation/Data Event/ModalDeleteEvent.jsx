@@ -24,7 +24,7 @@ const ModalDeleteEvent = ({visible, onClose, data}) => {
                             <button  
                                 className="btn bg-[#3E9E3E] text-putih outline-none border-transparent"
                                 onClick={onClose}
-                            ><Link href={route('delete.event')} method="post" data={{ id: data.id }} as="button">
+                            ><Link href={route('delete.event')} method="post" data={{ id: data.idDataEvent }} as="button">
                             IYA
                             </Link></button>
                         </div> 

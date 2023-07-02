@@ -19,7 +19,7 @@ export default function Reports(props) {
         jenis_klien: [{
             namaJenisKlien: '',
         }],
-        jenis_klien_id: '',
+        idJenisKlien: '',
     })
     
     const search = (key) => {

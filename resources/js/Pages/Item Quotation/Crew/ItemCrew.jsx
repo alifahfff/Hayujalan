@@ -19,7 +19,7 @@ export default function ItemCrew(props) {
         ketCrewOperasional: '', 
         biayaCrewOperasional: '', 
         satuan: '',
-        tglBerlakuItem:'',
+        tglUpdateCrew:'',
     })
     
     const search = (key) => {
