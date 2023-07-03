@@ -10,6 +10,8 @@ const Hotel = ({hotel}) => {
     const [showDelete, setShowDelete] = useState(false);
     const [dataL, setDataL] = useState([])
 
+    console.log('hotel', hotel);
+
     const handleOnCloseD = () => setShowDelete(false);
     return (
         <div className="flex flex-col">
@@ -20,9 +22,9 @@ const Hotel = ({hotel}) => {
                     <thead className="border-b bg-abu font-medium dark:border-neutral-500 dark:text-neutral-800">
                         <tr>
                         <th scope="col" className="px-6 py-4">ID Penginapan</th>
+                        <th scope="col" className="px-6 py-4">Nama Area</th>
                         <th scope="col" className="px-6 py-4">Nama Penginapan</th>
                         <th scope="col" className="px-6 py-4">Bintang Penginapan</th>
-                        <th scope="col" className="px-6 py-4">Alamat </th>
                         <th scope="col" className="px-6 py-4">Tanggal Berlaku</th>
                         <th scope="col" className="px-6 py-4">Last Update</th>
                         <th scope="col" className="px-6 py-4">Aksi</th>
@@ -34,9 +36,9 @@ const Hotel = ({hotel}) => {
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
                                 <td className="whitespace-nowrap px-6 py-4">{cr.idPenginapan}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{cr.a_wpenginapan.namaArea}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.namaPenginapan}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.bintangPenginapan}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{cr.alamatPenginapan.substring(0,40)}</td>
                                 <td className="whitespace-nowrap px-6 py-4 text-merah font-bold">{cr.tglBerlakuPenginapan}</td>
                                 <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">{cr.updated_at.substring(0,10)}</td>
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
