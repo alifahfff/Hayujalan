@@ -164,7 +164,7 @@ const PDFFile = ({data}) => {
           <div className="flex flex-col">
             <View style={{ flexDirection: "row" }}>
             <View style={{ flexDirection: "col", flexWrap: "wrap", flex: 1 }}>
-              <Text className={styles.header}>Higlight: </Text>
+              <Text className={styles.header}>Highlight: </Text>
               <Text className={styles.header} style={{ fontSize: "12", marginBottom: "20"  }}>
                 {destinasiDurasi}
               </Text>
