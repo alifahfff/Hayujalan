@@ -10,6 +10,8 @@ const Transportasi = ({transportasi}) => {
     const [showDelete, setShowDelete] = useState(false);
     const [dataL, setDataL] = useState([])
 
+    console.log('transportasi', transportasi);
+
     const handleOnCloseD = () => setShowDelete(false);
     return (
         <div className="flex flex-col">
@@ -20,8 +22,8 @@ const Transportasi = ({transportasi}) => {
                     <thead className="border-b bg-abu font-medium dark:border-neutral-500 dark:text-neutral-800">
                         <tr>
                         <th scope="col" className="px-6 py-4">ID Transportasi</th>
+                        <th scope="col" className="px-6 py-4">Nama Area</th>
                         <th scope="col" className="px-6 py-4">Nama Transportasi</th>
-                        <th scope="col" className="px-6 py-4">Alamat</th>
                         <th scope="col" className="px-6 py-4">Tanggal Berlaku</th>
                         <th scope="col" className="px-6 py-4">Last Update</th>
                         <th scope="col" className="px-6 py-4">Aksi</th>
@@ -33,8 +35,8 @@ const Transportasi = ({transportasi}) => {
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
                                 <td className="whitespace-nowrap px-6 py-4">{cr.idTransportasi}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{cr.a_wtransportasi.namaArea}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.namaTransportasi}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{cr.alamatTransportasi.substring(0,10)}</td>
                                 <td className="whitespace-nowrap px-6 py-4 text-merah font-bold">{cr.tglBerlakuTransportasi}</td>
                                 <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">{cr.updated_at.substring(0,10)}</td>                                
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">

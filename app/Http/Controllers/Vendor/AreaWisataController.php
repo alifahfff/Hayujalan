@@ -8,6 +8,7 @@ use App\Models\Quotation\dataBobot;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class AreaWisataController extends Controller
 {
@@ -39,12 +40,20 @@ class AreaWisataController extends Controller
      */
     public function store(Request $request)
     {
-        $kriteria = dataKriteria::where('namaKriteria' == 'areawisata');
-        $bobot::create('idKriteria' -> $kriteria->idKriteria);
-        $areaWisata::create('idBobot' -> $bobot->idBobot);
-        $Mydata = new areaWisata();
-        $Mydata->namaArea = $request->namaArea;
-        $Mydata->save();
+        $maxBobot = dataBobot::where('idKriteria', '=', '1') -> max('jumlahBobot');
+        $bobot = dataBobot::create([
+            'idKriteria' => 1,
+            'namaBobot' => $request->namaArea,
+            'jumlahBobot' => $maxBobot+1,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+        $areaWisata =areaWisata::create([
+            'idBobot' => $bobot->idBobot,
+            'namaArea' => $request->namaArea,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }
 

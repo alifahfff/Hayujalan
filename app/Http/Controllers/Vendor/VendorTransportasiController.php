@@ -9,6 +9,7 @@ use App\Models\Vendor\jenisTransportasi;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class VendorTransportasiController extends Controller
 {
@@ -48,6 +49,8 @@ class VendorTransportasiController extends Controller
         $transportasi->picTransportasi = $request->picTransportasi;
         $transportasi->hpPicTransportasi = $request->hpPicTransportasi;
         $transportasi->tglBerlakuTransportasi = $request->tglBerlakuTransportasi;
+        $transportasi->created_at = Carbon::now();
+        $transportasi->updated_at = Carbon::now();
         $transportasi->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }
@@ -80,7 +83,7 @@ class VendorTransportasiController extends Controller
     public function show(vendorTransportasi $vendorTransportasi)
     {
         $area = areaWisata::all();
-        $transportasi = vendorTransportasi::all();
+        $transportasi = vendorTransportasi::with('AWtransportasi')->get();
         return Inertia::render('Vendor/Transportasi/VendorTransport', [
             'transportasi' => $transportasi,
             'area' => $area,
