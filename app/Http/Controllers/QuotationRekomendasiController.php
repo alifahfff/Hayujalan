@@ -88,6 +88,7 @@ class QuotationRekomendasiController extends Controller
      */
     public function store(Request $request)
     {
+        // Mengambil data dari view
         $hasilarea = $request->b_areaWisata;
         $hasilKategori = $request->b_kategori;
         $hasilBudget = $request->b_budget;
@@ -98,6 +99,8 @@ class QuotationRekomendasiController extends Controller
         $k_jumlahOrang = $request->k_jumlahOrang;
         $k_durasi = $request->k_durasi;
         $k_budget = $request->k_budget;
+
+        //Mencari maximal dan minimal atribut
         $maxArea = dataBobot::where('idKriteria', '=', '1')
         ->max('jumlahBobot');
         $minArea = dataBobot::where('idKriteria', '=', '1')
@@ -118,6 +121,8 @@ class QuotationRekomendasiController extends Controller
         ->max('jumlahBobot');
         $minDurasi = dataBobot::where('idKriteria', '=', '5')
         ->min('jumlahBobot');
+
+        //Mengambil data referensi atau basis kasus
         $referensi = quotationRekomendasi::join('T_quotationTransaksi', 'T_quotationTransaksi.idQuotationTransaksi', '=', 'R_quotationRekomendasi.idQuotationTransaksi')
             ->join('M_quotationTour', 'M_quotationTour.idQuotationTour', '=', 'R_quotationRekomendasi.idQuotationTour')
             ->join('M_areaWisata', 'M_quotationTour.idAreaWisata', '=', 'M_areaWisata.idAreaWisata')
@@ -129,11 +134,13 @@ class QuotationRekomendasiController extends Controller
             'M_dataKategoriTour.namaKategoriTour'
             )
             ->get();
+        
         $count = quotationRekomendasi::where('bref_areaWisata', '=', $hasilarea)
                         ->count();
         
         $result = [];
         foreach ($referensi as $row) {
+            //Data yang diambil
             $idQuotatioRekomendasi = $row->idQuotatioRekomendasi;
             $idQuotationTour = $row->idQuotationTour;
             $idQuotationTransaksi = $row->idQuotationTransaksi;
@@ -148,15 +155,19 @@ class QuotationRekomendasiController extends Controller
             $b_budget = $row->bref_budget;
             $b_durasi = $row->bref_durasi;
             $b_jumlahOrang = $row->bref_jumlahOrang;
+
+            // Normalisasi
             $areaWisata = 1 - ((abs($b_areaWisata - $hasilarea)/($maxArea - $minArea)));
-            $bobotArea = $areaWisata * $k_area;
             $kategori = 1 - ((abs($b_kategori - $hasilKategori)/($maxKategori - $minKategori)));
-            $bobotKategori = $kategori * $k_kategori;
             $jumlahaOrang = 1 - ((abs($b_jumlahOrang - $hasilQty)/($maxQTY - $minQTY)));
-            $bobotJumlahOrang = $jumlahaOrang * $k_jumlahOrang;
             $durasi = 1 - ((abs($b_durasi - $hasilDurasi)/($maxDurasi - $minDurasi)));
-            $bobotDurasi = $durasi * $k_durasi;
             $budget = 1 - ((abs($b_budget - $hasilBudget)/($maxBudget - $minBudget)));
+
+            // Menghitung Similarity
+            $bobotArea = $areaWisata * $k_area;
+            $bobotKategori = $kategori * $k_kategori;
+            $bobotJumlahOrang = $jumlahaOrang * $k_jumlahOrang;
+            $bobotDurasi = $durasi * $k_durasi;
             $bobotBudget = $budget * $k_budget;
             $similarity = ($bobotArea + $bobotKategori + $bobotJumlahOrang + $bobotDurasi + $bobotBudget) / 1; 
             
@@ -193,6 +204,11 @@ class QuotationRekomendasiController extends Controller
         usort($results, function ($a, $b) {
             return $b['similarity'] <=> $a['similarity'];
         });
+
+        $topResults = array_slice($results, 0, $count);
+
+        session()->put('data', $topResults);
+        return redirect()->route('hasil.qrecomend');
         // if ($k_area == 0.3) {
         //     if ($k_budget == 0.25) {
         //         usort($results, function ($a, $b) {
@@ -242,8 +258,6 @@ class QuotationRekomendasiController extends Controller
         //         return $b['similarity'] <=> $a['similarity'] && $b['namaKategoriTour'] <=> $a['namaKategoriTour'];
         //     });
         // }           
-
-        $topResults = array_slice($results, 0, $count);
 
         // dd($results);
 
@@ -298,8 +312,7 @@ class QuotationRekomendasiController extends Controller
 
         // Menampilkan hasil
         // Simpan data dalam sesi
-        session()->put('data', $topResults);
-        return redirect()->route('hasil.qrecomend');
+        
 
 
         // return Inertia::render('Quotation/QuotationsRecomendResult', [
