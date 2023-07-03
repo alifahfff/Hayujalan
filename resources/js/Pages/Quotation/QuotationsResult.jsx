@@ -125,18 +125,17 @@ export default function QuotationsHistoryResult(props) {
                 className="max-w-md max-h-md border-2"
               /> */}
               <MyPDFViewer data={props}/>
-              {props.data.q_transaksi.statusTransaksi === 'menunggu' && (
-                <div className="flex justify-center mt-6">
-                  <button
-                    className="btn bg-gray-400 text-white border-0"
-                    style={{ maxWidth: "8rem" }}
-                  >
-                    <Link href={route('qmanual.edit')} method="get" data={{id: id}}>
-                      Edit Mode
-                    </Link>
-                  </button>
+              <div className="flex justify-center mt-6">
+                <button
+                  className="btn bg-gray-400 text-white border-0"
+                  style={{ maxWidth: "8rem" }}
+                >
+                  <Link href={route('qmanual.edit')} method="get" data={{id: props.data.idQuotatioRekomendasi}}>
+                    Edit Mode
+                  </Link>
+                </button>
               </div>
-              )}
+              )
             </div>
                 <div className="flex flex-col">
                   <div className="flex flex-row">

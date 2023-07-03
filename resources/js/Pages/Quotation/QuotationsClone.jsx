@@ -3,7 +3,7 @@ import Layout from "@/Layouts/Layout";
 import { useState } from "react";
 import { Inertia } from "@inertiajs/inertia";
 
-const QuotationsFormEdit = (props, crewL) => {
+const QuotationsClone = (props, crewL) => {
   // const {data} = this.props.location;
   console.log("data quotation", props);
   const initialFormDestinasi = props.Tdestinasi.length > 0 ? props.Tdestinasi : [{
@@ -3125,7 +3125,7 @@ const QuotationsFormEdit = (props, crewL) => {
   );
 }
 
-export default QuotationsFormEdit
+export default QuotationsClone
 
-QuotationsFormEdit.layout = (page) => <Layout children={page} />;
+QuotationsClone.layout = (page) => <Layout children={page} />;
 

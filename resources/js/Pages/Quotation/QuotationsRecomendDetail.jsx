@@ -11,21 +11,34 @@ import Layout from "@/Layouts/Layout";
 import PDFFile from "./QuotationsPDF";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import number from "@/Components/number";
+import { usePage } from '@inertiajs/inertia-react';
 import MyPDFViewer from "./QuotationPDFView";
 import { Link } from "@inertiajs/inertia-react";
 
-export default function DataQuoResult(props) {
-  // const id = props.data.id;
-  console.log("props", props);
-  
+export default function QuotationsResult(props) {
+  // const { props } = usePage()
+  // const {data} = this.props.location;
+  const id = props.data.id;
+  console.log("Cr", props);
+  console.log("id", props.data.id);
   return (
     <div className="min-h-screen bg-abu ">
       {/* Content */}
       <div className="ml-6">
-        <a>Quotation Manual</a>
+      <div class="text-sm breadcrumbs">
+        <ul>
+          <li><Link href={route('quotationrecomend')}>
+          Quotation Rekomendasi
+          </Link></li>
+          <li><Link href={route('hasil.qrecomend')}>
+          Hasil Rekomendasi
+          </Link></li>
+          <li>Quotation ID{props.data.quotation.idQuotationTour}</li>
+        </ul>
+      </div>
       </div>
       <div className="flex justify-between m-6 mt-2 mb-3">
-        <a className="text-2xl font-bold text-black">Quotation Manual</a>
+        <a className="text-2xl font-bold text-black">Quotation ID{props.data.quotation.idQuotationTour}</a>
       </div>
       <div className="relative bg-white shadow-xl m-6 mt-3 md:max-xl:flex ring-1 ring-gray-900/5">
         <div className="p-4 bg-kuning border-b border-gray-200"></div>
@@ -53,7 +66,7 @@ export default function DataQuoResult(props) {
                   <div className="flex flex-row">
                     <div className="flex flex-col pl-5 pt-6 pb-8">
                       <a className="text-3xl font-bold text-black mb-6">
-                        Quotation ID{props.data.id}
+                        Quotation ID{props.data.quotation.idQuotationTour}
                       </a>
                       <form className="space-y-3 font-medium text-left">
                         <label className="label">
@@ -94,7 +107,7 @@ export default function DataQuoResult(props) {
                           </span>
                         </label>
                         <label className="label">
-                          <span className="label-text text-black">{props.data.namaQtransaksi}</span>
+                          <span className="label-text text-black">{props.data.quotation.namaProject}</span>
                         </label>
                         <label className="label">
                           <span className="label-text text-black">
@@ -109,11 +122,11 @@ export default function DataQuoResult(props) {
                         </label>
                         <label className="label">
                           <span className="label-text text-black">
-                          Rp.{number(props.data.sellingPrice)}/pax
+                          Rp.{number(props.data.q_transaksi.sellingPrice)}/pax
                           </span>
                         </label>
                         <label className="label">
-                          <span className="label-text text-black">Rp.{number(props.data.totalPrice)},-</span>
+                          <span className="label-text text-black">Rp.{number(props.data.q_transaksi.totalPrice)},-</span>
                         </label>
                       </form>
                     </div>
@@ -143,4 +156,4 @@ export default function DataQuoResult(props) {
   );
 }
 
-DataQuoResult.layout = (page) => <Layout children={page} />;
+QuotationsResult.layout = (page) => <Layout children={page} />;

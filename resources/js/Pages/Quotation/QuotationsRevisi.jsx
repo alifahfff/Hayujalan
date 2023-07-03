@@ -3,7 +3,7 @@ import Layout from "@/Layouts/Layout";
 import { useState } from "react";
 import { Inertia } from "@inertiajs/inertia";
 
-const QuotationsFormEdit = (props, crewL) => {
+const QuotationsRevisi = (props, crewL) => {
   // const {data} = this.props.location;
   console.log("data quotation", props);
   const initialFormDestinasi = props.Tdestinasi.length > 0 ? props.Tdestinasi : [{
@@ -113,7 +113,7 @@ const QuotationsFormEdit = (props, crewL) => {
     idAreaWisata: props.data.quotation.idAreaWisata,
     namaArea: props.data.quotation.areawisata.namaArea,
     idSales: '',
-    namaSales: 'YY',
+    namaSales: 'Yoga',
     idKategoriTour: props.data.quotation.idKategoriTour, 
     namaKategoriTour: props.data.quotation.kategori.namaKategoriTour,
     namaproject: props.data.quotation.namaProject, 
@@ -130,6 +130,7 @@ const QuotationsFormEdit = (props, crewL) => {
     idJenisKlien: props.data.quotation.klien.idJenisKlien,
     idKlien: props.data.quotation.klien.idKlien,
     idQuotationTour: props.data.idQuotationTour,
+    statusTransaksi: props.data.q_transaksi.statusTransaksi
   })
 
   
@@ -902,10 +903,10 @@ const QuotationsFormEdit = (props, crewL) => {
     <div className="min-h-screen bg-abu ">
       {/* Content */}
       <div className="ml-6">
-        <a>Quotation Manual</a>
+        <a>Quotation Clone</a>
       </div>
       <div className="flex m-6 mt-2 mb-3">
-        <a className="text-2xl font-bold text-black">Quotation Manual</a>
+        <a className="text-2xl font-bold text-black">Quotation Clone</a>
       </div>
       <div className="relative bg-white shadow-xl m-6 mt-3 md:max-xl:flex ring-1 ring-gray-900/5">
         <div className="p-4 bg-kuning border-b border-gray-200"></div>
@@ -931,10 +932,10 @@ const QuotationsFormEdit = (props, crewL) => {
                         namaproject: value.target.value,
                       })}
                       />
-                  </div>
+                </div>
               </div>
               <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 mt-5">
-                <div className="">
+                  <div className="">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Nama Klien</label>
                       <input 
                       type="text" 
@@ -975,6 +976,37 @@ const QuotationsFormEdit = (props, crewL) => {
                             {us.namaJenisKlien}
                             </option>
                         )})}
+                      </select>
+                  </div>
+                  <div className="">
+                      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Status Transaksi</label>
+                      <select 
+                        placeholder="Jenis Klien" 
+                        defaultValue="default"
+                        className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        // onChange={(e) => 
+                        //   setDatas({
+                        //   ...datas,
+                        //   idUserSales : e.target.value
+                        //   })
+                        // }
+                        onChange={(e) => {
+                          datasFind(e.target.value,'jenisKlien')
+                        }}
+                      >
+                        <option value="default">-{datas.statusTransaksi}-</option>
+                        <option value="menunggu">menunggu</option>
+                        <option value="diterima">diterima</option>
+                        <option value="ditolak">ditolak</option>
+                        {/* {props.jenisKlien.map((us, index) => {
+                          return (
+                            <option 
+                              value={us.id} 
+                              key={us.id}
+                            >
+                            {us.namaJenisKlien}
+                            </option>
+                        )})} */}
                       </select>
                   </div>
               </div>
@@ -1208,6 +1240,36 @@ const QuotationsFormEdit = (props, crewL) => {
                         ...datas,
                         presentaseKeuntungan: value.target.value,
                       })}
+                      />
+                  </div>
+                  <div className="w-full">
+                      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Masa Berlaku Quotation</label>
+                      <input 
+                      type="date" 
+                      name="brand" 
+                      id="brand"
+                      // value={selectedDateBerlaku} 
+                      className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                      onChange={(value) => {
+                        handleDateChange(value, 'berlaku')
+                        // rekomendasi()
+                      }
+                      }
+                      />
+                  </div>
+                  <div className="w-full">
+                      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Tanggal Berlaku Quotation</label>
+                      <input 
+                      type="date" 
+                      name="brand" 
+                      id="brand"
+                      // value={selectedDateBerlaku} 
+                      className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                      onChange={(value) => {
+                        handleDateChange(value, 'berlaku')
+                        // rekomendasi()
+                      }
+                      }
                       />
                   </div>
               </div>
@@ -3125,7 +3187,7 @@ const QuotationsFormEdit = (props, crewL) => {
   );
 }
 
-export default QuotationsFormEdit
+export default QuotationsRevisi
 
-QuotationsFormEdit.layout = (page) => <Layout children={page} />;
+QuotationsRevisi.layout = (page) => <Layout children={page} />;
 

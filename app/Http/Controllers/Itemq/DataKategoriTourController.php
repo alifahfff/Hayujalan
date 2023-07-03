@@ -38,7 +38,7 @@ class DataKategoriTourController extends Controller
      */
     public function store(Request $request)
     {
-        $count = DataBobot::where('idKriteria', '=', 2)->count();
+        $count = DataBobot::where('idKriteria', '=', 2)->max('jumlahBobot');
 
         $bobot = dataBobot::create([
             'idKriteria' => 2,
