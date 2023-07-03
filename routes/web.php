@@ -139,7 +139,7 @@ Route::controller(QuotationTourController::class)->group(function () {
     Route::get('/quotation/qrecomendpdf/', 'recresult')->name('quotationrecomendpdf');
     Route::get('/quotation/qhistory/', 'qhistory')->name('quotationhistory');
     Route::get('/quotation/qhistory/detail', 'editQhistory')->name('qhistory.detail');
-    Route::post('/quotation/qhistory/update', 'updateQuotationForm')->name('qhistory.update');
+    Route::get('/quotation/qhistory/revisi', 'updateQhistory')->name('qhistory.revisi');
     Route::get('/quotation/qhistoryresult/', 'qhistoryresult')->name('quotationhistoryresult');
     Route::post('/quotation', 'store')->name('create.quotation');
     Route::get('/quotation/edit', 'edit')->name('qmanual.edit');
@@ -151,8 +151,9 @@ Route::controller(QuotationTourController::class)->group(function () {
 //Quotation Rekomendasi
 Route::controller(QuotationRekomendasiController::class)->group(function(){
     Route::get('/quotation/qrecomend/', 'showrec')->name('quotationrecomend');
-    Route::post('/quotation/qrecomend', 'store')->name('create.bobot');
-    Route::post('/quotation/qrecomend/bobot', 'hitungBobot')->name('kriteria.bobot');
+    Route::post('/quotation/qrecomend', 'store')->name('store.qrecomend');
+    Route::get('/quotationrecomend/hasil', 'show')->name('hasil.qrecomend');
+    Route::get('/quotationrecomend/detail/{id}', 'edit')->name('detail.qrecomend');
 });
 // Dashboard
 Route::get('/dashboard', function () {

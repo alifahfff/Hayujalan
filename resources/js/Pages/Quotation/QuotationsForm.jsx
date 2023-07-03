@@ -916,7 +916,7 @@ const Quotations = (props, crewL) => {
     const JumlahCrew = formCrew.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
     const JumlahFasilitas = formFasilitas.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
     const productionPrice = JumlahDestinasi + JumlahTransportasi + JumlahPenginapan + JumlahRM + JumlahEvent + JumlahBonus + JumlahCrew + JumlahFasilitas;
-    const paxPay = datas.totalOrang;
+    const paxPay = datas.jumlahOrang;
     const netPrice = parseInt(productionPrice / paxPay);
     const surcharge = parseInt(((netPrice / (100/100 - parseInt(datas.presentaseKeuntungan)/100))* 100/100) - netPrice);
     const sellingPrice = parseInt(netPrice + surcharge);
