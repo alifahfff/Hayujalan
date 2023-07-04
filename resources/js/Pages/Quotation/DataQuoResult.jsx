@@ -17,6 +17,7 @@ import { Link } from "@inertiajs/inertia-react";
 export default function DataQuoResult(props) {
   // const id = props.data.id;
   console.log("props", props);
+  
   return (
     <div className="min-h-screen bg-abu ">
       {/* Content */}
@@ -42,7 +43,7 @@ export default function DataQuoResult(props) {
                   className="btn bg-gray-400 text-white border-0"
                   style={{ maxWidth: "8rem" }}
                 >
-                  <Link href={route('qmanual.edit')} method="get" data={{id: id}}>
+                  <Link href={route('qmanual.edit')} method="get" data={{id: props.data.idQuotatioRekomendasi}}>
                     Edit Mode
                   </Link>
                 </button>

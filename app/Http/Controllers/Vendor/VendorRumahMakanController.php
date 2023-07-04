@@ -75,7 +75,7 @@ class VendorRumahMakanController extends Controller
     public function show(vendorRumahMakan $vendorRumahMakan)
     {
         $area = areaWisata::all();
-        $rm = vendorRumahMakan::all();
+        $rm = vendorRumahMakan::with('areaWisataRm')->get();
         return Inertia::render('Vendor/RumahMakan/VendorRM', [
             'rm' => $rm,
             'area' => $area,

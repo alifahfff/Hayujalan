@@ -346,16 +346,11 @@ class QuotationTourController extends Controller
     public function edit(Request $request)
     {
         $areawisata = areaWisata::all();
-        $userprogram = userProgram::all();
-        $usersales = userSales::all();
+        // $userprogram = userProgram::all();
+        // $usersales = userSales::all();
         $kategoriwisata = dataKategoriTour::all();
         $destinasi = vendorDestinasiWisata::all();
-        $detailDestinasi = detailVendorDestinasiWisata::join('vendor_destinasi_wisatas', 'detail_vendor_destinasi_wisatas.idDestinasiWisata', '=', 'vendor_destinasi_wisatas.id')
-                   ->select('vendor_destinasi_wisatas.id', 'vendor_destinasi_wisatas.namaDestinasiWisata',
-                   'detail_vendor_destinasi_wisatas.idDestinasiWisata', 
-                   'detail_vendor_destinasi_wisatas.tiketMasukWeekday', 
-                   'detail_vendor_destinasi_wisatas.tiketMasukWeekend')
-                   ->get();
+        $detailDestinasi = detailVendorDestinasiWisata::all();
         $rumahMakan = vendorRumahMakan::all();
         $detailRM = detailVendorRumahMakan::all();
         $penginapan = vendorPenginapan::all();
@@ -367,19 +362,19 @@ class QuotationTourController extends Controller
         $dataEvent = dataEvent::all();
         $dataBonus = dataBonus::all();
         $jenisKlien = dataJenisKlien::all();
-        $quotationTransaksi = quotationTransaksi::with('quotation.klien.jenisKlien', 'quotation.areawisata', 'quotation.kategori')->find($request->id);
-        $Tbonus = Tbonus::where('idQuotationTransaksi', $request->id)->get();
-        $TDestinasiWisata = TDestinasiWisata::with('destinasi.detaildw')->where('idQuotationTransaksi', $request->id)->get();
-        $Ttransportasi = Ttransportasi::with('transportasi.detailTransportasi')->where('idQuotationTransaksi', $request->id)->get();
-        $Tpenginapan = Tpenginapan::with('penginapan.detailPenginapan')->where('idQuotationTransaksi', $request->id)->get();
-        $TRumahMakan = TRumahMakan::with('rumahMakan.detailRM')->where('idQuotationTransaksi', $request->id)->get();
-        $TFasilitasTour = TFasilitasTour::with('fasilitasTour')->where('idQuotationTransaksi', $request->id)->get();
-        $Tevent = Tevent::where('idQuotationTransaksi', $request->id)->get();
-        $TcrewOp = TcrewOp::with('crew')->where('idQuotationTransaksi', $request->id)->get();
+        $quotationRekomendasi = quotationRekomendasi::with('quotation.klien.jenisKlien', 'quotation.areawisata', 'quotation.kategori', 'qTransaksi')->where('idQuotatioRekomendasi', $request->id)->first();
+        $Tbonus = Tbonus::where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $TDestinasiWisata = TDestinasiWisata::with('destinasi.detaildw')->where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $Ttransportasi = Ttransportasi::with('transportasi.detailTransportasi')->where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $Tpenginapan = Tpenginapan::with('penginapan.detailPenginapan')->where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $TRumahMakan = TRumahMakan::with('rumahMakan.detailRM')->where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $TFasilitasTour = TFasilitasTour::where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $Tevent = Tevent::where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $TcrewOp = TcrewOp::with('crew')->where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
         return Inertia::render('Quotation/QuotationsFormEdit', [
             'areawisata' => $areawisata,
-            'userprogram' => $userprogram,
-            'usersales' => $usersales,
+            // 'userprogram' => $userprogram,
+            // 'usersales' => $usersales,
             'kategoriwisata' => $kategoriwisata,
             'destinasi' => $destinasi,
             'detailDestinasi' => $detailDestinasi,
@@ -394,7 +389,7 @@ class QuotationTourController extends Controller
             'dataEvent' => $dataEvent,
             'dataBonus' => $dataBonus,
             'jenisKlien' => $jenisKlien,
-            'quotationTransaksi' => $quotationTransaksi,
+            'data' => $quotationRekomendasi,
             'Tbonus' => $Tbonus,
             'Tdestinasi' => $TDestinasiWisata,
             'Ttransportasi' => $Ttransportasi,
@@ -883,16 +878,62 @@ class QuotationTourController extends Controller
         ]);
     }
 
-    public function updateHistory(Request $request)
+    public function updateQhistory(Request $request)
     {
-        quotationTransaksi::where('id', $request->id)->update([
-            'namaKlien' => $request->namaKlien,
-            'productionPrice' => $request->productionPrice,
-            'nettPrice' => $request->nettPrice,
-            'paxPay' => $request->nettPrice,
-
+        $areawisata = areaWisata::all();
+        // $userprogram = userProgram::all();
+        // $usersales = userSales::all();
+        $kategoriwisata = dataKategoriTour::all();
+        $destinasi = vendorDestinasiWisata::all();
+        $detailDestinasi = detailVendorDestinasiWisata::all();
+        $rumahMakan = vendorRumahMakan::all();
+        $detailRM = detailVendorRumahMakan::all();
+        $penginapan = vendorPenginapan::all();
+        $detailPenginapan = detailVendorPenginapan::all();
+        $transportasi = vendorTransportasi::all();
+        $detaiTransportasi = detailVendorTransportasi::all(); 
+        $fasilitasTour = fasilitasTour::all();
+        $crewOperasional = crewOperasional::all();
+        $dataEvent = dataEvent::all();
+        $dataBonus = dataBonus::all();
+        $jenisKlien = dataJenisKlien::all();
+        $quotationRekomendasi = quotationRekomendasi::with('quotation.klien.jenisKlien', 'quotation.areawisata', 'quotation.kategori', 'qTransaksi')->where('idQuotatioRekomendasi', $request->id)->first();
+        $Tbonus = Tbonus::where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $TDestinasiWisata = TDestinasiWisata::with('destinasi.detaildw')->where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $Ttransportasi = Ttransportasi::with('transportasi.detailTransportasi')->where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $Tpenginapan = Tpenginapan::with('penginapan.detailPenginapan')->where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $TRumahMakan = TRumahMakan::with('rumahMakan.detailRM')->where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $TFasilitasTour = TFasilitasTour::where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $Tevent = Tevent::where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $TcrewOp = TcrewOp::with('crew')->where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        return Inertia::render('Quotation/QuotationsRevisi', [
+            'areawisata' => $areawisata,
+            // 'userprogram' => $userprogram,
+            // 'usersales' => $usersales,
+            'kategoriwisata' => $kategoriwisata,
+            'destinasi' => $destinasi,
+            'detailDestinasi' => $detailDestinasi,
+            'transportasi' => $transportasi,
+            'detaiTransportasi' => $detaiTransportasi,
+            'rumahMakan' => $rumahMakan,
+            'detailRM' => $detailRM,
+            'penginapan' => $penginapan,
+            'detailPenginapan' => $detailPenginapan,
+            'fasilitasTour' => $fasilitasTour,
+            'crewOperasional' => $crewOperasional,
+            'dataEvent' => $dataEvent,
+            'dataBonus' => $dataBonus,
+            'jenisKlien' => $jenisKlien,
+            'data' => $quotationRekomendasi,
+            'Tbonus' => $Tbonus,
+            'Tdestinasi' => $TDestinasiWisata,
+            'Ttransportasi' => $Ttransportasi,
+            'Tpenginapan' => $Tpenginapan,
+            'TRumahMakan' => $TRumahMakan,
+            'TFasilitas' => $TFasilitasTour,
+            'Tevent' => $Tevent,
+            'Tcrew' => $TcrewOp,
         ]);
-        return redirect()->back()->with('message', 'item berhasil diupdate');
     }
 
     /**

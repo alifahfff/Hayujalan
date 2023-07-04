@@ -22,9 +22,9 @@ class NewsController extends Controller
     }
     public function index()
     {
-        $count = quotationTransaksi::where('status', 'ditolak')->count();
-        $count2 = quotationTransaksi::where('status', 'diterima')->count();
-        $count3 = quotationTransaksi::where('status', 'menunggu')->count();
+        $count = quotationTransaksi::where('statusTransaksi', 'ditolak')->count();
+        $count2 = quotationTransaksi::where('statusTransaksi', 'diterima')->count();
+        $count3 = quotationTransaksi::where('statusTransaksi', 'menunggu')->count();
         return Inertia::render('Homepage', [
             'count' => $count,
             'count2' => $count2,

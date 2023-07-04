@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Head } from "@inertiajs/inertia-react";
 import Navbar from "@/Components/Navbar";
 import NewsLists from "@/Components/Homepage/NewsLists";
@@ -14,12 +14,75 @@ import number from "@/Components/number";
 import { usePage } from '@inertiajs/inertia-react';
 import MyPDFViewer from "./QuotationPDFView";
 import { Link } from "@inertiajs/inertia-react";
+import {CSVLink} from 'react-csv';
+
 
 export default function QuotationsHistoryResult(props) {
   // const { props } = usePage()
   // const {data} = this.props.location;
   const id = props.data.id;
   console.log("Cr", props);
+
+  const [dataExcelDestinasi, setdataExcelDestinasi] = useState(props.destinasi);
+  const [dataExcelTransportasi, setdataExcelTransportasi] = useState(props.transportasi);
+  const [dataExcelPenginapan, setdataExcelPenginapan] = useState(props.penginapan);
+  const [dataExcelRM, setdataExcelRM] = useState(props.rm);
+  const [dataExcelFasilitas, setdataExcelFasilitas] = useState(props.fasilitas);
+  const [dataExcelCrew, setdataExcelCrew] = useState(props.crew);
+  const [dataExcelEvent, setdataExcelEvent] = useState(props.event);
+  const [dataExcelBonus, setdataExcelBonus] = useState(props.bonus);
+  const [dataExcelTransaksi, setdataExcelTransaksi] = useState(props.data.q_transaksi);
+
+  const dataMixed =[
+    ['Destinasi Wisata'],
+    ['Nama', 'Harga', 'Qty', 'Hari', 'Jumlah'],
+    ...props.destinasi.map(item=>[item.namaTdestinasiWisata, item.hargaTdestinasiWisata, item.qtyTdestinasiWisata,
+      item.jmlHariTdestinasiWisata, item.jumlahTdestinasiWisata
+    ]), [],
+    ['Transportasi'],
+    ['Nama', 'Harga', 'Qty', 'Hari', 'Jumlah'],
+    ...props.transportasi.map(item=>[item.namaTtransportasi, item.hargaTtransportasi, item.qtyTtransportasi,
+      item.jmlHariTtransportasi, item.jumlahTtransportasi
+    ]), [],
+    ['Penginapan'],
+    ['Nama', 'Harga', 'Qty', 'Hari', 'Jumlah'],
+    ...props.penginapan.map(item=>[item.namaTpenginapan, item.hargaTpenginapan, item.qtyTpenginapan,
+      item.jmlHariTpenginapan, item.jumlahTpenginapan
+    ]), [],
+    ['Makan dan Minum'],
+    ['Nama', 'Harga', 'Qty', 'Hari', 'Jumlah'],
+    ...props.rm.map(item=>[item.namaTrm, item.hargaTrm, item.qtyTrm,
+      item.jmlHariTrm, item.jumlahTrm
+    ]), [],
+    ['Fasilitas Tour'],
+    ['Nama', 'Harga', 'Qty', 'Hari', 'Jumlah'],
+    ...props.fasilitas.map(item=>[item.namaTft, item.hargaTft, item.qtyTft,
+      item.jmlHariTft, item.jumlahTft
+    ]), [],
+    ['Crew'],
+    ['Nama', 'Harga', 'Qty', 'Hari', 'Jumlah'],
+    ...props.crew.map(item=>[item.namaTcrew, item.hargaTcrew, item.qtyTcrew,
+      item.jmlHariTcrew, item.jumlahTcrew
+    ]), [],
+    ['Event'],
+    ['Nama', 'Harga', 'Qty', 'Hari', 'Jumlah'],
+    ...props.event.map(item=>[item.namaTevent, item.hargaTevent, item.qtyTevent,
+      item.jmlHariTevent, item.jumlahTevent
+    ]), [],
+    ['Bonus'],
+    ['Nama', 'Harga', 'Qty', 'Hari', 'Jumlah'],
+    ...props.bonus.map(item=>[item.namaTbonus, item.hargaTbonus, item.qtyTbonus,
+      item.jmlHariTbonus, item.jumlahTbonus
+    ]), [],
+    ['Production Price'],
+    [dataExcelTransaksi.productionPrice],
+    ['Surcharge'],
+    [dataExcelTransaksi.surcharge],
+    ['Selling Price'],
+    [dataExcelTransaksi.sellingPrice],
+    ['Total Price'],
+    [dataExcelTransaksi.totalPrice],
+  ];
 
   return (
     <div className="min-h-screen bg-abu ">
@@ -69,7 +132,7 @@ export default function QuotationsHistoryResult(props) {
                     className="btn bg-gray-400 text-white border-0"
                     style={{ maxWidth: "8rem" }}
                   >
-                    <Link href={route('qmanual.edit')} method="get" data={{id: id}}>
+                    <Link href={route('qhistory.revisi')} method="get" data={{id: props.data.idQuotatioRekomendasi}}>
                       Edit Mode
                     </Link>
                   </button>
@@ -172,7 +235,10 @@ export default function QuotationsHistoryResult(props) {
                     }
                   </PDFDownloadLink>
 
-                    <button className="btn btn-success text-white px-6">Excel</button>
+                    {/* <button className="btn btn-success text-white px-6">Excel</button> */}
+                    <CSVLink data ={dataMixed} filename="Quotation Excel" className="btn btn-success text-white px-6">
+                    Excel
+                    </CSVLink>
                   </div>
                 </div>
           </div>

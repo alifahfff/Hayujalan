@@ -11,6 +11,14 @@ use App\Models\Itemq\dataJenisKlien;
 use App\Http\Controllers\Controller;
 use App\Models\Quotation\hasilQRekomendasi;
 use App\Models\Itemq\dataKlien;
+use App\Models\Transaksi\TDestinasiWisata;
+use App\Models\Transaksi\Ttransportasi;
+use App\Models\Transaksi\Tpenginapan;
+use App\Models\Transaksi\TRumahMakan;
+use App\Models\Transaksi\TFasilitasTour;
+use App\Models\Transaksi\TcrewOp;
+use App\Models\Transaksi\Tevent;
+use App\Models\Transaksi\Tbonus;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -50,26 +58,6 @@ class QuotationRekomendasiController extends Controller
         $durasi = dataBobot::with('kriteria')
         ->where('idKriteria', '=', '5')->get();
         $jenisPaket = dataJenisKlien::all();
-        $maxArea = dataBobot::where('idKriteria', '=', '1')
-        ->max('jmlBobot');
-        $minArea = dataBobot::where('idKriteria', '=', '1')
-        ->min('jmlBobot');
-        $maxKategori = dataBobot::where('idKriteria', '=', '2')
-        ->max('jmlBobot');
-        $minKategori = dataBobot::where('idKriteria', '=', '2')
-        ->min('jmlBobot');
-        $maxBudget = dataBobot::where('idKriteria', '=', '3')
-        ->max('jmlBobot');
-        $minBudget = dataBobot::where('idKriteria', '=', '3')
-        ->min('jmlBobot');
-        $maxQTY = dataBobot::where('idKriteria', '=', '4')
-        ->max('jmlBobot');
-        $minQTY = dataBobot::where('idKriteria', '=', '4')
-        ->min('jmlBobot');
-        $maxDurasi = dataBobot::where('idKriteria', '=', '5')
-        ->max('jmlBobot');
-        $minDurasi = dataBobot::where('idKriteria', '=', '5')
-        ->min('jmlBobot');
         $referensi = quotationRekomendasi::all();
         return Inertia::render('Quotation/QuotationsRecomend', [
             'jenisPaket' => $jenisPaket,
@@ -78,16 +66,16 @@ class QuotationRekomendasiController extends Controller
             'budget' => $budget,
             'quantity' => $quantity,
             'durasi' => $durasi,
-            'maxArea' => $maxArea,
-            'minArea' => $minArea,
-            'maxKategori' => $maxKategori,
-            'minKategori' => $minKategori,
-            'maxBudget' => $maxBudget,
-            'minBudget' => $minBudget,
-            'maxQTY' => $maxQTY,
-            'minQTY' => $minQTY,
-            'maxDurasi' => $maxDurasi,
-            'minDurasi' => $minDurasi,
+            // 'maxArea' => $maxArea,
+            // 'minArea' => $minArea,
+            // 'maxKategori' => $maxKategori,
+            // 'minKategori' => $minKategori,
+            // 'maxBudget' => $maxBudget,
+            // 'minBudget' => $minBudget,
+            // 'maxQTY' => $maxQTY,
+            // 'minQTY' => $minQTY,
+            // 'maxDurasi' => $maxDurasi,
+            // 'minDurasi' => $minDurasi,
             'referensi' => $referensi,
         ]);
     }
@@ -100,70 +88,178 @@ class QuotationRekomendasiController extends Controller
      */
     public function store(Request $request)
     {
+        // Mengambil data dari view
         $hasilarea = $request->b_areaWisata;
         $hasilKategori = $request->b_kategori;
         $hasilBudget = $request->b_budget;
         $hasilDurasi = $request->b_durasi;
         $hasilQty = $request->b_jumlahOrang;
-        // $b_kriteria1 = $request->b_kriteria1;
-        // $b_kriteria2 = $request->b_kriteria2;
-        // $b_kriteria3 = $request->b_kriteria3;
-        // $b_kriteria4 = $request->b_kriteria4;
-        // $b_kriteria5 = $request->b_kriteria5;
-        // $referensi = quotationRekomendasi::join('t_destinasi_wisatas', 't_destinasi_wisatas.idQuotationRekomendasi', '=', 'quotation_rekomendasis.id')
-        //                 ->select(
-        //                 'quotation_rekomendasis.b_areaWisata', 
-        //                 'quotation_rekomendasis.b_kategori', 
-        //                 'quotation_rekomendasis.b_budget', 
-        //                 'quotation_rekomendasis.b_durasi', 
-        //                 'quotation_rekomendasis.b_jumlahOrang',
-        //                 'quotation_rekomendasis.id',
-        //                 't_destinasi_wisatas.idQuotationRekomendasi',
-        //                 't_destinasi_wisatas.keterangan',
-        //                 't_destinasi_wisatas.harga',)
-        //                 ->get();
-        // $referensi = quotationRekomendasi::all();
-        $count = quotationRekomendasi::where('b_areaWisata', '=', $hasilarea)
+        $k_area = $request->k_area;
+        $k_kategori = $request->k_kategori;
+        $k_jumlahOrang = $request->k_jumlahOrang;
+        $k_durasi = $request->k_durasi;
+        $k_budget = $request->k_budget;
+
+        //Mencari maximal dan minimal atribut
+        $maxArea = dataBobot::where('idKriteria', '=', '1')
+        ->max('jumlahBobot');
+        $minArea = dataBobot::where('idKriteria', '=', '1')
+        ->min('jumlahBobot');
+        $maxKategori = dataBobot::where('idKriteria', '=', '2')
+        ->max('jumlahBobot');
+        $minKategori = dataBobot::where('idKriteria', '=', '2')
+        ->min('jumlahBobot');
+        $maxBudget = dataBobot::where('idKriteria', '=', '3')
+        ->max('jumlahBobot');
+        $minBudget = dataBobot::where('idKriteria', '=', '3')
+        ->min('jumlahBobot');
+        $maxQTY = dataBobot::where('idKriteria', '=', '4')
+        ->max('jumlahBobot');
+        $minQTY = dataBobot::where('idKriteria', '=', '4')
+        ->min('jumlahBobot');
+        $maxDurasi = dataBobot::where('idKriteria', '=', '5')
+        ->max('jumlahBobot');
+        $minDurasi = dataBobot::where('idKriteria', '=', '5')
+        ->min('jumlahBobot');
+
+        //Mengambil data referensi atau basis kasus
+        $referensi = quotationRekomendasi::join('T_quotationTransaksi', 'T_quotationTransaksi.idQuotationTransaksi', '=', 'R_quotationRekomendasi.idQuotationTransaksi')
+            ->join('M_quotationTour', 'M_quotationTour.idQuotationTour', '=', 'R_quotationRekomendasi.idQuotationTour')
+            ->join('M_areaWisata', 'M_quotationTour.idAreaWisata', '=', 'M_areaWisata.idAreaWisata')
+            ->join('M_dataKategoriTour', 'M_quotationTour.idKategoriTour', '=', 'M_dataKategoriTour.idKategoriTour')
+            ->select('R_quotationRekomendasi.*', 
+            'T_quotationTransaksi.*',
+            'M_quotationTour.*',
+            'M_areaWisata.namaArea',
+            'M_dataKategoriTour.namaKategoriTour'
+            )
+            ->get();
+        
+        $count = quotationRekomendasi::where('bref_areaWisata', '=', $hasilarea)
                         ->count();
         
-        // $result = [];
-        // foreach ($referensi as $row) {
-        //     $id = $row->id;
-        //     // $idDestinasi = $row->id;
-        //     $b_areaWisata = $row->b_areaWisata;
-        //     $b_kategori = $row->b_kategori;
-        //     $b_budget = $row->b_budget;
-        //     $b_durasi = $row->b_durasi;
-        //     $b_jumlahOrang = $row->b_jumlahOrang;
-        //     // $keterangan = $row->keterangan;
-        //     $harga = $row->harga;
-        //     $result = [
-        //         'id' => $id,
-        //         'harga' => $harga,
-        //         'areaWisata' => (pow(($b_areaWisata - $hasilarea),2) * $b_kriteria1),
-        //         'kategori' => (pow(($b_kategori - $hasilKategori),2) * $b_kriteria2),
-        //         'jumlahOrang' => (pow(($b_jumlahOrang - $hasilQty),2) * $b_kriteria3),
-        //         'durasi' => (pow(($b_durasi - $hasilDurasi),2) * $b_kriteria4),
-        //         'budget' => (pow(($b_budget - $hasilBudget),2) * $b_kriteria5),
-        //         // 'total' => (sqrt((pow(($b_areaWisata - $hasilarea),2) * $b_kriteria1) + (pow(($b_kategori - $hasilKategori),2) * $b_kriteria2) + (pow(($b_jumlahOrang - $hasilQty),2) * $b_kriteria3) + (pow(($b_durasi - $hasilDurasi),2) * $b_kriteria4) + (pow(($b_budget - $hasilBudget),2) * $b_kriteria5))) / 1,
-        //         $total = (sqrt(
-        //             (pow(($b_areaWisata - $hasilarea),2) * $b_kriteria1) + 
-        //             (pow(($b_kategori - $hasilKategori),2) * $b_kriteria2) + 
-        //             (pow(($b_jumlahOrang - $hasilQty),2) * $b_kriteria3) + 
-        //             (pow(($b_durasi - $hasilDurasi),2) * $b_kriteria4) + 
-        //             (pow(($b_budget - $hasilBudget),2) * $b_kriteria5))) / (pow((1),2)),
-        //         'similiarty' => 1 - $total,
-        //     ];
-        //     // Simpan hasil perhitungan dalam array
-        //     $results[] = $result;
+        $result = [];
+        foreach ($referensi as $row) {
+            //Data yang diambil
+            $idQuotatioRekomendasi = $row->idQuotatioRekomendasi;
+            $idQuotationTour = $row->idQuotationTour;
+            $idQuotationTransaksi = $row->idQuotationTransaksi;
+            $namaProject = $row->namaProject;
+            $namaArea = $row->namaArea;
+            $namaKategoriTour = $row->namaKategoriTour;
+            $sellingPrice = $row->sellingPrice;
+            $qty = $row->qty;
+            $durasiProject = $row->durasiProject;
+            $b_areaWisata = $row->bref_areaWisata;
+            $b_kategori = $row->bref_kategori;
+            $b_budget = $row->bref_budget;
+            $b_durasi = $row->bref_durasi;
+            $b_jumlahOrang = $row->bref_jumlahOrang;
+
+            // Normalisasi
+            $areaWisata = 1 - ((abs($b_areaWisata - $hasilarea)/($maxArea - $minArea)));
+            $kategori = 1 - ((abs($b_kategori - $hasilKategori)/($maxKategori - $minKategori)));
+            $jumlahaOrang = 1 - ((abs($b_jumlahOrang - $hasilQty)/($maxQTY - $minQTY)));
+            $durasi = 1 - ((abs($b_durasi - $hasilDurasi)/($maxDurasi - $minDurasi)));
+            $budget = 1 - ((abs($b_budget - $hasilBudget)/($maxBudget - $minBudget)));
+
+            // Menghitung Similarity
+            $bobotArea = $areaWisata * $k_area;
+            $bobotKategori = $kategori * $k_kategori;
+            $bobotJumlahOrang = $jumlahaOrang * $k_jumlahOrang;
+            $bobotDurasi = $durasi * $k_durasi;
+            $bobotBudget = $budget * $k_budget;
+            $similarity = ($bobotArea + $bobotKategori + $bobotJumlahOrang + $bobotDurasi + $bobotBudget) / 1; 
+            
+            $result = [
+                'idQuotatioRekomendasi' => $idQuotatioRekomendasi,
+                'idQuotationTour' => $idQuotationTour,
+                'idQuotationTransaksi' => $idQuotationTransaksi,
+                'namaProject' => $namaProject,
+                'namaArea' => $namaArea,
+                'namaKategoriTour' => $namaKategoriTour,
+                'qty' => $qty,
+                'durasiProject' => $durasiProject,
+                // 'namaKlien' => $request->namaKlien,
+                'sellingPrice' => $sellingPrice,
+                // 'areaWisata' => $areaWisata,
+                // 'bobotArea' => $bobotArea,
+                // 'kategori' => $kategori,
+                // 'bobotKategori' => $bobotKategori,
+                // 'jumlahOrang' => $jumlahaOrang,
+                // 'bobotJumlahOrang' => $bobotJumlahOrang,
+                // 'durasi' => $durasi,
+                // 'bobotDurasi' => $bobotDurasi,
+                // 'budget' => $budget,
+                // 'bobotBudget' => $bobotBudget,
+                'similarity' => $similarity
+            ];
+            
+            // Simpan hasil perhitungan dalam array
+            $results[] = $result;
+        }
+       
+
+        // Urutkan hasil perhitungan berdasarkan nilai tertinggi
+        usort($results, function ($a, $b) {
+            return $b['similarity'] <=> $a['similarity'];
+        });
+
+        $topResults = array_slice($results, 0, $count);
+
+        session()->put('data', $topResults);
+        return redirect()->route('hasil.qrecomend');
+        // if ($k_area == 0.3) {
+        //     if ($k_budget == 0.25) {
+        //         usort($results, function ($a, $b) {
+        //             if ($a['similarity'] == $b['similarity']) {
+        //                 if ($a['namaArea'] == $b['namaArea']) {
+        //                     return $a['sellingPrice'] <=> $b['sellingPrice'];
+        //                 }
+        //                 return $a['namaArea'] <=> $b['namaArea'];
+        //             }
+        //             return $b['similarity'] <=> $a['similarity'];
+        //         });                
+        //     } else {
+        //         usort($results, function ($a, $b) {
+        //             if ($a['similarity'] == $b['similarity']) {
+        //                 return $a['namaArea'] <=> $b['namaArea'];
+        //             }
+        //             return $b['similarity'] <=> $a['similarity'];
+        //         });
+                
+        //     }
+        // } else if ($k_budget == 0.3) {
+        //     usort($results, function ($a, $b) {
+        //         if ($a['similarity'] == $b['similarity']) {
+        //             return $a['sellingPrice'] <=> $b['sellingPrice'];
+        //         }
+        //         return $b['similarity'] <=> $a['similarity'];
+        //     });            
         // }
-
-        // // Urutkan hasil perhitungan berdasarkan nilai tertinggi
-        // usort($results, function ($a, $b) {
-        //     return $b['similiarty'] <=> $a['similiarty'];
-        // });
-
         
+        // if ($k_budget == 0.3) {
+        //     usort($results, function ($a, $b) {
+        //         return $b['similarity'] <=> $a['similarity'] && $b['sellingPrice'] <=> $a['sellingPrice'];
+        //     });
+        // }
+        // if ($k_durasi == 0.3) {
+        //     usort($results, function ($a, $b) {
+        //         return $b['similarity'] <=> $a['similarity'] && $b['durasiProject'] <=> $a['durasiProject'];
+        //     });
+        // }
+        // if ($k_jumlahOrang == 0.3) {
+        //     usort($results, function ($a, $b) {
+        //         return $b['similarity'] <=> $a['similarity'] && $b['qty'] <=> $a['qty'];
+        //     });
+        // } 
+        // if ($k_kategori == 0.3) {
+        //     usort($results, function ($a, $b) {
+        //         return $b['similarity'] <=> $a['similarity'] && $b['namaKategoriTour'] <=> $a['namaKategoriTour'];
+        //     });
+        // }           
+
+        // dd($results);
 
         // $groupedResults = [];
         // foreach ($results as $result) {
@@ -194,39 +290,34 @@ class QuotationRekomendasiController extends Controller
         //             ->addSelect(DB::raw($topResults[0]['total'] . ' as total'), DB::raw($topResults[0]['similarity'] . ' as similarity'))
         //             ->orderByDesc('similarity') // Menambahkan pengurutan berdasarkan similarity
         //             ->get();
-        $results = $request->result;
-        $topResults = array_slice($results, 0, $count);
-        $ids = array_column($topResults, 'id');
+        // $results = $request->result;
+        // $topResults = array_slice($results, 0, $count);
+        // $ids = array_column($topResults, 'id');
 
-        $solusi = DB::table('quotation_rekomendasis')
-            ->join('quotation_transaksis', 'quotation_transaksis.id', '=', 'quotation_rekomendasis.idQuotationTransaksi')
-            ->whereIn('quotation_rekomendasis.id', $ids)
-            ->select('quotation_transaksis.idQuotationTour', 
-            'quotation_rekomendasis.idQuotationTransaksi',
-            'quotation_rekomendasis.id',
-            )
-            ->get();
-
-        // Menampilkan hasil
-        foreach ($topResults as $result) {
-            $id = $result['id'];
-
-            // Mencari data yang sesuai berdasarkan id
-            $data = collect($solusi)->firstWhere('id', $id);
-
-            // Menggabungkan data dari $results dengan data dari $solusi
-            $result['idQuotationTransaksi'] = $data->idQuotationTransaksi; 
-            $result['idQuotationTour'] = $data->idQuotationTour; 
-            // Menyimpan hasil penggabungan pada array $response
-            $response['data'][] = $result;
-        }
-
-        // Menampilkan hasil
-        dd($response);
         
-        return Inertia::render('Quotation/QuotationsResult', [
-            'data' => $solusi
-        ]);
+
+        // Menampilkan hasil
+        // foreach ($topResults as $result) {
+        //     $id = $result['id'];
+
+        //     // Mencari data yang sesuai berdasarkan id
+        //     $data = collect($solusi)->firstWhere('id', $id);
+
+        //     // Menggabungkan data dari $results dengan data dari $solusi
+        //     $result['idQuotationTransaksi'] = $data->idQuotationTransaksi; 
+        //     $result['idQuotationTour'] = $data->idQuotationTour; 
+        //     // Menyimpan hasil penggabungan pada array $response
+        //     $response['data'][] = $result;
+        // }
+
+        // Menampilkan hasil
+        // Simpan data dalam sesi
+        
+
+
+        // return Inertia::render('Quotation/QuotationsRecomendResult', [
+        //     'data' => $topResults
+        // ]);
 
     }
 
@@ -264,10 +355,11 @@ class QuotationRekomendasiController extends Controller
         return $combinedResultsWithDetails;
     }
 
-    public function hitungBobot(Request $request)
+    public function hitungBobot($data)
     {
-        $data = $request->all();
-        dd($data);
+        return Inertia::render('Quotation/QuotationsRecomendResult', [
+            'data' => $data
+        ]);
     }
 
     /**
@@ -276,9 +368,14 @@ class QuotationRekomendasiController extends Controller
      * @param  \App\Models\quotationRekomendasi  $quotationRekomendasi
      * @return \Illuminate\Http\Response
      */
-    public function show(quotationRekomendasi $quotationRekomendasi)
+    public function show()
     {
-        //
+        // Ambil data dari sesi
+        $data = session()->get('data');
+
+        return Inertia::render('Quotation/QuotationsRecomendResult', [
+            'data' => $data
+        ]);
     }
 
     /**
@@ -287,9 +384,29 @@ class QuotationRekomendasiController extends Controller
      * @param  \App\Models\quotationRekomendasi  $quotationRekomendasi
      * @return \Illuminate\Http\Response
      */
-    public function edit(quotationRekomendasi $quotationRekomendasi)
+    public function edit($id)
     {
-        //
+        $quotationRekomendasi = quotationRekomendasi::with('quotation.klien', 'quotation.areawisata', 'quotation.kategori', 'qTransaksi')->where('idQuotatioRekomendasi', $id)->first();
+        $Tbonus = Tbonus::where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $TDestinasiWisata = TDestinasiWisata::where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $Ttransportasi = Ttransportasi::with('transportasi.detailTransportasi')->where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $Tpenginapan = Tpenginapan::with('penginapan.detailPenginapan')->where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $TRumahMakan = TRumahMakan::where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $TFasilitasTour = TFasilitasTour::where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $Tevent = Tevent::where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $TcrewOp = TcrewOp::where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+
+        return Inertia::render('Quotation/QuotationsRecomendDetail', [
+            'data' => $quotationRekomendasi,
+            'bonus' => $Tbonus,
+            'destinasi' => $TDestinasiWisata,
+            'transportasi' => $Ttransportasi,
+            'penginapan' => $Tpenginapan,
+            'rm' => $TRumahMakan,
+            'fasilitas' => $TFasilitasTour,
+            'event' => $Tevent,
+            'crew' => $TcrewOp
+        ]);
     }
 
     /**
