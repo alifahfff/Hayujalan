@@ -1,9 +1,15 @@
 import React, { useState } from "react";
+import { usePage } from '@inertiajs/inertia-react';
 import { BiLoader, BiCheck, BiX, BiLoaderCircle } from "react-icons/bi";
 import { Link, Head } from '@inertiajs/inertia-react';
 import Layout from "@/Layouts/Layout";
 export default function Homepage(props) {
-  console.log('count','count2','count3', props)
+  console.log('props cek', props)
+
+  const user = usePage().props;
+
+  console.log('user', user);
+
   return (
     <Layout
       auth={props.auth}

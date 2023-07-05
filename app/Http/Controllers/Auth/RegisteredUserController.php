@@ -35,23 +35,32 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            // 'idRoles' => 'required|string|max:30',
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'idRoles' => 'required|integer|max:30',
+            'namaUser' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:M_user',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
-            // 'idRoles' => $request->idRoles,
-            'name' => $request->name,
+
+        $M_user = User::create([
+            'idRoles' => $request->idRoles,
+            'namaUser' => $request->namaUser,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        // dd($request->idRoles);
 
-        Auth::login($user);
+        event(new Registered($M_user));
 
-        return redirect(RouteServiceProvider::HOME);
+        Auth::login($M_user);
+
+        // dd($user);
+        
+        $M_user->idRoles = $request->idRoles;
+        $M_user->save();
+
+        //dd($request);
+        return redirect("/homepage");
     }
 }
