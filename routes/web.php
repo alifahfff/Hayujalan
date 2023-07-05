@@ -36,14 +36,14 @@ use App\Http\Controllers\Vendor\AreaWisataController;
 |
 */
 
-Route::get('/', [NewsController::class, 'index']);
+// Route::get('/', [NewsController::class, 'index']);
 Route::get('/homepage', [NewsController::class, 'index'])->name('Homepage');
 
 
 // Login
-// Route::get('/', function () {
-//     return view('auth/login');
-// });
+Route::get('/', function () {
+    return view('Auth/login');
+});
 // })->name('itemQuitation');
 
 Route::controller(CrewOperasionalController::class)->group(function () {
@@ -116,6 +116,10 @@ Route::controller(ReportController::class)->group(function () {
 // Akses
 Route::controller(AksesController::class)->group(function () {
     Route::get('/akses', 'show')->name('akses');
+    Route::post('/akses/user', 'storeUser')->name('create.user');
+    Route::post('/akses/update/user', 'updateUser')->name('update.user');
+
+    //yg kemungkinan ga dipake//
     Route::post('/akses/admin', 'storeAdmin')->name('create.admin');
     Route::post('/akses/keuangan', 'storeKeuangan')->name('create.keuangan');
     Route::post('/akses/sales', 'storeSales')->name('create.sales');

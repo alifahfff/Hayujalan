@@ -9,140 +9,32 @@ const ModalAkses = ({visible, onClose, data, roles}) => {
     console.log('datas', datas)
 
     const handleSubmit = () => {
-        console.log('id', data.id)
-        if(datas.idRoles == 1){
-            alert(1)
-            if(data.id){
+        console.log('id', data.idUser)
+            if(data.idUser){
                 // update data
                 const dataE = {
-                    id: datas.id,
-                    idAdmin: datas.user.idAdmin,
-                    name: datas.name, 
-                    email: datas.email, 
-                    idRoles: datas.idRoles,
-                    password: datas.password,
-                    telepon: datas.user.telepon,
-                    status: datas.user.status,
+                    id: data.idUser,
+                    namaUser: datas.namaUser, 
+                    Email: datas.Email, 
+                    Password: datas.Password,
                     updated_at: new Date(),
                 }
                 console.log('dataE', dataE)
-                Inertia.post('/akses/update/admin', dataE)
+                Inertia.post('/akses/update/user', dataE)
             }else{
                 // tambah data
                 const dataT = {
-                    name: datas.name, 
-                    email: datas.email, 
                     idRoles: datas.idRoles,
-                    password: datas.password,
-                    telepon: datas.user.telepon,
-                    status: datas.user.status,
+                    namaUser: datas.namaUser, 
+                    Email: datas.Email, 
+                    Password: datas.Password,
                     created_at: new Date(),
                     updated_at: new Date(),
                 }
                 console.log('dataT', dataT)
-                Inertia.post('/akses/admin', dataT)
+                Inertia.post('/akses/user', dataT)
             }
-        }
-        if(datas.idRoles == 2){
-            alert(4)
-            if(data.id){
-                // update data
-                const dataE = {
-                    id: datas.id,
-                    idProgram: datas.user.idProgram,
-                    name: datas.name, 
-                    email: datas.email, 
-                    idRoles: datas.idRoles,
-                    password: datas.password,
-                    telepon: datas.user.telepon,
-                    status: datas.user.status,
-                    updated_at: new Date(),
-                }
-                console.log('dataE', dataE)
-                Inertia.post('/akses/update/program', dataE)
-            }else{
-                // tambah data
-                const dataT = {
-                    name: datas.name, 
-                    email: datas.email, 
-                    idRoles: datas.idRoles,
-                    password: datas.password,
-                    telepon: datas.user.telepon,
-                    status: datas.user.status,
-                    created_at: new Date(),
-                    updated_at: new Date(),
-                }
-                console.log('dataT', dataT)
-                Inertia.post('/akses/program', dataT)
-            }
-        }
-        if(datas.idRoles == 3){
-            alert(5)
-            if(data.id){
-                // update data
-                const dataE = {
-                    id: datas.id,
-                    idSales: datas.user.idSales,
-                    name: datas.name, 
-                    email: datas.email, 
-                    idRoles: datas.idRoles,
-                    password: datas.password,
-                    telepon: datas.user.telepon,
-                    status: datas.user.status,
-                    updated_at: new Date(),
-                }
-                console.log('dataE', dataE)
-                Inertia.post('/akses/update/sales', dataE)
-            }else{
-                // tambah data
-                const dataT = {
-                    name: datas.name, 
-                    email: datas.email, 
-                    idRoles: datas.idRoles,
-                    password: datas.password,
-                    telepon: datas.user.telepon,
-                    status: datas.user.status,
-                    created_at: new Date(),
-                    updated_at: new Date(),
-                }
-                console.log('dataT', dataT)
-                Inertia.post('/akses/sales', dataT)
-            }
-        }
-        if(datas.idRoles == 4){
-            alert(6)
-            if(data.id){
-                // update data
-                const dataE = {
-                    id: datas.id,
-                    idKeuangan: datas.user.idKeuangan,
-                    name: datas.name, 
-                    email: datas.email, 
-                    idRoles: datas.idRoles,
-                    password: datas.password,
-                    telepon: datas.user.telepon,
-                    status: datas.user.status,
-                    updated_at: new Date(),
-                }
-                console.log('dataE', dataE)
-                Inertia.post('/akses/update/keuangan', dataE)
-            }else{
-                // tambah data
-                const dataT = {
-                    name: datas.name, 
-                    email: datas.email, 
-                    idRoles: datas.idRoles,
-                    password: datas.password,
-                    telepon: datas.user.telepon,
-                    status: datas.user.status,
-                    created_at: new Date(),
-                    updated_at: new Date(),
-                }
-                console.log('dataT', dataT)
-                Inertia.post('/akses/keuangan', dataT)
-            }
-        }
-    }
+        }  
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center">
@@ -156,7 +48,7 @@ const ModalAkses = ({visible, onClose, data, roles}) => {
                     {/* Content */}
                     <div className=''>
                     <h1 className="font-semibold text-center text-xl text-gray-700">
-                        Data Bonus
+                        Tambah Hak Akses
                         </h1>
                         <p className="text-center text-gray-700 mb-5">Tambah Data</p>
                         {/* Data Input */}
@@ -166,11 +58,11 @@ const ModalAkses = ({visible, onClose, data, roles}) => {
                                 <input
                                     type="text"
                                     className="w-3/5 border border-gray-700 p-2 rounded mb-5"
-                                    value={datas.name || ''}
+                                    value={datas.namaUser || ''}
                                     onChange={(value) => 
                                         setDatas({
                                             ...datas,
-                                            name: value.target.value
+                                            namaUser: value.target.value
                                         })}
                                 />
                             </div>
@@ -182,9 +74,9 @@ const ModalAkses = ({visible, onClose, data, roles}) => {
                                     onChange={(value) => 
                                         setDatas({
                                             ...datas,
-                                            email: value.target.value
+                                            Email: value.target.value
                                         })}
-                                    value={datas.email}
+                                    value={datas.Email}
                                 />
                             </div>
                             <div className="flex flex-row justify-between">
@@ -195,9 +87,9 @@ const ModalAkses = ({visible, onClose, data, roles}) => {
                                     onChange={(value) => 
                                         setDatas({
                                             ...datas,
-                                            password: value.target.value
+                                            Password: value.target.value
                                         })}
-                                    value={datas.password}
+                                    //value={datas.Password}
                                 />
                             </div>
                             <div className="flex flex-row justify-between">
@@ -213,64 +105,16 @@ const ModalAkses = ({visible, onClose, data, roles}) => {
                                         })
                                     }
                                 >
-                                    <option value="default">-{datas.roles.namaRoles}-</option>
+                                    <option value="default">-{datas.namaRoles}-</option>
                                     {roles.map((rl, index) => {
                                     return (
                                         <option 
-                                        value={rl.id} 
-                                        key={rl.id}
+                                        value={rl.idRoles} 
+                                        key={rl.idRoles}
                                         >
                                         {rl.namaRoles}
                                         </option>
                                     )})}
-                                </select>
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Telepon</a>
-                                <input
-                                    type="text"
-                                    className="w-3/5 border border-gray-700 p-2 rounded mb-5"
-                                    value={datas.user.telepon}
-                                    onChange={(value) => 
-                                        setDatas({
-                                            ...datas,  
-                                            user : {
-                                                ...datas.user,
-                                                telepon: value.target.value   
-                                            }
-                                        })}
-                                />
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Status</a>
-                                {/* <input
-                                    type="text"
-                                    className="w-3/5 border border-gray-700 p-2 rounded mb-5"
-                                    onChange={(value) => 
-                                        setDatas({
-                                            ...datas,
-                                            status: value.target.value
-                                        })}
-                                    value={datas.user.status}
-                                /> */}
-                                <select 
-                                    placeholder="Roles" 
-                                    defaultValue="default"
-                                    className="w-3/5 border border-gray-700 p-2 rounded mb-5"
-                                    value={datas.user.status}
-                                    onChange={(e) => 
-                                        setDatas({
-                                            ...datas,
-                                            user : {
-                                                ...datas.user,
-                                                status: e.target.value
-                                            }
-                                        })
-                                    }
-                                >
-                                    <option value="default">-{datas.user.status}-</option>
-                                    <option value="Active">Active</option>
-                                    <option value="Deactive">Deactive</option>
                                 </select>
                             </div>
                         </div>

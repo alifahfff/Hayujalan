@@ -11,6 +11,7 @@ use App\Models\Akses\userProgram;
 use App\Models\Akses\userAdmin;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 
@@ -141,6 +142,29 @@ class AksesController extends Controller
 
         $program->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
+    }
+
+    public function storeUser(Request $request)
+    {
+        $user = new User();
+        $user->idRoles= $request->idRoles;
+        $user->namaUser = $request->namaUser;
+        $user->Email = $request->Email;
+        $user->Password = Hash::make($request->Password);
+        $user->save();
+        return redirect()->back()->with('message', 'item berhasil dibuat');
+    }
+
+
+    public function updateUser(Request $request)
+    {
+        User::where('idUser', $request->id)->update([
+            'namaUser' => $request->namaUser,
+            'Email' => $request->Email,
+            'Password' => Hash::make($request->Password),
+        ]);
+
+        return redirect()->back()->with('message', 'item berhasil diupdate');
     }
 
     /**

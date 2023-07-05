@@ -1,9 +1,18 @@
 import React, { useState } from "react";
+import { usePage } from '@inertiajs/inertia-react';
 import { BiLoader, BiCheck, BiX, BiLoaderCircle } from "react-icons/bi";
 import Layout from "@/Layouts/Layout";
 export default function Homepage(props) {
-  console.log('count','count2','count3', props)
+  console.log('props cek', props)
+
+  const user = usePage().props;
+
+  console.log('user', user);
+
   return (
+    <Layout 
+    auth={props.auth}
+    errors={props.errors}>
     <div className="max-h-screen w-full bg-abu">
       <div className="flex">
         <div className="grow h-14 p-6">
@@ -52,7 +61,6 @@ export default function Homepage(props) {
         </div>
       </div>
     </div>
+    </Layout>
   );
 }
-
-Homepage.layout = page => <Layout children={page}/>

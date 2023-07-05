@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -33,11 +35,32 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        $request->authenticate();
+        $credentials = $request->only('email', 'password');
+        $credentials['password'] = Hash::make($credentials['password']);
 
-        $request->session()->regenerate();
+        $userbaru = User::where('email', $request->email)->first();
+        $cek = Hash::check( $request->password,$userbaru->Password);
+                
+        //dd($userbaru);
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        if( $cek != null){
+            $request->session()->put('login', "admin");
+            if ($userbaru->idRoles== 2 ){
+                return redirect('/homepage');
+            }else if ($userbaru->idRoles== 1 ){
+                return redirect('/areawisata');
+            }
+        } else {
+            return redirect()->back()->with('message', 'gagal');
+        }
+
+        // $request->session()->regenerate();
+
+        //$user = Auth::user();
+
+        //$roles = $user->roles();
+
+        //return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**

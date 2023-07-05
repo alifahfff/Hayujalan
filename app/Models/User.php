@@ -38,7 +38,7 @@ class User extends Authenticatable
     public $incrementing = false;
     public $timestamps = true;
     
-    protected $fillable = ['email', 'password', 'namaUser'];
+    protected $fillable = ['email', 'password', 'namaUser', 'idRoles'];
 
     public function setPassword($password)
     {
