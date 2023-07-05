@@ -1482,15 +1482,18 @@ const Quotations = (props, crewL) => {
                           value="default"
                           >--</option>
                           {props.transportasi.map((ds, index) => {
-                            return (
-                              <option 
-                                value={ds.idTransportasi} 
-                                key={ds.id}
-                                // name="ketDataEvent"
-                              >
-                              {ds.namaTransportasi}
-                              </option>
-                          )})}
+                            if (ds.idAreaWisata === datas.idAreaWisata) {
+                              return (
+                                <option 
+                                  value={ds.idTransportasi} 
+                                  key={ds.id}
+                                  // name="ketDataEvent"
+                                >
+                                {ds.namaTransportasi}
+                                </option>
+                              );
+                            }
+                          })}
                         </select>
                       </div>
                       <div className="">
