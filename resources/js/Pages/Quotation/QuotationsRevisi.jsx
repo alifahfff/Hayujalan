@@ -9,25 +9,27 @@ const QuotationsRevisi = (props, crewL) => {
   const initialFormDestinasi = props.Tdestinasi.length > 0 ? props.Tdestinasi : [{
     namaDestinasiWisata:'',
     idDestinasiWisata :'',
+    idTdestinasiWisata: 0,
     biaya:'',
     pilihanBiaya:'',
-    qty:'',
-    hari:'',
-    harga:'',
-    jumlah:0,  
+    qtyTdestinasiWisata:'',
+    jmlHariTdestinasiWisata:'',
+    hargaTdestinasiWisata:'',
+    jumlahTdestinasiWisata:0,  
   }];
 
   const [formDestinasi, setFormDestinasi] = useState(initialFormDestinasi);
 
   const initialFormTransport = props.Ttransportasi.length > 0 ? props.Ttransportasi : [{
     namaTransportasi:'',
+    idTtransportasi: 0,
     idTransportasi:'',
     biaya:'',
     nama:[],
-    qty:'',
-    hari:'',
-    harga:'',
-    jumlah:0,  
+    qtyTtransportasi:'',
+    jmlHariTtransportasi:'',
+    hargaTtransportasi:'',
+    jumlahTtransportasi:0,  
   }];
 
   const [formTransport, setFormTransport] = useState(initialFormTransport);
@@ -35,12 +37,13 @@ const QuotationsRevisi = (props, crewL) => {
   const initialFormPenginapan = props.Tpenginapan.length > 0 ? props.Tpenginapan : [{
     namaPenginapan:'',
     idPenginapan:'',
+    idTpenginapan: 0,
     biaya:'',
     jenisKamar:[],
-    qty:'',
-    hari:'',
-    harga:'',
-    jumlah:0,
+    qtyTpenginapan:'',
+    jmlHariTpenginapan:'',
+    hargaTpenginapan:'',
+    jumlahTpenginapan:0,
   }];
 
   const [formPenginapan, setFormPenginapan] = useState(initialFormPenginapan);
@@ -48,43 +51,47 @@ const QuotationsRevisi = (props, crewL) => {
   const initialFormRM = props.TRumahMakan.length > 0 ? props.TRumahMakan : [{
     namaRM:'',
     idRM:'',
+    idTrm: 0,
     biaya:'',
     menuRM:[],
-    qty:'',
-    hari:'',
-    harga:'',
-    jumlah:0,
+    qtyTrm:'',
+    jmlHariTrm:'',
+    hargaTrm:'',
+    jumlahTrm:0,
   }];
 
   const [formRM, setFormRM] = useState(initialFormRM);
 
   const initialFormEvent = props.Tevent.length > 0 ? props.Tevent : [{
-    ketDataEvent:'',
+    namaTevent:'',
     idDataEvent:'',
+    idTevent:0,
     biayaDataEvent:'',
-    qty:'',
-    hari:'',
-    harga:'',
-    jumlah:0,
+    qtyTevent:'',
+    jmlHariTevent:'',
+    hargaTevent:'',
+    jumlahTevent:0,
   }];
 
   const [formEvent, setFormEvent] = useState(initialFormEvent);
 
   const initialFormBonus = props.Tbonus.length > 0 ? props.Tbonus : [{
-    ketDataBonus:'',
+    namaTbonus:'',
     idDataBonus:'',
+    idTbonus: 0,
     biayaDataBonus:'',
-    qty:'',
-    hari:'',
-    harga:'',
-    jumlah:0,
+    qtyTbonus:'',
+    jmlHariTbonus:'',
+    hargaTbonus:'',
+    jumlahTbonus:0,
   }];
 
   const [formBonus, setFormBonus] = useState(initialFormBonus);
 
   const initialFormCrew = props.Tcrew.length > 0 ? props.Tcrew : [{
-    ketCrewOperasional: '',
+    namaTcrew: '',
     idCrewOperasional: '',
+    idTcrew: 0,
     biayaCrewOperasional: '',
     qtyTcrew: '',
     jmlHariTcrew: '',
@@ -95,19 +102,21 @@ const QuotationsRevisi = (props, crewL) => {
   const [formCrew, setFormCrew] = useState(initialFormCrew);
 
   const initialFormFasilitas = props.TFasilitas.length > 0 ? props.TFasilitas : [{
-    ketFasilitas: '',
+    namaTft: '',
     idFasilitasTour: '',
+    idTft: 0,
     biayaFasilitas: '',
-    qty: '',
-    hari: '',
-    harga: '',
-    jumlah: 0,
+    qtyTft: '',
+    jmlHariTft: '',
+    hargaTft: '',
+    jumlahTft: 0,
   }];
   
   const [formFasilitas, setFormFasilitas] = useState(initialFormFasilitas);
 
   const [datas, setDatas] = useState({
     idQuotationTransaksi:props.data.idQuotationTransaksi,
+    idQuotatioRekomendasi:props.data.idQuotatioRekomendasi,
     idProgram: '1',
     namaProgram: 'Ryan',
     idAreaWisata: props.data.quotation.idAreaWisata,
@@ -116,40 +125,46 @@ const QuotationsRevisi = (props, crewL) => {
     namaSales: 'Yoga',
     idKategoriTour: props.data.quotation.idKategoriTour, 
     namaKategoriTour: props.data.quotation.kategori.namaKategoriTour,
-    namaproject: props.data.quotation.namaProject, 
-    durasiproject: props.data.quotation.durasiProject,
+    namaProject: props.data.quotation.namaProject, 
+    durasiProject: props.data.quotation.durasiProject,
     tipeDurasi: '',
     jumlahOrang: props.data.quotation.qty,
     foc: props.data.quotation.foc,
     totalOrang: parseInt(props.data.quotation.qty + props.data.quotation.foc),
     planWaktuPelaksanaan: props.data.quotation.planWaktuPelaksanaan || '',
-    presentaseKeuntungan: props.data.quotation.presentaseKeuntungan,
-    feemarketing: props.data.quotation.feeMarketing,
+    persentaseKeuntungan: props.data.quotation.persentaseKeuntungan,
+    feeMarketing: props.data.quotation.feeMarketing,
     namaKlien: props.data.quotation.klien.namaKlien,
     jenisKlien: props.data.quotation.klien.jenis_klien.namaJenisKlien,
     idJenisKlien: props.data.quotation.klien.idJenisKlien,
-    idKlien: props.data.quotation.klien.idKlien,
+    idDataKlien: props.data.quotation.klien.idDataKlien,
     idQuotationTour: props.data.idQuotationTour,
-    statusTransaksi: props.data.q_transaksi.statusTransaksi
+    statusTransaksi: props.data.q_transaksi.statusTransaksi,
+    tglBerlakuQuotation: props.data.quotation.tglBerlakuQuotation,
+    masaBerlakuQuotation: props.data.quotation.masaBerlakuQuotation,
   })
 
   
   console.log("datas", datas);
-  // console.log("event", formEvent);
-  // console.log("bonus", formBonus);
-  // console.log("crew", formCrew);
-  // console.log("fasilitas", formFasilitas);
-  // console.log("destinasi", formDestinasi);
-  // console.log('rumah makan', formRM);
-  // console.log('penginapan', formPenginapan);
-  // console.log('transportasi', formTransport);
+  console.log("event", formEvent);
+  console.log("bonus", formBonus);
+  console.log("crew", formCrew);
+  console.log("fasilitas", formFasilitas);
+  console.log("destinasi", formDestinasi);
+  console.log('rumah makan', formRM);
+  console.log('penginapan', formPenginapan);
+  console.log('transportasi', formTransport);
 
   const [selectedDate, setSelectedDate] = useState('');
+  const [selectedDateBerlaku, setSelectedDateBerlaku] = useState('');
+  const [selectedMasaBerlaku, setSelectedMasaBerlaku] = useState('');
   const [listRM, setListRM] = useState({
     list: [],
   });
 
-  const handleDateChange = (e) => {
+
+
+  const handleDateChange = (e, nama) => {
     console.log('e', e)
     if(e == datas.planWaktuPelaksanaan) {
       const selectedDateString = e;
@@ -158,44 +173,78 @@ const QuotationsRevisi = (props, crewL) => {
 
       const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
 
-      setSelectedDate(selectedDateString);
-
-      if (isWeekend) {
-        console.log('Selected date is a weekend.');
-        setDatas({
-          ...datas,
-          tipeDurasi: 'weekend',
-        })
+      
+      if (nama == 'plan') {
+        setSelectedDate(selectedDateString);
+        if (isWeekend) {
+          console.log('Selected date is a weekend.');
+          setDatas({
+            ...datas,
+            tipeDurasi: 'weekend',
+          })
+        } else {
+          console.log('Selected date is a weekday.');
+          setDatas({
+            ...datas,
+            tipeDurasi: 'weekday',
+          })
+        }
       } else {
-        console.log('Selected date is a weekday.');
-        setDatas({
-          ...datas,
-          tipeDurasi: 'weekday',
-        })
+        const selectedDateString = e.target.value;
+        const selectedDateObj = new Date(selectedDateString);
+        const dayOfWeek = selectedDateObj.getDay();
+
+        const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+
+        setSelectedDate(selectedDateString);
+
+        if (isWeekend) {
+          console.log('Selected date is a weekend.');
+          setDatas({
+            ...datas,
+            planWaktuPelaksanaan: e.target.value,
+            tipeDurasi: 'weekend',
+          })
+        } else {
+          console.log('Selected date is a weekday.');
+          setDatas({
+            ...datas,
+            planWaktuPelaksanaan: e.target.value,
+            tipeDurasi: 'weekday',
+          })
+        }
       }
-    } else {
-      const selectedDateString = e.target.value;
-      const selectedDateObj = new Date(selectedDateString);
-      const dayOfWeek = selectedDateObj.getDay();
-
-      const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
-
-      setSelectedDate(selectedDateString);
-
-      if (isWeekend) {
-        console.log('Selected date is a weekend.');
-        setDatas({
-          ...datas,
-          planWaktuPelaksanaan: e.target.value,
-          tipeDurasi: 'weekend',
-        })
-      } else {
-        console.log('Selected date is a weekday.');
-        setDatas({
-          ...datas,
-          planWaktuPelaksanaan: e.target.value,
-          tipeDurasi: 'weekday',
-        })
+      if (nama == 'berlaku') {
+        setSelectedDateBerlaku(selectedDateString);
+        if (isWeekend) {
+          console.log('Selected date is a weekend.');
+          setDatas({
+            ...datas,
+            tglBerlakuQuotation: e.target.value,
+          })
+        } else {
+          console.log('Selected date is a weekday.');
+          setDatas({
+            ...datas,
+            tglBerlakuQuotation: e.target.value,
+          })
+        }
+      }
+      if (nama == 'masa') {
+        setSelectedDateBerlaku(selectedDateString);
+        if (isWeekend) {
+          console.log('Selected date is a weekend.');
+          setDatas({
+            ...datas,
+            masaBerlakuQuotation: e.target.value,
+          })
+        } else {
+          console.log('Selected date is a weekday.');
+          setDatas({
+            ...datas,
+            masaBerlakuQuotation: e.target.value,
+          })
+        }
       }
     }
   };
@@ -205,6 +254,7 @@ const QuotationsRevisi = (props, crewL) => {
     console.log('name', e.target.name)
     console.log('index', index)
     console.log('params', params)
+
     if(params == 'rm'){
       const values = [...formRM]
       const list = []; 
@@ -222,14 +272,16 @@ const QuotationsRevisi = (props, crewL) => {
         console.log('list', list)
       }
       values[index]['menuRM'] = list
+      values[index]['idRM'] = e.target.value
       setFormRM(values)
     }
+
     if(params == 'penginapan'){
       const values = [...formPenginapan]
       const list = []; 
       if(e.target.name == 'namaPenginapan'){
         // alert(1)
-        console.log('detailrm', props.detailRM)
+        console.log('detailpenginapan', props.detailPenginapan)
         
         // setListRM(list)
         props.detailPenginapan.forEach((lb) => {
@@ -244,12 +296,13 @@ const QuotationsRevisi = (props, crewL) => {
       values[index]['idPenginapan'] = e.target.value
       setFormPenginapan(values)
     }
+
     if(params == 'transportasi'){
       const values = [...formTransport]
       const list = []; 
       if(e.target.name == 'namaTransportasi'){
         // alert(1)
-        console.log('detailrm', props.detaiTransportasi)
+        console.log('detail transport', props.detaiTransportasi)
         
         // setListRM(list)
         props.detaiTransportasi.forEach((lb) => {
@@ -258,9 +311,10 @@ const QuotationsRevisi = (props, crewL) => {
             list.push(lb)
           }
         })
-        console.log('list', list)
+        console.log('list transport', list)
       }
       values[index]['nama'] = list
+      values[index]['idTransportasi'] = e.target.value
       setFormTransport(values)
     }
   }
@@ -276,7 +330,7 @@ const QuotationsRevisi = (props, crewL) => {
       setDatas({
         ...datas,
         jenisKlien: find2.namaJenisKlien,
-        idJenisKlien: find2.id,
+        idJenisKlien: find2.idJenisKlien,
       })
     }
 
@@ -294,14 +348,14 @@ const QuotationsRevisi = (props, crewL) => {
 
     if(params == 'kategori'){
       const find2 = props.kategoriwisata.find((x) => {
-        return x.id == e 
+        return x.idKategoriTour == e 
       });
-      // console.log('find', find2)
+      console.log('find', find2)
       setDatas({
         ...datas,
         namaKategoriTour: find2.namaKategoriTour,
-        idKategoriTour: find2.id,
-        presentaseKeuntungan: find2.presentaseKeuntungan,
+        idKategoriTour: find2.idKategoriTour,
+        persentaseKeuntungan: find2.presentaseKeuntungan,
       })
     }
 
@@ -314,7 +368,7 @@ const QuotationsRevisi = (props, crewL) => {
       setDatas({
         ...datas,
         namaArea: find2.namaArea,
-        idAreaWisata: find2.id,
+        idAreaWisata: find2. idAreaWisata,
       })
 
       // const list = [];
@@ -340,11 +394,12 @@ const QuotationsRevisi = (props, crewL) => {
       let object = {
         namaDestinasiWisata:'',
         idDestinasiWisata :'',
+        idTdestinasiWisata: 0,
         biaya:'',
-        qty:'',
-        hari:'',
-        harga:'',
-        jumlah:'',
+        qtyTdestinasiWisata:'',
+        jmlHariTdestinasiWisata:'',
+        hargaTdestinasiWisata:'',
+        jumlahTdestinasiWisata:'',
       }
       setFormDestinasi([...formDestinasi, object]);
     }
@@ -352,12 +407,13 @@ const QuotationsRevisi = (props, crewL) => {
       let object = {
         namaPenginapan:'',
         idPenginapan:'',
+        idTpenginapan: 0,
         biaya:'',
         jenisKamar:[],
-        qty:'',
-        hari:'',
-        harga:'',
-        jumlah:'',
+        qtyTpenginapan:'',
+        jmlHariTpenginapan:'',
+        hargaTpenginapan:'',
+        jumlahTpenginapan:'',
       }
       setFormPenginapan([...formPenginapan, object]);
     }
@@ -365,12 +421,13 @@ const QuotationsRevisi = (props, crewL) => {
       let object = {
         namaRM:'',
         idRM:'',
+        idTrm: 0,
         biaya:'',
         menuRM:[],
-        qty:'',
-        hari:'',
-        harga:'',
-        jumlah:'',
+        qtyTrm:'',
+        jmlHariTrm:'',
+        hargaTrm:'',
+        jumlahTrm:'',
       }
       setFormRM([...formRM, object]);
     }
@@ -378,24 +435,26 @@ const QuotationsRevisi = (props, crewL) => {
       let object = {
         namaTransportasi:'',
         idTransportasi:'',
+        idTtransportasi: 0,
         biaya:'',
         nama:[],
-        qty:'',
-        hari:'',
-        harga:'',
-        jumlah:'',  
+        qtyTtransportasi:'',
+        jmlHariTtransportasi:'',
+        hargaTtransportasi:'',
+        jumlahTtransportasi:'',  
       }
       setFormTransport([...formTransport, object]);
     }
     if(e == 'fasilitas'){
       let object = {
-        ketFasilitas:'',
+        namaTft:'',
         idFasilitasTour :'',
+        idTft: 0,
         biayaFasilitas:'',
-        qty:'',
-        hari:'',
-        harga:'',
-        jumlah:'',
+        qtyTft:'',
+        jmlHariTft:'',
+        hargaTft:'',
+        jumlahTft:'',
       }
       setFormFasilitas([
         ...formFasilitas,
@@ -404,8 +463,9 @@ const QuotationsRevisi = (props, crewL) => {
     }
     if(e == 'crew'){
       let object = {
-        ketCrewOperasional:'',
+        namaTcrew:'',
         idCrewOperasional :'',
+        idTcrew: 0,
         biayaCrewOperasional:'',
         qtyTcrew:'',
         jmlHariTcrew:'',
@@ -419,13 +479,14 @@ const QuotationsRevisi = (props, crewL) => {
     }
     if(e == 'event'){
       let object = {
-        ketDataEvent:'',
+        namaTevent:'',
         idDataEvent:'',
+        idTevent:0,
         biayaDataEvent:'',
-        qty:'',
-        hari:'',
-        harga:'',
-        jumlah:'',
+        qtyTevent:'',
+        jmlHariTevent:'',
+        hargaTevent:'',
+        jumlahTevent:'',
       }
       setFormEvent([
         ...formEvent,
@@ -434,13 +495,14 @@ const QuotationsRevisi = (props, crewL) => {
     }
     if(e == 'bonus'){
       let object = {
-        ketDataBonus:'',
+        namaTbonus:'',
         idDataBonus:'',
+        idTbonus: 0,
         biayaDataBonus:'',
-        qty:'',
-        hari:'',
-        harga:'',
-        jumlah:'',
+        qtyTbonus:'',
+        jmlHariTbonus:'',
+        hargaTbonus:'',
+        jumlahTbonus:'',
       }
       setFormBonus([
         ...formBonus,
@@ -460,7 +522,7 @@ const QuotationsRevisi = (props, crewL) => {
       if(e.target.name == 'namaDestinasiWisata'){
         // alert(1)
         const find2 = props.destinasi.find((x) => {
-          return x.id == e.target.value 
+          return x.idDestinasiWisata == e.target.value 
         });
         const find3 = formDestinasi.find((x, key) => {
           console.log('find index', key)
@@ -484,11 +546,11 @@ const QuotationsRevisi = (props, crewL) => {
         console.log('find2', find2)
         console.log('find3', find3)
         values[index]['namaDestinasiWisata'] = find2.namaDestinasiWisata,
-        values[index]['idDestinasiWisata'] = find2.id,
+        values[index]['idDestinasiWisata'] = find2.idDestinasiWisata,
         values[index]['biaya'] = parseInt(list[0]),
-        values[index]['harga'] = parseInt(list[0]),
+        values[index]['hargaTdestinasiWisata'] = parseInt(list[0]),
         setFormDestinasi(values) 
-        values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
+        values[index]['jumlahTdestinasiWisata'] = parseInt(find3.qtyTdestinasiWisata) * parseInt(find3.jmlHariTdestinasiWisata) * parseInt(find3.hargaTdestinasiWisata)
         setFormDestinasi(values)
         console.log('values', values)
       }else{
@@ -500,7 +562,7 @@ const QuotationsRevisi = (props, crewL) => {
         console.log('find22', find2)
         values[index][e.target.name] = parseInt(e.target.value),
         setFormDestinasi(values)
-        values[index]['jumlah'] = parseInt(find2.qty) * parseInt(find2.hari) * parseInt(find2.harga)
+        values[index]['jumlahTdestinasiWisata'] = parseInt(find2.qtyTdestinasiWisata) * parseInt(find2.jmlHariTdestinasiWisata) * parseInt(find2.hargaTdestinasiWisata)
         setFormDestinasi(values)
       }
     }
@@ -509,7 +571,7 @@ const QuotationsRevisi = (props, crewL) => {
       const values = [...formTransport]
       if(e.target.name == 'transportasi'){
         const find2 = props.detaiTransportasi.find((x) => {
-          return x.id == e.target.value 
+          return x.idDetailTransportasi == e.target.value 
         });
         const find3 = formTransport.find((x, key) => {
           console.log('find index', key)
@@ -545,11 +607,10 @@ const QuotationsRevisi = (props, crewL) => {
         console.log('find2', find2)
         console.log('find3', find3)
         values[index]['namaTransportasi'] = find2.nama,
-        values[index]['idTransportasi'] = find2.idTransportasi,
         values[index]['biaya'] = parseInt(list[0]),
-        values[index]['harga'] = parseInt(list[0]),
+        values[index]['hargaTtransportasi'] = parseInt(list[0]),
         setFormTransport(values) 
-        values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
+        values[index]['jumlahTtransportasi'] = parseInt(find3.qtyTtransportasi) * parseInt(find3.jmlHariTtransportasi) * parseInt(find3.hargaTtransportasi)
         setFormTransport(values)
         console.log('values', values)
       }else{
@@ -560,7 +621,7 @@ const QuotationsRevisi = (props, crewL) => {
         console.log('find', find2)
         values[index][e.target.name] = parseInt(e.target.value),
         setFormTransport(values)
-        values[index]['jumlah'] = parseInt(find2.qty) * parseInt(find2.hari) * parseInt(find2.harga)
+        values[index]['jumlahTtransportasi'] = parseInt(find2.qtyTtransportasi) * parseInt(find2.jmlHariTtransportasi) * parseInt(find2.hargaTtransportasi)
         setFormTransport(values)
       }
     }
@@ -569,7 +630,7 @@ const QuotationsRevisi = (props, crewL) => {
       const values = [...formPenginapan]
       if(e.target.name == 'jenisKamar'){
         const find2 = props.detailPenginapan.find((x) => {
-          return x.id == e.target.value 
+          return x.idDetailPenginapan == e.target.value 
         });
         const find3 = formPenginapan.find((x, key) => {
           console.log('find index', key)
@@ -580,7 +641,7 @@ const QuotationsRevisi = (props, crewL) => {
         props.detailPenginapan.forEach((lb) => {
           console.log('cek lb1', lb)
           if(lb.idPenginapan == find2.idPenginapan){
-            if(lb.id == e.target.value){
+            if(lb.idDetailPenginapan == e.target.value){
               if(datas.tipeDurasi == 'weekend'){
                 console.log('weekend')
                 list.push(lb.hargaSewaWeekendPerKamar)
@@ -597,11 +658,10 @@ const QuotationsRevisi = (props, crewL) => {
         console.log('find2', find2)
         console.log('find3', find3)
         values[index]['namaPenginapan'] = find2.namaJenisKamar,
-        values[index]['idPenginapan'] = find2.idPenginapan,
         values[index]['biaya'] = parseInt(list[0]),
-        values[index]['harga'] = parseInt(list[0]),
+        values[index]['hargaTpenginapan'] = parseInt(list[0]),
         setFormPenginapan(values) 
-        values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
+        values[index]['jumlahTpenginapan'] = parseInt(find3.qtyTpenginapan) * parseInt(find3.jmlHariTpenginapan) * parseInt(find3.hargaTpenginapan)
         setFormPenginapan(values)
         console.log('values', values)
       }else{
@@ -612,7 +672,7 @@ const QuotationsRevisi = (props, crewL) => {
         console.log('find', find2)
         values[index][e.target.name] = parseInt(e.target.value),
         setFormPenginapan(values)
-        values[index]['jumlah'] = parseInt(find2.qty) * parseInt(find2.hari) * parseInt(find2.harga)
+        values[index]['jumlahTpenginapan'] = parseInt(find2.qtyTpenginapan) * parseInt(find2.jmlHariTpenginapan) * parseInt(find2.hargaTpenginapan)
         setFormPenginapan(values)
       }
     }
@@ -621,7 +681,7 @@ const QuotationsRevisi = (props, crewL) => {
       const values = [...formRM]
       if(e.target.name == 'namaRumahMakan'){
         const find2 = props.detailRM.find((x) => {
-          return x.id == e.target.value 
+          return x.idDetailRM == e.target.value 
         });
         const find3 = formRM.find((x, key) => {
           console.log('find index', key)
@@ -633,7 +693,7 @@ const QuotationsRevisi = (props, crewL) => {
         props.detailRM.forEach((lb) => {
           console.log('cek lb1', lb)
           if(lb.idRM == find2.idRM){
-            if(lb.id == e.target.value){
+            if(lb.idDetailRM  == e.target.value){
               list.push(lb.hargaMenu)
             }
             console.log('cek lb2', lb)
@@ -644,11 +704,10 @@ const QuotationsRevisi = (props, crewL) => {
         console.log('find2', find2)
         console.log('find3', find3)
         values[index]['namaRM'] = find2.namaMenu,
-        values[index]['idRM'] = find2.idRM,
         values[index]['biaya'] = parseInt(list[0]),
-        values[index]['harga'] = parseInt(list[0]),
+        values[index]['hargaTrm'] = parseInt(list[0]),
         setFormRM(values) 
-        values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
+        values[index]['jumlahTrm'] = parseInt(find3.qtyTrm) * parseInt(find3.jmlHariTrm) * parseInt(find3.hargaTrm)
         setFormRM(values)
         console.log('values', values)
       }else{
@@ -659,7 +718,7 @@ const QuotationsRevisi = (props, crewL) => {
         console.log('find', find2)
         values[index][e.target.name] = parseInt(e.target.value),
         setFormRM(values)
-        values[index]['jumlah'] = parseInt(find2.qty) * parseInt(find2.hari) * parseInt(find2.harga)
+        values[index]['jumlahTrm'] = parseInt(find2.qtyTrm) * parseInt(find2.jmlHariTrm) * parseInt(find2.hargaTrm)
         setFormRM(values)
       }
     }
@@ -668,19 +727,19 @@ const QuotationsRevisi = (props, crewL) => {
       const values = [...formFasilitas]
       if(e.target.name == 'ketFasilitas'){
         const find2 = props.fasilitasTour.find((x) => {
-          return x.id == e.target.value 
+          return x.idFasilitasTour == e.target.value 
         });
         const find3 = formFasilitas.find((x, key) => {
           console.log('find index', key)
           return key == index 
         });
         console.log('find', find2)
-        values[index]['ketFasilitas'] = find2.ketFasilitas,
-        values[index]['idFasilitasTour'] = find2.id,
+        values[index]['namaTft'] = find2.ketFasilitasTour,
+        values[index]['idFasilitasTour'] = find2.idFasilitasTour,
         values[index]['biayaFasilitas'] = find2.biayaFasilitas,
-        values[index]['harga'] = find2.biayaFasilitas,
+        values[index]['hargaTft'] = find2.biayaFasilitas,
         setFormFasilitas(values) 
-        values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
+        values[index]['jumlahTft'] = parseInt(find3.qtyTft) * parseInt(find3.jmlHariTft) * parseInt(find3.hargaTft)
         setFormFasilitas(values)
         console.log('values', values)
       }else{
@@ -691,7 +750,7 @@ const QuotationsRevisi = (props, crewL) => {
         console.log('find22', find2)
         values[index][e.target.name] = parseInt(e.target.value),
         setFormFasilitas(values)
-        values[index]['jumlah'] = parseInt(find2.qty) * parseInt(find2.hari) * parseInt(find2.harga)
+        values[index]['jumlahTft'] = parseInt(find2.qtyTft) * parseInt(find2.jmlHariTft) * parseInt(find2.hargaTft)
         setFormFasilitas(values)
       }
     }
@@ -708,7 +767,7 @@ const QuotationsRevisi = (props, crewL) => {
         });
         console.log('find', find2)
         console.log('find3', find3)
-        values[index]['ketCrewOperasional'] = find2.ketCrewOperasional,
+        values[index]['namaTcrew'] = find2.ketCrewOperasional,
         values[index]['idCrewOperasional'] = find2.idCrewOperasional,
         values[index]['biayaCrewOperasional'] = find2.biayaCrewOperasional,
         values[index]['hargaTcrew'] = find2.biayaCrewOperasional,
@@ -733,19 +792,19 @@ const QuotationsRevisi = (props, crewL) => {
       const values = [...formEvent]
       if(e.target.name == 'ketDataEvent'){
         const find2 = props.dataEvent.find((x) => {
-          return x.id == e.target.value 
+          return x.idDataEvent == e.target.value 
         });
         const find3 = formEvent.find((x, key) => {
           console.log('finde idnex', key)
           return key == index 
         });
         console.log('find', find2)
-        values[index]['ketDataEvent'] = find2.ketDataEvent,
-        values[index]['idDataEvent'] = find2.id,
+        values[index]['namaTevent'] = find2.ketDataEvent,
+        values[index]['idDataEvent'] = find2.idDataEvent,
         values[index]['biayaDataEvent'] = find2.biayaDataEvent,
-        values[index]['harga'] = find2.biayaDataEvent,
+        values[index]['hargaTevent'] = find2.biayaDataEvent,
         setFormEvent(values) 
-        values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
+        values[index]['jumlahTevent'] = parseInt(find3.qtyTevent) * parseInt(find3.jmlHariTevent) * parseInt(find3.hargaTevent)
         setFormEvent(values)
         console.log('values', values)
       }else{
@@ -756,28 +815,28 @@ const QuotationsRevisi = (props, crewL) => {
         console.log('find', find2)
         values[index][e.target.name] = parseInt(e.target.value),
         setFormEvent(values)
-        values[index]['jumlah'] = parseInt(find2.qty) * parseInt(find2.hari) * parseInt(find2.harga)
+        values[index]['jumlahTevent'] = parseInt(find2.qtyTevent) * parseInt(find2.jmlHariTevent) * parseInt(find2.hargaTevent)
         setFormEvent(values)
       }
     }
 
     if(params == 'bonus'){
       const values = [...formBonus]
-      if(e.target.name == 'ketDataBonus'){
+      if(e.target.name == 'namaTbonus'){
         const find2 = props.dataBonus.find((x) => {
-          return x.id == e.target.value 
+          return x.idDataBonus == e.target.value 
         });
         const find3 = formBonus.find((x, key) => {
           console.log('finde idnex', key)
           return key == index 
         });
         console.log('find', find2)
-        values[index]['ketDataBonus'] = find2.ketDataBonus,
-        values[index]['idDataBonus'] = find2.id,
+        values[index]['namaTbonus'] = find2.ketDataBonus,
+        values[index]['idDataBonus'] = find2.idDataBonus,
         values[index]['biayaDataBonus'] = find2.biayaDataBonus,
-        values[index]['harga'] = find2.biayaDataBonus,
+        values[index]['hargaTbonus'] = find2.biayaDataBonus,
         setFormBonus(values) 
-        values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
+        values[index]['jumlahTbonus'] = parseInt(find3.qtyTbonus) * parseInt(find3.jmlHariTbonus) * parseInt(find3.hargaTbonus)
         setFormBonus(values)
         console.log('values', values)
       }else{
@@ -788,7 +847,7 @@ const QuotationsRevisi = (props, crewL) => {
         console.log('find', find2)
         values[index][e.target.name] = parseInt(e.target.value),
         setFormBonus(values)
-        values[index]['jumlah'] = parseInt(find2.qty) * parseInt(find2.hari) * parseInt(find2.harga)
+        values[index]['jumlahTbonus'] = parseInt(find2.qtyTbonus) * parseInt(find2.jmlHariTbonus) * parseInt(find2.hargaTbonus)
         setFormBonus(values)
       }
     }
@@ -840,21 +899,21 @@ const QuotationsRevisi = (props, crewL) => {
   };
 
   const handleSubmit = () => {
-    const JumlahDestinasi = formDestinasi.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
-    const JumlahTransportasi = formTransport.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
-    const JumlahPenginapan = formPenginapan.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
-    const JumlahRM = formRM.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
-    const JumlahEvent = formEvent.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
-    const JumlahBonus = formBonus.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
-    const JumlahCrew = formCrew.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
-    const JumlahFasilitas = formFasilitas.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const JumlahDestinasi = formDestinasi.reduce((sum, item) => sum + parseInt(item.jumlahTdestinasiWisata), 0);
+    const JumlahTransportasi = formTransport.reduce((sum, item) => sum + parseInt(item.jumlahTtransportasi), 0);
+    const JumlahPenginapan = formPenginapan.reduce((sum, item) => sum + parseInt(item.jumlahTpenginapan), 0);
+    const JumlahRM = formRM.reduce((sum, item) => sum + parseInt(item.jumlahTrm), 0);
+    const JumlahEvent = formEvent.reduce((sum, item) => sum + parseInt(item.jumlahTevent), 0);
+    const JumlahBonus = formBonus.reduce((sum, item) => sum + parseInt(item.jumlahTbonus), 0);
+    const JumlahCrew = formCrew.reduce((sum, item) => sum + parseInt(item.jumlahTcrew), 0);
+    const JumlahFasilitas = formFasilitas.reduce((sum, item) => sum + parseInt(item.jumlahTft), 0);
     const productionPrice = JumlahDestinasi + JumlahTransportasi + JumlahPenginapan + JumlahRM + JumlahEvent + JumlahBonus + JumlahCrew + JumlahFasilitas;
-    const paxPay = datas.totalOrang;
-    const netPrice = parseInt(productionPrice / paxPay);
-    const surcharge = parseInt(((netPrice / (100/100 - parseInt(datas.presentaseKeuntungan)/100))* 100/100) - netPrice);
-    const sellingPrice = parseInt(netPrice + surcharge);
+    const paxPay = datas.jumlahOrang;
+    const nettPrice = parseInt(productionPrice / paxPay);
+    const surcharge = parseInt(((nettPrice / (100/100 - parseInt(datas.persentaseKeuntungan)/100))* 100/100) - nettPrice);
+    const sellingPrice = parseInt(nettPrice + surcharge);
     const totalPrice = parseInt(sellingPrice * paxPay);
-    const profit = parseInt(sellingPrice + parseInt(datas.feemarketing));
+    const profit = parseInt(sellingPrice + parseInt(datas.feeMarketing));
     const data = {
       quotationTour : datas,
       destinasi : formDestinasi,
@@ -867,7 +926,7 @@ const QuotationsRevisi = (props, crewL) => {
       fasilitas : formFasilitas,
       productionPrice : productionPrice,
       paxPay : paxPay,
-      nettPrice : netPrice,
+      nettPrice : nettPrice,
       surcharge : surcharge,
       sellingPrice : sellingPrice,
       totalPrice : totalPrice,
@@ -888,7 +947,7 @@ const QuotationsRevisi = (props, crewL) => {
     console.log('JumlahFasilitas',JumlahFasilitas);
     console.log('productionPrice',productionPrice);
     console.log('paxPay',paxPay);
-    console.log('netPrice',netPrice);
+    console.log('netPrice',nettPrice);
     console.log('surcharge',surcharge);
     console.log('sellingPrice',sellingPrice);
     console.log('totalPrice',totalPrice);
@@ -896,17 +955,17 @@ const QuotationsRevisi = (props, crewL) => {
   }
 
   useEffect(() => {
-    // handleDateChange(props.quotationTransaksi.quotation.planWaktuPelaksanaan);
+    // handleDateChange(props.data.quotation.planWaktuPelaksanaan);
   }, []);
 
   return (
     <div className="min-h-screen bg-abu ">
       {/* Content */}
       <div className="ml-6">
-        <a>Quotation Clone</a>
+        <a>Quotation Revisi</a>
       </div>
       <div className="flex m-6 mt-2 mb-3">
-        <a className="text-2xl font-bold text-black">Quotation Clone</a>
+        <a className="text-2xl font-bold text-black">Quotation Revisi</a>
       </div>
       <div className="relative bg-white shadow-xl m-6 mt-3 md:max-xl:flex ring-1 ring-gray-900/5">
         <div className="p-4 bg-kuning border-b border-gray-200"></div>
@@ -925,7 +984,7 @@ const QuotationsRevisi = (props, crewL) => {
                       name="name" 
                       id="name" 
                       className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      value={datas.namaproject}
+                      value={datas.namaProject}
                       onChange={(value) => 
                         setDatas({
                         ...datas,
@@ -984,15 +1043,12 @@ const QuotationsRevisi = (props, crewL) => {
                         placeholder="Jenis Klien" 
                         defaultValue="default"
                         className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        // onChange={(e) => 
-                        //   setDatas({
-                        //   ...datas,
-                        //   idUserSales : e.target.value
-                        //   })
-                        // }
-                        onChange={(e) => {
-                          datasFind(e.target.value,'jenisKlien')
-                        }}
+                        onChange={(e) => 
+                          setDatas({
+                          ...datas,
+                          statusTransaksi : e.target.value
+                          })
+                        }
                       >
                         <option value="default">-{datas.statusTransaksi}-</option>
                         <option value="menunggu">menunggu</option>
@@ -1083,7 +1139,7 @@ const QuotationsRevisi = (props, crewL) => {
                         {props.kategoriwisata.map((kw, index) => {
                           return (
                             <option 
-                              value={kw.id} 
+                              value={kw.idKategoriTour} 
                               key={kw.id}
                             >
                             {kw.namaKategoriTour}
@@ -1170,7 +1226,7 @@ const QuotationsRevisi = (props, crewL) => {
                          value={datas.planWaktuPelaksanaan} 
                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                          onChange={(e) => 
-                           handleDateChange(e)
+                           handleDateChange(e, 'plan')
                          }
                          />
                       {/* {datas.planWaktuPelaksanaan !== '' ? (
@@ -1204,7 +1260,7 @@ const QuotationsRevisi = (props, crewL) => {
                       name="brand" 
                       id="brand" 
                       className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      value={datas.durasiproject}
+                      value={datas.durasiProject}
                       onChange={(value) => 
                         setDatas({
                         ...datas,
@@ -1219,7 +1275,7 @@ const QuotationsRevisi = (props, crewL) => {
                       name="brand" 
                       id="brand" 
                       className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      value={datas.feemarketing}
+                      value={datas.feeMarketing}
                       onChange={(value) => 
                         setDatas({
                         ...datas,
@@ -1230,15 +1286,15 @@ const QuotationsRevisi = (props, crewL) => {
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Persentase Keuntungan</label>
                       <input 
-                      type="text" 
+                      type="number" 
                       name="brand" 
                       id="brand" 
                       className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      value={datas.presentaseKeuntungan}
+                      value={datas.persentaseKeuntungan}
                       onChange={(value) => 
                         setDatas({
                         ...datas,
-                        presentaseKeuntungan: value.target.value,
+                        persentaseKeuntungan: value.target.value,
                       })}
                       />
                   </div>
@@ -1248,7 +1304,7 @@ const QuotationsRevisi = (props, crewL) => {
                       type="date" 
                       name="brand" 
                       id="brand"
-                      // value={selectedDateBerlaku} 
+                      value={datas.tglBerlakuQuotation} 
                       className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                       onChange={(value) => {
                         handleDateChange(value, 'berlaku')
@@ -1263,10 +1319,10 @@ const QuotationsRevisi = (props, crewL) => {
                       type="date" 
                       name="brand" 
                       id="brand"
-                      // value={selectedDateBerlaku} 
+                      value={datas.masaBerlakuQuotation} 
                       className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                       onChange={(value) => {
-                        handleDateChange(value, 'berlaku')
+                        handleDateChange(value, 'masa')
                         // rekomendasi()
                       }
                       }
@@ -1282,12 +1338,12 @@ const QuotationsRevisi = (props, crewL) => {
 
               {/* Data Destinasi */}
               {formDestinasi.map((ds, index) => {
-                 if(ds.keterangan){
+                 if(ds.namaTdestinasiWisata){
                   const detailHarga = ds.destinasi.detaildw.find((dtr) => {
                     return dtr.jenisPeserta === datas.jenisKlien;
                   });
 
-                  // console.log('detail Harga', detailHarga)
+                  console.log('detail Destinasi', detailHarga)
                   if (detailHarga) {
                     return (
                       <div key={index}>
@@ -1308,15 +1364,18 @@ const QuotationsRevisi = (props, crewL) => {
                               value="default"
                               >-{ds.destinasi.namaDestinasiWisata}-</option>
                               {props.destinasi.map((ds, index) => {
-                                return (
-                                  <option 
-                                    value={ds.id} 
-                                    key={ds.id}
-                                    // name="ketDataEvent"
-                                  >
-                                  {ds.namaDestinasiWisata}
-                                  </option>
-                              )})}
+                                if (ds.idAreaWisata === datas.idAreaWisata) {
+                                  return (
+                                    <option 
+                                      value={ds.idDestinasiWisata} 
+                                      key={ds.id}
+                                      // name="ketDataEvent"
+                                    >
+                                    {ds.namaDestinasiWisata}
+                                    </option>
+                                  );
+                                }
+                              })}
                             </select>
                           </div>
                           <div className="">
@@ -1361,9 +1420,9 @@ const QuotationsRevisi = (props, crewL) => {
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Quantity</label>
                             <input 
                               type="number" 
-                              name="qty" 
+                              name="qtyTdestinasiWisata" 
                               id="brand" 
-                              value={ds.qty}
+                              value={ds.qtyTdestinasiWisata}
                               className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                               onChange={(e) => {
                                 find(e, index, 'destinasi')
@@ -1374,9 +1433,9 @@ const QuotationsRevisi = (props, crewL) => {
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Hari</label>
                             <input 
                               type="number" 
-                              name="hari" 
+                              name="jmlHariTdestinasiWisata" 
                               id="brand" 
-                              value={ds.hari}
+                              value={ds.jmlHariTdestinasiWisata}
                               className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                               onChange={(e) => {
                                 find(e, index, 'destinasi')
@@ -1388,10 +1447,10 @@ const QuotationsRevisi = (props, crewL) => {
                             <input 
                               key={index}
                               type="number" 
-                              name="harga" 
+                              name="hargaTdestinasiWisata" 
                               id="brand" 
                               className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                              value={ds.harga}
+                              value={ds.hargaTdestinasiWisata}
                               onChange={(e) => {
                                 find(e, index, 'destinasi')
                               }}
@@ -1403,7 +1462,7 @@ const QuotationsRevisi = (props, crewL) => {
                               type="number" 
                               name="jumlah" 
                               id="brand" 
-                              value={ds.jumlah}
+                              value={ds.jumlahTdestinasiWisata}
                               className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                               onChange={(e) => {
                                 find(e, index, 'destinasi')
@@ -1490,9 +1549,9 @@ const QuotationsRevisi = (props, crewL) => {
                           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Quantity</label>
                           <input 
                             type="number" 
-                            name="qty" 
+                            name="qtyTdestinasiWisata" 
                             id="brand" 
-                            value={ds.qty}
+                            value={ds.qtyTdestinasiWisata}
                             className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             onChange={(e) => {
                               find(e, index, 'destinasi')
@@ -1503,9 +1562,9 @@ const QuotationsRevisi = (props, crewL) => {
                           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Hari</label>
                           <input 
                             type="number" 
-                            name="hari" 
+                            name="jmlHariTdestinasiWisata" 
                             id="brand" 
-                            value={ds.hari}
+                            value={ds.jmlHariTdestinasiWisata}
                             className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             onChange={(e) => {
                               find(e, index, 'destinasi')
@@ -1517,10 +1576,10 @@ const QuotationsRevisi = (props, crewL) => {
                           <input 
                             key={index}
                             type="number" 
-                            name="harga" 
+                            name="hargaTdestinasiWisata" 
                             id="brand" 
                             className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            value={ds.harga}
+                            value={ds.hargaTdestinasiWisata}
                             onChange={(e) => {
                               find(e, index, 'destinasi')
                             }}
@@ -1530,9 +1589,9 @@ const QuotationsRevisi = (props, crewL) => {
                           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah</label>
                           <input 
                             type="number" 
-                            name="jumlah" 
+                            name="jumlahTdestinasiWisata" 
                             id="brand" 
-                            value={ds.jumlah}
+                            value={ds.jumlahTdestinasiWisata}
                             className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             onChange={(e) => {
                               find(e, index, 'destinasi')
@@ -1572,11 +1631,11 @@ const QuotationsRevisi = (props, crewL) => {
               {/* Data Transportasi */}
               <div className="mb-5 mt-2 bg-gray-200 border-b border-gray-200 mt-10"></div>
               {formTransport.map((ds, index) => {
-                if(ds.keterangan){
+                if(ds.namaTtransportasi){
                   const detailHarga = ds.transportasi.detail_transportasi.find((dtr) => {
-                    return dtr.nama === ds.keterangan;
+                    return dtr.nama === ds.namaTtransportasi;
                   });
-                  
+                  console.log('cek transport', detailHarga)
                   if(detailHarga) {
                     return (
                       <div key={index}>
@@ -1597,15 +1656,18 @@ const QuotationsRevisi = (props, crewL) => {
                               value="default"
                               >-{ds.transportasi.namaTransportasi}-</option>
                               {props.transportasi.map((ds, index) => {
-                                return (
-                                  <option 
-                                    value={ds.id} 
-                                    key={ds.id}
-                                    // name="ketDataEvent"
-                                  >
-                                  {ds.namaTransportasi}
-                                  </option>
-                              )})}
+                                if (ds.idAreaWisata === datas.idAreaWisata) {
+                                  return (
+                                    <option 
+                                      value={ds.idTransportasi} 
+                                      key={ds.id}
+                                      // name="ketDataEvent"
+                                    >
+                                    {ds.namaTransportasi}
+                                    </option>
+                                  );
+                                }
+                              })}
                             </select>
                           </div>
                           <div className="">
@@ -1620,19 +1682,55 @@ const QuotationsRevisi = (props, crewL) => {
                                 find(e, index, 'transportasi')
                               }}
                             >
-                              <option 
-                              value="default"
-                              >-{ds.keterangan}-</option>
-                              {ds.transportasi.detail_transportasi.map((ds, index) => {
-                                return (
-                                  <option 
-                                    value={ds.id} 
-                                    key={ds.id}
-                                    // name="ketDataEvent"
-                                  >
-                                  {ds.nama}
-                                  </option>
-                              )})}
+                              {ds.idTransportasi === detailHarga.idTransportasi ? (
+                                <>
+                                  <option value="default">-{ds.namaTtransportasi}-</option>
+                                  {ds.nama === undefined ? (
+                                    ds.transportasi.detail_transportasi.map((menu, index) => (
+                                      <option 
+                                          value={menu.idDetailTransportasi} 
+                                          key={menu.id}
+                                          // name="ketDataEvent"
+                                        >
+                                        {menu.nama}
+                                        </option>
+                                    ))
+                                  ) : (
+                                    ds.nama.map((menu, index) => (
+                                      <option 
+                                        value={menu.idDetailTransportasi} 
+                                        key={menu.id}
+                                      >
+                                        {menu.nama}
+                                      </option>
+                                    ))
+                                  )}
+                                </>
+                              ) : (
+                                <>
+                                  <option value="default">--</option>
+                                  {ds.nama === undefined ? (
+                                    ds.transportasi.detail_transportasi.map((menu, index) => (
+                                      <option 
+                                          value={menu.idDetailTransportasi} 
+                                          key={menu.id}
+                                          // name="ketDataEvent"
+                                        >
+                                        {menu.nama}
+                                        </option>
+                                    ))
+                                  ) : (
+                                    ds.nama.map((menu, index) => (
+                                      <option 
+                                        value={menu.idDetailTransportasi} 
+                                        key={menu.id}
+                                      >
+                                        {menu.nama}
+                                      </option>
+                                    ))
+                                  )}
+                                </>
+                              )}
                             </select>
                           </div>
                           <div className="">
@@ -1702,9 +1800,9 @@ const QuotationsRevisi = (props, crewL) => {
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Quantity</label>
                             <input 
                               type="number" 
-                              name="qty" 
+                              name="qtyTtransportasi" 
                               id="brand" 
-                              value={ds.qty}
+                              value={ds.qtyTtransportasi}
                               className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                               onChange={(e) => {
                                 find(e, index, 'transportasi')
@@ -1715,9 +1813,9 @@ const QuotationsRevisi = (props, crewL) => {
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Hari</label>
                             <input 
                               type="number" 
-                              name="hari" 
+                              name="jmlHariTtransportasi" 
                               id="brand" 
-                              value={ds.hari}
+                              value={ds.jmlHariTtransportasi}
                               className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                               onChange={(e) => {
                                 find(e, index, 'transportasi')
@@ -1729,10 +1827,10 @@ const QuotationsRevisi = (props, crewL) => {
                             <input 
                               key={index}
                               type="number" 
-                              name="harga" 
+                              name="hargaTtransportasi" 
                               id="brand" 
                               className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                              value={ds.harga}
+                              value={ds.hargaTtransportasi}
                               onChange={(e) => {
                                 find(e, index, 'transportasi')
                               }}
@@ -1742,9 +1840,9 @@ const QuotationsRevisi = (props, crewL) => {
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah</label>
                             <input 
                               type="number" 
-                              name="jumlah" 
+                              name="jumlahTtransportasi" 
                               id="brand" 
-                              value={ds.jumlah}
+                              value={ds.jumlahTtransportasi}
                               className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                               onChange={(e) => {
                                 find(e, index, 'transportasi')
@@ -1799,15 +1897,18 @@ const QuotationsRevisi = (props, crewL) => {
                             value="default"
                             >--</option>
                             {props.transportasi.map((ds, index) => {
-                              return (
-                                <option 
-                                  value={ds.id} 
-                                  key={ds.id}
-                                  // name="ketDataEvent"
-                                >
-                                {ds.namaTransportasi}
-                                </option>
-                            )})}
+                              if (ds.idAreaWisata === datas.idAreaWisata) {
+                                return (
+                                  <option 
+                                    value={ds.idTransportasi} 
+                                    key={ds.id}
+                                    // name="ketDataEvent"
+                                  >
+                                  {ds.namaTransportasi}
+                                  </option>
+                                );
+                              }
+                            })}
                           </select>
                         </div>
                         <div className="">
@@ -1825,16 +1926,16 @@ const QuotationsRevisi = (props, crewL) => {
                             <option 
                             value="default"
                             >--</option>
-                            {/* {ds.nama.map((ds, index) => {
+                            {ds.nama.map((ds, index) => {
                               return (
                                 <option 
-                                  value={ds.id} 
+                                  value={ds.idDetailTransportasi} 
                                   key={ds.id}
                                   // name="ketDataEvent"
                                 >
                                 {ds.nama}
                                 </option>
-                            )})} */}
+                            )})}
                           </select>
                         </div>
                         <div className="">
@@ -1855,9 +1956,9 @@ const QuotationsRevisi = (props, crewL) => {
                           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Quantity</label>
                           <input 
                             type="number" 
-                            name="qty" 
+                            name="qtyTtransportasi" 
                             id="brand" 
-                            value={ds.qty}
+                            value={ds.qtyTtransportasi}
                             className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             onChange={(e) => {
                               find(e, index, 'transportasi')
@@ -1868,9 +1969,9 @@ const QuotationsRevisi = (props, crewL) => {
                           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Hari</label>
                           <input 
                             type="number" 
-                            name="hari" 
+                            name="jmlHariTtransportasi" 
                             id="brand" 
-                            value={ds.hari}
+                            value={ds.jmlHariTtransportasi}
                             className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             onChange={(e) => {
                               find(e, index, 'transportasi')
@@ -1882,10 +1983,10 @@ const QuotationsRevisi = (props, crewL) => {
                           <input 
                             key={index}
                             type="number" 
-                            name="harga" 
+                            name="hargaTtransportasi" 
                             id="brand" 
                             className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            value={ds.harga}
+                            value={ds.hargaTtransportasi}
                             onChange={(e) => {
                               find(e, index, 'transportasi')
                             }}
@@ -1895,9 +1996,9 @@ const QuotationsRevisi = (props, crewL) => {
                           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah</label>
                           <input 
                             type="number" 
-                            name="jumlah" 
+                            name="jumlahTtransportasi" 
                             id="brand" 
-                            value={ds.jumlah}
+                            value={ds.jumlahTtransportasi}
                             className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             onChange={(e) => {
                               find(e, index, 'transportasi')
@@ -1937,9 +2038,9 @@ const QuotationsRevisi = (props, crewL) => {
               {/* Data Penginapan */}
               <div className="mb-5 mt-2 bg-gray-200 border-b border-gray-200 mt-10"></div>
               {formPenginapan.map((ds, index) => {
-                if(ds.keterangan){
+                if(ds.namaTpenginapan){
                 const detailHarga = ds.penginapan.detail_penginapan.find((dtr) => {
-                  return dtr.namaJenisKamar === ds.keterangan;
+                  return dtr.namaJenisKamar === ds.namaTpenginapan;
                 });
                 
                 // console.log('detail Harga', detailHarga)
@@ -1963,15 +2064,18 @@ const QuotationsRevisi = (props, crewL) => {
                             value="default"
                             >-{ds.penginapan.namaPenginapan}-</option>
                             {props.penginapan.map((ds, index) => {
-                              return (
-                                <option 
-                                  value={ds.id} 
-                                  key={ds.id}
-                                  // name="ketDataEvent"
-                                >
-                                {ds.namaPenginapan}
-                                </option>
-                            )})}
+                              if (ds.idAreaWisata === datas.idAreaWisata) {
+                                return (
+                                  <option 
+                                    value={ds.idPenginapan} 
+                                    key={ds.id}
+                                    // name="ketDataEvent"
+                                  >
+                                  {ds.namaPenginapan}
+                                  </option>
+                                )
+                              }
+                            })}
                           </select>
                         </div>
                         <div className="">
@@ -1986,19 +2090,54 @@ const QuotationsRevisi = (props, crewL) => {
                               find(e, index, 'penginapan')
                             }}
                           >
-                            <option 
-                            value="default"
-                            >-{ds.keterangan}-</option>
-                            {ds.penginapan.detail_penginapan.map((ds, index) => {
-                              return (
-                                <option 
-                                  value={ds.id} 
-                                  key={ds.id}
-                                  // name="ketDataEvent"
-                                >
-                                {ds.namaJenisKamar}
-                                </option>
-                            )})}
+                             {ds.idPenginapan === detailHarga.idPenginapan ? (
+                                <>
+                                  <option value="default">-{ds.namaTpenginapan}-</option>
+                                  {ds.jenisKamar === undefined ? (
+                                    ds.penginapan.detail_penginapan.map((menu, index) => (
+                                      <option 
+                                          value={menu.idDetailPenginapan} 
+                                          key={menu.id}
+                                          // name="ketDataEvent"
+                                        >
+                                        {menu.namaJenisKamar}
+                                        </option>
+                                    ))
+                                  ) : (
+                                    ds.jenisKamar.map((menu, index) => (
+                                      <option 
+                                        value={menu.idDetailPenginapan} 
+                                        key={menu.id}
+                                      >
+                                        {menu.namaJenisKamar}
+                                      </option>
+                                    ))
+                                  )}
+                                </>
+                              ) : (
+                                <>
+                                  <option value="default">--</option>
+                                  {ds.jenisKamar === undefined ? (
+                                    ds.penginapan.detail_penginapan.map((menu, index) => (
+                                      <option 
+                                        value={menu.idDetailPenginapan} 
+                                        key={menu.id}
+                                      >
+                                        {menu.namaJenisKamar}
+                                      </option>
+                                    ))
+                                  ) : (
+                                    ds.jenisKamar.map((menu, index) => (
+                                      <option 
+                                        value={menu.idDetailPenginapan} 
+                                        key={menu.id}
+                                      >
+                                        {menu.namaJenisKamar}
+                                      </option>
+                                    ))
+                                  )}
+                                </>
+                              )}
                           </select>
                         </div>
                         <div className="">
@@ -2043,9 +2182,9 @@ const QuotationsRevisi = (props, crewL) => {
                           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Quantity</label>
                           <input 
                             type="number" 
-                            name="qty" 
+                            name="qtyTpenginapan" 
                             id="brand" 
-                            value={ds.qty}
+                            value={ds.qtyTpenginapan}
                             className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             onChange={(e) => {
                               find(e, index, 'penginapan')
@@ -2056,9 +2195,9 @@ const QuotationsRevisi = (props, crewL) => {
                           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Hari</label>
                           <input 
                             type="number" 
-                            name="hari" 
+                            name="jmlHariTpenginapan" 
                             id="brand" 
-                            value={ds.hari}
+                            value={ds.jmlHariTpenginapan}
                             className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             onChange={(e) => {
                               find(e, index, 'penginapan')
@@ -2070,10 +2209,10 @@ const QuotationsRevisi = (props, crewL) => {
                           <input 
                             key={index}
                             type="number" 
-                            name="harga" 
+                            name="hargaTpenginapan" 
                             id="brand" 
                             className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            value={ds.harga}
+                            value={ds.hargaTpenginapan}
                             onChange={(e) => {
                               find(e, index, 'penginapan')
                             }}
@@ -2083,9 +2222,9 @@ const QuotationsRevisi = (props, crewL) => {
                           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah</label>
                           <input 
                             type="number" 
-                            name="jumlah" 
+                            name="jumlahTpenginapan" 
                             id="brand" 
-                            value={ds.jumlah}
+                            value={ds.jumlahTpenginapan}
                             className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             onChange={(e) => {
                               find(e, index, 'penginapan')
@@ -2140,15 +2279,18 @@ const QuotationsRevisi = (props, crewL) => {
                           value="default"
                           >--</option>
                           {props.penginapan.map((ds, index) => {
-                            return (
-                              <option 
-                                value={ds.id} 
-                                key={ds.id}
-                                // name="ketDataEvent"
-                              >
-                              {ds.namaPenginapan}
-                              </option>
-                          )})}
+                            if (ds.idAreaWisata === datas.idAreaWisata) {
+                              return (
+                                <option 
+                                  value={ds.idPenginapan} 
+                                  key={ds.id}
+                                  // name="ketDataEvent"
+                                >
+                                {ds.namaPenginapan}
+                                </option>
+                              )
+                            }
+                          })}
                         </select>
                       </div>
                       <div className="">
@@ -2166,16 +2308,16 @@ const QuotationsRevisi = (props, crewL) => {
                           <option 
                           value="default"
                           >--</option>
-                          {/* {ds.jenisKamar.map((ds, index) => {
+                          {ds.jenisKamar.map((ds, index) => {
                             return (
                               <option 
-                                value={ds.id} 
+                                value={ds.idDetailPenginapan} 
                                 key={ds.id}
                                 // name="ketDataEvent"
                               >
                               {ds.namaJenisKamar}
                               </option>
-                          )})} */}
+                          )})}
                         </select>
                       </div>
                       <div className="">
@@ -2196,9 +2338,9 @@ const QuotationsRevisi = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Quantity</label>
                         <input 
                           type="number" 
-                          name="qty" 
+                          name="qtyTpenginapan" 
                           id="brand" 
-                          value={ds.qty}
+                          value={ds.qtyTpenginapan}
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           onChange={(e) => {
                             find(e, index, 'penginapan')
@@ -2209,9 +2351,9 @@ const QuotationsRevisi = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Hari</label>
                         <input 
                           type="number" 
-                          name="hari" 
+                          name="jmlHariTpenginapan" 
                           id="brand" 
-                          value={ds.hari}
+                          value={ds.jmlHariTpenginapan}
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           onChange={(e) => {
                             find(e, index, 'penginapan')
@@ -2223,10 +2365,10 @@ const QuotationsRevisi = (props, crewL) => {
                         <input 
                           key={index}
                           type="number" 
-                          name="harga" 
+                          name="hargaTpenginapan" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={ds.harga}
+                          value={ds.hargaTpenginapan}
                           onChange={(e) => {
                             find(e, index, 'penginapan')
                           }}
@@ -2236,9 +2378,9 @@ const QuotationsRevisi = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah</label>
                         <input 
                           type="number" 
-                          name="jumlah" 
+                          name="jumlahTpenginapan" 
                           id="brand" 
-                          value={ds.jumlah}
+                          value={ds.jumlahTpenginapan}
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           onChange={(e) => {
                             find(e, index, 'penginapan')
@@ -2278,10 +2420,11 @@ const QuotationsRevisi = (props, crewL) => {
               {/* Data Rumah Makan */}
               <div className="mb-5 mt-2 bg-gray-200 border-b border-gray-200 mt-10"></div>
               {formRM.map((ds, index) => {
-                if(ds.keterangan){
+                if(ds.namaTrm){
                   const detailHarga = ds.rumah_makan.detail_r_m.find((dtr) => {
-                    return dtr.namaMenu === ds.keterangan;
+                    return dtr.namaMenu === ds.namaTrm;
                   });
+                  // console.log('detailRm', detailHarga)
                   if(detailHarga) {
                     return (
                       <div key={index}>
@@ -2302,15 +2445,18 @@ const QuotationsRevisi = (props, crewL) => {
                               value="default"
                               >-{ds.rumah_makan.namaRM}-</option>
                               {props.rumahMakan.map((ds, index) => {
-                                return (
-                                  <option 
-                                    value={ds.id} 
-                                    key={ds.id}
-                                    // name="ketDataEvent"
-                                  >
-                                  {ds.namaRM}
-                                  </option>
-                              )})}
+                                if (ds.idAreaWisata === datas.idAreaWisata) {
+                                  return (
+                                    <option 
+                                      value={ds.idRM} 
+                                      key={ds.id}
+                                      // name="ketDataEvent"
+                                    >
+                                    {ds.namaRM}
+                                    </option>
+                                  )
+                                }
+                              })}
                             </select>
                           </div>
                           <div className="">
@@ -2320,24 +2466,57 @@ const QuotationsRevisi = (props, crewL) => {
                               placeholder="Jenis Klien" 
                               defaultValue="default"
                               className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                              // onChange={set}
                               onChange={(e) => {
                                 find(e, index, 'rm')
                               }}
                             >
-                              <option 
-                              value="default"
-                              >-{ds.keterangan}-</option>
-                              {ds.rumah_makan.detail_r_m.map((ds, index) => {
-                                return (
-                                  <option 
-                                    value={ds.id} 
-                                    key={ds.id}
-                                    // name="ketDataEvent"
-                                  >
-                                  {ds.namaMenu}
-                                  </option>
-                              )})}
+                              {ds.idRM === detailHarga.idRM ? (
+                                <>
+                                  <option value="default">-{ds.namaTrm}-</option>
+                                  {ds.menuRM === undefined ? (
+                                    ds.rumah_makan.detail_r_m.map((menu, index) => (
+                                      <option 
+                                        value={menu.idDetailRM} 
+                                        key={menu.id}
+                                      >
+                                        {menu.namaMenu}
+                                      </option>
+                                    ))
+                                  ) : (
+                                    ds.menuRM.map((menu, index) => (
+                                      <option 
+                                        value={menu.idDetailRM} 
+                                        key={menu.id}
+                                      >
+                                        {menu.namaMenu}
+                                      </option>
+                                    ))
+                                  )}
+                                </>
+                              ) : (
+                                <>
+                                  <option value="default">--</option>
+                                  {ds.menuRM === undefined ? (
+                                    ds.rumah_makan.detail_r_m.map((menu, index) => (
+                                      <option 
+                                        value={menu.idDetailRM} 
+                                        key={menu.id}
+                                      >
+                                        {menu.namaMenu}
+                                      </option>
+                                    ))
+                                  ) : (
+                                    ds.menuRM.map((menu, index) => (
+                                      <option 
+                                        value={menu.idDetailRM} 
+                                        key={menu.id}
+                                      >
+                                        {menu.namaMenu}
+                                      </option>
+                                    ))
+                                  )}
+                                </>
+                              )}
                             </select>
                           </div>
                           <div className="">
@@ -2356,7 +2535,7 @@ const QuotationsRevisi = (props, crewL) => {
                               <input 
                               key={index}
                               type="number" 
-                              name="biayaFasilitas" 
+                              name="biaya" 
                               id="brand" 
                               className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                               value={detailHarga.hargaMenu}
@@ -2370,9 +2549,9 @@ const QuotationsRevisi = (props, crewL) => {
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Quantity</label>
                             <input 
                               type="number" 
-                              name="qty" 
+                              name="qtyTrm" 
                               id="brand" 
-                              value={ds.qty}
+                              value={ds.qtyTrm}
                               className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                               onChange={(e) => {
                                 find(e, index, 'rm')
@@ -2383,9 +2562,9 @@ const QuotationsRevisi = (props, crewL) => {
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Hari</label>
                             <input 
                               type="number" 
-                              name="hari" 
+                              name="jmlHariTrm" 
                               id="brand" 
-                              value={ds.hari}
+                              value={ds.jmlHariTrm}
                               className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                               onChange={(e) => {
                                 find(e, index, 'rm')
@@ -2397,10 +2576,10 @@ const QuotationsRevisi = (props, crewL) => {
                             <input 
                               key={index}
                               type="number" 
-                              name="harga" 
+                              name="hargaTrm" 
                               id="brand" 
                               className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                              value={ds.harga}
+                              value={ds.hargaTrm}
                               onChange={(e) => {
                                 find(e, index, 'rm')
                               }}
@@ -2410,9 +2589,9 @@ const QuotationsRevisi = (props, crewL) => {
                             <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah</label>
                             <input 
                               type="number" 
-                              name="jumlah" 
+                              name="jumlahTrm" 
                               id="brand" 
-                              value={ds.jumlah}
+                              value={ds.jumlahTrm}
                               className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                               onChange={(e) => {
                                 find(e, index, 'rm')
@@ -2467,15 +2646,18 @@ const QuotationsRevisi = (props, crewL) => {
                             value="default"
                             >--</option>
                             {props.rumahMakan.map((ds, index) => {
-                              return (
-                                <option 
-                                  value={ds.id} 
-                                  key={ds.id}
-                                  // name="ketDataEvent"
-                                >
-                                {ds.namaRM}
-                                </option>
-                            )})}
+                              if (ds.idAreaWisata === datas.idAreaWisata) {
+                                return (
+                                  <option 
+                                    value={ds.idRM} 
+                                    key={ds.id}
+                                    // name="ketDataEvent"
+                                  >
+                                  {ds.namaRM}
+                                  </option>
+                                )
+                              }
+                            })}
                           </select>
                         </div>
                         <div className="">
@@ -2489,20 +2671,21 @@ const QuotationsRevisi = (props, crewL) => {
                             onChange={(e) => {
                               find(e, index, 'rm')
                             }}
-                          >
+                          > 
                             <option 
                             value="default"
                             >--</option>
-                            {/* {ds.menuRM.map((ds, index) => {
+                            {ds.menuRM.map((ds, index) => {
                               return (
                                 <option 
-                                  value={ds.id} 
+                                  value={ds.idDetailRM} 
                                   key={ds.id}
                                   // name="ketDataEvent"
                                 >
                                 {ds.namaMenu}
                                 </option>
-                            )})} */}
+                            )
+                            })}
                           </select>
                         </div>
                         <div className="">
@@ -2523,9 +2706,9 @@ const QuotationsRevisi = (props, crewL) => {
                           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Quantity</label>
                           <input 
                             type="number" 
-                            name="qty" 
+                            name="qtyTrm" 
                             id="brand" 
-                            value={ds.qty}
+                            value={ds.qtyTrm}
                             className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             onChange={(e) => {
                               find(e, index, 'rm')
@@ -2536,9 +2719,9 @@ const QuotationsRevisi = (props, crewL) => {
                           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Hari</label>
                           <input 
                             type="number" 
-                            name="hari" 
+                            name="jmlHariTrm" 
                             id="brand" 
-                            value={ds.hari}
+                            value={ds.jmlHariTrm}
                             className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             onChange={(e) => {
                               find(e, index, 'rm')
@@ -2550,10 +2733,10 @@ const QuotationsRevisi = (props, crewL) => {
                           <input 
                             key={index}
                             type="number" 
-                            name="harga" 
+                            name="hargaTrm" 
                             id="brand" 
                             className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            value={ds.harga}
+                            value={ds.hargaTrm}
                             onChange={(e) => {
                               find(e, index, 'rm')
                             }}
@@ -2563,9 +2746,9 @@ const QuotationsRevisi = (props, crewL) => {
                           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah</label>
                           <input 
                             type="number" 
-                            name="jumlah" 
+                            name="jumlahTrm" 
                             id="brand" 
-                            value={ds.jumlah}
+                            value={ds.jumlahTrm}
                             className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             onChange={(e) => {
                               find(e, index, 'rm')
@@ -2622,15 +2805,15 @@ const QuotationsRevisi = (props, crewL) => {
                         >
                           <option 
                           value="default"
-                          >-{fs.keterangan}-</option>
+                          >-{fs.namaTft}-</option>
                           {props.fasilitasTour.map((ds, index) => {
                             return (
                               <option 
-                                value={ds.id} 
+                                value={ds.idFasilitasTour} 
                                 key={ds.id}
                                 // name="ketDataEvent"
                               >
-                              {ds.ketFasilitas}
+                              {ds.ketFasilitasTour}
                               </option>
                           )})}
                         </select>
@@ -2654,7 +2837,7 @@ const QuotationsRevisi = (props, crewL) => {
                           name="biayaFasilitas" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          // value={fs.fasilitas_tour.biayaFasilitas}
+                          value={fs.fasilitas_tour.biayaFasilitas}
                           disabled readOnly
                           />
                         )}
@@ -2665,9 +2848,9 @@ const QuotationsRevisi = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Quantity</label>
                         <input 
                           type="number" 
-                          name="qty" 
+                          name="qtyTft" 
                           id="brand" 
-                          value={fs.qty}
+                          value={fs.qtyTft}
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           onChange={(e) => {
                             find(e, index, 'fasilitas')
@@ -2678,9 +2861,9 @@ const QuotationsRevisi = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Hari</label>
                         <input 
                           type="number" 
-                          name="hari" 
+                          name="jmlHariTft" 
                           id="brand" 
-                          value={fs.hari}
+                          value={fs.jmlHariTft}
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           onChange={(e) => {
                             find(e, index, 'fasilitas')
@@ -2692,10 +2875,10 @@ const QuotationsRevisi = (props, crewL) => {
                         <input 
                           key={index}
                           type="number" 
-                          name="harga" 
+                          name="hargaTft" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={fs.harga}
+                          value={fs.hargaTft}
                           onChange={(e) => {
                             find(e, index, 'fasilitas')
                           }}
@@ -2705,9 +2888,9 @@ const QuotationsRevisi = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah</label>
                         <input 
                           type="number" 
-                          name="jumlah" 
+                          name="jumlahTft" 
                           id="brand" 
-                          value={fs.jumlah}
+                          value={fs.jumlahTft}
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           onChange={(e) => {
                             find(e, index, 'fasilitas')
@@ -2915,11 +3098,11 @@ const QuotationsRevisi = (props, crewL) => {
                         >
                           <option 
                           value="default"
-                          >--</option>
+                          >-{event.namaTevent}-</option>
                           {props.dataEvent.map((ds, index) => {
                             return (
                               <option 
-                                value={ds.id} 
+                                value={ds.idDataEvent} 
                                 key={ds.id}
                                 // name="ketDataEvent"
                               >
@@ -2930,7 +3113,30 @@ const QuotationsRevisi = (props, crewL) => {
                       </div>
                       <div className="">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>
-                        <input 
+                        {event.biayaDataEvent !== undefined ? (
+                          <input
+                            key={index}
+                            type="number"
+                            name="biayaDataEvent"
+                            id="brand"
+                            className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            value={event.biayaDataEvent}
+                            disabled
+                            readOnly
+                          />
+                        ) : (
+                          <input
+                            key={index}
+                            type="number"
+                            name="biayaDataEvent"
+                            id="brand"
+                            className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            value={event.event.biayaDataEvent}
+                            disabled
+                            readOnly
+                          />
+                        )}
+                        {/* <input 
                           key={index}
                           type="number" 
                           name="brand" 
@@ -2938,7 +3144,7 @@ const QuotationsRevisi = (props, crewL) => {
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           value={event.biayaDataEvent}
                           disabled readOnly
-                          />
+                          /> */}
                         {/* {formEvent.map((ev, index) => {
                           return (
                             <input 
@@ -2959,9 +3165,9 @@ const QuotationsRevisi = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Quantity</label>
                         <input 
                           type="number" 
-                          name="qty" 
+                          name="qtyTevent" 
                           id="brand" 
-                          value={event.qty}
+                          value={event.qtyTevent}
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           onChange={(e) => {
                             find(e, index, 'event')
@@ -2972,9 +3178,9 @@ const QuotationsRevisi = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Hari</label>
                         <input 
                           type="number" 
-                          name="hari" 
+                          name="jmlHariTevent" 
                           id="brand" 
-                          value={event.hari}
+                          value={event.jmlHariTevent}
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           onChange={(e) => {
                             find(e, index, 'event')
@@ -2986,10 +3192,10 @@ const QuotationsRevisi = (props, crewL) => {
                         <input 
                           key={index}
                           type="number" 
-                          name="harga" 
+                          name="hargaTevent" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={event.harga}
+                          value={event.hargaTevent}
                           onChange={(e) => {
                             find(e, index, 'event')
                           }}
@@ -2999,9 +3205,9 @@ const QuotationsRevisi = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah</label>
                         <input 
                           type="number" 
-                          name="jumlah" 
+                          name="jumlahTevent" 
                           id="brand" 
-                          value={event.jumlah}
+                          value={event.jumlahTevent}
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           onChange={(e) => {
                             find(e, index, 'event')
@@ -3047,7 +3253,7 @@ const QuotationsRevisi = (props, crewL) => {
                       <div className="">
                         <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Data Bonus</label>
                         <select 
-                          name="ketDataBonus"
+                          name="namaTbonus"
                           placeholder="Jenis Klien" 
                           defaultValue="default"
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -3058,11 +3264,11 @@ const QuotationsRevisi = (props, crewL) => {
                         >
                           <option 
                           value="default"
-                          >--</option>
+                          >-{bonus.namaTbonus}-</option>
                           {props.dataBonus.map((ds, index) => {
                             return (
                               <option 
-                                value={ds.id} 
+                                value={ds.idDataBonus} 
                                 key={ds.id}
                                 // name="ketDataEvent"
                               >
@@ -3073,15 +3279,29 @@ const QuotationsRevisi = (props, crewL) => {
                       </div>
                       <div className="">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>
-                        <input 
-                          key={index}
-                          type="number" 
-                          name="biayaDataBonus" 
-                          id="brand" 
-                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={bonus.biayaDataBonus}
-                          disabled readOnly
+                        {bonus.biayaDataBonus !== undefined ? (
+                          <input
+                            key={index}
+                            type="number"
+                            name="biayaCrewOperasional"
+                            id="brand"
+                            className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            value={bonus.biayaDataBonus}
+                            disabled
+                            readOnly
                           />
+                        ) : (
+                          <input
+                            key={index}
+                            type="number"
+                            name="biayaCrewOperasional"
+                            id="brand"
+                            className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            value={bonus.bonus.biayaDataBonus}
+                            disabled
+                            readOnly
+                          />
+                        )}
                       </div>
                     </div>
                     <div className="grid gap-4 sm:grid-cols-5 mt-3">
@@ -3089,9 +3309,9 @@ const QuotationsRevisi = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Quantity</label>
                         <input 
                           type="number" 
-                          name="qty" 
+                          name="qtyTbonus" 
                           id="brand" 
-                          value={bonus.qty}
+                          value={bonus.qtyTbonus}
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           onChange={(e) => {
                             find(e, index, 'bonus')
@@ -3102,9 +3322,9 @@ const QuotationsRevisi = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Hari</label>
                         <input 
                           type="number" 
-                          name="hari" 
+                          name="jmlHariTbonus" 
                           id="brand" 
-                          value={bonus.hari}
+                          value={bonus.jmlHariTbonus}
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           onChange={(e) => {
                             find(e, index, 'bonus')
@@ -3116,10 +3336,10 @@ const QuotationsRevisi = (props, crewL) => {
                         <input 
                           key={index}
                           type="number" 
-                          name="harga" 
+                          name="hargaTbonus" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={bonus.harga}
+                          value={bonus.hargaTbonus}
                           onChange={(e) => {
                             find(e, index, 'bonus')
                           }}
@@ -3129,9 +3349,9 @@ const QuotationsRevisi = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah</label>
                         <input 
                           type="number" 
-                          name="jumlah" 
+                          name="jumlahTbonus" 
                           id="brand" 
-                          value={bonus.jumlah}
+                          value={bonus.jumlahTbonus}
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           onChange={(e) => {
                             find(e, index, 'bonus')

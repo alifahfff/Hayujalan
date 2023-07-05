@@ -30,11 +30,11 @@ class TFasilitasTour extends Model
     // klien memiliki data yang ada pada jenis klien
     public function fasilitasTour()
     {
-        return $this->belongsTo(fasilitasTour::class, 'idQuotationTransaksi', 'idQuotationTransaksi');
+        return $this->belongsTo(fasilitasTour::class, 'idFasilitasTour', 'idFasilitasTour');
     }
 
     public function qtransaksi()
     {
-        return $this->belongsTo(quotationTransaksi::class, 'idQuotationTransaksi', 'id');
+        return $this->belongsTo(quotationTransaksi::class, 'idQuotationTransaksi', 'idQuotationTransaksi');
     }
 }

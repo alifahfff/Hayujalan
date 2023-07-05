@@ -33,7 +33,7 @@ class TRumahMakan extends Model
     // klien memiliki data yang ada pada jenis klien
     public function rumahMakan()
     {
-        return $this->belongsTo(vendorRumahMakan::class, 'idRm', 'idRm');
+        return $this->belongsTo(vendorRumahMakan::class, 'idRM', 'idRM');
     }
 
     public function qtransaksi()

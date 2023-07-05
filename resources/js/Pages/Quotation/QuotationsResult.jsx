@@ -130,7 +130,7 @@ export default function QuotationsHistoryResult(props) {
                   className="btn bg-gray-400 text-white border-0"
                   style={{ maxWidth: "8rem" }}
                 >
-                  <Link href={route('qmanual.edit')} method="get" data={{id: props.data.idQuotatioRekomendasi}}>
+                  <Link href={route('qhistory.revisi')} method="get" data={{id: props.data.idQuotatioRekomendasi}}>
                     Edit Mode
                   </Link>
                 </button>
