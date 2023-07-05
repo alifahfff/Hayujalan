@@ -1,15 +1,41 @@
 import { Link } from "@inertiajs/inertia-react";
 import Avatar from "avataaars";
 
-const Navbar = ({ user }) => {
+const Navbar = ({ auth }) => {
+  const roles = auth.user.idRoles;
   return (
     <div className="navbar bg-white mb-5 flex justify-end px-5">
       <div className="flex gap-2">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <Link href={route("crew")} as="button">
-              Admin Keuangan
-            </Link>
+          {
+            roles === 1 && (
+              <Link as="button">
+              Admin - {auth.user.namaUser}
+              </Link>
+            )
+          }
+          {
+            roles === 2 && (
+              <Link as="button">
+              Program - {auth.user.namaUser}
+              </Link>
+            )
+          }
+          {
+            roles === 3 && (
+              <Link as="button">
+              Keuangan - {auth.user.namaUser}
+              </Link>
+            )
+          }
+          {
+            roles === 4 && (
+              <Link as="button">
+              Sales - {auth.user.namaUser}
+              </Link>
+            )
+          }
           </li>
           {/* <li><Link href={route('Crew')} as="button">Admin Keuangan</Link></li> */}
         </ul>
@@ -37,7 +63,7 @@ const Navbar = ({ user }) => {
             tabIndex="0"
             className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
           >
-            {!user ? (
+            {!auth.user.namaUser ? (
               <>
                 <li>
                   <Link href={route("login")} as="button">
@@ -89,7 +115,7 @@ const Navbar = ({ user }) => {
                     className="justify-between"
                   >
                     Dashboard
-                    <span className="badge">New</span>
+                    {/* <span className="badge">New</span> */}
                   </Link>
                 </li>
                 <li>

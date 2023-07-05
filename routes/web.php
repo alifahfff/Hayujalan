@@ -37,8 +37,18 @@ use App\Http\Controllers\Vendor\AreaWisataController;
 */
 
 Route::get('/', [NewsController::class, 'index']);
-Route::get('/homepage', [NewsController::class, 'index'])->name('Homepage');
+Route::middleware(['auth'])->group(function () {
+    // Protected routes
+    Route::get('/homepage', [NewsController::class, 'index'])->name('Homepage');
 
+    // Route::prefix(CrewOperasionalController::class)->group(function () {
+    //     Route::get('/crew', 'show')->name('crew');
+    //     Route::post('/crew', 'store')->name('create.crew');
+    //     Route::get('/crew/edit', 'edit')->name('edit.crew');
+    //     Route::post('/crew/update', 'update')->name('update.crew');
+    //     Route::post('/crew/delete', 'destroy')->name('delete.crew');
+    // });    
+});
 
 // Login
 // Route::get('/', function () {

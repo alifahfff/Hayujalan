@@ -10,12 +10,14 @@ import {
 } from "react-icons/bs";
 import * as RiIcons from 'react-icons/ri';
 
-const Sidebar = () => {
+const Sidebar = ({ auth }) => {
   const [submenuOpen, setSubmenuOpen] = useState(false);
   const [open, setOpen] = useState(true);
-  
+  console.log('user Navbae', auth.user.idRoles);
+  const roles = auth.user.idRoles;
+  console.log('roles', roles)
   // Data
-  const Menus = [
+  const MenusAdmin = [
     { 
       title: "Dashboard", 
       src: "Chart_fill",
@@ -132,6 +134,329 @@ const Sidebar = () => {
     },
   ];
 
+  const MenusKeuangan = [
+    { 
+      title: "Dashboard", 
+      src: "Chart_fill",
+      path: "/homepage",
+    },
+
+    {
+      title: "Quotation",
+      src: "Chat",
+      path: "#",
+      iconClosed: <RiIcons.RiArrowDownSFill />,
+      iconOpened: <RiIcons.RiArrowUpSFill />,
+      subNav: [
+        {
+          title: "Quotation",
+          icon: <BsFillFileEarmarkTextFill />,
+          path: "/quotation/qhistory/",
+        },
+      ],
+    },
+
+    {
+      title: "Data Vendor",
+      src: "User",
+      path: "#",
+      iconClosed: <RiIcons.RiArrowDownSFill />,
+      iconOpened: <RiIcons.RiArrowUpSFill />,
+      subNav: [
+        { 
+          title: "Data Area Wisata",
+          path: "/areawisata", 
+        },
+        { 
+          title: "Data Destinasi Wisata",
+          path: "/destinasiwisata", 
+        },
+        { 
+          title: "Data Transportasi",
+          path: "/transportasi", 
+        },
+        { 
+          title: "Data Jenis Transportasi",
+          path: "/jenisTransportasi", 
+        },
+        { 
+          title: "Data Hotel",
+          path: "/hotel", 
+        },
+        { 
+          title: "Data Rumah Makan",
+          path: "/rumahmakan", 
+        },
+      ],
+    },
+
+    {
+      title: "Data Item Quotation",
+      src: "User",
+      path: "#",
+      iconClosed: <RiIcons.RiArrowDownSFill />,
+      iconOpened: <RiIcons.RiArrowUpSFill />,
+      subNav: [
+        { 
+          title: "Fasilitas Tour", 
+          path: "/fasilitasTour",
+        },
+        { 
+          title: "Crew Operasional", 
+          path: "/crew",
+        },
+        { 
+          title: "Data Event",
+          path: "/event",
+        },
+        { 
+          title: "Data Bonus",
+          path: "/bonus",
+        },
+        { 
+          title: "Data Jenis Klien",
+          path: "/jenisKlien",
+        },
+        { 
+          title: "Data Klient",
+          path: "/klien",
+        },
+        { 
+          title: "Kategori Tour",
+          path: "/kategoriTour",
+        },
+      ],
+    },
+
+    { 
+      title: "Report", 
+      src: "Calendar",
+      path: "/report" 
+    },
+  ];
+
+  const MenusProgram = [
+    { 
+      title: "Dashboard", 
+      src: "Chart_fill",
+      path: "/homepage",
+    },
+
+    {
+      title: "Quotation",
+      src: "Chat",
+      path: "#",
+      iconClosed: <RiIcons.RiArrowDownSFill />,
+      iconOpened: <RiIcons.RiArrowUpSFill />,
+      subNav: [
+        {
+          title: "Quotation Manual",
+          icon: <BsFillChatLeftQuoteFill />,
+          path: "/quotation",
+        },
+        {
+          title: "Quotation Rekomendasi",
+          icon: <BsReceipt />,
+          path: "/quotation/qrecomend/",
+        },
+        {
+          title: "Quotation",
+          icon: <BsFillFileEarmarkTextFill />,
+          path: "/quotation/qhistory/",
+        },
+      ],
+    },
+
+    {
+      title: "Data Vendor",
+      src: "User",
+      path: "#",
+      iconClosed: <RiIcons.RiArrowDownSFill />,
+      iconOpened: <RiIcons.RiArrowUpSFill />,
+      subNav: [
+        { 
+          title: "Data Area Wisata",
+          path: "/areawisata", 
+        },
+        { 
+          title: "Data Destinasi Wisata",
+          path: "/destinasiwisata", 
+        },
+        { 
+          title: "Data Transportasi",
+          path: "/transportasi", 
+        },
+        { 
+          title: "Data Jenis Transportasi",
+          path: "/jenisTransportasi", 
+        },
+        { 
+          title: "Data Hotel",
+          path: "/hotel", 
+        },
+        { 
+          title: "Data Rumah Makan",
+          path: "/rumahmakan", 
+        },
+      ],
+    },
+
+    {
+      title: "Data Item Quotation",
+      src: "User",
+      path: "#",
+      iconClosed: <RiIcons.RiArrowDownSFill />,
+      iconOpened: <RiIcons.RiArrowUpSFill />,
+      subNav: [
+        { 
+          title: "Fasilitas Tour", 
+          path: "/fasilitasTour",
+        },
+        { 
+          title: "Crew Operasional", 
+          path: "/crew",
+        },
+        { 
+          title: "Data Event",
+          path: "/event",
+        },
+        { 
+          title: "Data Bonus",
+          path: "/bonus",
+        },
+        { 
+          title: "Data Jenis Klien",
+          path: "/jenisKlien",
+        },
+        { 
+          title: "Data Klient",
+          path: "/klien",
+        },
+        { 
+          title: "Kategori Tour",
+          path: "/kategoriTour",
+        },
+      ],
+    },
+
+    { 
+      title: "Report", 
+      src: "Calendar",
+      path: "/report" 
+    },
+  ];
+
+  const MenusSales = [
+    { 
+      title: "Dashboard", 
+      src: "Chart_fill",
+      path: "/homepage",
+    },
+
+    {
+      title: "Quotation",
+      src: "Chat",
+      path: "#",
+      iconClosed: <RiIcons.RiArrowDownSFill />,
+      iconOpened: <RiIcons.RiArrowUpSFill />,
+      subNav: [
+        {
+          title: "Quotation Manual",
+          icon: <BsFillChatLeftQuoteFill />,
+          path: "/quotation",
+        },
+        {
+          title: "Quotation Rekomendasi",
+          icon: <BsReceipt />,
+          path: "/quotation/qrecomend/",
+        },
+        {
+          title: "Quotation",
+          icon: <BsFillFileEarmarkTextFill />,
+          path: "/quotation/qhistory/",
+        },
+      ],
+    },
+
+    {
+      title: "Data Vendor",
+      src: "User",
+      path: "#",
+      iconClosed: <RiIcons.RiArrowDownSFill />,
+      iconOpened: <RiIcons.RiArrowUpSFill />,
+      subNav: [
+        { 
+          title: "Data Area Wisata",
+          path: "/areawisata", 
+        },
+        { 
+          title: "Data Destinasi Wisata",
+          path: "/destinasiwisata", 
+        },
+        { 
+          title: "Data Transportasi",
+          path: "/transportasi", 
+        },
+        { 
+          title: "Data Jenis Transportasi",
+          path: "/jenisTransportasi", 
+        },
+        { 
+          title: "Data Hotel",
+          path: "/hotel", 
+        },
+        { 
+          title: "Data Rumah Makan",
+          path: "/rumahmakan", 
+        },
+      ],
+    },
+
+    {
+      title: "Data Item Quotation",
+      src: "User",
+      path: "#",
+      iconClosed: <RiIcons.RiArrowDownSFill />,
+      iconOpened: <RiIcons.RiArrowUpSFill />,
+      subNav: [
+        { 
+          title: "Fasilitas Tour", 
+          path: "/fasilitasTour",
+        },
+        { 
+          title: "Crew Operasional", 
+          path: "/crew",
+        },
+        { 
+          title: "Data Event",
+          path: "/event",
+        },
+        { 
+          title: "Data Bonus",
+          path: "/bonus",
+        },
+        { 
+          title: "Data Jenis Klien",
+          path: "/jenisKlien",
+        },
+        { 
+          title: "Data Klient",
+          path: "/klien",
+        },
+        { 
+          title: "Kategori Tour",
+          path: "/kategoriTour",
+        },
+      ],
+    },
+
+    { 
+      title: "Report", 
+      src: "Calendar",
+      path: "/report" 
+    },
+  ];
+
   // console.log('Menu', Menus)
 
   return (
@@ -164,9 +489,26 @@ const Sidebar = () => {
         </div>
         {/* Menu */}
         <div className="pt-6">
-          {Menus.map((Menu, index) => {
-          return (  <SidebarMenu key={index} Menu={Menu} open={open}/> )
-          })}
+        {
+          roles === 1 && MenusAdmin.map((Menu, index) => (
+            <SidebarMenu key={index} Menu={Menu} open={open}/>
+          ))
+        }
+        {
+          roles === 2 && MenusProgram.map((Menu, index) => (
+            <SidebarMenu key={index} Menu={Menu} open={open}/>
+          ))
+        }
+        {
+          roles === 3 && MenusKeuangan.map((Menu, index) => (
+            <SidebarMenu key={index} Menu={Menu} open={open}/>
+          ))
+        }
+        {
+          roles === 4 && MenusSales.map((Menu, index) => (
+            <SidebarMenu key={index} Menu={Menu} open={open}/>
+          ))
+        }
         </div>
       </div>
     </div>
