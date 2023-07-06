@@ -13,9 +13,9 @@ import * as RiIcons from 'react-icons/ri';
 const Sidebar = ({ auth }) => {
   const [submenuOpen, setSubmenuOpen] = useState(false);
   const [open, setOpen] = useState(true);
-  console.log('user Navbae', auth.user.idRoles);
-  const roles = auth.user.idRoles;
-  console.log('roles', roles)
+  // console.log('user Navbae', auth.user.idRoles);
+  const [roles, setRoles] = useState(auth.user.idRoles);
+  // console.log('roles', roles)
   // Data
   const MenusAdmin = [
     { 

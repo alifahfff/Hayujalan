@@ -22,7 +22,7 @@ use App\Http\Controllers\Vendor\JenisTransportasiController;
 use App\Http\Controllers\Vendor\VendorPenginapanController;
 use App\Http\Controllers\Vendor\VendorRumahMakanController;
 use App\Http\Controllers\Vendor\AreaWisataController;
-
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 
 /*
@@ -36,33 +36,32 @@ use App\Http\Controllers\Vendor\AreaWisataController;
 |
 */
 
-Route::get('/', [NewsController::class, 'index']);
+// Route::get('/', [AuthenticatedSessionController::class, 'create']);
 Route::middleware(['auth'])->group(function () {
     // Protected routes
     Route::get('/homepage', [NewsController::class, 'index'])->name('Homepage');
 
-    // Route::prefix(CrewOperasionalController::class)->group(function () {
-    //     Route::get('/crew', 'show')->name('crew');
-    //     Route::post('/crew', 'store')->name('create.crew');
-    //     Route::get('/crew/edit', 'edit')->name('edit.crew');
-    //     Route::post('/crew/update', 'update')->name('update.crew');
-    //     Route::post('/crew/delete', 'destroy')->name('delete.crew');
-    // });    
+    Route::prefix('crew')->group(function () {
+        Route::get('/', [CrewOperasionalController::class, 'show'])->name('crew');
+        Route::post('/', [CrewOperasionalController::class, 'store'])->name('create.crew');
+        Route::get('/edit', [CrewOperasionalController::class, 'edit'])->name('edit.crew');
+        Route::post('/update', [CrewOperasionalController::class, 'update'])->name('update.crew');
+        Route::post('/delete', [CrewOperasionalController::class, 'destroy'])->name('delete.crew');
+    });  
 });
 
 // Login
 Route::get('/', function () {
     return view('Auth/login');
 });
-// })->name('itemQuitation');
 
-Route::controller(CrewOperasionalController::class)->group(function () {
-    Route::get('/crew', 'show')->name('crew');
-    Route::post('/crew', 'store')->name('create.crew');
-    Route::get('/crew/edit', 'edit')->name('edit.crew');
-    Route::post('/crew/update', 'update')->name('update.crew');
-    Route::post('/crew/delete', 'destroy')->name('delete.crew');
-});
+// Route::controller(CrewOperasionalController::class)->group(function () {
+//     Route::get('/crew', 'show')->name('crew');
+//     Route::post('/crew', 'store')->name('create.crew');
+//     Route::get('/crew/edit', 'edit')->name('edit.crew');
+//     Route::post('/crew/update', 'update')->name('update.crew');
+//     Route::post('/crew/delete', 'destroy')->name('delete.crew');
+// });
 
 Route::controller(FasilitasTourController::class)->group(function () {
     Route::get('/fasilitasTour', 'show')->name('fasilitasTour');

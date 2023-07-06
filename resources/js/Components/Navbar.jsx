@@ -2,41 +2,30 @@ import { Link } from "@inertiajs/inertia-react";
 import Avatar from "avataaars";
 
 const Navbar = ({ auth }) => {
-  const roles = auth.user.idRoles;
+  // const roles = auth.user.idRoles;
   return (
     <div className="navbar bg-white mb-5 flex justify-end px-5">
       <div className="flex gap-2">
         <ul className="menu menu-horizontal px-1">
-          <li>
-          {
-            roles === 1 && (
-              <Link as="button">
-              Admin - {auth.user.namaUser}
-              </Link>
-            )
-          }
-          {
-            roles === 2 && (
-              <Link as="button">
-              Program - {auth.user.namaUser}
-              </Link>
-            )
-          }
-          {
-            roles === 3 && (
-              <Link as="button">
-              Keuangan - {auth.user.namaUser}
-              </Link>
-            )
-          }
-          {
-            roles === 4 && (
-              <Link as="button">
-              Sales - {auth.user.namaUser}
-              </Link>
-            )
-          }
-          </li>
+        <li>
+          {auth && (
+            <>
+              {auth.user.idRoles === 1 && (
+                <Link as="button">Admin - {auth.user.namaUser}</Link>
+              )}
+              {auth.user.idRoles === 2 && (
+                <Link as="button">Program - {auth.user.namaUser}</Link>
+              )}
+              {auth.user.idRoles === 3 && (
+                <Link as="button">Keuangan - {auth.user.namaUser}</Link>
+              )}
+              {auth.user.idRoles === 4 && (
+                <Link as="button">Sales - {auth.user.namaUser}</Link>
+              )}
+            </>
+          )}
+          {!auth && <Link as="button">Admin</Link>}
+        </li>
           {/* <li><Link href={route('Crew')} as="button">Admin Keuangan</Link></li> */}
         </ul>
         <div className="dropdown dropdown-end">
@@ -63,7 +52,7 @@ const Navbar = ({ auth }) => {
             tabIndex="0"
             className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
           >
-            {!auth.user.namaUser ? (
+            {!auth ? (
               <>
                 <li>
                   <Link href={route("login")} as="button">

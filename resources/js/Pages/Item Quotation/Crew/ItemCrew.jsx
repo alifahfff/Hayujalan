@@ -102,4 +102,4 @@ export default function ItemCrew(props) {
   )
 }
 
-ItemCrew.layout = page => <Layout children={page}/>
+ItemCrew.layout = page => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;
