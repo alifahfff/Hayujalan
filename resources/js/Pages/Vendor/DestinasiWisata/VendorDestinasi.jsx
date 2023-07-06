@@ -68,4 +68,4 @@ export default function VendorDestinasi (props) {
   )
 }
 
-VendorDestinasi.layout = page => <Layout children={page}/>
+VendorDestinasi.layout = page => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;

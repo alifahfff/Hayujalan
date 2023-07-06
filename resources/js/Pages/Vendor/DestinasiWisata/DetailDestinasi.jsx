@@ -168,4 +168,4 @@ export default function DetailDestinasi(props) {
   );
 }
 
-DetailDestinasi.layout = page => <Layout children={page}/>
+DetailDestinasi.layout = page => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;

@@ -91,4 +91,4 @@ export default function Reports(props) {
   )
 }
 
-Reports.layout = page => <Layout children={page}/>
+Reports.layout = page => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;

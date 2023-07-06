@@ -111,4 +111,4 @@ export default function Klien(props) {
   )
 }
 
-Klien.layout = page => <Layout children={page}/>
+Klien.layout = page => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;

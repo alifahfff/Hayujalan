@@ -101,4 +101,4 @@ export default function FasilitasTour(props) {
   )
 }
 
-FasilitasTour.layout = page => <Layout children={page}/>
+FasilitasTour.layout = page => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;

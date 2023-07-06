@@ -161,4 +161,4 @@ export default function DetailRM(props) {
   );
 }
 
-DetailRM.layout = page => <Layout children={page}/>
+DetailRM.layout = page => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;

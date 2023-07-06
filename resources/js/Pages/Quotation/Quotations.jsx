@@ -91,4 +91,4 @@ export default function Quotations(props, crewL) {
   );
 }
 
-Quotations.layout = (page) => <Layout children={page} />;
+Quotations.layout = (page) => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;

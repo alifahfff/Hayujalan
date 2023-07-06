@@ -97,4 +97,4 @@ export default function DataEvent(props) {
   )
 }
 
-DataEvent.layout = page => <Layout children={page}/>
+DataEvent.layout = page => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;

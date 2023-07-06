@@ -78,4 +78,4 @@ export default function Akses(props) {
   )
 }
 
-Akses.layout = page => <Layout children={page}/>
+Akses.layout = page => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;

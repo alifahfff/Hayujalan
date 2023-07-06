@@ -3127,5 +3127,5 @@ const QuotationsClone = (props, crewL) => {
 
 export default QuotationsClone
 
-QuotationsClone.layout = (page) => <Layout children={page} />;
+QuotationsClone.layout = (page) => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;
 

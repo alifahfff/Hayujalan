@@ -66,4 +66,4 @@ export default function VendorRM (props) {
   )
 }
 
-VendorRM.layout = page => <Layout children={page}/>
+VendorRM.layout = page => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;

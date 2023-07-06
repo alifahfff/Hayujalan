@@ -97,4 +97,4 @@ export default function QuotationsRecomendResult(props, crewL) {
   );
 }
 
-QuotationsRecomendResult.layout = (page) => <Layout children={page} />;
+QuotationsRecomendResult.layout = (page) => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;

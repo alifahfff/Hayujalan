@@ -96,4 +96,4 @@ export default function KategoriTour(props) {
   )
 }
 
-KategoriTour.layout = page => <Layout children={page}/>
+KategoriTour.layout = page => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;

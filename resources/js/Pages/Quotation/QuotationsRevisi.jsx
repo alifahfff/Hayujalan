@@ -3409,5 +3409,5 @@ const QuotationsRevisi = (props, crewL) => {
 
 export default QuotationsRevisi
 
-QuotationsRevisi.layout = (page) => <Layout children={page} />;
+QuotationsRevisi.layout = (page) => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;
 

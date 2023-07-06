@@ -157,4 +157,4 @@ export default function DetailTransport(props) {
   );
 }
 
-DetailTransport.layout = page => <Layout children={page}/>
+DetailTransport.layout = page => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;

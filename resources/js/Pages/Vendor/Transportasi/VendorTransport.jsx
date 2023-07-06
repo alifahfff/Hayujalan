@@ -63,4 +63,4 @@ export default function VendorTransport (props) {
   )
 }
 
-VendorTransport.layout = page => <Layout children={page}/>
+VendorTransport.layout = page => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;

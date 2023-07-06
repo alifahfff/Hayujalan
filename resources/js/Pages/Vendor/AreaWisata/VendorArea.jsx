@@ -56,4 +56,4 @@ export default function VendorArea (props) {
   )
 }
 
-VendorArea.layout = page => <Layout children={page}/>
+VendorArea.layout = page => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;

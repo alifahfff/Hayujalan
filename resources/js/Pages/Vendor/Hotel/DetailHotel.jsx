@@ -163,4 +163,4 @@ export default function DetailHotel(props) {
   );
 }
 
-DetailHotel.layout = page => <Layout children={page}/>
+DetailHotel.layout = page => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;
