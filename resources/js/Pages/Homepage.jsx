@@ -55,4 +55,4 @@ export default function Homepage(props) {
   );
 }
 
-Homepage.layout = page => <Layout children={page}/>
+Homepage.layout = page => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;

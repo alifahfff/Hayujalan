@@ -197,12 +197,12 @@ export default function Quotations(props) {
         <div className="bg-white border-b border-gray-200">
           <div className="flex flex-col px-11 pt-6 pb-8 ">
 
-            <a className="mr-5 mt-2 text-black font-bold mb-4">Quotation</a>
+            <a className="mr-5 mt-2 text-black font-bold mb-4">Quotation Rekomendasi</a>
             <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
-                {/* <div className="sm:col-span-2">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Nama Klien</label>
+                <div className="sm:col-span-2">
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Tanggal Berlaku</label>
                   <input 
-                    type="text" 
+                    type="date" 
                     name="name" 
                     id="name" 
                     className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -213,7 +213,7 @@ export default function Quotations(props) {
                       })
                     }
                   />
-                </div> */}
+                </div>
 
                 <div className="">
                   <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Area Wisata</label>
@@ -470,4 +470,4 @@ export default function Quotations(props) {
   );
 }
 
-Quotations.layout = (page) => <Layout children={page} />;
+Quotations.layout = (page) => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;

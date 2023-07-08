@@ -225,7 +225,7 @@ export default function QuotationsHistoryResult(props) {
                   >
                     
                     {/* <button className="btn btn-warning text-white px-8">PDF</button> */}
-                    <PDFDownloadLink document={<PDFFile data={props}/>} fileName="FORM">
+                    <PDFDownloadLink document={<PDFFile data={props}/>} fileName={props.data.quotation.namaProject}>
                     {({ loading }) =>
                       loading ? (
                         <button></button>
@@ -248,4 +248,4 @@ export default function QuotationsHistoryResult(props) {
   );
 }
 
-QuotationsHistoryResult.layout = (page) => <Layout children={page} />;
+QuotationsHistoryResult.layout = (page) => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;

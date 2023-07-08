@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Akses\roles;
 use App\Models\Quotation\quotationTour;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -35,16 +37,32 @@ class User extends Authenticatable
 
     protected $table = 'M_user';
     protected $primaryKey = 'idUser';
-    public $incrementing = false;
-    public $timestamps = true;
+    // public $incrementing = false;
+    // public $timestamps = true;
     
-    protected $fillable = ['email', 'password', 'namaUser'];
+    protected $fillable = ['email', 'password', 'namaUser', 'idRoles'];
 
-    public function setPassword($password)
+    // public function setPassword($password)
+    // {
+    //     $this->password = $password;
+    //     $this->hashed_password = md5($password); // Menggunakan md5 untuk menghash password
+    // }
+
+    public function login($email, $password)
     {
-        $this->password = $password;
-        $this->hashed_password = md5($password); // Menggunakan md5 untuk menghash password
+        $user = \DB::table($this->table)
+            ->where('Email', $email)
+            ->first();
+        // dd($user, $password);
+        if ($user && $password === $user->Password) {
+            Auth::loginUsingId($user->idUser);
+
+            return true;
+        }
+
+        return false;
     }
+
     // yang punya id one to many
     public function roles()
     {

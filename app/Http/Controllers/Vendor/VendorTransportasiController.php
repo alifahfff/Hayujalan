@@ -121,6 +121,7 @@ class VendorTransportasiController extends Controller
     public function update(Request $request)
     {
         vendorTransportasi::where('idTransportasi', $request->id)->update([
+            'idAreaWisata' => $request->idAreaWisata,
             'namaTransportasi' => $request->namaTransportasi,
             'alamatTransportasi' => $request->alamatTransportasi,
             'tlpTransportasi' => $request->tlpTransportasi,

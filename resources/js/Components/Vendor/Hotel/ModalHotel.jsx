@@ -12,6 +12,7 @@ const ModalHotel = ({visible, onClose, data, dataArea}) => {
             // update data
             const dataUpdate = {
                 id: data.idPenginapan,
+                idAreaWisata: datas.idAreaWisata,
                 namaPenginapan: datas.namaPenginapan,
                 bintangPenginapan: datas.bintangPenginapan,
                 alamatPenginapan: datas.alamatPenginapan,

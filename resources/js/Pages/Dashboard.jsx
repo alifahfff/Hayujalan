@@ -8,6 +8,7 @@ export default function Dashboard(props) {
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const [isNotif, setIsNotif] = useState(false)
+    console.log('props', props)
 
     const handleSubmit = () => {
         const data = {

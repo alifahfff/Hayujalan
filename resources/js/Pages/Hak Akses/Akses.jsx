@@ -14,17 +14,10 @@ import ModalAkses from '@/Components/Hak Akses/ModalAkses';
 export default function Akses(props) {
     console.log('cek', props)
     const [data, setData] = useState({
-        name: '', 
-        email: '', 
         idRoles: '',
-        password: '',
-        roles: [{
-            namaRoles: '',
-        }],
-        user: {
-            telepon: '',
-            status: '',
-        }
+        namaUser: '', 
+        Email: '', 
+        Password: '',
     })
 
     const [showModal, setShowModal] = useState(false);
@@ -57,7 +50,7 @@ export default function Akses(props) {
                         <TAkses 
                         data={props.Mydata}
                         roles={props.roles}
-                        user={props.user}
+                        // user={props.user}
                         />
                         <div className='m-2 flex justify-between items-center'>
                         {props.Mydata.data.length > 0 && (
@@ -79,10 +72,10 @@ export default function Akses(props) {
             visible={showModal}
             data={data}
             roles={props.roles}
-            user={props.user}
+            // user={props.user}
             />
         </div>
   )
 }
 
-Akses.layout = page => <Layout children={page}/>
+Akses.layout = page => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;

@@ -13,6 +13,7 @@ import { Inertia } from '@inertiajs/inertia';
 export default function KategoriTour(props) {
     console.log('props', props)
     console.log('data', props.Mydata.data)
+    const [roles, setRoles] = useState(props.auth.user.idRoles);
     const [data, setData] = useState({
         namaKategoriTour: '', 
         presentaseKeuntungan: '', 
@@ -36,7 +37,7 @@ export default function KategoriTour(props) {
   return (
     <div className='min-h-screen bg-abu'>
             {/* Content */}
-            <div className='ml-6'>
+            <div className='ml-6 text-sm'>
                 <a>Kategori Tour</a>
             </div>
             <div className='flex justify-between m-6 mt-2 mb-3'>
@@ -59,13 +60,19 @@ export default function KategoriTour(props) {
                     </form>
 
                     {/* Tambah Data */}
-                    <button 
-                    onClick={() => setShowModal(true)}
-                    className="btn ml-2 gap-2 btn-outline px-5 bg-white hover:bg-gray-100 text-[#C1C0BF]"
-                    >
-                    Tambah Data | 
-                    <BsPlusSquare/>
-                    </button>
+                    { roles === 1 || roles === 3 ? ( 
+                            //<h1>admin</h1>
+                            <button 
+                            onClick={() => setShowModal(true)}
+                            className="btn ml-2 gap-2 btn-outline px-5 bg-white hover:bg-gray-100 text-[#C1C0BF]"
+                            >
+                            Tambah Data | 
+                            <BsPlusSquare/>
+                            </button>
+                        ) : roles === 2  || roles === 4 ? (
+                            <div></div>
+                        ) : <div></div>
+                    }
                 </div>
             </div>
             <div className='relative bg-white shadow-xl m-6 mt-3 md:max-xl:flex ring-1 ring-gray-900/5'>
@@ -96,4 +103,4 @@ export default function KategoriTour(props) {
   )
 }
 
-KategoriTour.layout = page => <Layout children={page}/>
+KategoriTour.layout = page => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;

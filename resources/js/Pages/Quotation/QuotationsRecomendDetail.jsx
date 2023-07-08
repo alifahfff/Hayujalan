@@ -136,7 +136,7 @@ export default function QuotationsResult(props) {
                   >
                     
                     {/* <button className="btn btn-warning text-white px-8">PDF</button> */}
-                    <PDFDownloadLink document={<PDFFile data={props}/>} fileName="FORM">
+                    <PDFDownloadLink document={<PDFFile data={props}/>} fileName={props.data.quotation.namaProject}>
                     {({ loading }) =>
                       loading ? (
                         <button></button>
@@ -156,4 +156,4 @@ export default function QuotationsResult(props) {
   );
 }
 
-QuotationsResult.layout = (page) => <Layout children={page} />;
+QuotationsResult.layout = (page) => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;

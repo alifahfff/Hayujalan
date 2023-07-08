@@ -461,12 +461,12 @@ class QuotationTourController extends Controller
                 $existingQuotationTour->feeMarketing = $request->quotationTour['feeMarketing'];
                 $isChanged = true;
             }
-            if ($existingQuotationTour->idUserProgram != $request->quotationTour['idUserProgram']) {
-                $existingQuotationTour->idUserProgram = $request->quotationTour['idUserProgram'];
+            if ($existingQuotationTour->tglBerlakuQuotation != $request->quotationTour['tglBerlakuQuotation']) {
+                $existingQuotationTour->tglBerlakuQuotation = $request->quotationTour['tglBerlakuQuotation'];
                 $isChanged = true;
             }
-            if ($existingQuotationTour->idUserSales != $request->quotationTour['idUserSales']) {
-                $existingQuotationTour->idUserSales = $request->quotationTour['idUserSales'];
+            if ($existingQuotationTour->masaBerlakuQuotation != $request->quotationTour['masaBerlakuQuotation']) {
+                $existingQuotationTour->masaBerlakuQuotation = $request->quotationTour['masaBerlakuQuotation'];
                 $isChanged = true;
             }
             if ($existingQuotationTour->idAreaWisata != $request->quotationTour['idAreaWisata']) {
@@ -488,14 +488,6 @@ class QuotationTourController extends Controller
             // Data klien sudah ada, lakukan operasi update jika ada perubahan
             $isChanged = false;
 
-            if ($existingQuotationTransaksi->idQuotationTour != $request->quotationTour['idQuotationTour']) {
-                $existingQuotationTransaksi->idQuotationTour = $request->quotationTour['idQuotationTour'];
-                $isChanged = true;
-            }
-            if ($existingQuotationTransaksi->namaQtransaksi != $request->quotationTour['namaQtransaksi']) {
-                $existingQuotationTransaksi->namaQtransaksi = $request->quotationTour['namaQtransaksi'];
-                $isChanged = true;
-            }
             if ($existingQuotationTransaksi->productionPrice != $request->productionPrice) {
                 $existingQuotationTransaksi->productionPrice = $request->productionPrice;
                 $isChanged = true;
@@ -898,13 +890,13 @@ class QuotationTourController extends Controller
         $dataBonus = dataBonus::all();
         $jenisKlien = dataJenisKlien::all();
         $quotationRekomendasi = quotationRekomendasi::with('quotation.klien.jenisKlien', 'quotation.areawisata', 'quotation.kategori', 'qTransaksi')->where('idQuotatioRekomendasi', $request->id)->first();
-        $Tbonus = Tbonus::where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $Tbonus = Tbonus::with('bonus')->where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
         $TDestinasiWisata = TDestinasiWisata::with('destinasi.detaildw')->where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
         $Ttransportasi = Ttransportasi::with('transportasi.detailTransportasi')->where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
         $Tpenginapan = Tpenginapan::with('penginapan.detailPenginapan')->where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
         $TRumahMakan = TRumahMakan::with('rumahMakan.detailRM')->where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
-        $TFasilitasTour = TFasilitasTour::where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
-        $Tevent = Tevent::where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $TFasilitasTour = TFasilitasTour::with('fasilitasTour')->where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
+        $Tevent = Tevent::with('event')->where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
         $TcrewOp = TcrewOp::with('crew')->where('idQuotationTransaksi', $quotationRekomendasi->idQuotationTransaksi)->get();
         return Inertia::render('Quotation/QuotationsRevisi', [
             'areawisata' => $areawisata,
@@ -934,6 +926,745 @@ class QuotationTourController extends Controller
             'Tevent' => $Tevent,
             'Tcrew' => $TcrewOp,
         ]);
+    }
+
+    public function updateQuotationRevisi(Request $request)
+    {
+        // dd($request);
+        $existingKlien = dataKlien::where('idDataKlien', $request->quotationTour['idDataKlien'])->first();
+        if ($existingKlien) {
+            // Data klien sudah ada, lakukan operasi update jika ada perubahan
+            $isChanged = false;
+
+            if ($existingKlien->idJenisKlien != $request->quotationTour['idJenisKlien']) {
+                $existingKlien->idJenisKlien = $request->quotationTour['idJenisKlien'];
+                $isChanged = true;
+            }
+            if ($existingKlien->namaKlien != $request->quotationTour['namaKlien']) {
+                $existingKlien->namaKlien = $request->quotationTour['namaKlien'];
+                $isChanged = true;
+            }
+
+            if ($isChanged) {
+                $existingKlien->updated_at = Carbon::now();
+                $existingKlien->save();
+            }
+        }
+
+
+        $existingQuotationTour = quotationTour::where('idQuotationTour', $request->quotationTour['idQuotationTour'])->first();
+        if ($existingQuotationTour) {
+            // Data klien sudah ada, lakukan operasi update jika ada perubahan
+            $isChanged = false;
+
+            if ($existingQuotationTour->namaProject != $request->quotationTour['namaProject']) {
+                $existingQuotationTour->namaProject = $request->quotationTour['namaProject'];
+                $isChanged = true;
+            }
+            if ($existingQuotationTour->durasiProject != $request->quotationTour['durasiProject']) {
+                $existingQuotationTour->durasiProject = $request->quotationTour['durasiProject'];
+                $isChanged = true;
+            }
+            if ($existingQuotationTour->qty != $request->quotationTour['jumlahOrang']) {
+                $existingQuotationTour->qty = $request->quotationTour['jumlahOrang'];
+                $isChanged = true;
+            }
+            if ($existingQuotationTour->foc != $request->quotationTour['foc']) {
+                $existingQuotationTour->foc = $request->quotationTour['foc'];
+                $isChanged = true;
+            }
+            if ($existingQuotationTour->planWaktuPelaksanaan != $request->quotationTour['planWaktuPelaksanaan']) {
+                $existingQuotationTour->planWaktuPelaksanaan = $request->quotationTour['planWaktuPelaksanaan'];
+                $isChanged = true;
+            }
+            if ($existingQuotationTour->persentaseKeuntungan != $request->quotationTour['persentaseKeuntungan']) {
+                $existingQuotationTour->persentaseKeuntungan = $request->quotationTour['persentaseKeuntungan'];
+                $isChanged = true;
+            }
+            if ($existingQuotationTour->feeMarketing != $request->quotationTour['feeMarketing']) {
+                $existingQuotationTour->feeMarketing = $request->quotationTour['feeMarketing'];
+                $isChanged = true;
+            }
+            if ($existingQuotationTour->tglBerlakuQuotation != $request->quotationTour['tglBerlakuQuotation']) {
+                $existingQuotationTour->tglBerlakuQuotation = $request->quotationTour['tglBerlakuQuotation'];
+                $isChanged = true;
+            }
+            if ($existingQuotationTour->masaBerlakuQuotation != $request->quotationTour['masaBerlakuQuotation']) {
+                $existingQuotationTour->masaBerlakuQuotation = $request->quotationTour['masaBerlakuQuotation'];
+                $isChanged = true;
+            }
+            if ($existingQuotationTour->idAreaWisata != $request->quotationTour['idAreaWisata']) {
+                $existingQuotationTour->idAreaWisata = $request->quotationTour['idAreaWisata'];
+                $isChanged = true;
+            }
+            if ($existingQuotationTour->idDataKlien != $request->quotationTour['idDataKlien']) {
+                $existingQuotationTour->idDataKlien = $request->quotationTour['idDataKlien'];
+                $isChanged = true;
+            }
+            if ($existingQuotationTour->idKategoriTour != $request->quotationTour['idKategoriTour']) {
+                $existingQuotationTour->idKategoriTour = $request->quotationTour['idKategoriTour'];
+                $isChanged = true;
+            }
+            if ($isChanged) {
+                $existingQuotationTour->updated_at = Carbon::now();
+                $existingQuotationTour->save();
+            }
+        }
+
+        $existingQuotationTransaksi = quotationTransaksi::where('idQuotationTransaksi', $request->quotationTour['idQuotationTransaksi'])->first();
+        if ($existingQuotationTransaksi) {
+            // Data klien sudah ada, lakukan operasi update jika ada perubahan
+            $isChanged = false;
+
+            if ($existingQuotationTransaksi->productionPrice != $request->productionPrice) {
+                $existingQuotationTransaksi->productionPrice = $request->productionPrice;
+                $isChanged = true;
+            }
+            if ($existingQuotationTransaksi->nettPrice != $request->nettPrice) {
+                $existingQuotationTransaksi->nettPrice = $request->nettPrice;
+                $isChanged = true;
+            }
+            if ($existingQuotationTransaksi->paxPay != $request->paxPay) {
+                $existingQuotationTransaksi->paxPay = $request->paxPay;
+                $isChanged = true;
+            }
+            if ($existingQuotationTransaksi->surcharge != $request->surcharge) {
+                $existingQuotationTransaksi->surcharge = $request->surcharge;
+                $isChanged = true;
+            }
+            if ($existingQuotationTransaksi->sellingPrice != $request->sellingPrice) {
+                $existingQuotationTransaksi->sellingPrice = $request->sellingPrice;
+                $isChanged = true;
+            }
+            if ($existingQuotationTransaksi->totalPrice != $request->totalPrice) {
+                $existingQuotationTransaksi->totalPrice = $request->totalPrice;
+                $isChanged = true;
+            }
+            if ($existingQuotationTransaksi->profit != $request->profit) {
+                $existingQuotationTransaksi->profit = $request->profit;
+                $isChanged = true;
+            }
+            if ($existingQuotationTransaksi->statusTransaksi != $request->quotationTour['statusTransaksi']) {
+                $existingQuotationTransaksi->statusTransaksi = $request->quotationTour['statusTransaksi'];
+                $isChanged = true;
+            }
+            if ($isChanged) {
+                $existingQuotationTransaksi->updated_at = Carbon::now();
+                $existingQuotationTransaksi->save();
+            }
+        }
+
+        $bonusData = $request->bonus;
+        $Tbonus = Tbonus::all();
+
+        foreach ($Tbonus as $tbonus) {
+            $found = false;
+            foreach ($bonusData as $bonus) {
+                if ($bonus['idTbonus'] == $tbonus['idTbonus']) {
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found && $tbonus['idQuotationTransaksi'] == $request->quotationTour['idQuotationTransaksi']) {
+                // Delete idTbonus from $Tbonus
+                $tbonus->delete();
+            }
+        }
+
+        // dd($bonusData);
+        foreach ($bonusData as $bonus) {
+            // dd($bonusData);
+            if ($bonus['idTbonus'] != 0) {
+                    // dd($bonus);
+                    $existingBonus = Tbonus::where('idTbonus', $bonus['idTbonus'])->first();
+                    if ($existingBonus) {
+                        // Memeriksa perubahan pada data sebelumnya
+                        $isChanged = false;
+
+                        if ($existingBonus->idDataBonus != $bonus['idDataBonus']) {
+                            $existingBonus->idDataBonus = $bonus['idDataBonus'];
+                            $isChanged = true;
+                        }
+                        if ($existingBonus->qtyTbonus != $bonus['qtyTbonus']) {
+                            $existingBonus->qtyTbonus = $bonus['qtyTbonus'];
+                            $isChanged = true;
+                        }
+                        if ($existingBonus->jmlHariTbonus != $bonus['jmlHariTbonus']) {
+                            $existingBonus->jmlHariTbonus = $bonus['jmlHariTbonus'];
+                            $isChanged = true;
+                        }
+                        if ($existingBonus->hargaTbonus != $bonus['hargaTbonus']) {
+                            $existingBonus->hargaTbonus = $bonus['hargaTbonus'];
+                            $isChanged = true;
+                        }
+                        if ($existingBonus->jumlahTbonus != $bonus['jumlahTbonus']) {
+                            $existingBonus->jumlahTbonus = $bonus['jumlahTbonus'];
+                            $isChanged = true;
+                        }
+                        // if ($existingBonus->namaTbonus != $bonus['namaTbonus']) {
+                        //     $existingBonus->namaTbonus = $bonus['namaTbonus'];
+                        //     $isChanged = true;
+                        // }
+                        // if ($existingBonus->idQuotationTransaksi != $bonus['idQuotationTransaksi']) {
+                        //     $existingBonus->idQuotationTransaksi = $bonus['idQuotationTransaksi'];
+                        //     $isChanged = true;
+                        // }              
+                        if ($isChanged) {
+                            $existingBonus->updated_at = Carbon::now();
+                            $existingBonus->save();
+                        }
+                    }
+            } else {
+                if ($bonus['idDataBonus'] != 0) {
+                        $tbonus = Tbonus::create([
+                            'idDataBonus' => $bonus['idDataBonus'],
+                            'qtyTbonus' => $bonus['qtyTbonus'],
+                            'jmlHariTbonus' => $bonus['jmlHariTbonus'],
+                            'hargaTbonus' => $bonus['hargaTbonus'],
+                            'jumlahTbonus' => $bonus['jumlahTbonus'],
+                            'namaTbonus' => $bonus['namaTbonus'],
+                            'idQuotationTransaksi' => $request->quotationTour['idQuotationTransaksi'],
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now(),
+                        ]);
+                }
+            }
+        }
+        
+        $eventData = $request->event;
+        $Tevent = Tevent::all();
+
+        foreach ($Tevent as $tevent) {
+            $found = false;
+            foreach ($eventData as $event) {
+                if ($event['idTevent'] == $tevent['idTevent']) {
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found && $tevent['idQuotationTransaksi'] == $request->quotationTour['idQuotationTransaksi']) {
+                // Delete idTevent from $Tevent
+                $tevent->delete();
+            }
+        }
+
+        // dd($eventData);
+        foreach ($eventData as $event) {
+            // dd($eventData);
+            if ($event['idTevent'] != 0) {
+                    // dd($event);
+                    $existingevent = Tevent::where('idTevent', $event['idTevent'])->first();
+                    if ($existingevent) {
+                        // Memeriksa perubahan pada data sebelumnya
+                        $isChanged = false;
+
+                        if ($existingevent->idDataEvent != $event['idDataEvent']) {
+                            $existingevent->idDataEvent = $event['idDataEvent'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->qtyTevent != $event['qtyTevent']) {
+                            $existingevent->qtyTevent = $event['qtyTevent'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->jmlHariTevent != $event['jmlHariTevent']) {
+                            $existingevent->jmlHariTevent = $event['jmlHariTevent'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->hargaTevent != $event['hargaTevent']) {
+                            $existingevent->hargaTevent = $event['hargaTevent'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->jumlahTevent != $event['jumlahTevent']) {
+                            $existingevent->jumlahTevent = $event['jumlahTevent'];
+                            $isChanged = true;
+                        }
+                        // if ($existingevent->namaTevent != $event['namaTevent']) {
+                        //     $existingevent->namaTevent = $event['namaTevent'];
+                        //     $isChanged = true;
+                        // }
+                        // if ($existingevent->idQuotationTransaksi != $event['idQuotationTransaksi']) {
+                        //     $existingevent->idQuotationTransaksi = $event['idQuotationTransaksi'];
+                        //     $isChanged = true;
+                        // }              
+                        if ($isChanged) {
+                            $existingevent->updated_at = Carbon::now();
+                            $existingevent->save();
+                        }
+                    }
+            } else {
+                if ($event['idDataEvent'] != 0) {
+                        $tevent = Tevent::create([
+                            'idDataEvent' => $event['idDataEvent'],
+                            'qtyTevent' => $event['qtyTevent'],
+                            'jmlHariTevent' => $event['jmlHariTevent'],
+                            'hargaTevent' => $event['hargaTevent'],
+                            'jumlahTevent' => $event['jumlahTevent'],
+                            'namaTevent' => $event['namaTevent'],
+                            'idQuotationTransaksi' => $request->quotationTour['idQuotationTransaksi'],
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now(),
+                        ]);
+                }
+            }
+        }
+
+        $crewData = $request->crew;
+        $TcrewOp = TcrewOp::all();
+
+        foreach ($TcrewOp as $tcrew) {
+            $found = false;
+            foreach ($crewData as $crew) {
+                if ($crew['idTcrew'] == $tcrew['idTcrew']) {
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found && $tcrew['idQuotationTransaksi'] == $request->quotationTour['idQuotationTransaksi']) {
+                // Delete idTcrew from $Tcrew
+                $tcrew->delete();
+            }
+        }
+
+        // dd($crewData);
+        foreach ($crewData as $crew) {
+            // dd($crewData);
+            if ($crew['idTcrew'] != 0) {
+                    // dd($crew);
+                    $existingcrew = TcrewOp::where('idTcrew', $crew['idTcrew'])->first();
+                    if ($existingcrew) {
+                        // Memeriksa perubahan pada data sebelumnya
+                        $isChanged = false;
+
+                        if ($existingcrew->idCrewOperasional != $crew['idCrewOperasional']) {
+                            $existingcrew->idCrewOperasional = $crew['idCrewOperasional'];
+                            $isChanged = true;
+                        }
+                        if ($existingcrew->qtyTcrew != $crew['qtyTcrew']) {
+                            $existingcrew->qtyTcrew = $crew['qtyTcrew'];
+                            $isChanged = true;
+                        }
+                        if ($existingcrew->jmlHariTcrew != $crew['jmlHariTcrew']) {
+                            $existingcrew->jmlHariTcrew = $crew['jmlHariTcrew'];
+                            $isChanged = true;
+                        }
+                        if ($existingcrew->hargaTcrew != $crew['hargaTcrew']) {
+                            $existingcrew->hargaTcrew = $crew['hargaTcrew'];
+                            $isChanged = true;
+                        }
+                        if ($existingcrew->jumlahTcrew != $crew['jumlahTcrew']) {
+                            $existingcrew->jumlahTcrew = $crew['jumlahTcrew'];
+                            $isChanged = true;
+                        }
+                        // if ($existingcrew->namaTcrew != $crew['namaTcrew']) {
+                        //     $existingcrew->namaTcrew = $crew['namaTcrew'];
+                        //     $isChanged = true;
+                        // }
+                        // if ($existingcrew->idQuotationTransaksi != $crew['idQuotationTransaksi']) {
+                        //     $existingcrew->idQuotationTransaksi = $crew['idQuotationTransaksi'];
+                        //     $isChanged = true;
+                        // }              
+                        if ($isChanged) {
+                            $existingcrew->updated_at = Carbon::now();
+                            $existingcrew->save();
+                        }
+                    }
+            } else {
+                if ($crew['idCrewOperasional'] != 0) {
+                        $tcrew = TcrewOp::create([
+                            'idCrewOperasional' => $crew['idCrewOperasional'],
+                            'qtyTcrew' => $crew['qtyTcrew'],
+                            'jmlHariTcrew' => $crew['jmlHariTcrew'],
+                            'hargaTcrew' => $crew['hargaTcrew'],
+                            'jumlahTcrew' => $crew['jumlahTcrew'],
+                            'namaTcrew' => $crew['namaTcrew'],
+                            'idQuotationTransaksi' => $request->quotationTour['idQuotationTransaksi'],
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now(),
+                        ]);
+                }
+            }
+        }
+
+        $fasilitasData = $request->fasilitas;
+        $TFasilitasTour = TFasilitasTour::all();
+
+        foreach ($TFasilitasTour as $tfasilitas) {
+            $found = false;
+            foreach ($fasilitasData as $fasilitas) {
+                if ($fasilitas['idTft'] == $tfasilitas['idTft']) {
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found && $tfasilitas['idQuotationTransaksi'] == $request->quotationTour['idQuotationTransaksi']) {
+                // Delete idTft from $TFasilitasTour
+                $tfasilitas->delete();
+            }
+        }
+
+        foreach ($fasilitasData as $fasilitas) {
+            if ($fasilitas['idTft'] != 0) {
+                    $existingevent = TFasilitasTour::where('idTft', $fasilitas['idTft'])->first();
+                    if ($existingevent) {
+                        // Memeriksa perubahan pada data sebelumnya
+                        $isChanged = false;
+
+                        if ($existingevent->idFasilitasTour != $fasilitas['idFasilitasTour']) {
+                            $existingevent->idFasilitasTour = $fasilitas['idFasilitasTour'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->qtyTft != $fasilitas['qtyTft']) {
+                            $existingevent->qtyTft = $fasilitas['qtyTft'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->jmlHariTft != $fasilitas['jmlHariTft']) {
+                            $existingevent->jmlHariTft = $fasilitas['jmlHariTft'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->hargaTft != $fasilitas['hargaTft']) {
+                            $existingevent->hargaTft = $fasilitas['hargaTft'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->jumlahTft != $fasilitas['jumlahTft']) {
+                            $existingevent->jumlahTft = $fasilitas['jumlahTft'];
+                            $isChanged = true;
+                        }
+                        // if ($existingevent->namaTft != $fasilitas['namaTft']) {
+                        //     $existingevent->namaTft = $fasilitas['namaTft'];
+                        //     $isChanged = true;
+                        // }
+                        // if ($existingevent->idQuotationTransaksi != $fasilitas['idQuotationTransaksi']) {
+                        //     $existingevent->idQuotationTransaksi = $fasilitas['idQuotationTransaksi'];
+                        //     $isChanged = true;
+                        // }              
+                        if ($isChanged) {
+                            $existingevent->updated_at = Carbon::now();
+                            $existingevent->save();
+                        }
+                    }
+            } else {
+                if ($fasilitas['idFasilitasTour'] != 0) {
+                        $Tft = TFasilitasTour::create([
+                            'idFasilitasTour' => $fasilitas['idFasilitasTour'],
+                            'qtyTft' => $fasilitas['qtyTft'],
+                            'jmlHariTft' => $fasilitas['jmlHariTft'],
+                            'hargaTft' => $fasilitas['hargaTft'],
+                            'jumlahTft' => $fasilitas['jumlahTft'],
+                            'namaTft' => $fasilitas['namaTft'],
+                            'idQuotationTransaksi' => $request->quotationTour['idQuotationTransaksi'],
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now(),
+                        ]);
+                }
+            }
+        }
+
+        // dd($TFasilitasTour);
+
+        $rumahMakanData = $request->rm;
+        $TRumahMakan = TRumahMakan::all();
+
+        foreach ($TRumahMakan as $trumahMakan) {
+            $found = false;
+            foreach ($rumahMakanData as $rumahMakan) {
+                if ($rumahMakan['idTrm'] == $trumahMakan['idTrm']) {
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found && $trumahMakan['idQuotationTransaksi'] == $request->quotationTour['idQuotationTransaksi']) {
+                // Delete idTrm from $TRumahMakan
+                $trumahMakan->delete();
+            }
+        }
+
+        foreach ($rumahMakanData as $rumahMakan) {
+            if ($rumahMakan['idTrm'] != 0) {
+                    $existingevent = TRumahMakan::where('idTrm', $rumahMakan['idTrm'])->first();
+                    if ($existingevent) {
+                        // Memeriksa perubahan pada data sebelumnya
+                        $isChanged = false;
+
+                        if ($existingevent->idRM != $rumahMakan['idRM']) {
+                            $existingevent->idRM = $rumahMakan['idRM'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->qtyTrm != $rumahMakan['qtyTrm']) {
+                            $existingevent->qtyTrm = $rumahMakan['qtyTrm'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->jmlHariTrm != $rumahMakan['jmlHariTrm']) {
+                            $existingevent->jmlHariTrm = $rumahMakan['jmlHariTrm'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->hargaTrm != $rumahMakan['hargaTrm']) {
+                            $existingevent->hargaTrm = $rumahMakan['hargaTrm'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->jumlahTrm != $rumahMakan['jumlahTrm']) {
+                            $existingevent->jumlahTrm = $rumahMakan['jumlahTrm'];
+                            $isChanged = true;
+                        }
+                        // if ($existingevent->namaTrm != $rumahMakan['namaRM']) {
+                        //     $existingevent->namaTrm = $rumahMakan['namaRM'];
+                        //     $isChanged = true;
+                        // }
+                        // if ($existingevent->idQuotationTransaksi != $rumahMakan['idQuotationTransaksi']) {
+                        //     $existingevent->idQuotationTransaksi = $rumahMakan['idQuotationTransaksi'];
+                        //     $isChanged = true;
+                        // }              
+                        if ($isChanged) {
+                            $existingevent->updated_at = Carbon::now();
+                            $existingevent->save();
+                        }
+                    }
+            } else {
+                if ($rumahMakan['idRM'] != 0) {
+                        $Trm = TRumahMakan::create([
+                            'idRM' => $rumahMakan['idRM'],
+                            'qtyTrm' => $rumahMakan['qtyTrm'],
+                            'jmlHariTrm' => $rumahMakan['jmlHariTrm'],
+                            'hargaTrm' => $rumahMakan['hargaTrm'],
+                            'jumlahTrm' => $rumahMakan['jumlahTrm'],
+                            'namaTrm' => $rumahMakan['namaRM'],
+                            'idQuotationTransaksi' => $request->quotationTour['idQuotationTransaksi'],
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now(),
+                        ]);
+                }
+            }
+        }
+
+        // dd($TFasilitasTour);
+
+        $penginapanData = $request->penginapan;
+        $Tpenginapan = Tpenginapan::all();
+
+        foreach ($Tpenginapan as $tpenginapan) {
+            $found = false;
+            foreach ($penginapanData as $penginapan) {
+                if ($penginapan['idTpenginapan'] == $tpenginapan['idTpenginapan']) {
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found && $tpenginapan['idQuotationTransaksi'] == $request->quotationTour['idQuotationTransaksi']) {
+                // Delete idTpenginapan from $Tpenginapan
+                $tpenginapan->delete();
+            }
+        }
+
+        foreach ($penginapanData as $penginapan) {
+            if ($penginapan['idTpenginapan'] != 0) {
+                    $existingevent = Tpenginapan::where('idTpenginapan', $penginapan['idTpenginapan'])->first();
+                    if ($existingevent) {
+                        // Memeriksa perubahan pada data sebelumnya
+                        $isChanged = false;
+
+                        if ($existingevent->idPenginapan != $penginapan['idPenginapan']) {
+                            $existingevent->idPenginapan = $penginapan['idPenginapan'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->qtyTpenginapan != $penginapan['qtyTpenginapan']) {
+                            $existingevent->qtyTpenginapan = $penginapan['qtyTpenginapan'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->jmlHariTpenginapan != $penginapan['jmlHariTpenginapan']) {
+                            $existingevent->jmlHariTpenginapan = $penginapan['jmlHariTpenginapan'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->hargaTpenginapan != $penginapan['hargaTpenginapan']) {
+                            $existingevent->hargaTpenginapan = $penginapan['hargaTpenginapan'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->jumlahTpenginapan != $penginapan['jumlahTpenginapan']) {
+                            $existingevent->jumlahTpenginapan = $penginapan['jumlahTpenginapan'];
+                            $isChanged = true;
+                        }
+                        // if ($existingevent->namaTpenginapan != $penginapan['namaRM']) {
+                        //     $existingevent->namaTpenginapan = $penginapan['namaRM'];
+                        //     $isChanged = true;
+                        // }
+                        // if ($existingevent->idQuotationTransaksi != $penginapan['idQuotationTransaksi']) {
+                        //     $existingevent->idQuotationTransaksi = $penginapan['idQuotationTransaksi'];
+                        //     $isChanged = true;
+                        // }              
+                        if ($isChanged) {
+                            $existingevent->updated_at = Carbon::now();
+                            $existingevent->save();
+                        }
+                    }
+            } else {
+                if ($penginapan['idPenginapan'] != 0) {
+                        $Tpenginapan = Tpenginapan::create([
+                            'idPenginapan' => $penginapan['idPenginapan'],
+                            'qtyTpenginapan' => $penginapan['qtyTpenginapan'],
+                            'jmlHariTpenginapan' => $penginapan['jmlHariTpenginapan'],
+                            'hargaTpenginapan' => $penginapan['hargaTpenginapan'],
+                            'jumlahTpenginapan' => $penginapan['jumlahTpenginapan'],
+                            'namaTpenginapan' => $penginapan['namaPenginapan'],
+                            'idQuotationTransaksi' => $request->quotationTour['idQuotationTransaksi'],
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now(),
+                        ]);
+                }
+            }
+        }
+
+        $transportasiData = $request->transport;
+        $Ttransportasi = Ttransportasi::all();
+
+        foreach ($Ttransportasi as $ttransportasi) {
+            $found = false;
+            foreach ($transportasiData as $transportasi) {
+                if ($transportasi['idTtransportasi'] == $ttransportasi['idTtransportasi']) {
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found && $ttransportasi['idQuotationTransaksi'] == $request->quotationTour['idQuotationTransaksi']) {
+                // Delete idTtransportasi from $Ttransportasi
+                $ttransportasi->delete();
+            }
+        }
+
+        foreach ($transportasiData as $transportasi) {
+            if ($transportasi['idTtransportasi'] != 0) {
+                    $existingevent = Ttransportasi::where('idTtransportasi', $transportasi['idTtransportasi'])->first();
+                    if ($existingevent) {
+                        // Memeriksa perubahan pada data sebelumnya
+                        $isChanged = false;
+
+                        if ($existingevent->idTransportasi != $transportasi['idTransportasi']) {
+                            $existingevent->idTransportasi = $transportasi['idTransportasi'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->qtyTtransportasi != $transportasi['qtyTtransportasi']) {
+                            $existingevent->qtyTtransportasi = $transportasi['qtyTtransportasi'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->jmlHariTtransportasi != $transportasi['jmlHariTtransportasi']) {
+                            $existingevent->jmlHariTtransportasi = $transportasi['jmlHariTtransportasi'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->hargaTtransportasi != $transportasi['hargaTtransportasi']) {
+                            $existingevent->hargaTtransportasi = $transportasi['hargaTtransportasi'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->jumlahTtransportasi != $transportasi['jumlahTtransportasi']) {
+                            $existingevent->jumlahTtransportasi = $transportasi['jumlahTtransportasi'];
+                            $isChanged = true;
+                        }
+                        // if ($existingevent->namaTtransportasi != $transportasi['namaRM']) {
+                        //     $existingevent->namaTtransportasi = $transportasi['namaRM'];
+                        //     $isChanged = true;
+                        // }
+                        // if ($existingevent->idQuotationTransaksi != $transportasi['idQuotationTransaksi']) {
+                        //     $existingevent->idQuotationTransaksi = $transportasi['idQuotationTransaksi'];
+                        //     $isChanged = true;
+                        // }              
+                        if ($isChanged) {
+                            $existingevent->updated_at = Carbon::now();
+                            $existingevent->save();
+                        }
+                    }
+            } else {
+                if ($transportasi['idTransportasi'] != 0) {
+                        $Ttransportasi = Ttransportasi::create([
+                            'idTransportasi' => $transportasi['idTransportasi'],
+                            'qtyTtransportasi' => $transportasi['qtyTtransportasi'],
+                            'jmlHariTtransportasi' => $transportasi['jmlHariTtransportasi'],
+                            'hargaTtransportasi' => $transportasi['hargaTtransportasi'],
+                            'jumlahTtransportasi' => $transportasi['jumlahTtransportasi'],
+                            'namaTtransportasi' => $transportasi['namaTransportasi'],
+                            'idQuotationTransaksi' => $request->quotationTour['idQuotationTransaksi'],
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now(),
+                        ]);
+                }
+            }
+        }
+
+        // dd($TFasilitasTour);
+
+        $destinasiData = $request->destinasi;
+        $TDestinasiWisata = TDestinasiWisata::all();
+
+        foreach ($TDestinasiWisata as $tdestinasi) {
+            $found = false;
+            foreach ($destinasiData as $destinasi) {
+                if ($destinasi['idTdestinasiWisata'] == $tdestinasi['idTdestinasiWisata']) {
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found && $tdestinasi['idQuotationTransaksi'] == $request->quotationTour['idQuotationTransaksi']) {
+                // Delete idTdestinasiWisata from $TDestinasiWisata
+                $tdestinasi->delete();
+            }
+        }
+
+        foreach ($destinasiData as $destinasi) {
+            if ($destinasi['idTdestinasiWisata'] != 0) {
+                    $existingevent = TDestinasiWisata::where('idTdestinasiWisata', $destinasi['idTdestinasiWisata'])->first();
+                    if ($existingevent) {
+                        // Memeriksa perubahan pada data sebelumnya
+                        $isChanged = false;
+
+                        if ($existingevent->idDestinasiWisata != $destinasi['idDestinasiWisata']) {
+                            $existingevent->idDestinasiWisata = $destinasi['idDestinasiWisata'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->qtyTdestinasiWisata != $destinasi['qtyTdestinasiWisata']) {
+                            $existingevent->qtyTdestinasiWisata = $destinasi['qtyTdestinasiWisata'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->jmlHariTdestinasiWisata != $destinasi['jmlHariTdestinasiWisata']) {
+                            $existingevent->jmlHariTdestinasiWisata = $destinasi['jmlHariTdestinasiWisata'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->hargaTdestinasiWisata != $destinasi['hargaTdestinasiWisata']) {
+                            $existingevent->hargaTdestinasiWisata = $destinasi['hargaTdestinasiWisata'];
+                            $isChanged = true;
+                        }
+                        if ($existingevent->jumlahTdestinasiWisata != $destinasi['jumlahTdestinasiWisata']) {
+                            $existingevent->jumlahTdestinasiWisata = $destinasi['jumlahTdestinasiWisata'];
+                            $isChanged = true;
+                        }
+                        // if ($existingevent->namaTdestinasiWisata != $destinasi['namaRM']) {
+                        //     $existingevent->namaTdestinasiWisata = $destinasi['namaRM'];
+                        //     $isChanged = true;
+                        // }
+                        // if ($existingevent->idQuotationTransaksi != $destinasi['idQuotationTransaksi']) {
+                        //     $existingevent->idQuotationTransaksi = $destinasi['idQuotationTransaksi'];
+                        //     $isChanged = true;
+                        // }              
+                        if ($isChanged) {
+                            $existingevent->updated_at = Carbon::now();
+                            $existingevent->save();
+                        }
+                    }
+            } else {
+                // dd($destinasi);
+                if ($destinasi['idDestinasiWisata'] != 0) {
+                        $TDestinasiWisata = TdestinasiWisata::create([
+                            'idDestinasiWisata' => $destinasi['idDestinasiWisata'],
+                            'qtyTdestinasiWisata' => $destinasi['qtyTdestinasiWisata'],
+                            'jmlHariTdestinasiWisata' => $destinasi['jmlHariTdestinasiWisata'],
+                            'hargaTdestinasiWisata' => $destinasi['hargaTdestinasiWisata'],
+                            'jumlahTdestinasiWisata' => $destinasi['jumlahTdestinasiWisata'],
+                            'namaTdestinasiWisata' => $destinasi['namaDestinasiWisata'],
+                            'idQuotationTransaksi' => $request->quotationTour['idQuotationTransaksi'],
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now(),
+                        ]);
+                }
+            }
+        }
+
+        // dd($TFasilitasTour);
+
+        return redirect()->route('qhistory.detail', ['id' => $request->quotationTour['idQuotatioRekomendasi']]);
     }
 
     /**

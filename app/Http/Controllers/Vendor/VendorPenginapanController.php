@@ -112,6 +112,7 @@ class VendorPenginapanController extends Controller
     public function update(Request $request)
     {
         vendorPenginapan::where('idPenginapan', $request->id)->update([
+            'idAreaWisata' => $request->idAreaWisata,
             'namaPenginapan' => $request->namaPenginapan,
             'bintangPenginapan' => $request->bintangPenginapan,
             'alamatPenginapan' => $request->alamatPenginapan,

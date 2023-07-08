@@ -8,6 +8,7 @@ use App\Models\News;
 use App\Models\User;
 use App\Models\Quotation\quotationTransaksi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NewsController extends Controller
 {
@@ -25,10 +26,18 @@ class NewsController extends Controller
         $count = quotationTransaksi::where('statusTransaksi', 'ditolak')->count();
         $count2 = quotationTransaksi::where('statusTransaksi', 'diterima')->count();
         $count3 = quotationTransaksi::where('statusTransaksi', 'menunggu')->count();
+        $user = Auth::user();
+        // dd($user);
+        // Access authenticated user's data
+        $userId = $user->idUser;
+        $email = $user->Email;
+        $namaUser = $user->namaUser;
+        $idRoles = $user->idRoles;
         return Inertia::render('Homepage', [
             'count' => $count,
             'count2' => $count2,
-            'count3' => $count3
+            'count3' => $count3,
+            'user' => $user,
         ]);
     }
 

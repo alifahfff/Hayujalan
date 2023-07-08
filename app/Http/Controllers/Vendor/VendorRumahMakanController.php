@@ -110,6 +110,7 @@ class VendorRumahMakanController extends Controller
     public function update(Request $request)
     {
         vendorRumahMakan::where('idRM', $request->id)->update([
+            'idAreaWisata' => $request->idAreaWisata,
             'namaRM' => $request->namaRM,
             'kapasitasRM' => $request->kapasitasRM,
             'kapasitasParkirBusRM' => $request->kapasitasParkirBusRM,

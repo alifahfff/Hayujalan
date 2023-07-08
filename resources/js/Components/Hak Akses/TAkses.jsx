@@ -9,82 +9,83 @@ const TAkses = ({data, roles, user}) => {
     const [showDelete, setShowDelete] = useState(false);
     const [dataL, setDataL] = useState([])
     console.log('dataL', dataL)
-    const find = (dt) => {
-        console.log('dt', dt)
-        if(dt.idRoles == 1){
-            alert(1)
-            const find2 = user.admin.find((x) => {
-                return x.idUser == dt.id
-            });
-            console.log('find2', find2)
-            const data = {
-                ...dt,
-                user: {
-                    idAdmin:find2.id,
-                    nama: find2.namaAdmin,
-                    telepon: find2.tlpAdmin,
-                    status: find2.statusAdmin,
-                }
-            }
-            console.log('dataRoles', data)
-            setDataL(data)
-        }
-        if(dt.idRoles == 2){
-            alert(2)
-            const find2 = user.program.find((x) => {
-                return x.idUser == dt.id
-            });
-            console.log('find2', find2)
-            const data = {
-                ...dt,
-                user: {
-                    idProgram:find2.id,
-                    nama: find2.namaPrograms,
-                    telepon: find2.tlpPrograms,
-                    status: find2.statusPrograms,
-                }
-            }
-            console.log('dataRoles', data)
-            setDataL(data)
-        }
-        if(dt.idRoles == 3){
-            alert(3)
-            const find2 = user.sales.find((x) => {
-                return x.idUser == dt.id
-            });
-            console.log('find2', find2)
-            const data = {
-                ...dt,
-                user: {
-                    idSales:find2.id,
-                    nama: find2.namaSales,
-                    telepon: find2.tlpSales,
-                    status: find2.statusSales,
-                }
-            }
-            console.log('dataRoles', data)
-            setDataL(data)
-        }
-        if(dt.idRoles == 4){
-            alert(4)
-            const find2 = user.keuangan.find((x) => {
-                return x.idUser == dt.id
-            });
-            console.log('find2', find2)
-            const data = {
-                ...dt,
-                user: {
-                    idKeuangan:find2.id,
-                    nama: find2.namaKeuangan,
-                    telepon: find2.tlpKeuanga,
-                    status: find2.statusKeuangan,
-                }
-            }
-            console.log('dataRoles', data)
-            setDataL(data)
-        }
-    }
-    
+    console.log('roles1', roles)
+    // const find = (dt) => {
+    //     console.log('dt', dt)
+    //     if(dt.idRoles == 1){
+    //         alert(1)
+    //         const find2 = user.admin.find((x) => {
+    //             return x.idUser == dt.id
+    //         });
+    //         console.log('find2', find2)
+    //         const data = {
+    //             ...dt,
+    //             user: {
+    //                 idAdmin:find2.id,
+    //                 nama: find2.namaAdmin,
+    //                 telepon: find2.tlpAdmin,
+    //                 status: find2.statusAdmin,
+    //             }
+    //         }
+    //         console.log('dataRoles', data)
+    //         setDataL(data)
+    //     }
+    //     if(dt.idRoles == 2){
+    //         alert(2)
+    //         const find2 = user.program.find((x) => {
+    //             return x.idUser == dt.id
+    //         });
+    //         console.log('find2', find2)
+    //         const data = {
+    //             ...dt,
+    //             user: {
+    //                 idProgram:find2.id,
+    //                 nama: find2.namaPrograms,
+    //                 telepon: find2.tlpPrograms,
+    //                 status: find2.statusPrograms,
+    //             }
+    //         }
+    //         console.log('dataRoles', data)
+    //         setDataL(data)
+    //     }
+    //     if(dt.idRoles == 3){
+    //         alert(3)
+    //         const find2 = user.sales.find((x) => {
+    //             return x.idUser == dt.id
+    //         });
+    //         console.log('find2', find2)
+    //         const data = {
+    //             ...dt,
+    //             user: {
+    //                 idSales:find2.id,
+    //                 nama: find2.namaSales,
+    //                 telepon: find2.tlpSales,
+    //                 status: find2.statusSales,
+    //             }
+    //         }
+    //         console.log('dataRoles', data)
+    //         setDataL(data)
+    //     }
+    //     if(dt.idRoles == 4){
+    //         alert(4)
+    //         const find2 = user.keuangan.find((x) => {
+    //             return x.idUser == dt.id
+    //         });
+    //         console.log('find2', find2)
+    //         const data = {
+    //             ...dt,
+    //             user: {
+    //                 idKeuangan:find2.id,
+    //                 nama: find2.namaKeuangan,
+    //                 telepon: find2.tlpKeuanga,
+    //                 status: find2.statusKeuangan,
+    //             }
+    //         }
+    //         console.log('dataRoles', data)
+    //         setDataL(data)
+    //     }
+    // }
+
     const handleOnClose = () => setShowModal(false);
     const handleOnCloseD = () => setShowDelete(false);
 
@@ -110,19 +111,19 @@ const TAkses = ({data, roles, user}) => {
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
                                 <td className="whitespace-nowrap px-6 py-4 font-medium">{data.from + index}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{dt.name}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{dt.email}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{dt.namaUser}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{dt.Email}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{dt.roles.namaRoles}</td>
                                 {/* <td className="whitespace-nowrap px-6 py-4">{dt.status}</td> */}
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                                     <button 
                                         onClick={() => {
                                             setShowModal(true)
-                                            find(dt)
+                                            setDataL(dt)
                                         }}
                                         className="btn btn-ghost btn-sm mr-2"
                                     ><BsPencilSquare/></button>
-                                    <button 
+                                    {/* <button 
                                         className="btn btn-ghost btn-sm"
                                         onClick={() => {
                                             setShowDelete(true)
@@ -130,7 +131,7 @@ const TAkses = ({data, roles, user}) => {
                                         }}
                                     >
                                      <BsTrash3/>   
-                                    </button>
+                                    </button> */}
                                 </td>
                                 </tr>
                             </tbody>
@@ -149,16 +150,16 @@ const TAkses = ({data, roles, user}) => {
                 visible={showModal}
                 data={dataL}
                 roles={roles}
-                user={user}
+                //user={user}
             />
 
-            <ModalDeleteAkses
+            {/* <ModalDeleteAkses
                 onClose={() => {
                 handleOnCloseD()
                 }} 
                 visible={showDelete}
                 data={dataL}
-            />
+            /> */}
         </div>
     )
 }

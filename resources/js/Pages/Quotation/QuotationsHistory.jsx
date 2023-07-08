@@ -96,4 +96,4 @@ export default function QuotationHistory(props) {
 }
 
 
-QuotationHistory.layout = (page) => <Layout children={page} />;
+QuotationHistory.layout = (page) => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;

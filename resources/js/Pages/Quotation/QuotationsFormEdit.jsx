@@ -3127,5 +3127,5 @@ const QuotationsFormEdit = (props, crewL) => {
 
 export default QuotationsFormEdit
 
-QuotationsFormEdit.layout = (page) => <Layout children={page} />;
+QuotationsFormEdit.layout = (page) => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;
 

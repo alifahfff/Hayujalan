@@ -15,6 +15,7 @@ import Layout from '@/Layouts/Layout';
 export default function ItemCrew(props) {
     console.log('props', props)
     console.log('length', props.crew.data.length)
+    const [roles, setRoles] = useState(props.auth.user.idRoles);
     const [data, setData] = useState({
         ketCrewOperasional: '', 
         biayaCrewOperasional: '', 
@@ -40,7 +41,7 @@ export default function ItemCrew(props) {
   return (
     <div className='bg-abu'>
             {/* Content */}
-            <div className='ml-6'>
+            <div className='ml-6 text-sm'>
                 <a>Crew Operasional</a>
             </div>
             <div className='flex justify-between m-6 mt-2 mb-3'>
@@ -63,13 +64,19 @@ export default function ItemCrew(props) {
                     </form>
                     
                     {/* Tambah Data */}
-                    <button 
-                    onClick={() => setShowModal(true)}
-                    className="btn ml-2 gap-2 btn-outline px-5 bg-white hover:bg-gray-100 text-[#C1C0BF]"
-                    >
-                    Tambah Data | 
-                    <BsPlusSquare/>
-                    </button>
+                    { roles === 1 || roles === 3 ? ( 
+                        //<h1>admin</h1>
+                        <button 
+                        onClick={() => setShowModal(true)}
+                        className="btn ml-2 gap-2 btn-outline px-5 bg-white hover:bg-gray-100 text-[#C1C0BF]"
+                        >
+                        Tambah Data | 
+                        <BsPlusSquare/>
+                        </button>
+                    ) : roles === 2  || roles === 4 ? (
+                        <div></div>
+                    ) : <div></div>
+                    }
                 </div>
             </div>
             <div className='relative bg-white shadow-xl m-6 mt-3 md:max-xl:flex ring-1 ring-gray-900/5'>
@@ -102,4 +109,4 @@ export default function ItemCrew(props) {
   )
 }
 
-ItemCrew.layout = page => <Layout children={page}/>
+ItemCrew.layout = page => <Layout auth={page.props.auth} errors={page.props.errors}>{page}</Layout>;
