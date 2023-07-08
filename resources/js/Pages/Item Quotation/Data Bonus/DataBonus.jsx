@@ -12,6 +12,7 @@ import Layout from '@/Layouts/Layout';
 import { Inertia } from '@inertiajs/inertia';
 
 export default function DataBonus(props) {
+    const [roles, setRoles] = useState(props.auth.user.idRoles);
     console.log('props', props)
     console.log('data', props.Mydata.data)
     const [data, setData] = useState({
@@ -39,7 +40,7 @@ export default function DataBonus(props) {
   return (
     <div className='min-h-screen bg-abu'>
             {/* Content */}
-            <div className='ml-6'>
+            <div className='ml-6 text-sm'>
                 <a>Data Bonus</a>
             </div>
             <div className='flex justify-between m-6 mt-2 mb-3'>
@@ -62,13 +63,19 @@ export default function DataBonus(props) {
                     </form>
                     
                     {/* Tambah Data */}
-                    <button 
-                    onClick={() => setShowModal(true)}
-                    className="btn ml-2 gap-2 btn-outline px-5 bg-white hover:bg-gray-100 text-[#C1C0BF]"
-                    >
-                    Tambah Data | 
-                    <BsPlusSquare/>
-                    </button>
+                    { roles === 1 || roles === 3 ? ( 
+                            //<h1>admin</h1>
+                            <button 
+                            onClick={() => setShowModal(true)}
+                            className="btn ml-2 gap-2 btn-outline px-5 bg-white hover:bg-gray-100 text-[#C1C0BF]"
+                            >
+                            Tambah Data | 
+                            <BsPlusSquare/>
+                            </button>
+                        ) : roles === 2  || roles === 4 ? (
+                            <div></div>
+                        ) : <div></div>
+                    }
                 </div>
             </div>
             <div className='relative bg-white shadow-xl m-6 mt-3 md:max-xl:flex ring-1 ring-gray-900/5'>

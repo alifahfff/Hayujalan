@@ -12,6 +12,7 @@ const ModalTransport = ({visible, onClose, data, dataArea}) => {
             // update data
             const dataUpdate = {
                 id: data.idTransportasi,
+                idAreaWisata: datas.idAreaWisata,
                 namaTransportasi: datas.namaTransportasi, 
                 alamatTransportasi: datas.alamatTransportasi, 
                 tlpTransportasi: datas.tlpTransportasi, 

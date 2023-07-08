@@ -14,6 +14,7 @@ const ModalAkses = ({visible, onClose, data, roles}) => {
                 // update data
                 const dataE = {
                     id: data.idUser,
+                    idRoles : datas.idRoles,
                     namaUser: datas.namaUser, 
                     Email: datas.Email, 
                     Password: datas.Password,

@@ -12,6 +12,7 @@ const ModalRM = ({visible, onClose, data, dataArea}) => {
             // update data
             const dataUpdate = {
                 id: data.idRM,
+                idAreaWisata: datas.idAreaWisata,
                 namaRM: datas.namaRM, 
                 kapasitasRM: datas.kapasitasRM, 
                 kapasitasParkirBusRM: datas.kapasitasParkirBusRM, 

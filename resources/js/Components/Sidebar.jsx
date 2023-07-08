@@ -361,16 +361,6 @@ const Sidebar = ({ auth }) => {
       iconOpened: <RiIcons.RiArrowUpSFill />,
       subNav: [
         {
-          title: "Quotation Manual",
-          icon: <BsFillChatLeftQuoteFill />,
-          path: "/quotation",
-        },
-        {
-          title: "Quotation Rekomendasi",
-          icon: <BsReceipt />,
-          path: "/quotation/qrecomend/",
-        },
-        {
           title: "Quotation",
           icon: <BsFillFileEarmarkTextFill />,
           path: "/quotation/qhistory/",

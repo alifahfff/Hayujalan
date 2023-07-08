@@ -129,6 +129,7 @@ class VendorDestinasiWisataController extends Controller
     public function update(Request $request)
     {
         vendorDestinasiWisata::where('idDestinasiWisata', $request->id)->update([
+            'idAreaWisata' => $request -> idAreaWisata,
             'namaDestinasiWisata' => $request->namaDestinasiWisata,
             'kapasitasDestinasiWisata' => $request->kapasitasDestinasiWisata,
             'kapasitasParkirBusWisata' => $request->kapasitasParkirBusWisata,
@@ -136,7 +137,7 @@ class VendorDestinasiWisataController extends Controller
             'tlpDestinasiWisata' => $request->tlpDestinasiWisata,
             'picDestinasiWisata' => $request->picDestinasiWisata,
             'hpDestinasiWisata' => $request->hpDestinasiWisata,
-            'linkGmapDestinasiWisata' => $request->linkGmaps,
+            'linkGmapDestinasiWisata' => $request->linkGmapDestinasiWisata,
             'tglBerlakuDestinasi' => $request->tglBerlakuDestinasi,
         ]);
         return redirect()->back()->with('message', 'item berhasil diupdate');

@@ -61,6 +61,6 @@ class RegisteredUserController extends Controller
         $M_user->save();
 
         //dd($request);
-        return redirect("/homepage");
+        return redirect("/");
     }
 }

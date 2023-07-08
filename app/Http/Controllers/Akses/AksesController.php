@@ -159,9 +159,11 @@ class AksesController extends Controller
     public function updateUser(Request $request)
     {
         User::where('idUser', $request->id)->update([
+            'idRoles' => $request->idRoles,
             'namaUser' => $request->namaUser,
             'Email' => $request->Email,
-            'Password' => Hash::make($request->Password),
+            //'Password' => Hash::make($request->Password),
+            'Password' => $request->Password,
         ]);
 
         return redirect()->back()->with('message', 'item berhasil diupdate');

@@ -9,6 +9,7 @@ import number from "@/Components/number";
 
 
 export default function DetailRM(props) {
+    const [roles, setRoles] = useState(props.auth.user.idRoles);
     const [data, setData] = useState({
         namaMenu: '', 
         detailMenu: '', 
@@ -33,7 +34,14 @@ export default function DetailRM(props) {
     <div className='min-h-screen bg-abu'>
     {/* Content */}
         <div className='ml-6'>
-            <a>Detail Data</a>
+        <div class="text-sm breadcrumbs">
+            <ul>
+                <li><Link href={route('rumahmakan')}>
+                Data Rumah Makan
+                </Link></li>
+                <li>Detail Data</li>
+            </ul>
+        </div>
         </div>
         <div className='flex justify-between m-6 mt-2 mb-3'>
             <a className='text-2xl font-bold text-black'>{props.rm.namaRM}</a>
@@ -41,6 +49,8 @@ export default function DetailRM(props) {
         <div className='relative bg-white shadow-xl m-6 mt-3 md:max-xl:flex ring-1 ring-gray-900/5'>
             <div className='p-4 bg-kuning border-b border-gray-200'></div>
             <div className="row bg-white">
+                { roles === 1 || roles === 3 ? ( 
+                        //<h1>admin</h1>
                         <button 
                             onClick={() => {
                                 setShowUpdate(true)
@@ -50,6 +60,10 @@ export default function DetailRM(props) {
                             >
                             <BsPencilSquare/>Edit Data 
                         </button>
+                    ) : roles === 2  || roles === 4 ? (
+                        <div></div>
+                    ) : <div></div>
+                }
                         <div className="column pt-12 pb-6 pl-6 text-black text-m bg-abu">
                         <table>
                                     <tr>
@@ -90,7 +104,9 @@ export default function DetailRM(props) {
                 <div className="p-6 bg-white border-b border-gray-200">
                 <div className='flex justify-between m-6 mt-2 mb-3'>
                     <a className='text-2xl font-bold text-black'></a>
-                        <button 
+                    { roles === 1 || roles === 3 ? ( 
+                        //<h1>admin</h1>
+                            <button 
                             onClick={() => {
                                 setShowModal(true)
                                 setDataL(data)
@@ -99,7 +115,11 @@ export default function DetailRM(props) {
                             >
                             Tambah Data | 
                             <BsPlusSquare/>
-                        </button>
+                            </button>
+                        ) : roles === 2  || roles === 4 ? (
+                            <div></div>
+                        ) : <div></div>
+                    }
                 </div>
                         <div className="column">
                             <table className="min-w-full text-left text-sm text-black">
@@ -108,7 +128,13 @@ export default function DetailRM(props) {
                                         <th scope="col" className="px-6 py-4">Nama Menu</th>
                                         <th scope="col" className="px-6 py-4">Detail Menu</th>
                                         <th scope="col" className="px-6 py-4">Harga Menu</th>
-                                        <th scope="col" className="px-6 py-4">Aksi</th>
+                                        { roles === 1 || roles === 3 ? ( 
+                                            //<h1>admin</h1>
+                                              <th scope="col" className="px-6 py-4">Aksi</th>  
+                                            ) : roles === 2  || roles === 4 ? (
+                                                <div></div>
+                                            ) : <div></div>
+                                        }
                                     </tr>
                                 </thead>
                                 {props.detail.map((cr, index) => {
@@ -119,15 +145,21 @@ export default function DetailRM(props) {
                                             <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.namaMenu}</td>
                                             <td className="whitespace-nowrap px-6 py-4">{cr.detailMenu}</td>
                                             <td className="whitespace-nowrap px-6 py-4">Rp. {number(cr.hargaMenu)}</td>
-                                            <td className="whitespace-nowrap px-6 py-4 justify-item-center">
-                                                <button 
-                                                    onClick={() => {
-                                                        setShowDelete(true)
-                                                        setDataL(cr)
-                                                    }}
-                                                    className="btn btn-ghost btn-sm mr-2"
-                                                ><BsTrash3/></button>
-                                            </td>
+                                            { roles === 1 || roles === 3 ? ( 
+                                                //<h1>admin</h1>
+                                                  <td className="whitespace-nowrap px-6 py-4 justify-item-center">
+                                                        <button 
+                                                            onClick={() => {
+                                                                setShowDelete(true)
+                                                                setDataL(cr)
+                                                            }}
+                                                            className="btn btn-ghost btn-sm mr-2"
+                                                        ><BsTrash3/></button>
+                                                    </td>
+                                                ) : roles === 2  || roles === 4 ? (
+                                                    <div></div>
+                                                ) : <div></div>
+                                            }
                                             </tr>
                                         </tbody>
                                     )

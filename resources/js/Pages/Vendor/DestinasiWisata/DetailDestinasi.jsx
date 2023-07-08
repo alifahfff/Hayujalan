@@ -10,12 +10,14 @@ import number from "@/Components/number";
 
 
 export default function DetailDestinasi(props) {
+    const [roles, setRoles] = useState(props.auth.user.idRoles)
     const [data, setData] = useState({
         rangePeserta: '',
         tiketMasukWeekday: '',
         tiketMasukWeekend: '',
         idDestinasiWisata : props.destinasi.idDestinasiWisata,
     })
+    
     
     const [dataL, setDataL] = useState([])
     const [dataD, setDataD] = useState([])
@@ -36,23 +38,36 @@ export default function DetailDestinasi(props) {
     <div className='min-h-screen bg-abu'>
     {/* Content */}
         <div className='ml-6'>
-            <a>Detail Data</a>
+        <div class="text-sm breadcrumbs">
+            <ul>
+                <li><Link href={route('destinasiwisata')}>
+                Data Destinasi Wisata
+                </Link></li>
+                <li>Detail Data</li>
+            </ul>
+        </div>
         </div>
         <div className='flex justify-between m-6 mt-2 mb-3'>
             <a className='text-2xl font-bold text-black'>{props.destinasi.namaDestinasiWisata}</a>
         </div>
         <div className='relative bg-white shadow-xl m-6 mt-3 md:max-xl:flex ring-1 ring-gray-900/5'>
             <div className='p-4 bg-kuning border-b border-gray-200'></div>
-            <div className="row bg-white">
-                                    <button 
-                                        onClick={() => {
-                                            setShowUpdate(true)
-                                            setDataL(props.destinasi)
-                                        }}
-                                        className="btn gap-2 btn-outline btn-sm px-6 m-5 bg-white hover:bg-gray-100 text-[#C1C0BF] float-right"
-                                        >
-                                        <BsPencilSquare/>Edit Data 
-                                    </button>
+                <div className="row bg-white">
+                    { roles === 1 || roles === 3 ? ( 
+                                //<h1>admin</h1>
+                                <button 
+                                    onClick={() => {
+                                    setShowUpdate(true)
+                                        setDataL(props.destinasi)
+                                    }}
+                                    className="btn gap-2 btn-outline btn-sm px-6 m-5 bg-white hover:bg-gray-100 text-[#C1C0BF] float-right"
+                                >
+                                    <BsPencilSquare/>Edit Data 
+                                </button>
+                            ) : roles === 2  || roles === 4 ? (
+                                <div></div>
+                            ) : <div></div>
+                    }
                                 <div className="column pt-12 pb-6 pl-6 text-black text-m bg-abu">
                                 <table>
                                         <tr>
@@ -92,15 +107,21 @@ export default function DetailDestinasi(props) {
                 <div className="p-6 bg-white border-b border-gray-200">
                     <div className='flex justify-between m-6 mt-2 mb-3'>
                         <a className='text-2xl font-bold text-black'></a>
-                            <button 
-                            onClick={() => {
-                                setShowModal(true),
-                                setDataL(data)
-                            }}
-                            className="btn gap-2 btn-outline btn-sm px-5 bg-white hover:bg-gray-100 text-[#C1C0BF]"
-                            >
-                             <BsPlusSquare/>Tambah Data
-                            </button>
+                            { roles === 1 || roles === 3 ? ( 
+                                    //<h1>admin</h1>
+                                    <button 
+                                        onClick={() => {
+                                            setShowModal(true),
+                                            setDataL(data)
+                                        }}
+                                        className="btn gap-2 btn-outline btn-sm px-5 bg-white hover:bg-gray-100 text-[#C1C0BF]"
+                                        >
+                                        <BsPlusSquare/>Tambah Data
+                                    </button>
+                                ) : roles === 2  || roles === 4 ? (
+                                    <div></div>
+                                ) : <div></div>
+                            }
                     </div>
                         <div className="column">
                             <table className="min-w-full text-left text-sm text-black">
@@ -109,7 +130,13 @@ export default function DetailDestinasi(props) {
                                         <th scope="col" className="px-6 py-4">Range Peserta</th>
                                         <th scope="col" className="px-6 py-4">Tiket Masuk Weekday</th>
                                         <th scope="col" className="px-6 py-4">Tiket Masuk Weekend</th>
-                                        <th scope="col" className="px-6 py-4">Aksi</th>
+                                            { roles === 1 || roles === 3 ? ( 
+                                                    //<h1>admin</h1>
+                                                    <th scope="col" className="px-6 py-4">Aksi</th>
+                                                ) : roles === 2  || roles === 4 ? (
+                                                    <div></div>
+                                                ) : <div></div>
+                                            }
                                     </tr>
                                 </thead>
                                 {props.detail.map((cr, index) => {
@@ -120,15 +147,21 @@ export default function DetailDestinasi(props) {
                                             <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.rangePeserta}</td>
                                             <td className="whitespace-nowrap px-6 py-4">Rp. {number(cr.tiketMasukWeekday)}</td>
                                             <td className="whitespace-nowrap px-6 py-4">Rp. {number(cr.tiketMasukWeekend)}</td>
-                                            <td className="whitespace-nowrap px-6 py-4">
-                                                <button 
-                                                    onClick={() => {
-                                                        setShowDelete(true)
-                                                        setDataL(cr)
-                                                    }}
-                                                    className="btn btn-ghost btn-sm mr-2"
-                                                ><BsTrash3/></button>
-                                            </td>
+                                            { roles === 1 || roles === 3 ? ( 
+                                                    //<h1>admin</h1>
+                                                    <td className="whitespace-nowrap px-6 py-4">
+                                                        <button 
+                                                            onClick={() => {
+                                                                setShowDelete(true)
+                                                                setDataL(cr)
+                                                            }}
+                                                            className="btn btn-ghost btn-sm mr-2"
+                                                        ><BsTrash3/></button>
+                                                    </td>
+                                                ) : roles === 2  || roles === 4 ? (
+                                                    <div></div>
+                                                ) : <div></div>
+                                            }
                                             </tr>
                                         </tbody>
                                     )

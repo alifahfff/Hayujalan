@@ -6,6 +6,7 @@ import { Inertia } from "@inertiajs/inertia";
 const QuotationsRevisi = (props, crewL) => {
   // const {data} = this.props.location;
   console.log("data quotation", props);
+  const [roles, setRoles] = useState(props.auth.user.idRoles)
   const initialFormDestinasi = props.Tdestinasi.length > 0 ? props.Tdestinasi : [{
     namaDestinasiWisata:'',
     idDestinasiWisata :'',
@@ -957,6 +958,7 @@ const QuotationsRevisi = (props, crewL) => {
   useEffect(() => {
     // handleDateChange(props.data.quotation.planWaktuPelaksanaan);
   }, []);
+  console.log('role', roles)
 
   return (
     <div className="min-h-screen bg-abu ">
@@ -979,92 +981,186 @@ const QuotationsRevisi = (props, crewL) => {
               <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
                 <div className="sm:col-span-2">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Nama Project</label>
-                      <input 
-                      type="text" 
-                      name="name" 
-                      id="name" 
-                      className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      value={datas.namaProject}
-                      onChange={(value) => 
-                        setDatas({
-                        ...datas,
-                        namaproject: value.target.value,
-                      })}
-                      />
+                      { roles === 2 ? (
+                          <input 
+                            type="text" 
+                            name="name" 
+                            id="name" 
+                            className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            value={datas.namaProject}
+                            onChange={(value) => 
+                              setDatas({
+                              ...datas,
+                              namaproject: value.target.value,
+                            })}
+                          />
+                          ) : roles === 4 ? (
+                            <input 
+                              disabled readOnly
+                              type="text" 
+                              name="name" 
+                              id="name" 
+                              className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                              value={datas.namaProject}
+                              onChange={(value) => 
+                                setDatas({
+                                ...datas,
+                                namaproject: value.target.value,
+                              })}
+                            />
+                          ) : <div></div>
+                      }
                 </div>
               </div>
               <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 mt-5">
                   <div className="">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Nama Klien</label>
-                      <input 
-                      type="text" 
-                      name="name" 
-                      id="name" 
-                      className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      value={datas.namaKlien}
-                      onChange={(value) => 
-                        setDatas({
-                        ...datas,
-                        namaKlien: value.target.value,
-                      })}
-                      />
+                      { roles === 2 ? ( 
+                              <input 
+                              type="text" 
+                              name="name" 
+                              id="name" 
+                              className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                              value={datas.namaKlien}
+                              onChange={(value) => 
+                                setDatas({
+                                ...datas,
+                                namaKlien: value.target.value,
+                              })}
+                              />
+                          ) : roles === 4 ? (
+                              <input 
+                              disabled readOnly
+                              type="text" 
+                              name="name" 
+                              id="name" 
+                              className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                              value={datas.namaKlien}
+                              onChange={(value) => 
+                                setDatas({
+                                ...datas,
+                                namaKlien: value.target.value,
+                              })}
+                              />
+                          ) : <div></div>
+                      }
                   </div>
                   <div className="">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jenis Klien</label>
-                      <select 
-                        placeholder="Jenis Klien" 
-                        defaultValue="default"
-                        className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        // onChange={(e) => 
-                        //   setDatas({
-                        //   ...datas,
-                        //   idUserSales : e.target.value
-                        //   })
-                        // }
-                        onChange={(e) => {
-                          datasFind(e.target.value,'jenisKlien')
-                        }}
-                      >
-                        <option value="default">-{datas.jenisKlien}-</option>
-                        {props.jenisKlien.map((us, index) => {
-                          return (
-                            <option 
-                              value={us.id} 
-                              key={us.id}
+                      { roles === 2 ? ( 
+                              <select 
+                              placeholder="Jenis Klien" 
+                              defaultValue="default"
+                              className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                              // onChange={(e) => 
+                              //   setDatas({
+                              //   ...datas,
+                              //   idUserSales : e.target.value
+                              //   })
+                              // }
+                              onChange={(e) => {
+                                datasFind(e.target.value,'jenisKlien')
+                              }}
                             >
-                            {us.namaJenisKlien}
-                            </option>
-                        )})}
-                      </select>
+                              <option value="default">-{datas.jenisKlien}-</option>
+                              {props.jenisKlien.map((us, index) => {
+                                return (
+                                  <option 
+                                    value={us.id} 
+                                    key={us.id}
+                                  >
+                                  {us.namaJenisKlien}
+                                  </option>
+                              )})}
+                            </select>
+                          ) : roles === 4 ? (
+                            <select 
+                            disabled readOnly
+                            placeholder="Jenis Klien" 
+                            defaultValue="default"
+                            className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            // onChange={(e) => 
+                            //   setDatas({
+                            //   ...datas,
+                            //   idUserSales : e.target.value
+                            //   })
+                            // }
+                            onChange={(e) => {
+                              datasFind(e.target.value,'jenisKlien')
+                            }}
+                          >
+                            <option value="default">-{datas.jenisKlien}-</option>
+                            {props.jenisKlien.map((us, index) => {
+                              return (
+                                <option 
+                                  value={us.id} 
+                                  key={us.id}
+                                >
+                                {us.namaJenisKlien}
+                                </option>
+                            )})}
+                          </select>
+                          ) : <div></div>
+                      }
                   </div>
                   <div className="">
-                      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Status Transaksi</label>
-                      <select 
-                        placeholder="Jenis Klien" 
-                        defaultValue="default"
-                        className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        onChange={(e) => 
-                          setDatas({
-                          ...datas,
-                          statusTransaksi : e.target.value
-                          })
+                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Status Transaksi</label>
+                        { roles === 2  ? ( 
+                                <select 
+                                disabled readOnly
+                                placeholder="Jenis Klien" 
+                                defaultValue="default"
+                                className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                onChange={(e) => 
+                                  setDatas({
+                                  ...datas,
+                                  statusTransaksi : e.target.value
+                                  })
+                                }
+                              >
+                          <option value="default">-{datas.statusTransaksi}-</option>
+                          <option value="menunggu">menunggu</option>
+                          <option value="diterima">diterima</option>
+                          <option value="ditolak">ditolak</option>
+                          {/* {props.jenisKlien.map((us, index) => {
+                            return (
+                              <option 
+                                value={us.id} 
+                                key={us.id}
+                              >
+                              {us.namaJenisKlien}
+                              </option>
+                          )})} */}
+                        </select>
+                          ) : roles === 4 ? (
+                              <select 
+                          placeholder="Jenis Klien" 
+                          defaultValue="default"
+                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          onChange={(e) => 
+                            setDatas({
+                            ...datas,
+                            statusTransaksi : e.target.value
+                            })
+                          }
+                        >
+                          <option value="default">-{datas.statusTransaksi}-</option>
+                          <option value="menunggu">menunggu</option>
+                          <option value="diterima">diterima</option>
+                          <option value="ditolak">ditolak</option>
+                          {/* {props.jenisKlien.map((us, index) => {
+                            return (
+                              <option 
+                                value={us.id} 
+                                key={us.id}
+                              >
+                              {us.namaJenisKlien}
+                              </option>
+                          )})} */}
+                        </select>
+                          ) : <div></div>
                         }
-                      >
-                        <option value="default">-{datas.statusTransaksi}-</option>
-                        <option value="menunggu">menunggu</option>
-                        <option value="diterima">diterima</option>
-                        <option value="ditolak">ditolak</option>
-                        {/* {props.jenisKlien.map((us, index) => {
-                          return (
-                            <option 
-                              value={us.id} 
-                              key={us.id}
-                            >
-                            {us.namaJenisKlien}
-                            </option>
-                        )})} */}
-                      </select>
-                  </div>
+                    </div>
               </div>
             </div>
 
@@ -1127,108 +1223,231 @@ const QuotationsRevisi = (props, crewL) => {
               <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
                   <div>
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Kategori</label>
-                      <select 
-                        placeholder="Jenis Klien" 
-                        defaultValue="default"
-                        className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        onChange={(e) => {
-                          datasFind(e.target.value, 'kategori')
-                        }}
-                      >
-                        <option value="default">-{datas.namaKategoriTour}-</option>
-                        {props.kategoriwisata.map((kw, index) => {
-                          return (
-                            <option 
-                              value={kw.idKategoriTour} 
-                              key={kw.id}
+                      { roles === 2 ? ( 
+                              //<h1>admin</h1>
+                              <select 
+                                placeholder="Jenis Klien" 
+                                defaultValue="default"
+                                className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                onChange={(e) => {
+                                  datasFind(e.target.value, 'kategori')
+                                }}
+                              >
+                                <option value="default">-{datas.namaKategoriTour}-</option>
+                                {props.kategoriwisata.map((kw, index) => {
+                                  return (
+                                    <option 
+                                      value={kw.idKategoriTour} 
+                                      key={kw.id}
+                                    >
+                                    {kw.namaKategoriTour}
+                                    </option>
+                                )})}
+                              </select>
+                          ) : roles === 4 ? (
+                            <select 
+                              disabled readOnly
+                              placeholder="Jenis Klien" 
+                              defaultValue="default"
+                              className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                              onChange={(e) => {
+                                datasFind(e.target.value, 'kategori')
+                              }}
                             >
-                            {kw.namaKategoriTour}
-                            </option>
-                        )})}
-                      </select>
+                              <option value="default">-{datas.namaKategoriTour}-</option>
+                              {props.kategoriwisata.map((kw, index) => {
+                                return (
+                                  <option 
+                                    value={kw.idKategoriTour} 
+                                    key={kw.id}
+                                  >
+                                  {kw.namaKategoriTour}
+                                  </option>
+                              )})}
+                            </select>
+                          ) : <div></div>
+                      }
+                      
                   </div>
                   <div>
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Area Wisata</label>
-                      <select 
-                        placeholder="Jenis Klien" 
-                        defaultValue="default"
-                        className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        // onChange={set}
-                        onChange={(e) => {
-                          datasFind(e.target.value, 'area')
-                        }}
-                      >
-                        <option value="default">-{datas.namaArea}-</option>
-                        {props.areawisata.map((ar, index) => {
-                          return (
-                            <option 
-                              value={ar.id} 
-                              key={ar.id}
+                      { roles === 2 ? ( 
+                              <select 
+                                placeholder="Jenis Klien" 
+                                defaultValue="default"
+                                className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                // onChange={set}
+                                onChange={(e) => {
+                                  datasFind(e.target.value, 'area')
+                                }}
+                              >
+                                <option value="default">-{datas.namaArea}-</option>
+                                {props.areawisata.map((ar, index) => {
+                                  return (
+                                    <option 
+                                      value={ar.id} 
+                                      key={ar.id}
+                                    >
+                                    {ar.namaArea}
+                                    </option>
+                                )})}
+                              </select>
+                          ) : roles === 4 ? (
+                            <select 
+                              disabled readOnly
+                              placeholder="Jenis Klien" 
+                              defaultValue="default"
+                              className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                              // onChange={set}
+                              onChange={(e) => {
+                                datasFind(e.target.value, 'area')
+                              }}
                             >
-                            {ar.namaArea}
-                            </option>
-                        )})}
-                      </select>
+                              <option value="default">-{datas.namaArea}-</option>
+                              {props.areawisata.map((ar, index) => {
+                                return (
+                                  <option 
+                                    value={ar.id} 
+                                    key={ar.id}
+                                  >
+                                  {ar.namaArea}
+                                  </option>
+                              )})}
+                            </select>
+                          ) : <div></div>
+                      }
                   </div>
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah Orang (QTY)</label>
-                      <input 
-                      type="number" 
-                      name="brand" 
-                      id="brand" 
-                      className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      value={datas.jumlahOrang}
-                      onChange={(value) => 
-                        setDatas({
-                        ...datas,
-                        jumlahOrang: parseInt(value.target.value),
-                        totalOrang: parseInt(value.target.value)
-                      })}
-                      />
+                      { roles === 2 ? ( 
+                          <input 
+                          type="number" 
+                          name="brand" 
+                          id="brand" 
+                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          value={datas.jumlahOrang}
+                          onChange={(value) => 
+                            setDatas({
+                            ...datas,
+                            jumlahOrang: parseInt(value.target.value),
+                            totalOrang: parseInt(value.target.value)
+                          })}
+                          />      
+                          ) : roles === 4 ? (
+                            <input 
+                            disabled readOnly
+                            type="number" 
+                            name="brand" 
+                            id="brand" 
+                            className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            value={datas.jumlahOrang}
+                            onChange={(value) => 
+                              setDatas({
+                              ...datas,
+                              jumlahOrang: parseInt(value.target.value),
+                              totalOrang: parseInt(value.target.value)
+                            })}
+                            />
+                          ) : <div></div>
+                      }
+                      
                   </div>
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah Bebas Biaya (FOC)</label>
-                      <input 
-                      type="number" 
-                      name="brand" 
-                      id="brand" 
-                      className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      value={datas.foc}
-                      onChange={(value) => 
-                        setDatas({
-                        ...datas,
-                        foc: parseInt(value.target.value),
-                        totalOrang: parseInt(datas.jumlahOrang) + parseInt(value.target.value)
-                      })}
-                      />
+                      { roles === 2 ? ( 
+                            <input 
+                            type="number" 
+                            name="brand" 
+                            id="brand" 
+                            className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            value={datas.foc}
+                            onChange={(value) => 
+                              setDatas({
+                              ...datas,
+                              foc: parseInt(value.target.value),
+                              totalOrang: parseInt(datas.jumlahOrang) + parseInt(value.target.value)
+                            })}
+                            />  
+                          ) : roles === 4 ? (
+                            <input 
+                            disabled readOnly
+                            type="number" 
+                            name="brand" 
+                            id="brand" 
+                            className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            value={datas.foc}
+                            onChange={(value) => 
+                              setDatas({
+                              ...datas,
+                              foc: parseInt(value.target.value),
+                              totalOrang: parseInt(datas.jumlahOrang) + parseInt(value.target.value)
+                            })}
+                            /> 
+                          ) : <div></div>
+                      }
                   </div>
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Total orang</label>
-                      <input 
-                      type="text" 
-                      name="brand" 
-                      id="brand" 
-                      className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      value={datas.jumlahOrang + datas.foc}
-                      onChange={(value) => 
-                        setDatas({
-                        ...datas,
-                        totalOrang: value.target.value,
-                      })}
-                      />
+                      { roles === 2 ? ( 
+                            <input 
+                            type="text" 
+                            name="brand" 
+                            id="brand" 
+                            className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            value={datas.jumlahOrang + datas.foc}
+                            onChange={(value) => 
+                              setDatas({
+                              ...datas,
+                              totalOrang: value.target.value,
+                            })}
+                            />
+                          ) : roles === 4 ? (
+                            <input 
+                            disabled readOnly
+                            type="text" 
+                            name="brand" 
+                            id="brand" 
+                            className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            value={datas.jumlahOrang + datas.foc}
+                            onChange={(value) => 
+                              setDatas({
+                              ...datas,
+                              totalOrang: value.target.value,
+                            })}
+                            />
+                          ) : <div></div>
+                      }
+                      
                   </div>
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Plan Waktu Pelaksanan</label>
-                      <input 
-                         type="date" 
-                         name="brand" 
-                         id="brand"
-                         value={datas.planWaktuPelaksanaan} 
-                         className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                         onChange={(e) => 
-                           handleDateChange(e, 'plan')
-                         }
-                         />
+                      { roles === 2 ? ( 
+                            <input 
+                            type="date" 
+                            name="brand" 
+                            id="brand"
+                            value={datas.planWaktuPelaksanaan} 
+                            className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            onChange={(e) => 
+                              handleDateChange(e, 'plan')
+                            }
+                            />  
+                              
+                          ) : roles === 4 ? (
+                              <input 
+                              disabled readOnly
+                              type="date" 
+                              name="brand" 
+                              id="brand"
+                              value={datas.planWaktuPelaksanaan} 
+                              className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                              onChange={(e) => 
+                                handleDateChange(e, 'plan')
+                              }
+                              />
+                          ) : <div></div>
+                      }
+                      
                       {/* {datas.planWaktuPelaksanaan !== '' ? (
                          <input 
                          type="date" 
@@ -1255,78 +1474,165 @@ const QuotationsRevisi = (props, crewL) => {
                   </div>
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Durasi Pelaksanaan</label>
-                      <input 
-                      type="text" 
-                      name="brand" 
-                      id="brand" 
-                      className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      value={datas.durasiProject}
-                      onChange={(value) => 
-                        setDatas({
-                        ...datas,
-                        durasiproject: value.target.value,
-                      })}
-                      />
+                      { roles === 2 ? ( 
+                            <input 
+                            type="text" 
+                            name="brand" 
+                            id="brand" 
+                            className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            value={datas.durasiProject}
+                            onChange={(value) => 
+                              setDatas({
+                              ...datas,
+                              durasiproject: value.target.value,
+                            })}
+                            />
+                          ) : roles === 4 ? (
+                              <input 
+                              disabled readOnly
+                              type="text" 
+                              name="brand" 
+                              id="brand" 
+                              className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                              value={datas.durasiProject}
+                              onChange={(value) => 
+                                setDatas({
+                                ...datas,
+                                durasiproject: value.target.value,
+                              })}
+                              />
+                          ) : <div></div>
+                      }
                   </div>
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Fee Marketing</label>
-                      <input 
-                      type="text" 
-                      name="brand" 
-                      id="brand" 
-                      className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      value={datas.feeMarketing}
-                      onChange={(value) => 
-                        setDatas({
-                        ...datas,
-                        feemarketing: value.target.value,
-                      })}
-                      />
+                      { roles === 2 ? ( 
+                            <input 
+                            type="text" 
+                            name="brand" 
+                            id="brand" 
+                            className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            value={datas.feeMarketing}
+                            onChange={(value) => 
+                              setDatas({
+                              ...datas,
+                              feemarketing: value.target.value,
+                            })}
+                            />
+                          ) : roles === 4 ? (
+                              <input 
+                              disabled readOnly
+                              type="text" 
+                              name="brand" 
+                              id="brand" 
+                              className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                              value={datas.feeMarketing}
+                              onChange={(value) => 
+                                setDatas({
+                                ...datas,
+                                feemarketing: value.target.value,
+                              })}
+                              />
+                          ) : <div></div>
+                      }
+                      
                   </div>
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Persentase Keuntungan</label>
-                      <input 
-                      type="number" 
-                      name="brand" 
-                      id="brand" 
-                      className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      value={datas.persentaseKeuntungan}
-                      onChange={(value) => 
-                        setDatas({
-                        ...datas,
-                        persentaseKeuntungan: value.target.value,
-                      })}
-                      />
+                      { roles === 2 ? ( 
+                            <input 
+                            type="number" 
+                            name="brand" 
+                            id="brand" 
+                            className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            value={datas.persentaseKeuntungan}
+                            onChange={(value) => 
+                              setDatas({
+                              ...datas,
+                              persentaseKeuntungan: value.target.value,
+                            })}
+                            />
+                          ) : roles === 4 ? (
+                            <input 
+                            disabled readOnly
+                            type="number" 
+                            name="brand" 
+                            id="brand" 
+                            className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            value={datas.persentaseKeuntungan}
+                            onChange={(value) => 
+                              setDatas({
+                              ...datas,
+                              persentaseKeuntungan: value.target.value,
+                            })}
+                            /> 
+                          ) : <div></div>
+                      }
+                      
                   </div>
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Masa Berlaku Quotation</label>
-                      <input 
-                      type="date" 
-                      name="brand" 
-                      id="brand"
-                      value={datas.tglBerlakuQuotation} 
-                      className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      onChange={(value) => {
-                        handleDateChange(value, 'berlaku')
-                        // rekomendasi()
+                      { roles === 2 ? ( 
+                            <input 
+                            type="date" 
+                            name="brand" 
+                            id="brand"
+                            value={datas.tglBerlakuQuotation} 
+                            className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            onChange={(value) => {
+                              handleDateChange(value, 'berlaku')
+                              // rekomendasi()
+                            }
+                            }
+                            /> 
+                          ) : roles === 4 ? (
+                            <input 
+                            disabled readOnly
+                            type="date" 
+                            name="brand" 
+                            id="brand"
+                            value={datas.tglBerlakuQuotation} 
+                            className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            onChange={(value) => {
+                              handleDateChange(value, 'berlaku')
+                              // rekomendasi()
+                            }
+                            }
+                            /> 
+                          ) : <div></div>
                       }
-                      }
-                      />
                   </div>
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Tanggal Berlaku Quotation</label>
-                      <input 
-                      type="date" 
-                      name="brand" 
-                      id="brand"
-                      value={datas.masaBerlakuQuotation} 
-                      className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      onChange={(value) => {
-                        handleDateChange(value, 'masa')
-                        // rekomendasi()
+                      { roles === 2 ? ( 
+                            <input 
+                            type="date" 
+                            name="brand" 
+                            id="brand"
+                            value={datas.masaBerlakuQuotation} 
+                            className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            onChange={(value) => {
+                              handleDateChange(value, 'masa')
+                              // rekomendasi()
+                            }
+                            }
+                            />    
+                          ) : roles === 4 ? (
+                              <input 
+                              disabled readOnly
+                              type="date" 
+                              name="brand" 
+                              id="brand"
+                              value={datas.masaBerlakuQuotation} 
+                              className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                              onChange={(value) => {
+                                handleDateChange(value, 'masa')
+                                // rekomendasi()
+                              }
+                              }
+                              />
+                          ) : <div></div>
                       }
-                      }
-                      />
                   </div>
               </div>
             </div>
