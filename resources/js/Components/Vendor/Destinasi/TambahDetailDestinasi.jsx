@@ -7,6 +7,7 @@ const TambahDetailDestinasi = ({ visible, onClose, data }) => {
 
   const [datas, setDatas] = useState(data);
   const [inputErrors, setInputErrors] = useState({});
+  const [error, setError] = useState("");
 
   const handleSubmit = () => {
     console.log("id", data.id);
@@ -131,6 +132,7 @@ const TambahDetailDestinasi = ({ visible, onClose, data }) => {
                     </p>
                   )}
                 </div>
+                {error && <p className="text-red-500 mt-1">{error}</p>}
               </div>
             </div>
             {/* Button */}
