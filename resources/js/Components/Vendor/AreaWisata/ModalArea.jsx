@@ -5,9 +5,15 @@ const ModalArea = ({visible, onClose, data}) => {
     if (!visible) return null;
     const [datas, setDatas] = useState(data)
     console.log('modal data', data)
+    const [error, setError] = useState("");
 
     const handleSubmit = () => {
         console.log('id', data.id)
+        if (!datas.namaArea) {
+            setError("Nama Area harus diisi");
+            return;
+        }
+        setError("");
         if(data.id){
             // update data
             const dataUpdate = {
@@ -25,6 +31,8 @@ const ModalArea = ({visible, onClose, data}) => {
             }
             Inertia.post('/areawisata', TambahData)
         }
+
+        onClose();
     }
 
     return (
@@ -57,6 +65,7 @@ const ModalArea = ({visible, onClose, data}) => {
                                         })}
                                 />
                             </div>
+                            {error && <p className="text-red-500 mt-1">{error}</p>}
                         </div>
                         {/* Button */}
                         <div className="card-actions justify-end">
@@ -64,15 +73,20 @@ const ModalArea = ({visible, onClose, data}) => {
                             <button 
                                 onClick={() => {
                                     handleSubmit()
-                                    onClose()
                                 }}
                             className="btn bg-[#3E9E3E] text-putih outline-none border-transparent">Simpan</button>
                         </div> 
                     </div>
                 </div>
             </div>
+            
         </div>
     )
 }
 
 export default ModalArea
+
+
+
+
+

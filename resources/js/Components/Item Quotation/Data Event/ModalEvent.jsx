@@ -1,112 +1,154 @@
 import { Inertia } from "@inertiajs/inertia";
 import { useState } from "react";
 
-const ModalEvent = ({visible, onClose, data}) => {
-    if (!visible) return null;
-    const [datas, setDatas] = useState(data)
-    console.log('modal data', data)
-    // console.log('datas', datas)
+const ModalEvent = ({ visible, onClose, data }) => {
+  if (!visible) return null;
+  const [datas, setDatas] = useState(data);
+  const [inputErrors, setInputErrors] = useState({});
+  console.log("modal data", data);
+  // console.log('datas', datas)
 
-    const handleSubmit = () => {
-        console.log('id', data.idDataEvent)
-        if(data.idDataEvent){
-            // update data
-            const dataE = {
-                id: data.idDataEvent,
-                ketDataEvent: datas.ketDataEvent, 
-                biayaDataEvent: datas.biayaDataEvent, 
-                satuanEvent: datas.satuanEvent,
-                tglUpdateEvent:new Date(),
-                updated_at: new Date(),
-            }
-            Inertia.post('/event/update', dataE)
-        }else{
-            // tambah data
-            const dataT = {
-                ketDataEvent: datas.ketDataEvent, 
-                biayaDataEvent: datas.biayaDataEvent, 
-                satuanEvent: datas.satuanEvent,
-                glUpdateEvent:new Date(),
-                created_at: new Date(),
-                updated_at: new Date(),
-            }
-            Inertia.post('/event', dataT)
-        }
+  const handleSubmit = () => {
+    console.log("id", data.idDataEvent);
+
+    const newInputErrors = {};
+    if (!datas.ketDataEvent) {
+      newInputErrors.ketDataEvent = "Ket Event harus dipilih";
+    }
+    if (!datas.biayaDataEvent) {
+      newInputErrors.biayaDataEvent = "Biaya Event harus diisi";
+    }
+    if (!datas.satuanEvent) {
+      newInputErrors.satuanEvent = "Satuan Event harus diisi";
     }
 
-    return (
-        <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center">
-            <div className='relative bg-white shadow-xl m-6 mt-3 md:max-xl:flex ring-1 ring-gray-900/5 rounded-lg'>
-                <div className='p-4 bg-kuning border-b border-gray-200 rounded-t-lg flex flex-row'>
-                    <div className="rounded-full h-3 w-3 bg-putih mr-2"></div>
-                    <div className="rounded-full h-3 w-3 bg-putih mr-2"></div>
-                    <div className="rounded-full h-3 w-3 bg-putih"></div>
-                </div>
-                <div className='p-4 bg-white border-b border-gray-200 rounded-b-lg'>
-                    {/* Content */}
-                    <div className=''>
-                    <h1 className="font-semibold text-center text-xl text-gray-700">
-                        Data Event
-                        </h1>
-                        <p className="text-center text-gray-700 mb-5">Tambah Data</p>
-                        {/* Data Input */}
-                        <div className="flex flex-col">
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Event</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                    value={datas.ketDataEvent || ''}
-                                    onChange={(value) => 
-                                        setDatas({
-                                            ...datas,
-                                            ketDataEvent: value.target.value
-                                        })}
-                                />
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Biaya</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                    onChange={(value) => 
-                                        setDatas({
-                                            ...datas,
-                                            biayaDataEvent: value.target.value
-                                        })}
-                                    value={datas.biayaDataEvent}
-                                />
-                            </div>
-                            <div className="flex flex-row justify-between">
-                                <a className="mr-5 mt-2 text-black">Satuan</a>
-                                <input
-                                    type="text"
-                                    className="border border-gray-700 p-2 rounded mb-5"
-                                    onChange={(value) => 
-                                        setDatas({
-                                            ...datas,
-                                            satuanEvent: value.target.value
-                                        })}
-                                    value={datas.satuanEvent}
-                                />
-                            </div>
-                        </div>
-                        {/* Button */}
-                        <div className="card-actions justify-end">
-                            <button onClick={onClose} className="btn bg-[#AF4F4F] text-putih outline-none border-transparent">Batalkan</button>
-                            <button 
-                                onClick={() => {
-                                    handleSubmit()
-                                    onClose()
-                                }}  
-                                className="btn bg-[#3E9E3E] text-putih outline-none border-transparent"
-                            >Simpan</button>
-                        </div> 
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
-}
+    setInputErrors(newInputErrors); // Set pesan error baru
 
-export default ModalEvent
+    if (Object.keys(newInputErrors).length > 0) {
+      return; // Hentikan proses submit jika ada pesan error
+    }
+
+    if (data.idDataEvent) {
+      // update data
+      const dataE = {
+        id: data.idDataEvent,
+        ketDataEvent: datas.ketDataEvent,
+        biayaDataEvent: datas.biayaDataEvent,
+        satuanEvent: datas.satuanEvent,
+        tglUpdateEvent: new Date(),
+        updated_at: new Date(),
+      };
+      Inertia.post("/event/update", dataE);
+    } else {
+      // tambah data
+      const dataT = {
+        ketDataEvent: datas.ketDataEvent,
+        biayaDataEvent: datas.biayaDataEvent,
+        satuanEvent: datas.satuanEvent,
+        glUpdateEvent: new Date(),
+        created_at: new Date(),
+        updated_at: new Date(),
+      };
+      Inertia.post("/event", dataT);
+    }
+    onClose();
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex items-center justify-center">
+      <div className="relative bg-white shadow-xl m-6 mt-3 md:max-xl:flex ring-1 ring-gray-900/5 rounded-lg">
+        <div className="p-4 bg-kuning border-b border-gray-200 rounded-t-lg flex flex-row">
+          <div className="rounded-full h-3 w-3 bg-putih mr-2"></div>
+          <div className="rounded-full h-3 w-3 bg-putih mr-2"></div>
+          <div className="rounded-full h-3 w-3 bg-putih"></div>
+        </div>
+        <div className="p-4 bg-white border-b border-gray-200 rounded-b-lg">
+          {/* Content */}
+          <div className="">
+            <h1 className="font-semibold text-center text-xl text-gray-700">
+              Data Event
+            </h1>
+            <p className="text-center text-gray-700 mb-5">Tambah Data</p>
+            {/* Data Input */}
+            <div className="flex flex-col">
+              <div className="flex flex-row justify-between">
+                <a className="mr-5 mt-2 text-black">Event</a>
+                <input
+                  type="text"
+                  className="border border-gray-700 p-2 rounded mb-5"
+                  value={datas.ketDataEvent || ""}
+                  onChange={(value) =>
+                    setDatas({
+                      ...datas,
+                      ketDataEvent: value.target.value,
+                    })
+                  }
+                />
+                {inputErrors.ketDataEvent && (
+                  <p className="text-red-500 mt-1">
+                    {inputErrors.ketDataEvent}
+                  </p>
+                )}
+              </div>
+              <div className="flex flex-row justify-between">
+                <a className="mr-5 mt-2 text-black">Biaya</a>
+                <input
+                  type="text"
+                  className="border border-gray-700 p-2 rounded mb-5"
+                  onChange={(value) =>
+                    setDatas({
+                      ...datas,
+                      biayaDataEvent: value.target.value,
+                    })
+                  }
+                  value={datas.biayaDataEvent}
+                />
+                {inputErrors.biayaDataEvent && (
+                  <p className="text-red-500 mt-1">
+                    {inputErrors.biayaDataEvent}
+                  </p>
+                )}
+              </div>
+              <div className="flex flex-row justify-between">
+                <a className="mr-5 mt-2 text-black">Satuan</a>
+                <input
+                  type="text"
+                  className="border border-gray-700 p-2 rounded mb-5"
+                  onChange={(value) =>
+                    setDatas({
+                      ...datas,
+                      satuanEvent: value.target.value,
+                    })
+                  }
+                  value={datas.satuanEvent}
+                />
+                {inputErrors.satuanEvent && (
+                  <p className="text-red-500 mt-1">{inputErrors.satuanEvent}</p>
+                )}
+              </div>
+            </div>
+            {/* Button */}
+            <div className="card-actions justify-end">
+              <button
+                onClick={onClose}
+                className="btn bg-[#AF4F4F] text-putih outline-none border-transparent"
+              >
+                Batalkan
+              </button>
+              <button
+                onClick={() => {
+                  handleSubmit();
+                }}
+                className="btn bg-[#3E9E3E] text-putih outline-none border-transparent"
+              >
+                Simpan
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ModalEvent;
