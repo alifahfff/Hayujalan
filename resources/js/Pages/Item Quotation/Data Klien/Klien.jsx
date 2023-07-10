@@ -11,6 +11,7 @@ import TKlien from '@/Components/Item Quotation/Data Klien/TKlien';
 import ModalKlien from '@/Components/Item Quotation/Data Klien/ModalKlien';
 import Layout from '@/Layouts/Layout';
 import { Inertia } from '@inertiajs/inertia';
+import ModalsKlien from '@/Components/Item Quotation/Data Klien/ModalsKlien';
 
 export default function Klien(props) {
     // console.log('props', props)
@@ -108,7 +109,7 @@ export default function Klien(props) {
             </div>
 
             {/* Modals Tambah Data */}
-            <ModalKlien 
+            <ModalsKlien 
             onClose={handleOnClose} 
             visible={showModal}
             data={data}

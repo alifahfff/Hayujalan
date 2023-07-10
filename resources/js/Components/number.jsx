@@ -1,3 +1,4 @@
 export default function number(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-}
+    const formattedNumber = x.toString().replace(/\./g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return formattedNumber;
+  }

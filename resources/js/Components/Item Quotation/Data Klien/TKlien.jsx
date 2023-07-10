@@ -4,6 +4,7 @@ import { useState } from "react";
 import number from "@/Components/number";
 import ModalDeleteKlien from "./ModalDeleteKlien";
 import ModalKlien from "./ModalKlien";
+import ModalsKlien from "./ModalsKlien";
 
 const TKlien = ({data}) => {
     const [showModal, setShowModal] = useState(false);
@@ -76,7 +77,7 @@ const TKlien = ({data}) => {
             </div>
 
             {/* Modals Tambah Data */}
-            <ModalKlien 
+            <ModalsKlien
                 onClose={() => {
                 handleOnClose()
                 }} 

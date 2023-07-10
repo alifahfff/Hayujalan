@@ -16,7 +16,7 @@ export default function Quotations(props) {
   console.log("cek", props);
   console.log("referensi", props.referensi);
   const [data, setData] = useState({
-      namaKlien: '',
+      tglBerlakuQuotation: '',
       b_areaWisata: '',
       b_kategori: '',
       b_budget: '',
@@ -165,7 +165,7 @@ export default function Quotations(props) {
     console.log('results',results);
 
     const dataSubmit = {
-      // namaKlien: data.namaKlien,
+      tglBerlakuQuotation: data.tglBerlakuQuotation,
       b_areaWisata: data.b_areaWisata,
       b_kategori: data.b_kategori,
       b_budget: data.b_budget,
@@ -209,7 +209,7 @@ export default function Quotations(props) {
                     onChange={(e) => 
                       setData({
                         ...data,
-                        namaKlien: e.target.value
+                        tglBerlakuQuotation: e.target.value
                       })
                     }
                   />

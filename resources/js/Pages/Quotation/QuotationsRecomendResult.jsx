@@ -59,7 +59,7 @@ export default function QuotationsRecomendResult(props, crewL) {
                                 <td className="whitespace-nowrap px-6 py-4">Rp. {number(dt.sellingPrice)},-</td>
                                 <td className="whitespace-nowrap px-6 py-4 text-hijau">{dt.similarity}</td>
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
-                                  <Link href={route('detail.qrecomend', { id: dt.idQuotatioRekomendasi })} method="get">
+                                  <Link href={route('qhistory.clone', { id: dt.idQuotatioRekomendasi })} method="get">
                                     <button className="btn btn-ghost btn-sm mr-2">
                                       <BsPencilSquare/>
                                     </button>

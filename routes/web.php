@@ -92,8 +92,8 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(DataKlienController::class)->group(function () {
         Route::get('/klien', 'show')->name('klien');
         // Route::get('/klien/search', 'search')->name('search.klien');
-        Route::post('/klien', 'store')->name('create.klien');
-        Route::post('/klien/post', 'postKlien')->name('create.klien');
+        Route::post('/klien/post', 'store')->name('create.klien');
+        Route::post('/klien', 'postKlien')->name('create.klien');
         Route::get('/klien/edit', 'edit')->name('edit.klien');
         Route::post('/klien/update', 'update')->name('update.klien');
         Route::post('/klien/delete', 'destroy')->name('delete.klien');
@@ -140,6 +140,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/quotation/qhistory/detail', 'editQhistory')->name('qhistory.detail');
         Route::get('/quotation/qhistory/revisi', 'updateQhistory')->name('qhistory.revisi');
         Route::post('/quotation/qhistory/update', 'updateQuotationRevisi')->name('qhistory.update');
+        Route::get('/quotation/qhistory/clone', 'editQClone')->name('qhistory.clone');
+        Route::post('/quotation/qhistory/clone/add', 'addQclone')->name('qhistory.cloneAdd');
         Route::get('/quotation/qhistoryresult/', 'qhistoryresult')->name('quotationhistoryresult');
         Route::post('/quotation', 'store')->name('create.quotation');
         Route::get('/quotation/edit', 'edit')->name('qmanual.edit');
@@ -239,7 +241,7 @@ Route::middleware(['auth'])->group(function () {
 // Login
 Route::get('/', function () {
     return view('Auth/login');
-});
+})->name('Login');
 
 // Route::controller(CrewOperasionalController::class)->group(function () {
 //     Route::get('/crew', 'show')->name('crew');

@@ -22,6 +22,7 @@ module.exports = {
                 "hijau" : "#99E198",
                 "merah" : "#FF8080",
                 "abu2" : "#C7C5C5",
+                "abu3" : "#CCCCCC"
             },
             fontSize: {
                 sm: '0.8rem',

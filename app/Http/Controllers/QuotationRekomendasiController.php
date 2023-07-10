@@ -99,6 +99,7 @@ class QuotationRekomendasiController extends Controller
         $k_jumlahOrang = $request->k_jumlahOrang;
         $k_durasi = $request->k_durasi;
         $k_budget = $request->k_budget;
+        $tglBerlakuQuotation = $request->tglBerlakuQuotation;
 
         //Mencari maximal dan minimal atribut
         $maxArea = dataBobot::where('idKriteria', '=', '1')
@@ -150,6 +151,7 @@ class QuotationRekomendasiController extends Controller
             $sellingPrice = $row->sellingPrice;
             $qty = $row->qty;
             $durasiProject = $row->durasiProject;
+            $masaBerlakuQuotation = $row->masaBerlakuQuotation;
             $b_areaWisata = $row->bref_areaWisata;
             $b_kategori = $row->bref_kategori;
             $b_budget = $row->bref_budget;
@@ -170,43 +172,50 @@ class QuotationRekomendasiController extends Controller
             $bobotDurasi = $durasi * $k_durasi;
             $bobotBudget = $budget * $k_budget;
             $similarity = ($bobotArea + $bobotKategori + $bobotJumlahOrang + $bobotDurasi + $bobotBudget) / 1; 
+            $tglBerlakuTimestamp = strtotime($tglBerlakuQuotation);
+            $masaBerlakuTimestamp = strtotime($masaBerlakuQuotation);
             
-            $result = [
-                'idQuotatioRekomendasi' => $idQuotatioRekomendasi,
-                'idQuotationTour' => $idQuotationTour,
-                'idQuotationTransaksi' => $idQuotationTransaksi,
-                'namaProject' => $namaProject,
-                'namaArea' => $namaArea,
-                'namaKategoriTour' => $namaKategoriTour,
-                'qty' => $qty,
-                'durasiProject' => $durasiProject,
-                // 'namaKlien' => $request->namaKlien,
-                'sellingPrice' => $sellingPrice,
-                // 'areaWisata' => $areaWisata,
-                // 'bobotArea' => $bobotArea,
-                // 'kategori' => $kategori,
-                // 'bobotKategori' => $bobotKategori,
-                // 'jumlahOrang' => $jumlahaOrang,
-                // 'bobotJumlahOrang' => $bobotJumlahOrang,
-                // 'durasi' => $durasi,
-                // 'bobotDurasi' => $bobotDurasi,
-                // 'budget' => $budget,
-                // 'bobotBudget' => $bobotBudget,
-                'similarity' => $similarity
-            ];
-            
-            // Simpan hasil perhitungan dalam array
-            $results[] = $result;
+            if ($tglBerlakuTimestamp < $masaBerlakuTimestamp) {
+                $result = [
+                    'idQuotatioRekomendasi' => $idQuotatioRekomendasi,
+                    'idQuotationTour' => $idQuotationTour,
+                    'idQuotationTransaksi' => $idQuotationTransaksi,
+                    'namaProject' => $namaProject,
+                    'namaArea' => $namaArea,
+                    'namaKategoriTour' => $namaKategoriTour,
+                    'qty' => $qty,
+                    'durasiProject' => $durasiProject,
+                    'tglBerlakuQuotation' => $tglBerlakuQuotation,
+                    'masaBerlakuQuotation' => $masaBerlakuQuotation,
+                    // 'namaKlien' => $request->namaKlien,
+                    'sellingPrice' => $sellingPrice,
+                    // 'areaWisata' => $areaWisata,
+                    // 'bobotArea' => $bobotArea,
+                    // 'kategori' => $kategori,
+                    // 'bobotKategori' => $bobotKategori,
+                    // 'jumlahOrang' => $jumlahaOrang,
+                    // 'bobotJumlahOrang' => $bobotJumlahOrang,
+                    // 'durasi' => $durasi,
+                    // 'bobotDurasi' => $bobotDurasi,
+                    // 'budget' => $budget,
+                    // 'bobotBudget' => $bobotBudget,
+                    'similarity' => $similarity
+                ];
+
+                 // Simpan hasil perhitungan dalam array
+                $results[] = $result;
+            }
         }
        
-
         // Urutkan hasil perhitungan berdasarkan nilai tertinggi
         usort($results, function ($a, $b) {
             return $b['similarity'] <=> $a['similarity'];
         });
 
-        $topResults = array_slice($results, 0, $count);
+        // dd($results); 
 
+        $topResults = array_slice($results, 0, $count);
+        // dd($topResults);
         session()->put('data', $topResults);
         return redirect()->route('hasil.qrecomend');
         // if ($k_area == 0.3) {

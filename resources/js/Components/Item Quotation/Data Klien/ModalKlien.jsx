@@ -13,70 +13,74 @@ const ModalKlien = ({ visible, onClose, data, dataJK }) => {
   };
 
   const handleSubmit = () => {
-    console.log("id", datas.id);
+    alert(44)
+    console.log("id", datas.idDataKlien);
 
-    const newInputErrors = {};
-    if (!datas.idDataKlien) {
-      newInputErrors.idDataKlien = "ID data klien harus dipilih";
-    }
-    if (!datas.namaKlien) {
-      newInputErrors.namaKlien = "Nama Klien harus diisi";
-    }
-    if (!datas.alamatKlien) {
-      newInputErrors.alamatKlien = "Alamat Klien harus diisi";
-    }
-    if (!datas.tlpKlien) {
-      newInputErrors.tlpKlien = "TLP Klien harus diisi";
-    }
-    if (!datas.namaPicKlien) {
-      newInputErrors.namaPicKlien = "Nama PIC Klien harus diisi";
-    }
-    if (!datas.idJenisKlien) {
-      newInputErrors.idJenisKlien = "ID jenis klien harus dipilih";
-    }
-    if (!datas.tlpPicKlien) {
-      newInputErrors.tlpPicKlien = "TLP PIC Klien harus diisi";
-    }
+    // const newInputErrors = {};
+    // if (!datas.idDataKlien) {
+    //   newInputErrors.idDataKlien = "ID data klien harus dipilih";
+    // }
+    // if (!datas.namaKlien) {
+    //   newInputErrors.namaKlien = "Nama Klien harus diisi";
+    // }
+    // if (!datas.alamatKlien) {
+    //   newInputErrors.alamatKlien = "Alamat Klien harus diisi";
+    // }
+    // if (!datas.tlpKlien) {
+    //   newInputErrors.tlpKlien = "TLP Klien harus diisi";
+    // }
+    // if (!datas.namaPicKlien) {
+    //   newInputErrors.namaPicKlien = "Nama PIC Klien harus diisi";
+    // }
+    // if (!datas.idJenisKlien) {
+    //   newInputErrors.idJenisKlien = "ID jenis klien harus dipilih";
+    // }
+    // if (!datas.tlpPicKlien) {
+    //   newInputErrors.tlpPicKlien = "TLP PIC Klien harus diisi";
+    // }
 
-    setInputErrors(newInputErrors); // Set pesan error baru
+    // setInputErrors(newInputErrors); // Set pesan error baru
 
-    if (Object.keys(newInputErrors).length > 0) {
-      return; // Hentikan proses submit jika ada pesan error
-    }
-
-    if (datas.idDataKlien) {
-      alert(1);
-      // update data
-      const dataE = {
-        id: datas.idDataKlien,
-        namaKlien: datas.namaKlien,
-        alamatKlien: datas.alamatKlien,
-        tlpKlien: datas.tlpKlien,
-        namaPicKlien: datas.namaPicKlien,
-        idJenisKlien: datas.idJenisKlien,
-        tlpPicKlien: datas.tlpPicKlien,
-        tglUpdateKlien: new Date(),
-        updated_at: new Date(),
-      };
-      // console.log('dataE', dataE)
-      Inertia.post("/klien/update", dataE);
-    } else {
-      alert(2);
-      // tambah data
-      const dataT = {
-        namaKlien: datas.namaKlien,
-        alamatKlien: datas.alamatKlien,
-        tlpKlien: datas.tlpKlien,
-        namaPicKlien: datas.namaPicKlien,
-        tlpPicKlien: datas.tlpPicKlien,
-        idJenisKlien: datas.idJenisKlien,
-        tglUpdateKlien: new Date(),
-        created_at: new Date(),
-        updated_at: new Date(),
-      };
-      Inertia.post("/klien/post", dataT);
-    }
-    onClose();
+    // if (Object.keys(newInputErrors).length > 0) {
+    //   return; // Hentikan proses submit jika ada pesan error
+    // }
+   
+      if (datas.idDataKlien) {
+        alert(1);
+        // update data
+        const dataE = {
+          id: datas.idDataKlien,
+          namaKlien: datas.namaKlien,
+          alamatKlien: datas.alamatKlien,
+          tlpKlien: datas.tlpKlien,
+          namaPicKlien: datas.namaPicKlien,
+          idJenisKlien: datas.idJenisKlien,
+          tlpPicKlien: datas.tlpPicKlien,
+          tglUpdateKlien: new Date(),
+          updated_at: new Date(),
+        };
+        // console.log('dataE', dataE)
+        Inertia.post("/klien/update", dataE);
+        route();
+      } else {
+        alert(2);
+        // tambah data
+        const dataT = {
+          namaKlien: datas.namaKlien,
+          alamatKlien: datas.alamatKlien,
+          tlpKlien: datas.tlpKlien,
+          namaPicKlien: datas.namaPicKlien,
+          tlpPicKlien: datas.tlpPicKlien,
+          idJenisKlien: datas.idJenisKlien,
+          tglUpdateKlien: new Date(),
+          created_at: new Date(),
+          updated_at: new Date(),
+        };
+        Inertia.post("/klien/post", dataT);
+        route();
+      }
+      onClose(); 
+    
   };
 
   return (
@@ -132,7 +136,7 @@ const ModalKlien = ({ visible, onClose, data, dataJK }) => {
                   </option>
                   {dataJK.map((jk, index) => {
                     return (
-                      <option value={jk.id} key={jk.id}>
+                      <option value={jk.idJenisKlien} key={jk.id}>
                         {jk.namaJenisKlien}
                       </option>
                     );
@@ -226,7 +230,6 @@ const ModalKlien = ({ visible, onClose, data, dataJK }) => {
               <button
                 onClick={() => {
                   handleSubmit();
-                  route();
                 }}
                 className="btn bg-[#3E9E3E] text-putih outline-none border-transparent"
               >

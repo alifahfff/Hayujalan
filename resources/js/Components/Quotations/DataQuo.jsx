@@ -60,20 +60,24 @@ const DataQuo = ({ quotation }) => {
                       <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                         <button className="btn btn-ghost btn-sm mr-2">
                           <Link
-                            href={route('qhistory.detail')} method="get" data={{id: cr.idQuotatioRekomendasi}}
+                            href={route('qhistory.detail')} method="get" as="button" data={{id: cr.idQuotatioRekomendasi}}
                           >
                             <BsPencilSquare />
                           </Link>
                         </button>
-                        <button
+                        <Link
+                            href={route('delete.quotation')} method="post" as="button" data={{id: cr.idQuotatioRekomendasi}}
+                        >
+                          <button
                           className="btn btn-ghost btn-sm"
                           // onClick={() => {
                           //     setShowDelete(true)
                           //     setCrewL(cr)
                           // }}
-                        >
-                          <BsTrash3 />
-                        </button>
+                          >
+                            <BsTrash3 />
+                          </button>
+                        </Link>
                       </td>
                     </tr>
                   </tbody>

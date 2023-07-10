@@ -60,10 +60,8 @@ class quotationTour extends Model
         return $this->belongsTo(dataKlien::class, 'idDataKlien', 'idDataKlien');
     }
 
-    public function mUsers()
+    public function userQuotations()
     {
-        return $this->belongsToMany(User::class, 'user_quotationTour', 'idQuotationTour')
-            ->withPivot('idRoles', 'idUser')
-            ->withTimestamps();
+        return $this->belongsToMany(User::class, 'user_quotation', 'idQuotationTour', 'idUser');
     }
 }

@@ -37,6 +37,7 @@ const Quotations = (props, crewL) => {
     hari:'',
     harga:'',
     jumlah:0,
+    qtyKetersediaanKamar:'',
   }]);
 
   const [formRM, setFormRM] = useState([{
@@ -92,12 +93,12 @@ const Quotations = (props, crewL) => {
   }]);
   
   const [datas, setDatas] = useState({
-    idProgram: '1',
-    namaProgram: 'Ryan',
+    idProgram: props.auth.user.idUser,
+    namaProgram: props.auth.user.namaUser,
     idAreaWisata: '',
     namaArea: '',
     idSales: '',
-    namaSales: '',
+    namaSales: '', 
     idKategoriTour: '', 
     namaKategoriTour: '',
     namaproject: '', 
@@ -113,11 +114,12 @@ const Quotations = (props, crewL) => {
     jenisKlien: '',
     idJenisKlien: '',
     tglBerlakuQuotation: '',
+    masaBerlakuQuotation: '',
     bref_kategori: '',
     bref_areaWisata: '',
     bref_jumlahOrang: '',
     bref_durasi: '',
-    bref_budget: 1,
+    statusTransaksi : "menunggu",
   })
 
   console.log("data quotation", props);
@@ -133,6 +135,8 @@ const Quotations = (props, crewL) => {
 
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedDateBerlaku, setSelectedDateBerlaku] = useState('');
+  const [selectedDateMasa, setSelectedDateMasa] = useState('');
+  const [inputErrors, setInputErrors] = useState({});
   
   const [listRM, setListRM] = useState({
     list: [],
@@ -239,16 +243,33 @@ const Quotations = (props, crewL) => {
         setDatas({
           ...datas,
           tglBerlakuQuotation: e.target.value,
-          tipeDurasi: 'weekend',
         })
       } else {
         console.log('Selected date is a weekday.');
         setDatas({
           ...datas,
           tglBerlakuQuotation: e.target.value,
-          tipeDurasi: 'weekday',
         })
       }
+      rekomendasi()
+    }
+
+    if (nama == 'masa') {
+      setSelectedDateMasa(selectedDateString);
+      if (isWeekend) {
+        console.log('Selected date is a weekend.');
+        setDatas({
+          ...datas,
+          masaBerlakuQuotation: e.target.value,
+        })
+      } else {
+        console.log('Selected date is a weekday.');
+        setDatas({
+          ...datas,
+          masaBerlakuQuotation: e.target.value,
+        })
+      }
+      rekomendasi()
     }
   };
 
@@ -267,8 +288,10 @@ const Quotations = (props, crewL) => {
         // setListRM(list)
         props.detailRM.forEach((lb) => {
           if(lb.idRM == e.target.value){
-            console.log('cek lb', lb)
-            list.push(lb)
+            if(lb.statusDetailRm == 'berjalan') {
+              console.log('cek lb', lb)
+              list.push(lb)
+            }
           }
         })
         console.log('list', list)
@@ -288,8 +311,10 @@ const Quotations = (props, crewL) => {
         // setListRM(list)
         props.detailPenginapan.forEach((lb) => {
           if(lb.idPenginapan == e.target.value){
-            console.log('cek lb', lb)
-            list.push(lb)
+            if(lb.statusDetailPenginapan == 'berjalan') {
+              console.log('cek lb', lb)
+              list.push(lb)
+            }
           }
         })
         console.log('list', list)
@@ -309,8 +334,10 @@ const Quotations = (props, crewL) => {
         // setListRM(list)
         props.detaiTransportasi.forEach((lb) => {
           if(lb.idTransportasi == e.target.value){
-            console.log('cek lb', lb)
-            list.push(lb)
+            if(statusDetailTransportasi == 'berjalan') {
+              console.log('cek lb', lb)
+              list.push(lb)
+            }
           }
         })
         console.log('list', list)
@@ -336,14 +363,14 @@ const Quotations = (props, crewL) => {
     }
 
     if(params == 'sales'){
-      const find2 = props.usersales.find((x) => {
-        return x.id == e 
+      const find2 = props.user.find((x) => {
+        return x.idUser == e 
       });
       console.log('find', find2)
       setDatas({
         ...datas,
-        namaSales: find2.namaSales,
-        idSales: find2.id,
+        namaSales: find2.namaUser,
+        idSales: find2.idUser,
       })
     }
 
@@ -536,14 +563,16 @@ const Quotations = (props, crewL) => {
         // const list = '';
         props.detailDestinasi.forEach((lb) => {
           if(lb.idDestinasiWisata == e.target.value){
-            if(datas.tipeDurasi == 'weekend'){
-              console.log('weekend')
-              list.push(lb.tiketMasukWeekend)
-            }else{
-              console.log('weekday')
-              list.push(lb.tiketMasukWeekday)
+            if(lb.statusDetailDestinasi == 'berjalan') {
+              if(datas.tipeDurasi == 'weekend'){
+                console.log('weekend')
+                list.push(lb.tiketMasukWeekend)
+              }else{
+                console.log('weekday')
+                list.push(lb.tiketMasukWeekday)
+              }
+              console.log('cek lb', lb)
             }
-            console.log('cek lb', lb)
           }
         })
         console.log('list', list)
@@ -668,6 +697,7 @@ const Quotations = (props, crewL) => {
         values[index]['idPenginapan'] = find2.idPenginapan,
         values[index]['biaya'] = parseInt(list[0]),
         values[index]['harga'] = parseInt(list[0]),
+        values[index]['qtyKetersediaanKamar'] = find2.qtyKetersediaanKamar,
         setFormPenginapan(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
         setFormPenginapan(values)
@@ -907,6 +937,50 @@ const Quotations = (props, crewL) => {
   };
 
   const handleSubmit = () => {
+    const newInputErrors = {};
+    if (!datas.namaproject) {
+      newInputErrors.namaproject = "Nama Project harus diisi";
+    }
+    if (!datas.namaKlien) {
+      newInputErrors.namaKlien = "Nama Klien harus diisi";
+    }
+    if (!datas.jenisKlien) {
+      newInputErrors.namaJenisKlien = "Nama Jenis Klien harus diisi";
+    }
+    if (!datas.namaSales) {
+      newInputErrors.namaSales = "Nama Sales Klien harus diisi";
+    }
+    if (!datas.namaKategoriTour) {
+      newInputErrors.namaKategoriTour = "Nama Kategori Tour harus diisi";
+    }
+    if (!datas.namaArea) {
+      newInputErrors.namaArea = "Nama Area harus diisi";
+    }
+    if (!datas.jumlahOrang) {
+      newInputErrors.jumlahOrang = "Jumlah Orang harus diisi";
+    }
+    if (!datas.planWaktuPelaksanaan) {
+      newInputErrors.planWaktuPelaksanaan = "Plan Waktu Pelaksanaan harus diisi";
+    }
+    if (!datas.durasiproject) {
+      newInputErrors.durasiproject = "Durasi Project harus diisi";
+    }
+    if (!datas.presentaseKeuntungan) {
+      newInputErrors.presentaseKeuntungan = "Persentase Keuntungan harus diisi";
+    }
+    if (!datas.tglBerlakuQuotation) {
+      newInputErrors.tglBerlakuQuotation = "Tanggal Berlaku Quotation harus diisi";
+    }
+    if (!datas.masaBerlakuQuotation) {
+      newInputErrors.masaBerlakuQuotation = "Masa Berlaku Quotation harus diisi";
+    }
+
+    setInputErrors(newInputErrors); // Set pesan error baru
+
+    if (Object.keys(newInputErrors).length > 0) {
+      return; // Hentikan proses submit jika ada pesan error
+    }
+
     const JumlahDestinasi = formDestinasi.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
     const JumlahTransportasi = formTransport.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
     const JumlahPenginapan = formPenginapan.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
@@ -925,50 +999,17 @@ const Quotations = (props, crewL) => {
     const bref_budget2 = [];
     if (sellingPrice >= 0 && sellingPrice <= 50000) {
       bref_budget2.push(1);
-    }
-    if (sellingPrice >= 600000 && sellingPrice <= 1000000) {
+    } else if (sellingPrice > 50000 && sellingPrice <= 1000000) {
       bref_budget2.push(2);
-    }
-    if (sellingPrice >= 1100000 && sellingPrice <= 1500000) {
+    } else if (sellingPrice > 1000000 && sellingPrice <= 1500000) {
       bref_budget2.push(3);
-    }
-    if (sellingPrice >= 1600000 && sellingPrice <= 2000000) {
+    } else if (sellingPrice > 1500000 && sellingPrice <= 2000000) {
       bref_budget2.push(4);
-    }
-    if (sellingPrice >= 2100000 && sellingPrice <= 2500000) {
+    } else if (sellingPrice > 2000000 && sellingPrice <= 2500000) {
       bref_budget2.push(5);
-    }
-    if (sellingPrice > 2500000) {
+    } else if (sellingPrice > 2500000) {
       bref_budget2.push(6);
     }
-    // if (sellingPrice) {
-    //   console.log('Selling price:', sellingPrice);
-    //   alert(1)
-    //   if (sellingPrice >= 0 && sellingPrice <= 50000){
-    //     alert(2)
-    //     bref_budget2.push(1)
-    //   }
-    //   if (sellingPrice >= 600000 && sellingPrice <= 1000000){
-    //     alert(3)
-    //     bref_budget2.push(2)
-    //   }
-    //   if (sellingPrice >= 1100000 && sellingPrice <= 1500000){
-    //     alert(4)
-    //     bref_budget2.push(3)
-    //   }
-    //   if (sellingPrice >= 1600000 && sellingPrice <= 2000000){
-    //     alert(5)
-    //     bref_budget2.push(4)
-    //   }
-    //   if (sellingPrice >= 2100000 && sellingPrice <= 2500000){
-    //     alert(6)
-    //     bref_budget2.push(5)
-    //   }
-    //   if (sellingPrice > 2500000){
-    //     alert(7)
-    //     bref_budget2.push(6)
-    //   }
-    // }
 
     setDatas({
       ...datas,
@@ -994,7 +1035,6 @@ const Quotations = (props, crewL) => {
       sellingPrice : sellingPrice,
       totalPrice : totalPrice,
       profit : profit,
-      status : 'menunggu',
       created_at: new Date(),
       updated_at: new Date(),
     }
@@ -1050,6 +1090,11 @@ const Quotations = (props, crewL) => {
                         namaproject: value.target.value,
                       })}
                       />
+                      {inputErrors.namaproject && (
+                      <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+                        {inputErrors.namaproject}
+                      </p>
+                      )}
                   </div>
               </div>
               <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 mt-5">
@@ -1067,6 +1112,11 @@ const Quotations = (props, crewL) => {
                         namaKlien: value.target.value,
                       })}
                       />
+                      {inputErrors.namaKlien && (
+                      <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+                        {inputErrors.namaKlien}
+                      </p>
+                      )}
                   </div>
                   <div className="">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jenis Klien</label>
@@ -1095,6 +1145,11 @@ const Quotations = (props, crewL) => {
                             </option>
                         )})}
                       </select>
+                      {inputErrors.namaJenisKlien && (
+                      <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+                        {inputErrors.namaJenisKlien}
+                      </p>
+                      )}
                   </div>
               </div>
             </div>
@@ -1110,7 +1165,7 @@ const Quotations = (props, crewL) => {
                       type="text" 
                       name="brand" 
                       id="brand" 
-                      className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                      className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                       value={datas.namaProgram}
                       // onChange={(value) => 
                       //   setDatas({
@@ -1137,16 +1192,21 @@ const Quotations = (props, crewL) => {
                         }}
                       >
                         <option value="default">--</option>
-                        {/* {props.usersales.map((us, index) => {
+                        {props.user.map((us, index) => {
                           return (
                             <option 
-                              value={us.id} 
+                              value={us.idUser} 
                               key={us.id}
                             >
-                            {us.namaSales}
+                            {us.namaUser}
                             </option>
-                        )})} */}
+                        )})}
                       </select>
+                      {inputErrors.namaSales && (
+                      <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+                        {inputErrors.namaSales}
+                      </p>
+                      )}
                   </div>
               </div>
             </div>
@@ -1177,6 +1237,11 @@ const Quotations = (props, crewL) => {
                             </option>
                         )})}
                       </select>
+                      {inputErrors.namaKategoriTour && (
+                      <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+                        {inputErrors.namaKategoriTour}
+                      </p>
+                      )}
                   </div>
                   <div>
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Area Wisata</label>
@@ -1200,6 +1265,11 @@ const Quotations = (props, crewL) => {
                             </option>
                         )})}
                       </select>
+                      {inputErrors.namaArea && (
+                      <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+                        {inputErrors.namaArea}
+                      </p>
+                      )}
                   </div>
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah Orang (QTY)</label>
@@ -1216,6 +1286,11 @@ const Quotations = (props, crewL) => {
                         totalOrang: parseInt(value.target.value)
                       })}
                       />
+                      {inputErrors.jumlahOrang && (
+                      <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+                        {inputErrors.jumlahOrang}
+                      </p>
+                      )}
                   </div>
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah Bebas Biaya (FOC)</label>
@@ -1238,8 +1313,9 @@ const Quotations = (props, crewL) => {
                       <input 
                       type="text" 
                       name="brand" 
-                      id="brand" 
-                      className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                      id="brand"
+                      disabled readOnly 
+                      className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                       value={datas.totalOrang}
                       onChange={(value) => 
                         setDatas({
@@ -1260,6 +1336,11 @@ const Quotations = (props, crewL) => {
                         handleDateChange(value, 'plan')
                       }
                       />
+                      {inputErrors.planWaktuPelaksanaan && (
+                      <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+                        {inputErrors.planWaktuPelaksanaan}
+                      </p>
+                      )}
                   </div>
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Durasi Pelaksanaan</label>
@@ -1275,6 +1356,11 @@ const Quotations = (props, crewL) => {
                         durasiproject: value.target.value,
                       })}
                       />
+                      {inputErrors.durasiproject && (
+                      <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+                        {inputErrors.durasiproject}
+                      </p>
+                      )}
                   </div>
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Fee Marketing</label>
@@ -1305,6 +1391,11 @@ const Quotations = (props, crewL) => {
                         presentaseKeuntungan: value.target.value,
                       })}
                       />
+                      {inputErrors.presentaseKeuntungan && (
+                      <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+                        {inputErrors.presentaseKeuntungan}
+                      </p>
+                      )}
                   </div>
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Tanggal Berlaku Quotation</label>
@@ -1316,10 +1407,35 @@ const Quotations = (props, crewL) => {
                       className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                       onChange={(value) => {
                         handleDateChange(value, 'berlaku')
-                        rekomendasi()
+                        // rekomendasi()
                       }
                       }
                       />
+                      {inputErrors.tglBerlakuQuotation && (
+                      <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+                        {inputErrors.tglBerlakuQuotation}
+                      </p>
+                      )}
+                  </div>
+                  <div className="w-full">
+                      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Masa Berlaku Quotation</label>
+                      <input 
+                        type="date" 
+                        name="brand" 
+                        id="brand"
+                        value={selectedDateMasa} 
+                        className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        onChange={(value) => {
+                          handleDateChange(value, 'masa')
+                          // rekomendasi()
+                        }
+                        }
+                      /> 
+                      {inputErrors.masaBerlakuQuotation && (
+                      <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+                        {inputErrors.masaBerlakuQuotation}
+                      </p>
+                      )}
                   </div>
               </div>
             </div>
@@ -1351,15 +1467,23 @@ const Quotations = (props, crewL) => {
                           >--</option>
                           {props.destinasi.map((ds, index) => {
                             if (ds.idAreaWisata === datas.idAreaWisata) {
-                              return (
-                                <option 
-                                  value={ds.idDestinasiWisata} 
-                                  key={ds.id}
-                                  // name="ketDataEvent"
-                                >
-                                {ds.namaDestinasiWisata}
-                                </option>
-                              );
+                              const berlakuDate = new Date(datas.tglBerlakuQuotation);
+                              const expiredDate = new Date(ds.tglBerlakuDestinasi);
+                              const isTanggalTrue = berlakuDate < expiredDate;
+                              // console.log('berlaku', berlakuDate)
+                              // console.log('expired', expiredDate)
+                              // console.log('isTanggal', isTanggalTrue)
+                              if (isTanggalTrue) {
+                                return (
+                                  <option 
+                                    value={ds.idDestinasiWisata} 
+                                    key={ds.id}
+                                    // name="ketDataEvent"
+                                  >
+                                  {ds.namaDestinasiWisata}
+                                  </option>
+                                );
+                              }
                             }
                            })}
                         </select>
@@ -1371,8 +1495,8 @@ const Quotations = (props, crewL) => {
                           type="number" 
                           name="biaya" 
                           id="brand" 
-                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={ds.biaya}
+                          className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          value={number(ds.biaya)}
                           disabled readOnly
                           />
                       </div>
@@ -1412,7 +1536,7 @@ const Quotations = (props, crewL) => {
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={ds.harga}
+                          value={number(ds.harga)}
                           onChange={(e) => {
                             find(e, index, 'destinasi')
                           }}
@@ -1421,11 +1545,12 @@ const Quotations = (props, crewL) => {
                       <div className="">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah</label>
                         <input 
-                          type="number" 
+                          type="text" 
                           name="jumlah" 
                           id="brand" 
-                          value={ds.jumlah}
-                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          value={number(ds.jumlah)}
+                          disabled readOnly
+                          className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           onChange={(e) => {
                             find(e, index, 'destinasi')
                           }}
@@ -1483,15 +1608,23 @@ const Quotations = (props, crewL) => {
                           >--</option>
                           {props.transportasi.map((ds, index) => {
                             if (ds.idAreaWisata === datas.idAreaWisata) {
-                              return (
-                                <option 
-                                  value={ds.idTransportasi} 
-                                  key={ds.id}
-                                  // name="ketDataEvent"
-                                >
-                                {ds.namaTransportasi}
-                                </option>
-                              );
+                              const berlakuDate = new Date(datas.tglBerlakuQuotation);
+                              const expiredDate = new Date(ds.tglBerlakuTransportasi);
+                              const isTanggalTrue = berlakuDate < expiredDate;
+                              // console.log('berlaku', berlakuDate)
+                              // console.log('expired', expiredDate)
+                              // console.log('isTanggal', isTanggalTrue)
+                              if (isTanggalTrue) {
+                                return (
+                                  <option 
+                                    value={ds.idTransportasi} 
+                                    key={ds.id}
+                                    // name="ketDataEvent"
+                                  >
+                                  {ds.namaTransportasi}
+                                  </option>
+                                );
+                              }
                             }
                           })}
                         </select>
@@ -1530,8 +1663,8 @@ const Quotations = (props, crewL) => {
                           type="number" 
                           name="biaya" 
                           id="brand" 
-                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={ds.biaya}
+                          className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          value={number(ds.biaya)}
                           disabled readOnly
                           />
                       </div>
@@ -1571,7 +1704,7 @@ const Quotations = (props, crewL) => {
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={ds.harga}
+                          value={number(ds.harga)}
                           onChange={(e) => {
                             find(e, index, 'transportasi')
                           }}
@@ -1580,10 +1713,11 @@ const Quotations = (props, crewL) => {
                       <div className="">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah</label>
                         <input 
-                          type="number" 
+                          type="text" 
                           name="jumlah" 
                           id="brand" 
-                          value={ds.jumlah}
+                          value={number(ds.jumlah)}
+                          disabled readOnly
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           onChange={(e) => {
                             find(e, index, 'transportasi')
@@ -1642,15 +1776,23 @@ const Quotations = (props, crewL) => {
                           >--</option>
                           {props.penginapan.map((ds, index) => {
                             if (ds.idAreaWisata === datas.idAreaWisata) {
-                              return (
-                                <option 
-                                  value={ds.idPenginapan} 
-                                  key={ds.id}
-                                  // name="ketDataEvent"
-                                >
-                                {ds.namaPenginapan}
-                                </option>
-                              )
+                              const berlakuDate = new Date(datas.tglBerlakuQuotation);
+                              const expiredDate = new Date(ds.tglBerlakuPenginapan);
+                              const isTanggalTrue = berlakuDate < expiredDate;
+                              // console.log('berlaku', berlakuDate)
+                              // console.log('expired', expiredDate)
+                              // console.log('isTanggal', isTanggalTrue)
+                              if (isTanggalTrue) {
+                                return (
+                                  <option 
+                                    value={ds.idPenginapan} 
+                                    key={ds.id}
+                                    // name="ketDataEvent"
+                                  >
+                                  {ds.namaPenginapan}
+                                  </option>
+                                )
+                              }
                             }
                           })}
                         </select>
@@ -1689,8 +1831,8 @@ const Quotations = (props, crewL) => {
                           type="number" 
                           name="biaya" 
                           id="brand" 
-                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={ds.biaya}
+                          className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          value={number(ds.biaya)}
                           disabled readOnly
                           />
                       </div>
@@ -1707,7 +1849,11 @@ const Quotations = (props, crewL) => {
                           onChange={(e) => {
                             find(e, index, 'penginapan')
                           }}
+                          max={parseInt(ds.qtyKetersediaanKamar)}
                         />
+                        {ds.harga !== '' ? (
+                          <p class="mt-2 text-sm text-red-600 dark:text-red-500">Jumlah Maximal Orang adalah {ds.qtyKetersediaanKamar}</p>
+                        ) : null}
                       </div>
                       <div className="">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Hari</label>
@@ -1730,7 +1876,7 @@ const Quotations = (props, crewL) => {
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={ds.harga}
+                          value={number(ds.harga)}
                           onChange={(e) => {
                             find(e, index, 'penginapan')
                           }}
@@ -1739,11 +1885,12 @@ const Quotations = (props, crewL) => {
                       <div className="">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah</label>
                         <input 
-                          type="number" 
+                          type="text" 
                           name="jumlah" 
                           id="brand" 
-                          value={ds.jumlah}
-                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          value={number(ds.jumlah)}
+                          disabled readOnly
+                          className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           onChange={(e) => {
                             find(e, index, 'penginapan')
                           }}
@@ -1801,15 +1948,23 @@ const Quotations = (props, crewL) => {
                           >--</option>
                           {props.rumahMakan.map((ds, index) => {
                             if (ds.idAreaWisata === datas.idAreaWisata) {
-                              return (
-                                <option 
-                                  value={ds.idRM} 
-                                  key={ds.id}
-                                  // name="ketDataEvent"
-                                >
-                                {ds.namaRM}
-                                </option>
-                              )
+                              const berlakuDate = new Date(datas.tglBerlakuQuotation);
+                              const expiredDate = new Date(ds.tglBerlakuRm);
+                              const isTanggalTrue = berlakuDate < expiredDate;
+                              // console.log('berlaku', berlakuDate)
+                              // console.log('expired', expiredDate)
+                              // console.log('isTanggal', isTanggalTrue)
+                              if (isTanggalTrue) {
+                                return (
+                                  <option 
+                                    value={ds.idRM} 
+                                    key={ds.id}
+                                    // name="ketDataEvent"
+                                  >
+                                  {ds.namaRM}
+                                  </option>
+                                )
+                              }
                             }
                           })}
                         </select>
@@ -1849,8 +2004,8 @@ const Quotations = (props, crewL) => {
                           type="number" 
                           name="biaya" 
                           id="brand" 
-                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={ds.biaya}
+                          className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          value={number(ds.biaya)}
                           disabled readOnly
                           />
                       </div>
@@ -1890,7 +2045,7 @@ const Quotations = (props, crewL) => {
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={ds.harga}
+                          value={number(ds.harga)}
                           onChange={(e) => {
                             find(e, index, 'rm')
                           }}
@@ -1899,11 +2054,12 @@ const Quotations = (props, crewL) => {
                       <div className="">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah</label>
                         <input 
-                          type="number" 
+                          type="text" 
                           name="jumlah" 
                           id="brand" 
-                          value={ds.jumlah}
-                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          value={number(ds.jumlah)}
+                          disabled readOnly
+                          className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           onChange={(e) => {
                             find(e, index, 'rm')
                           }}
@@ -1978,8 +2134,8 @@ const Quotations = (props, crewL) => {
                           type="number" 
                           name="biayaFasilitas" 
                           id="brand" 
-                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={fs.biayaFasilitas}
+                          className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          value={number(fs.biayaFasilitas)}
                           disabled readOnly
                           />
                       </div>
@@ -2019,7 +2175,7 @@ const Quotations = (props, crewL) => {
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={fs.harga}
+                          value={number(fs.harga)}
                           onChange={(e) => {
                             find(e, index, 'fasilitas')
                           }}
@@ -2028,11 +2184,12 @@ const Quotations = (props, crewL) => {
                       <div className="">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah</label>
                         <input 
-                          type="number" 
+                          type="text" 
                           name="jumlah" 
                           id="brand" 
-                          value={fs.jumlah}
-                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          value={number(fs.jumlah)}
+                          disabled readOnly
+                          className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           onChange={(e) => {
                             find(e, index, 'fasilitas')
                           }}
@@ -2107,8 +2264,8 @@ const Quotations = (props, crewL) => {
                           type="number" 
                           name="biayaCrewOperasional" 
                           id="brand" 
-                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={crew.biayaCrewOperasional}
+                          className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          value={number(crew.biayaCrewOperasional)}
                           disabled readOnly
                           />
                       </div>
@@ -2148,7 +2305,7 @@ const Quotations = (props, crewL) => {
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={crew.harga}
+                          value={number(crew.harga)}
                           onChange={(e) => {
                             find(e, index, 'crew')
                           }}
@@ -2157,11 +2314,12 @@ const Quotations = (props, crewL) => {
                       <div className="">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah</label>
                         <input 
-                          type="number" 
+                          type="text" 
+                          disabled readOnly
                           name="jumlah" 
                           id="brand" 
-                          value={crew.jumlah}
-                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          value={number(crew.jumlah)}
+                          className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           onChange={(e) => {
                             find(e, index, 'crew')
                           }}
@@ -2236,8 +2394,8 @@ const Quotations = (props, crewL) => {
                           type="number" 
                           name="brand" 
                           id="brand" 
-                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={event.biayaDataEvent}
+                          className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          value={number(event.biayaDataEvent)}
                           disabled readOnly
                           />
                         {/* {formEvent.map((ev, index) => {
@@ -2290,7 +2448,7 @@ const Quotations = (props, crewL) => {
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={event.harga}
+                          value={number(event.harga)}
                           onChange={(e) => {
                             find(e, index, 'event')
                           }}
@@ -2299,10 +2457,10 @@ const Quotations = (props, crewL) => {
                       <div className="">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah</label>
                         <input 
-                          type="number" 
+                          type="text" 
                           name="jumlah" 
                           id="brand" 
-                          value={event.jumlah}
+                          value={number(event.jumlah)}
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           onChange={(e) => {
                             find(e, index, 'event')
@@ -2379,8 +2537,8 @@ const Quotations = (props, crewL) => {
                           type="number" 
                           name="biayaDataBonus" 
                           id="brand" 
-                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={bonus.biayaDataBonus}
+                          className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          value={number(bonus.biayaDataBonus)}
                           disabled readOnly
                           />
                       </div>
@@ -2420,7 +2578,7 @@ const Quotations = (props, crewL) => {
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={bonus.harga}
+                          value={number(bonus.harga)}
                           onChange={(e) => {
                             find(e, index, 'bonus')
                           }}
@@ -2429,11 +2587,11 @@ const Quotations = (props, crewL) => {
                       <div className="">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah</label>
                         <input 
-                          type="number" 
+                          type="text" 
                           name="jumlah" 
                           id="brand" 
-                          value={bonus.jumlah}
-                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                          value={number(bonus.jumlah)}
+                          className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                           onChange={(e) => {
                             find(e, index, 'bonus')
                           }}
@@ -2481,6 +2639,11 @@ const Quotations = (props, crewL) => {
                 Kembali
               </button>
             </div>
+            {/* {inputErrors && (
+              <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+                Tolong isi yang Kosong 
+              </p>
+            )} */}
           </div>
         </div>
       </div>

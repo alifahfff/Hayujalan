@@ -30,7 +30,7 @@ class quotationTransaksi extends Model
         'sellingPrice',
         'totalPrice',
         'profit',
-        'status',
+        'statusTransaksi',
         'created_at',
         'updated_at',
     ];

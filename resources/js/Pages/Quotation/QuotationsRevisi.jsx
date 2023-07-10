@@ -118,12 +118,12 @@ const QuotationsRevisi = (props, crewL) => {
   const [datas, setDatas] = useState({
     idQuotationTransaksi:props.data.idQuotationTransaksi,
     idQuotatioRekomendasi:props.data.idQuotatioRekomendasi,
-    idProgram: '1',
-    namaProgram: 'Ryan',
+    idProgram: props.auth.user.idUser,
+    namaProgram: props.auth.user.namaUser,
     idAreaWisata: props.data.quotation.idAreaWisata,
     namaArea: props.data.quotation.areawisata.namaArea,
-    idSales: '',
-    namaSales: 'Yoga',
+    idSales: props.usersales.user_quotations[0].idUser,
+    namaSales: props.usersales.user_quotations[0].namaUser,
     idKategoriTour: props.data.quotation.idKategoriTour, 
     namaKategoriTour: props.data.quotation.kategori.namaKategoriTour,
     namaProject: props.data.quotation.namaProject, 
@@ -981,7 +981,7 @@ const QuotationsRevisi = (props, crewL) => {
               <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
                 <div className="sm:col-span-2">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Nama Project</label>
-                      { roles === 2 ? (
+                      { roles === 2 || roles === 1 ? (
                           <input 
                             type="text" 
                             name="name" 
@@ -1000,7 +1000,7 @@ const QuotationsRevisi = (props, crewL) => {
                               type="text" 
                               name="name" 
                               id="name" 
-                              className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                              className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                               value={datas.namaProject}
                               onChange={(value) => 
                                 setDatas({
@@ -1015,7 +1015,7 @@ const QuotationsRevisi = (props, crewL) => {
               <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 mt-5">
                   <div className="">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Nama Klien</label>
-                      { roles === 2 ? ( 
+                      { roles === 2 || roles === 1 ? ( 
                               <input 
                               type="text" 
                               name="name" 
@@ -1034,7 +1034,7 @@ const QuotationsRevisi = (props, crewL) => {
                               type="text" 
                               name="name" 
                               id="name" 
-                              className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                              className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                               value={datas.namaKlien}
                               onChange={(value) => 
                                 setDatas({
@@ -1047,7 +1047,7 @@ const QuotationsRevisi = (props, crewL) => {
                   </div>
                   <div className="">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jenis Klien</label>
-                      { roles === 2 ? ( 
+                      { roles === 2 || roles === 1 ? ( 
                               <select 
                               placeholder="Jenis Klien" 
                               defaultValue="default"
@@ -1078,7 +1078,7 @@ const QuotationsRevisi = (props, crewL) => {
                             disabled readOnly
                             placeholder="Jenis Klien" 
                             defaultValue="default"
-                            className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             // onChange={(e) => 
                             //   setDatas({
                             //   ...datas,
@@ -1105,12 +1105,12 @@ const QuotationsRevisi = (props, crewL) => {
                   </div>
                   <div className="">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Status Transaksi</label>
-                        { roles === 2  ? ( 
+                        { roles === 2 || roles === 1  ? ( 
                                 <select 
                                 disabled readOnly
                                 placeholder="Jenis Klien" 
                                 defaultValue="default"
-                                className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 onChange={(e) => 
                                   setDatas({
                                   ...datas,
@@ -1223,7 +1223,7 @@ const QuotationsRevisi = (props, crewL) => {
               <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
                   <div>
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Kategori</label>
-                      { roles === 2 ? ( 
+                      { roles === 2 || roles === 1 ? ( 
                               //<h1>admin</h1>
                               <select 
                                 placeholder="Jenis Klien" 
@@ -1271,7 +1271,7 @@ const QuotationsRevisi = (props, crewL) => {
                   </div>
                   <div>
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Area Wisata</label>
-                      { roles === 2 ? ( 
+                      { roles === 2 || roles === 1 ? ( 
                               <select 
                                 placeholder="Jenis Klien" 
                                 defaultValue="default"
@@ -1319,7 +1319,7 @@ const QuotationsRevisi = (props, crewL) => {
                   </div>
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah Orang (QTY)</label>
-                      { roles === 2 ? ( 
+                      { roles === 2 || roles === 1 ? ( 
                           <input 
                           type="number" 
                           name="brand" 
@@ -1354,7 +1354,7 @@ const QuotationsRevisi = (props, crewL) => {
                   </div>
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah Bebas Biaya (FOC)</label>
-                      { roles === 2 ? ( 
+                      { roles === 2 || roles === 1 ? ( 
                             <input 
                             type="number" 
                             name="brand" 
@@ -1388,7 +1388,7 @@ const QuotationsRevisi = (props, crewL) => {
                   </div>
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Total orang</label>
-                      { roles === 2 ? ( 
+                      { roles === 2 || roles === 1 ? ( 
                             <input 
                             type="text" 
                             name="brand" 
@@ -1421,7 +1421,7 @@ const QuotationsRevisi = (props, crewL) => {
                   </div>
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Plan Waktu Pelaksanan</label>
-                      { roles === 2 ? ( 
+                      { roles === 2 || roles === 1 ? ( 
                             <input 
                             type="date" 
                             name="brand" 
@@ -1447,34 +1447,10 @@ const QuotationsRevisi = (props, crewL) => {
                               />
                           ) : <div></div>
                       }
-                      
-                      {/* {datas.planWaktuPelaksanaan !== '' ? (
-                         <input 
-                         type="date" 
-                         name="brand" 
-                         id="brand"
-                         value={datas.planWaktuPelaksanaan} 
-                         className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                         onChange={(value) => 
-                           handleDateChange(value)
-                         }
-                         />
-                      ) : (
-                        <input 
-                        type="date" 
-                        name="brand" 
-                        id="brand"
-                        value={selectedDate} 
-                        className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        onChange={(value) => 
-                          handleDateChange(value)
-                        }
-                        />
-                      )} */}
                   </div>
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Durasi Pelaksanaan</label>
-                      { roles === 2 ? ( 
+                      { roles === 2 || roles === 1 ? ( 
                             <input 
                             type="text" 
                             name="brand" 
@@ -1506,7 +1482,7 @@ const QuotationsRevisi = (props, crewL) => {
                   </div>
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Fee Marketing</label>
-                      { roles === 2 ? ( 
+                      { roles === 2 || roles === 1 ? ( 
                             <input 
                             type="text" 
                             name="brand" 
@@ -1539,7 +1515,7 @@ const QuotationsRevisi = (props, crewL) => {
                   </div>
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Persentase Keuntungan</label>
-                      { roles === 2 ? ( 
+                      { roles === 2 || roles === 1 ? ( 
                             <input 
                             type="number" 
                             name="brand" 
@@ -1572,7 +1548,7 @@ const QuotationsRevisi = (props, crewL) => {
                   </div>
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Masa Berlaku Quotation</label>
-                      { roles === 2 ? ( 
+                      { roles === 2 || roles === 1 ? ( 
                             <input 
                             type="date" 
                             name="brand" 
@@ -1604,7 +1580,7 @@ const QuotationsRevisi = (props, crewL) => {
                   </div>
                   <div className="w-full">
                       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Tanggal Berlaku Quotation</label>
-                      { roles === 2 ? ( 
+                      { roles === 2 || roles === 1 ? ( 
                             <input 
                             type="date" 
                             name="brand" 

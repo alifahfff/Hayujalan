@@ -40,18 +40,18 @@ class DataKlienController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
-        // $klien = dataKlien::create([
-        //     'idJenisKlien' => $request->idJenisKlien,
-        //     'namaKlien' => $request->namaKlien,
-        //     'alamatKlien' => $request->alamatKlien,
-        //     'tlpKlien' => $request->tlpKlien,
-        //     'namaPicKlien' => $request->namaPicKlien,
-        //     'tlpPicKlien' => $request->tlpPicKlien,
-        //     'tglUpdateKlien' => $request->tglUpdateKlien,
-        //     'created_at' => $request->created_at,
-        //     'updated_at' => $request->updated_at,
-        // ]);
+        // dd($request);
+        $klien = dataKlien::create([
+            'idJenisKlien' => $request->idJenisKlien,
+            'namaKlien' => $request->namaKlien,
+            'alamatKlien' => $request->alamatKlien,
+            'tlpKlien' => $request->tlpKlien,
+            'namaPicKlien' => $request->namaPicKlien,
+            'tlpPicKlien' => $request->tlpPicKlien,
+            'tglUpdateKlien' => $request->tglUpdateKlien,
+            'created_at' => $request->created_at,
+            'updated_at' => $request->updated_at,
+        ]);
 
         // dd($klien);
         // $Mydata = new dataKlien();
@@ -64,7 +64,7 @@ class DataKlienController extends Controller
         // $Mydata->tglUpdateKlien = $request->tglUpdateKlien;
         // $Mydata->save();
         
-        // return redirect()->back()->with('message', 'item berhasil dibuat');
+        return redirect()->back()->with('message', 'item berhasil dibuat');
     }
 
     /**
