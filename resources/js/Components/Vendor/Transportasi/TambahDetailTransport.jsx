@@ -13,7 +13,7 @@ const TambahDetailTransport = ({ visible, onClose, data, dataJenis }) => {
     console.log("id", data.id);
 
     const newInputErrors = {};
-
+    
     if (!datas.idTransportasi) {
       newInputErrors.idTransportasi = "Transportasi harus dipilih";
     }
@@ -54,6 +54,12 @@ const TambahDetailTransport = ({ visible, onClose, data, dataJenis }) => {
     if (!datas.urlEksterior) {
       newInputErrors.urlEksterior = "Url Exterior harus diisi";
     }
+    if (!datas.tglUpdateDetailTransportasi) {
+      newInputErrors.tglUpdateDetailTransportasi = "Tanggal Update harus diisi";
+    }
+    if (!datas.expiredDetailTransportasi) {
+      newInputErrors.expiredDetailTransportasi = "Tanggal Berlaku harus diisi";
+    }
 
     setInputErrors(newInputErrors); // Set pesan error baru
 
@@ -79,6 +85,9 @@ const TambahDetailTransport = ({ visible, onClose, data, dataJenis }) => {
         hargaSewaWeekdayLuarKota: datas.hargaSewaWeekdayLuarKota,
         urlInterior: datas.urlInterior,
         urlEksterior: datas.urlEksterior,
+        tglUpdateDetailTransportasi: datas.tglUpdateDetailTransportasi,
+        expiredDetailTransportasi: datas.expiredDetailTransportasi,
+        created_at: new Date(),
         updated_at: new Date(),
       };
       Inertia.post("/transportasi/update/detail", dataUpdate);
@@ -97,6 +106,8 @@ const TambahDetailTransport = ({ visible, onClose, data, dataJenis }) => {
         hargaSewaWeekdayLuarKota: datas.hargaSewaWeekdayLuarKota,
         urlInterior: datas.urlInterior,
         urlEksterior: datas.urlEksterior,
+        tglUpdateDetailTransportasi: datas.tglUpdateDetailTransportasi,
+        expiredDetailTransportasi: datas.expiredDetailTransportasi,
         created_at: new Date(),
         updated_at: new Date(),
       };
@@ -122,7 +133,7 @@ const TambahDetailTransport = ({ visible, onClose, data, dataJenis }) => {
             <p className="text-center text-gray-700 mb-5">Tambah Data</p>
             {/* Data Input */}
             <div className="flex flex-col">
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-3 gap-3">
                 <div className="flex flex-row justify-between">
                   <a className="mr-5 mt-2 text-black">Jenis Transportasi</a>
                   <select
@@ -350,6 +361,46 @@ const TambahDetailTransport = ({ visible, onClose, data, dataJenis }) => {
                    {inputErrors.urlEksterior && (
                     <p className="text-red-500 mt-1">
                       {inputErrors.urlEksterior}
+                    </p>
+                  )}
+                </div>
+                {error && <p className="text-red-500 mt-1">{error}</p>}
+                <div className="flex flex-row justify-between">
+                  <a className="mr-5 mt-2 text-black">Tanggal Berlaku Detail</a>
+                  <input
+                    type="date"
+                    className="border border-gray-700 p-2 rounded mb-5"
+                    value={datas.expiredDetailTransportasi || ""}
+                    onChange={(value) =>
+                      setDatas({
+                        ...datas,
+                        expiredDetailTransportasi: value.target.value,
+                      })
+                    }
+                  />
+                  {inputErrors.expiredDetailTransportasi && (
+                    <p className="text-red-500 mt-1">
+                      {inputErrors.expiredDetailTransportasi}
+                    </p>
+                  )}
+                </div>
+                {error && <p className="text-red-500 mt-1">{error}</p>}
+                <div className="flex flex-row justify-between">
+                  <a className="mr-5 mt-2 text-black">Tanggal Update Detail</a>
+                  <input
+                    type="date"
+                    className="border border-gray-700 p-2 rounded mb-5"
+                    value={datas.tglUpdateDetailTransportasi || ""}
+                    onChange={(value) =>
+                      setDatas({
+                        ...datas,
+                        tglUpdateDetailTransportasi: value.target.value,
+                      })
+                    }
+                  />
+                  {inputErrors.tglUpdateDetailTransportasi && (
+                    <p className="text-red-500 mt-1">
+                      {inputErrors.tglUpdateDetailTransportasi}
                     </p>
                   )}
                 </div>

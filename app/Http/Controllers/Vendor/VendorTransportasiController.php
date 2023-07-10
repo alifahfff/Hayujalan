@@ -70,6 +70,8 @@ class VendorTransportasiController extends Controller
         $transportasi->hargaSewaWeekdayLuarKota = $request->hargaSewaWeekdayLuarKota;
         $transportasi->urlInterior = $request->urlInterior;
         $transportasi->urlEksterior = $request->urlEksterior;
+        $transportasi->expiredDetailTransportasi = $request->expiredDetailTransportasi;
+        $transportasi->tglUpdateDetailTransportasi = $request->tglUpdateDetailTransportasi;
         $transportasi->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }

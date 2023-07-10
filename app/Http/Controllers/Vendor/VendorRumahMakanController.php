@@ -61,6 +61,9 @@ class VendorRumahMakanController extends Controller
         $rm->namaMenu = $request->namaMenu;
         $rm->detailMenu	 = $request->detailMenu	;
         $rm->hargaMenu = $request->hargaMenu;
+        $rm->tglUpdateDetailRm = $request->tglUpdateDetailRm;
+        $rm->expiredDetailRm = $request->expiredDetailRm;
+        $rm->hargaMenu = $request->hargaMenu;
         $rm->idRM = $request->idRM;
         $rm->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
