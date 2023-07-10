@@ -33,6 +33,14 @@ const TambahDetailHotel = ({ visible, onClose, data }) => {
       newInputErrors.hargaSewaWeekendPerKamar =
         "Harga Sewa Weekend Per Kamar harus diisi";
     }
+    if (!datas.tglUpdateDetailPenginapan) {
+      newInputErrors.tglUpdateDetailPenginapan =
+        "Tanggal Updated harus diisi";
+    }
+    if (!datas.expiredDetailPenginapan) {
+      newInputErrors.expiredDetailPenginapan =
+        "Tanggal Berlaku harus diisi";
+    }
 
     setInputErrors(newInputErrors); // Set pesan error baru
 
@@ -50,6 +58,9 @@ const TambahDetailHotel = ({ visible, onClose, data }) => {
         qtyKetersediaanKamar: datas.qtyKetersediaanKamar,
         hargaSewaWeekdayPerKamar: datas.hargaSewaWeekdayPerKamar,
         hargaSewaWeekendPerKamar: datas.hargaSewaWeekendPerKamar,
+        expiredDetailPenginapan: datas.expiredDetailPenginapan,
+        tglUpdateDetailPenginapan: datas.tglUpdateDetailPenginapan,
+        created_at: new Date(),
         updated_at: new Date(),
       };
       Inertia.post("/hotel/update/detail", dataUpdate);
@@ -62,6 +73,8 @@ const TambahDetailHotel = ({ visible, onClose, data }) => {
         qtyKetersediaanKamar: datas.qtyKetersediaanKamar,
         hargaSewaWeekdayPerKamar: datas.hargaSewaWeekdayPerKamar,
         hargaSewaWeekendPerKamar: datas.hargaSewaWeekendPerKamar,
+        expiredDetailPenginapan: datas.expiredDetailPenginapan,
+        tglUpdateDetailPenginapan: datas.tglUpdateDetailPenginapan,
         created_at: new Date(),
         updated_at: new Date(),
       };
@@ -184,6 +197,46 @@ const TambahDetailHotel = ({ visible, onClose, data }) => {
                   {inputErrors.hargaSewaWeekendPerKamar && (
                     <p className="text-red-500 mt-1">
                       {inputErrors.hargaSewaWeekendPerKamar}
+                    </p>
+                  )}
+                </div>
+                {error && <p className="text-red-500 mt-1">{error}</p>}
+                <div className="flex flex-row justify-between">
+                  <a className="mr-5 mt-2 text-black">Tanggal Berlaku Detail</a>
+                  <input
+                    type="date"
+                    className="border border-gray-700 p-2 rounded mb-5"
+                    value={datas.expiredDetailPenginapan || ""}
+                    onChange={(value) =>
+                      setDatas({
+                        ...datas,
+                        expiredDetailPenginapan: value.target.value,
+                      })
+                    }
+                  />
+                  {inputErrors.expiredDetailPenginapan && (
+                    <p className="text-red-500 mt-1">
+                      {inputErrors.expiredDetailPenginapan}
+                    </p>
+                  )}
+                </div>
+                {error && <p className="text-red-500 mt-1">{error}</p>}
+                <div className="flex flex-row justify-between">
+                  <a className="mr-5 mt-2 text-black">Tanggal Update Detail</a>
+                  <input
+                    type="date"
+                    className="border border-gray-700 p-2 rounded mb-5"
+                    value={datas.tglUpdateDetailPenginapan || ""}
+                    onChange={(value) =>
+                      setDatas({
+                        ...datas,
+                        tglUpdateDetailPenginapan: value.target.value,
+                      })
+                    }
+                  />
+                  {inputErrors.tglUpdateDetailPenginapan && (
+                    <p className="text-red-500 mt-1">
+                      {inputErrors.tglUpdateDetailPenginapan}
                     </p>
                   )}
                 </div>

@@ -10,6 +10,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\Controller;
 use App\Models\Quotation\dataKriteria;
 use App\Models\Transaksi\Tbonus;
+use Carbon\Carbon;
 
 class VendorDestinasiWisataController extends Controller
 {
@@ -62,6 +63,9 @@ class VendorDestinasiWisataController extends Controller
         $destinasi->rangePeserta = $request->rangePeserta;
         $destinasi->tiketMasukWeekday = $request->tiketMasukWeekday	;
         $destinasi->tiketMasukWeekend = $request->tiketMasukWeekend;
+        $destinasi->expireDetailDestinasi = $request->expireDetailDestinasi;
+        $destinasi->jenisPeserta = $request->jenisPeserta;
+        $destinasi->tglUpdateDetailDestinasi = $request->tglUpdateDetailDestinasi;
         $destinasi->idDestinasiWisata = $request->idDestinasiWisata ;
         $destinasi->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
@@ -111,7 +115,9 @@ class VendorDestinasiWisataController extends Controller
      {
          $area = areaWisata::all();
          $destinasi = vendorDestinasiWisata::findOrFail($request->id); 
-         $detail = detailVendorDestinasiWisata::where('idDestinasiWisata','=',$request->id)->get();
+         $detail = detailVendorDestinasiWisata::where('idDestinasiWisata','=', $request->id)
+         ->where('statusDetailDestinasi','berjalan')
+         ->get();
          return Inertia::render('Vendor/DestinasiWisata/DetailDestinasi',[
              'destinasi' => $destinasi,  
              'detail' => $detail,

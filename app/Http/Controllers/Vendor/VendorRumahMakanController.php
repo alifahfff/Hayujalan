@@ -61,6 +61,9 @@ class VendorRumahMakanController extends Controller
         $rm->namaMenu = $request->namaMenu;
         $rm->detailMenu	 = $request->detailMenu	;
         $rm->hargaMenu = $request->hargaMenu;
+        $rm->tglUpdateDetailRm = $request->tglUpdateDetailRm;
+        $rm->expiredDetailRm = $request->expiredDetailRm;
+        $rm->hargaMenu = $request->hargaMenu;
         $rm->idRM = $request->idRM;
         $rm->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
@@ -92,7 +95,9 @@ class VendorRumahMakanController extends Controller
     {
         $area = areaWisata::all();
         $rm = vendorRumahMakan::findOrFail($request->id);
-        $detail = detailVendorRumahMakan::where('idRM', '=', $request->id)->get();
+        $detail = detailVendorRumahMakan::where('idRM', '=', $request->id)
+        ->where('statusDetailRm','berjalan')
+        ->get();
          return Inertia::render('Vendor/RumahMakan/DetailRM',[
              'rm' => $rm,
              'detail' => $detail,

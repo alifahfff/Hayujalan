@@ -33,6 +33,7 @@ export default function DetailHotel(props) {
   console.log('props', props)
   console.log('hotel', props.hotel)
   console.log('area', props.area)
+  console.log('detail', props.detail)
   return (
     <div className='min-h-screen bg-abu'>
     {/* Content */}

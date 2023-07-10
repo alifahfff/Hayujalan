@@ -5,6 +5,7 @@ const ModalFTour = ({ visible, onClose, data }) => {
   if (!visible) return null;
   const [datas, setDatas] = useState(data);
   const [inputErrors, setInputErrors] = useState({});
+  const [error, setError] = useState("");
   console.log("modal data", data);
   // console.log('datas', datas)
 
@@ -17,8 +18,7 @@ const ModalFTour = ({ visible, onClose, data }) => {
       newInputErrors.ketFasilitasTour = "Ket Fasilitas Tour harus dipilih";
     }
     if (!datas.biayaFasilitas) {
-      newInputErrors.biayaFasilitas =
-        "Biaya Fasilitas Tour harus diisi";
+      newInputErrors.biayaFasilitas = "Biaya Fasilitas Tour harus diisi";
     }
     if (!datas.satuanFasilitas) {
       newInputErrors.satuanFasilitas = "Satuan Fasilitas harus diisi";
@@ -29,6 +29,8 @@ const ModalFTour = ({ visible, onClose, data }) => {
     if (Object.keys(newInputErrors).length > 0) {
       return; // Hentikan proses submit jika ada pesan error
     }
+
+    setError(""); // Reset error jika semua validasi berhasil
 
     if (data.idFasilitasTour) {
       // update data
@@ -90,9 +92,9 @@ const ModalFTour = ({ visible, onClose, data }) => {
                   }
                 />
                 {inputErrors.ketFasilitasTour && (
-                <p className="text-red-500 mt-1">
+                  <p className="text-red-500 mt-1">
                     {inputErrors.ketFasilitasTour}
-                </p>
+                  </p>
                 )}
               </div>
               <div className="flex flex-row justify-between">
@@ -109,9 +111,9 @@ const ModalFTour = ({ visible, onClose, data }) => {
                   value={datas.biayaFasilitas}
                 />
                 {inputErrors.biayaFasilitas && (
-                <p className="text-red-500 mt-1">
+                  <p className="text-red-500 mt-1">
                     {inputErrors.biayaFasilitas}
-                </p>
+                  </p>
                 )}
               </div>
               <div className="flex flex-row justify-between">
@@ -128,11 +130,12 @@ const ModalFTour = ({ visible, onClose, data }) => {
                   value={datas.satuanFasilitas}
                 />
                 {inputErrors.satuanFasilitas && (
-                <p className="text-red-500 mt-1">
+                  <p className="text-red-500 mt-1">
                     {inputErrors.satuanFasilitas}
-                </p>
+                  </p>
                 )}
               </div>
+              {error && <p className="text-red-500 mt-1">{error}</p>}
             </div>
 
             {/* Button */}
@@ -146,7 +149,6 @@ const ModalFTour = ({ visible, onClose, data }) => {
               <button
                 onClick={() => {
                   handleSubmit();
-            
                 }}
                 className="btn bg-[#3E9E3E] text-putih outline-none border-transparent"
               >

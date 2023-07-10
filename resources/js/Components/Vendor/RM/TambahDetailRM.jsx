@@ -24,6 +24,12 @@ const TambahDetailRM = ({ visible, onClose, data }) => {
     if (!datas.hargaMenu) {
       newInputErrors.hargaMenu = "Harga Menu harus diisi";
     }
+    if (!datas.expiredDetailRm) {
+      newInputErrors.expiredDetailRm = "Tanggal Berlaku harus diisi";
+    }
+    if (!datas.tglUpdateDetailRm) {
+      newInputErrors.tglUpdateDetailRm = "Tanggal Update harus diisi";
+    }
 
     setInputErrors(newInputErrors); // Set pesan error baru
 
@@ -40,6 +46,9 @@ const TambahDetailRM = ({ visible, onClose, data }) => {
         namaMenu: datas.namaMenu,
         detailMenu: datas.detailMenu,
         hargaMenu: datas.hargaMenu,
+        tglUpdateDetailRm: datas.tglUpdateDetailRm,
+        expiredDetailRm: datas.expiredDetailRm,
+        created_at: new Date(),
         updated_at: new Date(),
       };
       Inertia.post("/rumahmakan/update/detail", dataUpdate);
@@ -49,6 +58,8 @@ const TambahDetailRM = ({ visible, onClose, data }) => {
         namaMenu: datas.namaMenu,
         detailMenu: datas.detailMenu,
         hargaMenu: datas.hargaMenu,
+        tglUpdateDetailRm: datas.tglUpdateDetailRm,
+        expiredDetailRm: datas.expiredDetailRm,
         idRM: datas.idRM,
         created_at: new Date(),
         updated_at: new Date(),
@@ -127,6 +138,46 @@ const TambahDetailRM = ({ visible, onClose, data }) => {
                   />
                   {inputErrors.hargaMenu && (
                     <p className="text-red-500 mt-1">{inputErrors.hargaMenu}</p>
+                  )}
+                </div>
+                {error && <p className="text-red-500 mt-1">{error}</p>}
+                <div className="flex flex-row justify-between">
+                  <a className="mr-5 mt-2 text-black">Tanggal Berlaku Detail</a>
+                  <input
+                    type="date"
+                    className="border border-gray-700 p-2 rounded mb-5"
+                    value={datas.expiredDetailRm || ""}
+                    onChange={(value) =>
+                      setDatas({
+                        ...datas,
+                        expiredDetailRm: value.target.value,
+                      })
+                    }
+                  />
+                  {inputErrors.expiredDetailRm && (
+                    <p className="text-red-500 mt-1">
+                      {inputErrors.expiredDetailRm}
+                    </p>
+                  )}
+                </div>
+                {error && <p className="text-red-500 mt-1">{error}</p>}
+                <div className="flex flex-row justify-between">
+                  <a className="mr-5 mt-2 text-black">Tanggal Update Detail</a>
+                  <input
+                    type="date"
+                    className="border border-gray-700 p-2 rounded mb-5"
+                    value={datas.tglUpdateDetailRm || ""}
+                    onChange={(value) =>
+                      setDatas({
+                        ...datas,
+                        tglUpdateDetailRm: value.target.value,
+                      })
+                    }
+                  />
+                  {inputErrors.tglUpdateDetailRm && (
+                    <p className="text-red-500 mt-1">
+                      {inputErrors.tglUpdateDetailRm}
+                    </p>
                   )}
                 </div>
                 {error && <p className="text-red-500 mt-1">{error}</p>}

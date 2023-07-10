@@ -7,6 +7,7 @@ const TambahDetailDestinasi = ({ visible, onClose, data }) => {
 
   const [datas, setDatas] = useState(data);
   const [inputErrors, setInputErrors] = useState({});
+  const [error, setError] = useState("");
 
   const handleSubmit = () => {
     console.log("id", data.id);
@@ -21,6 +22,15 @@ const TambahDetailDestinasi = ({ visible, onClose, data }) => {
     }
     if (!datas.tiketMasukWeekend) {
       newInputErrors.tiketMasukWeekend = "Tiket Masuk Weekday harus diisi";
+    }
+    if (!datas.expireDetailDestinasi) {
+      newInputErrors.expireDetailDestinasi = "Tanggal Expire harus diisi";
+    }
+    if (!datas.jenisPeserta) {
+      newInputErrors.jenisPeserta = "Jenis Peserta harus diisi";
+    }
+    if (!datas.tglUpdateDetailDestinasi) {
+      newInputErrors.tglUpdateDetailDestinasi = "Tanggal Update harus diisi";
     }
     setInputErrors(newInputErrors); // Set pesan error baru
 
@@ -37,6 +47,10 @@ const TambahDetailDestinasi = ({ visible, onClose, data }) => {
         rangePeserta: datas.rangePeserta,
         tiketMasukWeekday: datas.tiketMasukWeekday,
         tiketMasukWeekend: datas.tiketMasukWeekend,
+        expireDetailDestinasi: datas.expireDetailDestinasi,
+        jenisPeserta: datas.jenisPeserta,
+        tglUpdateDetailDestinasi: datas.tglUpdateDetailDestinasi,
+        created_at: new Date(),
         updated_at: new Date(),
       };
       Inertia.post("/destinasiwisata/update/detail", dataUpdate);
@@ -47,7 +61,9 @@ const TambahDetailDestinasi = ({ visible, onClose, data }) => {
         rangePeserta: datas.rangePeserta,
         tiketMasukWeekday: datas.tiketMasukWeekday,
         tiketMasukWeekend: datas.tiketMasukWeekend,
-        linkGmaps: datas.linkGmaps,
+        expireDetailDestinasi: datas.expireDetailDestinasi,
+        jenisPeserta: datas.jenisPeserta,
+        tglUpdateDetailDestinasi: datas.tglUpdateDetailDestinasi,
         created_at: new Date(),
         updated_at: new Date(),
       };
@@ -131,6 +147,67 @@ const TambahDetailDestinasi = ({ visible, onClose, data }) => {
                     </p>
                   )}
                 </div>
+                {error && <p className="text-red-500 mt-1">{error}</p>}
+                <div className="flex flex-row justify-between">
+                  <a className="mr-5 mt-2 text-black">Jenis Peserta</a>
+                  <input
+                    type="text"
+                    className="border border-gray-700 p-2 rounded mb-5"
+                    value={datas.jenisPeserta || ""}
+                    onChange={(value) =>
+                      setDatas({
+                        ...datas,
+                        jenisPeserta: value.target.value,
+                      })
+                    }
+                  />
+                   {inputErrors.jenisPeserta && (
+                    <p className="text-red-500 mt-1">
+                      {inputErrors.jenisPeserta}
+                    </p>
+                  )}
+                </div>
+                {error && <p className="text-red-500 mt-1">{error}</p>}
+                <div className="flex flex-row justify-between">
+                  <a className="mr-5 mt-2 text-black">Tanggal Berlaku Detail</a>
+                  <input
+                    type="date"
+                    className="border border-gray-700 p-2 rounded mb-5"
+                    value={datas.expireDetailDestinasi || ""}
+                    onChange={(value) =>
+                      setDatas({
+                        ...datas,
+                        expireDetailDestinasi: value.target.value,
+                      })
+                    }
+                  />
+                  {inputErrors.expireDetailDestinasi && (
+                    <p className="text-red-500 mt-1">
+                      {inputErrors.expireDetailDestinasi}
+                    </p>
+                  )}
+                </div>
+                {error && <p className="text-red-500 mt-1">{error}</p>}
+                <div className="flex flex-row justify-between">
+                  <a className="mr-5 mt-2 text-black">Tanggal Update Detail</a>
+                  <input
+                    type="date"
+                    className="border border-gray-700 p-2 rounded mb-5"
+                    value={datas.tglUpdateDetailDestinasi || ""}
+                    onChange={(value) =>
+                      setDatas({
+                        ...datas,
+                        tglUpdateDetailDestinasi: value.target.value,
+                      })
+                    }
+                  />
+                  {inputErrors.tglUpdateDetailDestinasi && (
+                    <p className="text-red-500 mt-1">
+                      {inputErrors.tglUpdateDetailDestinasi}
+                    </p>
+                  )}
+                </div>
+                {error && <p className="text-red-500 mt-1">{error}</p>}
               </div>
             </div>
             {/* Button */}
