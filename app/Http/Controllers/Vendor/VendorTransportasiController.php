@@ -103,7 +103,9 @@ class VendorTransportasiController extends Controller
         $area = areaWisata::all();
         $transportasi = vendorTransportasi::findOrFail($request->id); 
         $detail = detailVendorTransportasi::with('jenisTransportasi', 'transportasi') 
-        -> where('idTransportasi','=',$request->id)->get();
+        ->where('idTransportasi','=',$request->id)
+        ->where('statusDetailTransportasi','berjalan')
+        ->get();
         $jenis = jenisTransportasi::all();
         return Inertia::render('Vendor/Transportasi/DetailTransport',[
             'transportasi' => $transportasi,  

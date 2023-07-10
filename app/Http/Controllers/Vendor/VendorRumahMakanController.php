@@ -95,7 +95,9 @@ class VendorRumahMakanController extends Controller
     {
         $area = areaWisata::all();
         $rm = vendorRumahMakan::findOrFail($request->id);
-        $detail = detailVendorRumahMakan::where('idRM', '=', $request->id)->get();
+        $detail = detailVendorRumahMakan::where('idRM', '=', $request->id)
+        ->where('statusDetailRm','berjalan')
+        ->get();
          return Inertia::render('Vendor/RumahMakan/DetailRM',[
              'rm' => $rm,
              'detail' => $detail,

@@ -115,7 +115,9 @@ class VendorDestinasiWisataController extends Controller
      {
          $area = areaWisata::all();
          $destinasi = vendorDestinasiWisata::findOrFail($request->id); 
-         $detail = detailVendorDestinasiWisata::where('idDestinasiWisata','=', $request->id)->get();
+         $detail = detailVendorDestinasiWisata::where('idDestinasiWisata','=', $request->id)
+         ->where('statusDetailDestinasi','berjalan')
+         ->get();
          return Inertia::render('Vendor/DestinasiWisata/DetailDestinasi',[
              'destinasi' => $destinasi,  
              'detail' => $detail,

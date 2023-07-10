@@ -96,7 +96,9 @@ class VendorPenginapanController extends Controller
     {
         $area = areaWisata::all();
         $hotel = vendorPenginapan::findOrFail($request->id); 
-        $detail = detailVendorPenginapan::where('idPenginapan','=', $request->id)->get();
+        $detail = detailVendorPenginapan::where('idPenginapan','=', $request->id)
+        ->where('statusDetailPenginapan','berjalan')
+        ->get();
         return Inertia::render('Vendor/Hotel/DetailHotel',[
             'hotel' => $hotel,  
             'detail' => $detail,
