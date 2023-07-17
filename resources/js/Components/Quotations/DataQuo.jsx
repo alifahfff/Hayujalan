@@ -3,6 +3,7 @@ import { Link } from "@inertiajs/inertia-react";
 
 const DataQuo = ({ quotation }) => {
   console.log('quotation', quotation)
+  const roles = quotation.auth.user.idRoles
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -29,18 +30,22 @@ const DataQuo = ({ quotation }) => {
                   <th scope="col" className="px-6 py-4">
                     Status
                   </th>
+                  {roles === 2 || roles === 1 || roles === 4 ? (
                   <th scope="col" className="px-6 py-4">
                     Aksi
                   </th>
+                  ) : roles === 3 ? (
+                    null
+                  ) : null}
                 </tr>
               </thead>
-              {quotation.data.map((cr, index) => {
+              {quotation.quotation.data.map((cr, index) => {
                 console.log("cr", cr);
                 return (
                   <tbody key={index}>
                     <tr className="border-b dark:border-neutral-500">
                       <td className="whitespace-nowrap px-6 py-4 font-medium">
-                      {quotation.from + index}
+                        {quotation.quotation.from + index}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 font-medium">
                         {cr.quotation.namaProject}
@@ -57,28 +62,31 @@ const DataQuo = ({ quotation }) => {
                       <td className="whitespace-nowrap px-6 py-4">
                         {cr.q_transaksi.statusTransaksi}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4 justify-item-center">
-                        <button className="btn btn-ghost btn-sm mr-2">
-                          <Link
-                            href={route('qhistory.detail')} method="get" as="button" data={{id: cr.idQuotatioRekomendasi}}
-                          >
-                            <BsPencilSquare />
-                          </Link>
-                        </button>
-                        <Link
-                            href={route('delete.quotation')} method="post" as="button" data={{id: cr.idQuotatioRekomendasi}}
-                        >
-                          <button
-                          className="btn btn-ghost btn-sm"
-                          // onClick={() => {
-                          //     setShowDelete(true)
-                          //     setCrewL(cr)
-                          // }}
-                          >
-                            <BsTrash3 />
+                      {roles === 2 || roles === 1 || roles === 3 ? (
+                        <td className="whitespace-nowrap px-6 py-4 justify-item-center">
+                          <button className="btn btn-ghost btn-sm mr-2">
+                            <Link
+                              href={route('qhistory.detail', { id: cr.idQuotatioRekomendasi })}
+                              method="get"
+                              as="button"
+                            >
+                              <BsPencilSquare />
+                            </Link>
                           </button>
-                        </Link>
-                      </td>
+                          <Link
+                            href={route('delete.quotation')}
+                            method="post"
+                            as="button"
+                            data={{ id: cr.idQuotatioRekomendasi }}
+                          >
+                            <button className="btn btn-ghost btn-sm">
+                              <BsTrash3 />
+                            </button>
+                          </Link>
+                        </td>
+                      ) : roles === 4 ? (
+                        <td></td>
+                      ) : null}
                     </tr>
                   </tbody>
                 );

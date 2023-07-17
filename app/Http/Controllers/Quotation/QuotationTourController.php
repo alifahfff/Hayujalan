@@ -118,6 +118,7 @@ class QuotationTourController extends Controller
 
     public function storeQuotationForm(Request $request)
     {
+        // dd( $request->quotationTour['masaBerlakuQuotation']);
         $klien = dataKlien::create([
             'idJenisKlien' => $request->quotationTour['idJenisKlien'],
             'namaKlien' => $request->quotationTour['namaKlien'],
@@ -549,24 +550,24 @@ class QuotationTourController extends Controller
                             $existingBonus->idDataBonus = $bonus['idDataBonus'];
                             $isChanged = true;
                         }
-                        if ($existingBonus->qty != $bonus['qty']) {
-                            $existingBonus->qty = $bonus['qty'];
+                        if ($existingBonus->qtyTbonus != $bonus['qty']) {
+                            $existingBonus->qtyTbonus = $bonus['qty'];
                             $isChanged = true;
                         }
-                        if ($existingBonus->hari != $bonus['hari']) {
-                            $existingBonus->hari = $bonus['hari'];
+                        if ($existingBonus->jmlHariTbonus != $bonus['hari']) {
+                            $existingBonus->jmlHariTbonus = $bonus['hari'];
                             $isChanged = true;
                         }
-                        if ($existingBonus->harga != $bonus['harga']) {
-                            $existingBonus->harga = $bonus['harga'];
+                        if ($existingBonus->hargaTbonus != $bonus['harga']) {
+                            $existingBonus->hargaTbonus = $bonus['harga'];
                             $isChanged = true;
                         }
-                        if ($existingBonus->jumlah != $bonus['jumlah']) {
-                            $existingBonus->jumlah = $bonus['jumlah'];
+                        if ($existingBonus->jumlahTbonus != $bonus['jumlah']) {
+                            $existingBonus->jumlahTbonus = $bonus['jumlah'];
                             $isChanged = true;
                         }
-                        if ($existingBonus->keterangan != $bonus['keterangan']) {
-                            $existingBonus->keterangan = $bonus['keterangan'];
+                        if ($existingBonus->namaTbonus != $bonus['keterangan']) {
+                            $existingBonus->namaTbonus = $bonus['keterangan'];
                             $isChanged = true;
                         }
                         if ($existingBonus->idQuotationTransaksi != $bonus['idQuotationTransaksi']) {
@@ -589,11 +590,11 @@ class QuotationTourController extends Controller
                 foreach ($bonusData as $bonus) {
                     $tbonus = Tbonus::create([
                         'idDataBonus' => $bonus['idDataBonus'],
-                        'qty' => $bonus['qty'],
-                        'hari' => $bonus['hari'],
-                        'harga' => $bonus['harga'],
-                        'jumlah' => $bonus['jumlah'],
-                        'keterangan' => $bonus['ketDataBonus'],
+                        'qtyTbonus' => $bonus['qty'],
+                        'jmlHariTbonus' => $bonus['hari'],
+                        'hargaTbonus' => $bonus['harga'],
+                        'jumlahTbonus' => $bonus['jumlah'],
+                        'namaTbonus' => $bonus['ketDataBonus'],
                         'idQuotationTransaksi' => $quotationTransaksi->id,
                         'created_at' => $request->created_at,
                         'idQuotationRekomendasi' => 1,
@@ -616,24 +617,24 @@ class QuotationTourController extends Controller
                             $existingEvent->idDataEvent = $event['idDataEvent'];
                             $isChanged = true;
                         }
-                        if ($existingEvent->qty != $event['qty']) {
-                            $existingEvent->qty = $event['qty'];
+                        if ($existingEvent->qtyTevent != $event['qty']) {
+                            $existingEvent->qtyTevent = $event['qty'];
                             $isChanged = true;
                         }
-                        if ($existingEvent->hari != $event['hari']) {
-                            $existingEvent->hari = $event['hari'];
+                        if ($existingEvent->jmlHariTevent != $event['hari']) {
+                            $existingEvent->jmlHariTevent = $event['hari'];
                             $isChanged = true;
                         }
-                        if ($existingEvent->harga != $event['harga']) {
-                            $existingEvent->harga = $event['harga'];
+                        if ($existingEvent->hargaTevent != $event['harga']) {
+                            $existingEvent->hargaTevent = $event['harga'];
                             $isChanged = true;
                         }
-                        if ($existingEvent->jumlah != $event['jumlah']) {
-                            $existingEvent->jumlah = $event['jumlah'];
+                        if ($existingEvent->jumlahTevent != $event['jumlah']) {
+                            $existingEvent->jumlahTevent = $event['jumlah'];
                             $isChanged = true;
                         }
-                        if ($existingEvent->keterangan != $event['keterangan']) {
-                            $existingEvent->keterangan = $event['keterangan'];
+                        if ($existingEvent->namaTevent != $event['keterangan']) {
+                            $existingEvent->namaTevent = $event['keterangan'];
                             $isChanged = true;
                         }
                         if ($existingEvent->idQuotationTransaksi != $event['idQuotationTransaksi']) {
@@ -656,7 +657,7 @@ class QuotationTourController extends Controller
                 foreach ($eventData as $event) {
                     $tevent = Tevent::create([
                         'idDataEvent' => $event['idDataEvent'],
-                        'qty' => $event['qty'],
+                        'qtyTevent' => $event['qty'],
                         'hari' => $event['hari'],
                         'harga' => $event['harga'],
                         'jumlah' => $event['jumlah'],
@@ -1686,6 +1687,7 @@ class QuotationTourController extends Controller
     public function editQClone(Request $request)
     {
         $areawisata = areaWisata::all();
+        $user = User::where('idRoles', '=', '4')->get();
         $kategoriwisata = dataKategoriTour::all();
         $destinasi = vendorDestinasiWisata::all();
         $detailDestinasi = detailVendorDestinasiWisata::all();
@@ -1718,7 +1720,7 @@ class QuotationTourController extends Controller
         }])->find($quotationRekomendasi->idQuotationTour);
         return Inertia::render('Quotation/QuotationsClone', [
             'areawisata' => $areawisata,
-            // 'userprogram' => $userprogram,
+            'user' => $user,
             'usersales' => $usersales,
             // 'userQuotation' => $userQuotation,
             'kategoriwisata' => $kategoriwisata,
@@ -1814,11 +1816,11 @@ class QuotationTourController extends Controller
             foreach ($bonusData as $bonus) {
                 $tbonus = Tbonus::create([
                     'idDataBonus' => $bonus['idDataBonus'],
-                    'qtyTbonus' => $bonus['qty'],
-                    'jmlHariTbonus' => $bonus['hari'],
-                    'hargaTbonus' => $bonus['harga'],
-                    'jumlahTbonus' => $bonus['jumlah'],
-                    'namaTbonus' => $bonus['ketDataBonus'],
+                    'qtyTbonus' => $bonus['qtyTbonus'],
+                    'jmlHariTbonus' => $bonus['jmlHariTbonus'],
+                    'hargaTbonus' => $bonus['hargaTbonus'],
+                    'jumlahTbonus' => $bonus['jumlahTbonus'],
+                    'namaTbonus' => $bonus['namaTbonus'],
                     'idQuotationTransaksi' => $quotationTransaksi->idQuotationTransaksi,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
@@ -1831,11 +1833,11 @@ class QuotationTourController extends Controller
             foreach ($eventData as $event) {
                 $tevent = Tevent::create([
                     'idDataEvent' => $event['idDataEvent'],
-                    'qtyTevent' => $event['qty'],
-                    'jmlHariTevent' => $event['hari'],
-                    'hargaTevent' => $event['harga'],
-                    'jumlahTevent' => $event['jumlah'],
-                    'namaTevent' => $event['ketDataEvent'],
+                    'qtyTevent' => $event['qtyTevent'],
+                    'jmlHariTevent' => $event['jmlHariTevent'],
+                    'hargaTevent' => $event['hargaTevent'],
+                    'jumlahTevent' => $event['jumlahTevent'],
+                    'namaTevent' => $event['namaTevent'],
                     'idQuotationTransaksi' => $quotationTransaksi->idQuotationTransaksi,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
@@ -1848,11 +1850,11 @@ class QuotationTourController extends Controller
             foreach ($crewData as $crew) {
                 $tcrew = TcrewOp::create([
                     'idCrewOperasional' => $crew['idCrewOperasional'],
-                    'qtyTcrew' => $crew['qty'],
-                    'jmlHariTcrew' => $crew['hari'],
-                    'hargaTcrew' => $crew['harga'],
-                    'jumlahTcrew' => $crew['jumlah'],
-                    'namaTcrew' => $crew['ketCrewOperasional'],
+                    'qtyTcrew' => $crew['qtyTcrew'],
+                    'jmlHariTcrew' => $crew['jmlHariTcrew'],
+                    'hargaTcrew' => $crew['hargaTcrew'],
+                    'jumlahTcrew' => $crew['jumlahTcrew'],
+                    'namaTcrew' => $crew['namaTcrew'],
                     'idQuotationTransaksi' => $quotationTransaksi->idQuotationTransaksi,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
@@ -1865,11 +1867,11 @@ class QuotationTourController extends Controller
             foreach ($fasilitasData as $fasilitas) {
                 $tfasilitas = TFasilitasTour::create([
                     'idFasilitasTour' => $fasilitas['idFasilitasTour'],
-                    'qtyTft' => $fasilitas['qty'],
-                    'jmlHariTft' => $fasilitas['hari'],
-                    'hargaTft' => $fasilitas['harga'],
-                    'jumlahTft' => $fasilitas['jumlah'],
-                    'namaTft' => $fasilitas['ketFasilitasTour'],
+                    'qtyTft' => $fasilitas['qtyTft'],
+                    'jmlHariTft' => $fasilitas['jmlHariTft'],
+                    'hargaTft' => $fasilitas['hargaTft'],
+                    'jumlahTft' => $fasilitas['jumlahTft'],
+                    'namaTft' => $fasilitas['namaTft'],
                     'idQuotationTransaksi' => $quotationTransaksi->idQuotationTransaksi,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
@@ -1882,11 +1884,11 @@ class QuotationTourController extends Controller
             foreach ($destinasiData as $destinasi) {
                 $tDestinasiWisata = TDestinasiWisata::create([
                     'idDestinasiWisata' => $destinasi['idDestinasiWisata'],
-                    'qtyTdestinasiWisata' => $destinasi['qty'],
-                    'jmlHariTdestinasiWisata' => $destinasi['hari'],
-                    'hargaTdestinasiWisata' => $destinasi['harga'],
-                    'jumlahTdestinasiWisata' => $destinasi['jumlah'],
-                    'namaTdestinasiWisata' => $destinasi['namaDestinasiWisata'],
+                    'qtyTdestinasiWisata' => $destinasi['qtyTdestinasiWisata'],
+                    'jmlHariTdestinasiWisata' => $destinasi['jmlHariTdestinasiWisata'],
+                    'hargaTdestinasiWisata' => $destinasi['hargaTdestinasiWisata'],
+                    'jumlahTdestinasiWisata' => $destinasi['jumlahTdestinasiWisata'],
+                    'namaTdestinasiWisata' => $destinasi['namaTdestinasiWisata'],
                     'idQuotationTransaksi' => $quotationTransaksi->idQuotationTransaksi,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
@@ -1899,11 +1901,11 @@ class QuotationTourController extends Controller
             foreach ($transportasiData as $transport) {
                 $tTransportasi = Ttransportasi::create([
                     'idTransportasi' => $transport['idTransportasi'],
-                    'qtyTtransportasi' => $transport['qty'],
-                    'jmlHariTtransportasi' => $transport['hari'],
-                    'hargaTtransportasi' => $transport['harga'],
-                    'jumlahTtransportasi' => $transport['jumlah'],
-                    'namaTtransportasi' => $transport['namaTransportasi'],
+                    'qtyTtransportasi' => $transport['qtyTtransportasi'],
+                    'jmlHariTtransportasi' => $transport['jmlHariTtransportasi'],
+                    'hargaTtransportasi' => $transport['hargaTtransportasi'],
+                    'jumlahTtransportasi' => $transport['jumlahTtransportasi'],
+                    'namaTtransportasi' => $transport['namaTtransportasi'],
                     'idQuotationTransaksi' => $quotationTransaksi->idQuotationTransaksi,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
@@ -1916,11 +1918,11 @@ class QuotationTourController extends Controller
             foreach ($penginapanData as $penginapan) {
                 $tpenginapan = Tpenginapan::create([
                     'idPenginapan' => $penginapan['idPenginapan'],
-                    'qtyTpenginapan' => $penginapan['qty'],
-                    'jmlHariTpenginapan' => $penginapan['hari'],
-                    'hargaTpenginapan' => $penginapan['harga'],
-                    'jumlahTpenginapan' => $penginapan['jumlah'],
-                    'namaTpenginapan' => $penginapan['namaPenginapan'],
+                    'qtyTpenginapan' => $penginapan['qtyTpenginapan'],
+                    'jmlHariTpenginapan' => $penginapan['jmlHariTpenginapan'],
+                    'hargaTpenginapan' => $penginapan['hargaTpenginapan'],
+                    'jumlahTpenginapan' => $penginapan['jumlahTpenginapan'],
+                    'namaTpenginapan' => $penginapan['namaTpenginapan'],
                     'idQuotationTransaksi' => $quotationTransaksi->idQuotationTransaksi,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
@@ -1933,17 +1935,19 @@ class QuotationTourController extends Controller
             foreach ($rmData as $rm) {
                 $tRumahMakan = TRumahMakan::create([
                     'idRM' => $rm['idRM'],
-                    'qtyTrm' => $rm['qty'],
-                    'jmlHariTrm' => $rm['hari'],
-                    'hargaTrm' => $rm['harga'],
-                    'jumlahTrm' => $rm['jumlah'],
-                    'namaTrm' => $rm['namaRM'],
+                    'qtyTrm' => $rm['qtyTrm'],
+                    'jmlHariTrm' => $rm['jmlHariTrm'],
+                    'hargaTrm' => $rm['hargaTrm'],
+                    'jumlahTrm' => $rm['jumlahTrm'],
+                    'namaTrm' => $rm['namaTrm'],
                     'idQuotationTransaksi' => $quotationTransaksi->idQuotationTransaksi,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                 ]);
             }
         }
+
+        // dd($rmData);
 
         // return Inertia::render('Quotation/QuotationsResult', [
         //     'data' => quotationTransaksi::with('quotation.klien')

@@ -71,7 +71,7 @@ export default function QuotationHistory(props) {
 
                     {/* Data */}
                     <div className=''>
-                    <DataQuo quotation={props.quotation}/>
+                    <DataQuo quotation={props}/>
                         <div className='m-2 flex justify-between items-center'>
                         {props.quotation.data.length > 0 && (
                             <a className='text-[10px] text-black'>Showing {props.quotation.from} - {props.quotation.from + props.quotation.data.length -1} of {props.quotation.total}</a>

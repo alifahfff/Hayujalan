@@ -5,6 +5,7 @@ import DeleteAreaWisata from "./DeleteAreaWisata";
 import ModalArea from "./ModalArea";
 
 const AreaWisata = ({area}) => {
+    const roles = area.auth.user.idRoles
     const [showModal, setShowModal] = useState(false);
     const [dataD, setDataD] = useState([])
     
@@ -26,10 +27,16 @@ const AreaWisata = ({area}) => {
                         <th scope="col" className="px-6 py-4">ID Area Wisata</th>
                         <th scope="col" className="px-6 py-4">Area Wisata</th>
                         <th scope="col" className="px-6 py-4">Last Update</th>
-                        <th scope="col" className="px-6 py-4">Aksi</th>
+                        { roles === 3 || roles === 1 ? (
+                        <th scope="col" className="px-6 py-4">
+                            Aksi
+                        </th>
+                        ) : roles === 2 || roles === 4 ? (
+                            null
+                        ) : null}
                         </tr>
                     </thead>
-                    {area.map((cr, index) => {
+                    {area.area.map((cr, index) => {
                         // console.log('cr', cr)
                         return (
                             <tbody key={index}>
@@ -37,8 +44,9 @@ const AreaWisata = ({area}) => {
                                 <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.idAreaWisata}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.namaArea}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.updated_at.substring(0,10)}</td>
+                                { roles === 3 || roles === 1 ? (
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
-                                <button 
+                                    <button 
                                         onClick={() => {
                                             setShowModal(true)
                                             setDataL(cr)
@@ -46,6 +54,9 @@ const AreaWisata = ({area}) => {
                                         className="btn btn-ghost btn-sm mr-2"
                                     ><BsPencilSquare/></button>
                                 </td>
+                                ) : roles === 2 || roles === 4 ? (
+                                    <td></td>
+                                ) : null}
                                 </tr>
                             </tbody>
                         )

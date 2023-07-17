@@ -64,6 +64,6 @@ class AuthenticatedSessionController extends Controller
     {
         Auth::logout();
 
-        return redirect()->route('Login');
+        return Inertia::render('Auth/Login');
     }
 }

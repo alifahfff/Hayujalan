@@ -7,6 +7,7 @@ import DeleteDestinasi from "./DeleteDestinasi";
 
 
 const DestinasiWisata = ({destinasi}) => {
+    const roles = destinasi.auth.user.idRoles
     const [showModal, setShowModal] = useState(false);
     const [dataD, setDataD] = useState([])
     
@@ -30,10 +31,16 @@ const DestinasiWisata = ({destinasi}) => {
                         <th scope="col" className="px-6 py-4">Nama Destinasi</th>
                         <th scope="col" className="px-6 py-4">Tanggal Berlaku</th>
                         <th scope="col" className="px-6 py-4">Last Update</th>
-                        <th scope="col" className="px-6 py-4">Aksi</th>
+                        { roles === 3 || roles === 1 ? (
+                        <th scope="col" className="px-6 py-4">
+                            Aksi
+                        </th>
+                        ) : roles === 2 || roles === 4 ? (
+                            null
+                        ) : null}
                         </tr>
                     </thead>
-                    {destinasi.map((cr, index) => {
+                    {destinasi.destinasi.map((cr, index) => {
                         // console.log('cr', cr)
                         return (
                             <tbody key={index}>
@@ -43,6 +50,7 @@ const DestinasiWisata = ({destinasi}) => {
                                 <td className="whitespace-nowrap px-6 py-4">{cr.namaDestinasiWisata}</td>
                                 <td className="whitespace-nowrap px-6 py-4 text-merah font-bold">{cr.tglBerlakuDestinasi}</td>
                                 <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">{cr.updated_at.substring(0,10)}</td>
+                                { roles === 3 || roles === 1 ? (
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                                     <button className="btn btn-ghost btn-sm mr-2">
                                         <Link href={route('destinasiwisata.detail')} method="get" data={{id: cr.idDestinasiWisata}}>
@@ -66,6 +74,9 @@ const DestinasiWisata = ({destinasi}) => {
                                         className="btn btn-ghost btn-sm mr-2"
                                     ><BsThreeDots/></button> */}
                                 </td>
+                                ) : roles === 2 || roles === 4 ? (
+                                    <td></td>
+                                ) : null}
                                 </tr>
                             </tbody>
                         )

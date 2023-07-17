@@ -211,6 +211,7 @@ const Quotations = (props, crewL) => {
   }
 
   const handleDateChange = (e, nama) => {
+    console.log('cek e', e.target.value)
     const selectedDateString = e.target.value;
     const selectedDateObj = new Date(selectedDateString);
     const dayOfWeek = selectedDateObj.getDay();
@@ -251,7 +252,7 @@ const Quotations = (props, crewL) => {
           tglBerlakuQuotation: e.target.value,
         })
       }
-      rekomendasi()
+      // rekomendasi()
     }
 
     if (nama == 'masa') {
@@ -269,7 +270,7 @@ const Quotations = (props, crewL) => {
           masaBerlakuQuotation: e.target.value,
         })
       }
-      rekomendasi()
+      // rekomendasi()
     }
   };
 
@@ -288,10 +289,12 @@ const Quotations = (props, crewL) => {
         // setListRM(list)
         props.detailRM.forEach((lb) => {
           if(lb.idRM == e.target.value){
-            if(lb.statusDetailRm == 'berjalan') {
-              console.log('cek lb', lb)
+            // if(lb.statusDetailRm == 'berjalan') {
+            //   console.log('cek lb', lb)
+            //   list.push(lb)
+            // }
+            console.log('cek lb', lb)
               list.push(lb)
-            }
           }
         })
         console.log('list', list)
@@ -311,10 +314,12 @@ const Quotations = (props, crewL) => {
         // setListRM(list)
         props.detailPenginapan.forEach((lb) => {
           if(lb.idPenginapan == e.target.value){
-            if(lb.statusDetailPenginapan == 'berjalan') {
-              console.log('cek lb', lb)
+            // if(lb.statusDetailPenginapan == 'berjalan') {
+            //   console.log('cek lb', lb)
+            //   list.push(lb)
+            // }
+            console.log('cek lb', lb)
               list.push(lb)
-            }
           }
         })
         console.log('list', list)
@@ -334,10 +339,12 @@ const Quotations = (props, crewL) => {
         // setListRM(list)
         props.detaiTransportasi.forEach((lb) => {
           if(lb.idTransportasi == e.target.value){
-            if(statusDetailTransportasi == 'berjalan') {
-              console.log('cek lb', lb)
+            // if(statusDetailTransportasi == 'berjalan') {
+            //   console.log('cek lb', lb)
+            //   list.push(lb)
+            // }
+            console.log('cek lb', lb)
               list.push(lb)
-            }
           }
         })
         console.log('list', list)
@@ -582,6 +589,8 @@ const Quotations = (props, crewL) => {
         values[index]['idDestinasiWisata'] = find2.idDestinasiWisata,
         values[index]['biaya'] = parseInt(list[0]),
         values[index]['harga'] = parseInt(list[0]),
+        values[index]['qty'] = datas.jumlahOrang,
+        values[index]['hari'] = datas.durasiproject,
         setFormDestinasi(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
         setFormDestinasi(values)
@@ -645,6 +654,8 @@ const Quotations = (props, crewL) => {
         values[index]['idTransportasi'] = find2.idTransportasi,
         values[index]['biaya'] = parseInt(list[0]),
         values[index]['harga'] = parseInt(list[0]),
+        values[index]['qty'] = datas.jumlahOrang,
+        values[index]['hari'] = datas.durasiproject,
         setFormTransport(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
         setFormTransport(values)
@@ -697,6 +708,8 @@ const Quotations = (props, crewL) => {
         values[index]['idPenginapan'] = find2.idPenginapan,
         values[index]['biaya'] = parseInt(list[0]),
         values[index]['harga'] = parseInt(list[0]),
+        values[index]['qty'] = datas.jumlahOrang,
+        values[index]['hari'] = datas.durasiproject,
         values[index]['qtyKetersediaanKamar'] = find2.qtyKetersediaanKamar,
         setFormPenginapan(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
@@ -745,6 +758,8 @@ const Quotations = (props, crewL) => {
         values[index]['namaRM'] = find2.namaMenu,
         values[index]['biaya'] = parseInt(list[0]),
         values[index]['harga'] = parseInt(list[0]),
+        values[index]['qty'] = datas.jumlahOrang,
+        values[index]['hari'] = datas.durasiproject,
         setFormRM(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
         setFormRM(values)
@@ -777,6 +792,8 @@ const Quotations = (props, crewL) => {
         values[index]['idFasilitasTour'] = find2.idFasilitasTour,
         values[index]['biayaFasilitas'] = find2.biayaFasilitas,
         values[index]['harga'] = find2.biayaFasilitas,
+        values[index]['qty'] = datas.jumlahOrang,
+        values[index]['hari'] = datas.durasiproject,
         setFormFasilitas(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
         setFormFasilitas(values)
@@ -809,6 +826,8 @@ const Quotations = (props, crewL) => {
         values[index]['idCrewOperasional'] = find2.idCrewOperasional,
         values[index]['biayaCrewOperasional'] = find2.biayaCrewOperasional,
         values[index]['harga'] = find2.biayaCrewOperasional,
+        values[index]['qty'] = datas.jumlahOrang,
+        values[index]['hari'] = datas.durasiproject,
         setFormCrew(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
         setFormCrew(values)
@@ -841,6 +860,8 @@ const Quotations = (props, crewL) => {
         values[index]['idDataEvent'] = find2.idDataEvent,
         values[index]['biayaDataEvent'] = find2.biayaDataEvent,
         values[index]['harga'] = find2.biayaDataEvent,
+        values[index]['qty'] = datas.jumlahOrang,
+        values[index]['hari'] = datas.durasiproject,
         setFormEvent(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
         setFormEvent(values)
@@ -873,6 +894,8 @@ const Quotations = (props, crewL) => {
         values[index]['idDataBonus'] = find2.idDataBonus,
         values[index]['biayaDataBonus'] = find2.biayaDataBonus,
         values[index]['harga'] = find2.biayaDataBonus,
+        values[index]['qty'] = datas.jumlahOrang,
+        values[index]['hari'] = datas.durasiproject,
         setFormBonus(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
         setFormBonus(values)
@@ -997,6 +1020,60 @@ const Quotations = (props, crewL) => {
     const totalPrice = parseInt(sellingPrice * paxPay);
     const profit = parseInt(sellingPrice + parseInt(datas.feemarketing));
     const bref_budget2 = [];
+    const bref_durasi = [];
+    const bref_jumlahOrang = [];
+    if(datas.durasiproject){
+      if(datas.durasiproject == 1){
+        bref_durasi.push(1)
+      }
+      if(datas.durasiproject == 2){
+        bref_durasi.push(2)
+      }
+      if(datas.durasiproject == 3){
+        bref_durasi.push(3)
+      }
+      if(datas.durasiproject == 4){
+        bref_durasi.push(4)
+      }
+      if(datas.durasiproject == 5){
+        bref_durasi.push(5)
+      }
+      if(datas.durasiproject == 6){
+        bref_durasi.push(6)
+      }
+      if(datas.durasiproject >= 7){
+        bref_durasi.push(7)
+      }
+    }
+    if(datas.jumlahOrang){
+      if(datas.jumlahOrang >= 1 && datas.jumlahOrang <= 5){
+        bref_jumlahOrang.push(1)
+      }
+      if(datas.jumlahOrang >= 6 && datas.jumlahOrang <= 12){
+        bref_jumlahOrang.push(2)
+      }
+      if(datas.jumlahOrang >= 13 && datas.jumlahOrang <= 18){
+        bref_jumlahOrang.push(3)
+      }
+      if(datas.jumlahOrang >= 19 && datas.jumlahOrang <= 31){
+        bref_jumlahOrang.push(4)
+      }
+      if(datas.jumlahOrang >= 32 && datas.jumlahOrang <= 35){
+        bref_jumlahOrang.push(5)
+      }
+      if(datas.jumlahOrang >= 36 && datas.jumlahOrang <= 39){
+        bref_jumlahOrang.push(6)
+      }
+      if(datas.jumlahOrang >= 40 && datas.jumlahOrang <= 59){
+        bref_jumlahOrang.push(7)
+      }
+      if(datas.jumlahOrang >= 100 && datas.jumlahOrang <= 150){
+        bref_jumlahOrang.push(8)
+      }
+      if(datas.jumlahOrang > 150){
+        bref_jumlahOrang.push(9)
+      }
+    }
     if (sellingPrice >= 0 && sellingPrice <= 50000) {
       bref_budget2.push(1);
     } else if (sellingPrice > 50000 && sellingPrice <= 1000000) {
@@ -1014,9 +1091,13 @@ const Quotations = (props, crewL) => {
     setDatas({
       ...datas,
       bref_budget: bref_budget2[0],
+      bref_durasi: bref_durasi[0],
+      bref_jumlahOrang: bref_jumlahOrang[0],
     })
 
     console.log('budget', bref_budget2)
+    console.log('durasi', bref_durasi)
+    console.log('orang', bref_jumlahOrang)
 
     const data = {
       quotationTour : datas,
@@ -1467,23 +1548,33 @@ const Quotations = (props, crewL) => {
                           >--</option>
                           {props.destinasi.map((ds, index) => {
                             if (ds.idAreaWisata === datas.idAreaWisata) {
-                              const berlakuDate = new Date(datas.tglBerlakuQuotation);
-                              const expiredDate = new Date(ds.tglBerlakuDestinasi);
-                              const isTanggalTrue = berlakuDate < expiredDate;
-                              // console.log('berlaku', berlakuDate)
-                              // console.log('expired', expiredDate)
-                              // console.log('isTanggal', isTanggalTrue)
-                              if (isTanggalTrue) {
-                                return (
-                                  <option 
-                                    value={ds.idDestinasiWisata} 
-                                    key={ds.id}
-                                    // name="ketDataEvent"
-                                  >
-                                  {ds.namaDestinasiWisata}
-                                  </option>
-                                );
-                              }
+                              console.log('areawisata', ds)
+                              // const berlakuDate = new Date(datas.tglBerlakuQuotation);
+                              // const expiredDate = new Date(ds.tglBerlakuDestinasi);
+                              // const isTanggalTrue = berlakuDate < expiredDate;
+                              // // console.log('berlaku', berlakuDate)
+                              // // console.log('expired', expiredDate)
+                              // // console.log('isTanggal', isTanggalTrue)
+                              // if (isTanggalTrue) {
+                              //   return (
+                              //     <option 
+                              //       value={ds.idDestinasiWisata} 
+                              //       key={ds.id}
+                              //       // name="ketDataEvent"
+                              //     >
+                              //     {ds.namaDestinasiWisata}
+                              //     </option>
+                              //   );
+                              // }
+                              return (
+                                <option 
+                                  value={ds.idDestinasiWisata} 
+                                  key={ds.id}
+                                  // name="ketDataEvent"
+                                >
+                                {ds.namaDestinasiWisata}
+                                </option>
+                              );
                             }
                            })}
                         </select>
@@ -1492,7 +1583,7 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>
                         <input 
                           key={index}
-                          type="number" 
+                          type="text" 
                           name="biaya" 
                           id="brand" 
                           className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -1532,7 +1623,7 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="number" 
+                          type="text" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -1608,23 +1699,24 @@ const Quotations = (props, crewL) => {
                           >--</option>
                           {props.transportasi.map((ds, index) => {
                             if (ds.idAreaWisata === datas.idAreaWisata) {
-                              const berlakuDate = new Date(datas.tglBerlakuQuotation);
-                              const expiredDate = new Date(ds.tglBerlakuTransportasi);
-                              const isTanggalTrue = berlakuDate < expiredDate;
+                              // const berlakuDate = new Date(datas.tglBerlakuQuotation);
+                              // const expiredDate = new Date(ds.tglBerlakuTransportasi);
+                              // const isTanggalTrue = berlakuDate < expiredDate;
                               // console.log('berlaku', berlakuDate)
                               // console.log('expired', expiredDate)
                               // console.log('isTanggal', isTanggalTrue)
-                              if (isTanggalTrue) {
-                                return (
-                                  <option 
-                                    value={ds.idTransportasi} 
-                                    key={ds.id}
-                                    // name="ketDataEvent"
-                                  >
-                                  {ds.namaTransportasi}
-                                  </option>
-                                );
-                              }
+                              // if (isTanggalTrue) {
+                               
+                              // }
+                              return (
+                                <option 
+                                  value={ds.idTransportasi} 
+                                  key={ds.id}
+                                  // name="ketDataEvent"
+                                >
+                                {ds.namaTransportasi}
+                                </option>
+                              );
                             }
                           })}
                         </select>
@@ -1660,7 +1752,7 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>
                         <input 
                           key={index}
-                          type="number" 
+                          type="text" 
                           name="biaya" 
                           id="brand" 
                           className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -1700,7 +1792,7 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="number" 
+                          type="text" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -1776,23 +1868,24 @@ const Quotations = (props, crewL) => {
                           >--</option>
                           {props.penginapan.map((ds, index) => {
                             if (ds.idAreaWisata === datas.idAreaWisata) {
-                              const berlakuDate = new Date(datas.tglBerlakuQuotation);
-                              const expiredDate = new Date(ds.tglBerlakuPenginapan);
-                              const isTanggalTrue = berlakuDate < expiredDate;
-                              // console.log('berlaku', berlakuDate)
-                              // console.log('expired', expiredDate)
-                              // console.log('isTanggal', isTanggalTrue)
-                              if (isTanggalTrue) {
-                                return (
-                                  <option 
-                                    value={ds.idPenginapan} 
-                                    key={ds.id}
-                                    // name="ketDataEvent"
-                                  >
-                                  {ds.namaPenginapan}
-                                  </option>
-                                )
-                              }
+                              // const berlakuDate = new Date(datas.tglBerlakuQuotation);
+                              // const expiredDate = new Date(ds.tglBerlakuPenginapan);
+                              // const isTanggalTrue = berlakuDate < expiredDate;
+                              // // console.log('berlaku', berlakuDate)
+                              // // console.log('expired', expiredDate)
+                              // // console.log('isTanggal', isTanggalTrue)
+                              // if (isTanggalTrue) {
+                               
+                              // }
+                              return (
+                                <option 
+                                  value={ds.idPenginapan} 
+                                  key={ds.id}
+                                  // name="ketDataEvent"
+                                >
+                                {ds.namaPenginapan}
+                                </option>
+                              )
                             }
                           })}
                         </select>
@@ -1828,7 +1921,7 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>
                         <input 
                           key={index}
-                          type="number" 
+                          type="text" 
                           name="biaya" 
                           id="brand" 
                           className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -1872,7 +1965,7 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="number" 
+                          type="text" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -1948,23 +2041,32 @@ const Quotations = (props, crewL) => {
                           >--</option>
                           {props.rumahMakan.map((ds, index) => {
                             if (ds.idAreaWisata === datas.idAreaWisata) {
-                              const berlakuDate = new Date(datas.tglBerlakuQuotation);
-                              const expiredDate = new Date(ds.tglBerlakuRm);
-                              const isTanggalTrue = berlakuDate < expiredDate;
-                              // console.log('berlaku', berlakuDate)
-                              // console.log('expired', expiredDate)
-                              // console.log('isTanggal', isTanggalTrue)
-                              if (isTanggalTrue) {
-                                return (
-                                  <option 
-                                    value={ds.idRM} 
-                                    key={ds.id}
-                                    // name="ketDataEvent"
-                                  >
-                                  {ds.namaRM}
-                                  </option>
-                                )
-                              }
+                              // const berlakuDate = new Date(datas.tglBerlakuQuotation);
+                              // const expiredDate = new Date(ds.tglBerlakuRm);
+                              // const isTanggalTrue = berlakuDate < expiredDate;
+                              // // console.log('berlaku', berlakuDate)
+                              // // console.log('expired', expiredDate)
+                              // // console.log('isTanggal', isTanggalTrue)
+                              // if (isTanggalTrue) {
+                              //   return (
+                              //     <option 
+                              //       value={ds.idRM} 
+                              //       key={ds.id}
+                              //       // name="ketDataEvent"
+                              //     >
+                              //     {ds.namaRM}
+                              //     </option>
+                              //   )
+                              // }
+                              return (
+                                <option 
+                                  value={ds.idRM} 
+                                  key={ds.id}
+                                  // name="ketDataEvent"
+                                >
+                                {ds.namaRM}
+                                </option>
+                              )
                             }
                           })}
                         </select>
@@ -2001,7 +2103,7 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>
                         <input 
                           key={index}
-                          type="number" 
+                          type="text" 
                           name="biaya" 
                           id="brand" 
                           className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -2041,7 +2143,7 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="number" 
+                          type="text" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -2131,7 +2233,7 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>
                         <input 
                           key={index}
-                          type="number" 
+                          type="text" 
                           name="biayaFasilitas" 
                           id="brand" 
                           className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -2171,7 +2273,7 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="number" 
+                          type="text" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -2261,7 +2363,7 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>
                         <input 
                           key={index}
-                          type="number" 
+                          type="text" 
                           name="biayaCrewOperasional" 
                           id="brand" 
                           className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -2301,7 +2403,7 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="number" 
+                          type="text" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -2391,7 +2493,7 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>
                         <input 
                           key={index}
-                          type="number" 
+                          type="text" 
                           name="brand" 
                           id="brand" 
                           className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -2444,7 +2546,7 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="number" 
+                          type="text" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -2534,7 +2636,7 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>
                         <input 
                           key={index}
-                          type="number" 
+                          type="text" 
                           name="biayaDataBonus" 
                           id="brand" 
                           className="bg-abu3 border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -2574,7 +2676,7 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="number" 
+                          type="text" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"

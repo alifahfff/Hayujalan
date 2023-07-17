@@ -155,7 +155,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/quotation/qrecomend/', 'showrec')->name('quotationrecomend');
         Route::post('/quotation/qrecomend', 'store')->name('store.qrecomend');
         Route::get('/quotationrecomend/hasil', 'show')->name('hasil.qrecomend');
-        Route::get('/quotationrecomend/detail/{id}', 'edit')->name('detail.qrecomend');
+        Route::get('/quotationrecomend/edit', 'edit')->name('edit.qrecomend');
+        Route::post('/quotationrecomend/add', 'update')->name('add.qrecomend');
     });
     // Dashboard
     Route::get('/dashboard', function () {

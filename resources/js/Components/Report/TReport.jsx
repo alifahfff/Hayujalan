@@ -6,6 +6,7 @@ import moment from 'moment';
 import ModalReport from "./ModalReport";
 
 const TReport = ({data}) => {
+    const roles = data.auth.user.idRoles
     const [showModal, setShowModal] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
     const [dataL, setDataL] = useState([])
@@ -13,7 +14,7 @@ const TReport = ({data}) => {
     const handleOnClose = () => setShowModal(false);
     const handleOnCloseD = () => setShowDelete(false);
 
-    console.log('data', data.data.length)
+    console.log('data', data)
     return (
         <div className="flex flex-col">
             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -29,15 +30,19 @@ const TReport = ({data}) => {
                         <th scope="col" className="px-6 py-4">Status Quotation</th>
                         <th scope="col" className="px-6 py-4">Status Berjalan</th>
                         <th scope="col" className="px-6 py-4">Tanggal Dibuat</th>
+                        { roles === 4 || roles === 1 ? (
                         <th scope="col" className="px-6 py-4">Aksi</th>
+                        ) : roles === 3 || roles === 2 ? (
+                            null
+                        ) : null}
                         </tr>
                     </thead>
-                    {data.data && data.data.length > 0 ? data.data.map((dt, index) => {
+                    {data.Mydata.data && data.Mydata.data.length > 0 ? data.Mydata.data.map((dt, index) => {
                         // console.log('cr', cr)
                         return (
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
-                                <td className="whitespace-nowrap px-6 py-4 font-medium">{data.from + index}</td>
+                                <td className="whitespace-nowrap px-6 py-4 font-medium">{data.Mydata.from + index}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{dt.quotation.klien.namaKlien}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{dt.quotation.namaProject}</td>
                                 <td className="whitespace-nowrap px-6 py-4">Rp. {number(dt.q_transaksi.totalPrice)},-</td>
@@ -51,6 +56,7 @@ const TReport = ({data}) => {
                                 </td>
                                 <td className="whitespace-nowrap px-6 py-4">{dt.q_transaksi.statusBerjalan}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{moment(dt.created_at).format('YYYY-MM-DD')}</td>
+                                { roles === 4 || roles === 1 ? (
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                                     <button 
                                         onClick={() => {
@@ -69,6 +75,9 @@ const TReport = ({data}) => {
                                      <BsTrash3/>   
                                     </button>
                                 </td>
+                                ) : roles === 2 || roles === 3 ? (
+                                    <td></td>
+                                ) : null}
                                 </tr>
                             </tbody>
                         )

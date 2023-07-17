@@ -34,6 +34,7 @@ class quotationTour extends Model
         'persentaseKeuntungan',
         'feeMarketing',
         'tglBerlakuQuotation',
+        'masaBerlakuQuotation',
     ];
 
      // nggak punya id

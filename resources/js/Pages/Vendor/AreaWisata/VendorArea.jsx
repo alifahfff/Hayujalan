@@ -55,7 +55,7 @@ export default function VendorArea (props) {
                 <div className='p-4 bg-kuning border-b border-gray-200'></div>
                 <div className='bg-white border-b border-gray-200'>
                     <div className=''>
-                        <AreaWisata area={props.area}/>
+                        <AreaWisata area={props}/>
                         <div className='m-2 flex justify-between items-center'>
                         <a className='text-[10px] text-black'>Showing 1 - 4 of 10</a>
                         {/* <Pagination/> */}
