@@ -82,7 +82,7 @@ export default function JenisKlien(props) {
                     
                     {/* Data */}
                     <div className=''>
-                        <TJklien data={props.Mydata}/>
+                        <TJklien data={props}/>
                         <div className='m-2 flex justify-between items-center'>
                         {props.Mydata.data.length > 0 && (
                             <a className='text-[10px] text-black'>Showing {props.Mydata.from} - {props.Mydata.from + props.Mydata.data.length -1} of {props.Mydata.total}</a>

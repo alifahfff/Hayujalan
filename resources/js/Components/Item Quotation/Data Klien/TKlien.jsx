@@ -7,6 +7,7 @@ import ModalKlien from "./ModalKlien";
 import ModalsKlien from "./ModalsKlien";
 
 const TKlien = ({data}) => {
+    const roles = data.auth.user.idRoles
     const [showModal, setShowModal] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
     const [dataL, setDataL] = useState([])
@@ -31,7 +32,11 @@ const TKlien = ({data}) => {
                         <th scope="col" className="px-6 py-4">Nama PIC</th>
                         <th scope="col" className="px-6 py-4">Telephone PIC</th>
                         <th scope="col" className="px-6 py-4">Last Update</th>
+                        { roles === 3 || roles === 1 ? (
                         <th scope="col" className="px-6 py-4">Aksi</th>
+                        ) : roles === 2 || roles === 4 ? (
+                            <td></td>
+                        ) : null}
                         </tr>
                     </thead>
                     {data.Mydata.data && data.Mydata.data.length > 0 ? data.Mydata.data.map((dt, index) => {
@@ -49,6 +54,7 @@ const TKlien = ({data}) => {
                                 <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">
                                 {dt.tglUpdateKlien && dt.tglUpdateKlien.substring(0, 10)}
                                 </td>
+                                { roles === 3 || roles === 1 ? (
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                                     <button 
                                         onClick={() => {
@@ -67,6 +73,9 @@ const TKlien = ({data}) => {
                                      <BsTrash3/>   
                                     </button>
                                 </td>
+                                ) : roles === 2 || roles === 4 ? (
+                                    <td></td>
+                                ) : null}
                                 </tr>
                             </tbody>
                         )
