@@ -57,7 +57,6 @@ export default function VendorRM (props) {
                     <div className=''>
                         <RM rm={props}/>
                         <div className='m-2 flex justify-between items-center'>
-                        
                         {props.rm.data.length > 0 && (
                             <a className='text-[10px] text-black'>Showing {props.rm.from} - {props.rm.from + props.rm.data.length -1} of {props.rm.total}</a>
                          )}

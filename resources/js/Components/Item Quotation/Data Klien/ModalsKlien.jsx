@@ -41,7 +41,6 @@ const ModalsKlien = ({ visible, onClose, data, dataJK }) => {
     // }
 
     if (datas.idDataKlien) {
-      alert(1);
       // update data
       const dataE = {
         id: datas.idDataKlien,
@@ -58,7 +57,6 @@ const ModalsKlien = ({ visible, onClose, data, dataJK }) => {
       Inertia.post("/klien/update", dataE);
       // route();
     } else {
-      alert(2);
       // tambah data
       const dataT = {
         namaKlien: datas.namaKlien,

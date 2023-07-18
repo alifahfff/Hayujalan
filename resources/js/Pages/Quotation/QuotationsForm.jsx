@@ -119,6 +119,7 @@ const Quotations = (props, crewL) => {
     bref_areaWisata: '',
     bref_jumlahOrang: '',
     bref_durasi: '',
+    bref_budget: '',
     statusTransaksi : "menunggu",
   })
 
@@ -142,10 +143,26 @@ const Quotations = (props, crewL) => {
     list: [],
   });
   
-  const rekomendasi = () => {
+  const rekomendasi = (e) => {
+    const JumlahDestinasi = formDestinasi.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const JumlahTransportasi = formTransport.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const JumlahPenginapan = formPenginapan.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const JumlahRM = formRM.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const JumlahEvent = formEvent.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const JumlahBonus = formBonus.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const JumlahCrew = formCrew.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const JumlahFasilitas = formFasilitas.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const productionPrice = JumlahDestinasi + JumlahTransportasi + JumlahPenginapan + JumlahRM + JumlahEvent + JumlahBonus + JumlahCrew + JumlahFasilitas;
+    const paxPay = datas.jumlahOrang;
+    const netPrice = parseInt(productionPrice / paxPay);
+    const surcharge = parseInt(((netPrice / (100/100 - parseInt(datas.presentaseKeuntungan)/100))* 100/100) - netPrice);
+    const sellingPrice = parseInt(netPrice + surcharge);
+    const totalPrice = parseInt(sellingPrice * paxPay);
+    const profit = parseInt(sellingPrice + parseInt(datas.feemarketing));
+
+    const bref_budget2 = [];
     const bref_durasi = [];
     const bref_jumlahOrang = [];
-
     if(datas.durasiproject){
       if(datas.durasiproject == 1){
         bref_durasi.push(1)
@@ -169,7 +186,10 @@ const Quotations = (props, crewL) => {
         bref_durasi.push(7)
       }
     }
+
+
     if(datas.jumlahOrang){
+
       if(datas.jumlahOrang >= 1 && datas.jumlahOrang <= 5){
         bref_jumlahOrang.push(1)
       }
@@ -177,6 +197,7 @@ const Quotations = (props, crewL) => {
         bref_jumlahOrang.push(2)
       }
       if(datas.jumlahOrang >= 13 && datas.jumlahOrang <= 18){
+
         bref_jumlahOrang.push(3)
       }
       if(datas.jumlahOrang >= 19 && datas.jumlahOrang <= 31){
@@ -199,15 +220,34 @@ const Quotations = (props, crewL) => {
       }
     }
 
-    console.log('durasi', bref_durasi)
-    console.log('orang', bref_jumlahOrang)
+
+    if (sellingPrice >= 0 && sellingPrice <= 50000) {
+
+      bref_budget2.push(1);
+    } else if (sellingPrice > 50000 && sellingPrice <= 1000000) {
+
+      bref_budget2.push(2);
+    } else if (sellingPrice > 1000000 && sellingPrice <= 1500000) {
+      bref_budget2.push(3);
+    } else if (sellingPrice > 1500000 && sellingPrice <= 2000000) {
+      bref_budget2.push(4);
+    } else if (sellingPrice > 2000000 && sellingPrice <= 2500000) {
+      bref_budget2.push(5);
+    } else if (sellingPrice > 2500000) {
+      bref_budget2.push(6);
+    }
 
     setDatas({
       ...datas,
+      bref_budget: bref_budget2[0],
       bref_durasi: bref_durasi[0],
       bref_jumlahOrang: bref_jumlahOrang[0],
+      masaBerlakuQuotation: e,
     })
 
+    console.log('budget', bref_budget2)
+    console.log('durasi', bref_durasi)
+    console.log('orang', bref_jumlahOrang)
   }
 
   const handleDateChange = (e, nama) => {
@@ -252,7 +292,7 @@ const Quotations = (props, crewL) => {
           tglBerlakuQuotation: e.target.value,
         })
       }
-      // rekomendasi()
+      // rekomendasi(e.target.value)
     }
 
     if (nama == 'masa') {
@@ -270,7 +310,7 @@ const Quotations = (props, crewL) => {
           masaBerlakuQuotation: e.target.value,
         })
       }
-      // rekomendasi()
+      rekomendasi(e.target.value)
     }
   };
 
@@ -589,7 +629,7 @@ const Quotations = (props, crewL) => {
         values[index]['idDestinasiWisata'] = find2.idDestinasiWisata,
         values[index]['biaya'] = parseInt(list[0]),
         values[index]['harga'] = parseInt(list[0]),
-        values[index]['qty'] = datas.jumlahOrang,
+        values[index]['qty'] = datas.totalOrang,
         values[index]['hari'] = datas.durasiproject,
         setFormDestinasi(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
@@ -654,7 +694,6 @@ const Quotations = (props, crewL) => {
         values[index]['idTransportasi'] = find2.idTransportasi,
         values[index]['biaya'] = parseInt(list[0]),
         values[index]['harga'] = parseInt(list[0]),
-        values[index]['qty'] = datas.jumlahOrang,
         values[index]['hari'] = datas.durasiproject,
         setFormTransport(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
@@ -708,7 +747,7 @@ const Quotations = (props, crewL) => {
         values[index]['idPenginapan'] = find2.idPenginapan,
         values[index]['biaya'] = parseInt(list[0]),
         values[index]['harga'] = parseInt(list[0]),
-        values[index]['qty'] = datas.jumlahOrang,
+        values[index]['qty'] = datas.totalOrang,
         values[index]['hari'] = datas.durasiproject,
         values[index]['qtyKetersediaanKamar'] = find2.qtyKetersediaanKamar,
         setFormPenginapan(values) 
@@ -758,7 +797,7 @@ const Quotations = (props, crewL) => {
         values[index]['namaRM'] = find2.namaMenu,
         values[index]['biaya'] = parseInt(list[0]),
         values[index]['harga'] = parseInt(list[0]),
-        values[index]['qty'] = datas.jumlahOrang,
+        values[index]['qty'] = datas.totalOrang,
         values[index]['hari'] = datas.durasiproject,
         setFormRM(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
@@ -792,7 +831,6 @@ const Quotations = (props, crewL) => {
         values[index]['idFasilitasTour'] = find2.idFasilitasTour,
         values[index]['biayaFasilitas'] = find2.biayaFasilitas,
         values[index]['harga'] = find2.biayaFasilitas,
-        values[index]['qty'] = datas.jumlahOrang,
         values[index]['hari'] = datas.durasiproject,
         setFormFasilitas(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
@@ -826,7 +864,6 @@ const Quotations = (props, crewL) => {
         values[index]['idCrewOperasional'] = find2.idCrewOperasional,
         values[index]['biayaCrewOperasional'] = find2.biayaCrewOperasional,
         values[index]['harga'] = find2.biayaCrewOperasional,
-        values[index]['qty'] = datas.jumlahOrang,
         values[index]['hari'] = datas.durasiproject,
         setFormCrew(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
@@ -860,7 +897,6 @@ const Quotations = (props, crewL) => {
         values[index]['idDataEvent'] = find2.idDataEvent,
         values[index]['biayaDataEvent'] = find2.biayaDataEvent,
         values[index]['harga'] = find2.biayaDataEvent,
-        values[index]['qty'] = datas.jumlahOrang,
         values[index]['hari'] = datas.durasiproject,
         setFormEvent(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
@@ -894,7 +930,6 @@ const Quotations = (props, crewL) => {
         values[index]['idDataBonus'] = find2.idDataBonus,
         values[index]['biayaDataBonus'] = find2.biayaDataBonus,
         values[index]['harga'] = find2.biayaDataBonus,
-        values[index]['qty'] = datas.jumlahOrang,
         values[index]['hari'] = datas.durasiproject,
         setFormBonus(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
@@ -1019,86 +1054,7 @@ const Quotations = (props, crewL) => {
     const sellingPrice = parseInt(netPrice + surcharge);
     const totalPrice = parseInt(sellingPrice * paxPay);
     const profit = parseInt(sellingPrice + parseInt(datas.feemarketing));
-    const bref_budget2 = [];
-    const bref_durasi = [];
-    const bref_jumlahOrang = [];
-    if(datas.durasiproject){
-      if(datas.durasiproject == 1){
-        bref_durasi.push(1)
-      }
-      if(datas.durasiproject == 2){
-        bref_durasi.push(2)
-      }
-      if(datas.durasiproject == 3){
-        bref_durasi.push(3)
-      }
-      if(datas.durasiproject == 4){
-        bref_durasi.push(4)
-      }
-      if(datas.durasiproject == 5){
-        bref_durasi.push(5)
-      }
-      if(datas.durasiproject == 6){
-        bref_durasi.push(6)
-      }
-      if(datas.durasiproject >= 7){
-        bref_durasi.push(7)
-      }
-    }
-    if(datas.jumlahOrang){
-      if(datas.jumlahOrang >= 1 && datas.jumlahOrang <= 5){
-        bref_jumlahOrang.push(1)
-      }
-      if(datas.jumlahOrang >= 6 && datas.jumlahOrang <= 12){
-        bref_jumlahOrang.push(2)
-      }
-      if(datas.jumlahOrang >= 13 && datas.jumlahOrang <= 18){
-        bref_jumlahOrang.push(3)
-      }
-      if(datas.jumlahOrang >= 19 && datas.jumlahOrang <= 31){
-        bref_jumlahOrang.push(4)
-      }
-      if(datas.jumlahOrang >= 32 && datas.jumlahOrang <= 35){
-        bref_jumlahOrang.push(5)
-      }
-      if(datas.jumlahOrang >= 36 && datas.jumlahOrang <= 39){
-        bref_jumlahOrang.push(6)
-      }
-      if(datas.jumlahOrang >= 40 && datas.jumlahOrang <= 59){
-        bref_jumlahOrang.push(7)
-      }
-      if(datas.jumlahOrang >= 100 && datas.jumlahOrang <= 150){
-        bref_jumlahOrang.push(8)
-      }
-      if(datas.jumlahOrang > 150){
-        bref_jumlahOrang.push(9)
-      }
-    }
-    if (sellingPrice >= 0 && sellingPrice <= 50000) {
-      bref_budget2.push(1);
-    } else if (sellingPrice > 50000 && sellingPrice <= 1000000) {
-      bref_budget2.push(2);
-    } else if (sellingPrice > 1000000 && sellingPrice <= 1500000) {
-      bref_budget2.push(3);
-    } else if (sellingPrice > 1500000 && sellingPrice <= 2000000) {
-      bref_budget2.push(4);
-    } else if (sellingPrice > 2000000 && sellingPrice <= 2500000) {
-      bref_budget2.push(5);
-    } else if (sellingPrice > 2500000) {
-      bref_budget2.push(6);
-    }
-
-    setDatas({
-      ...datas,
-      bref_budget: bref_budget2[0],
-      bref_durasi: bref_durasi[0],
-      bref_jumlahOrang: bref_jumlahOrang[0],
-    })
-
-    console.log('budget', bref_budget2)
-    console.log('durasi', bref_durasi)
-    console.log('orang', bref_jumlahOrang)
-
+    
     const data = {
       quotationTour : datas,
       destinasi : formDestinasi,
@@ -1623,11 +1579,11 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="text" 
+                          type="number" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={number(ds.harga)}
+                          value={ds.harga}
                           onChange={(e) => {
                             find(e, index, 'destinasi')
                           }}
@@ -1792,11 +1748,11 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="text" 
+                          type="number" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={number(ds.harga)}
+                          value={ds.harga}
                           onChange={(e) => {
                             find(e, index, 'transportasi')
                           }}
@@ -1965,11 +1921,11 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="text" 
+                          type="number" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={number(ds.harga)}
+                          value={ds.harga}
                           onChange={(e) => {
                             find(e, index, 'penginapan')
                           }}
@@ -2143,11 +2099,11 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="text" 
+                          type="number" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={number(ds.harga)}
+                          value={ds.harga}
                           onChange={(e) => {
                             find(e, index, 'rm')
                           }}
@@ -2273,11 +2229,11 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="text" 
+                          type="number" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={number(fs.harga)}
+                          value={fs.harga}
                           onChange={(e) => {
                             find(e, index, 'fasilitas')
                           }}
@@ -2403,11 +2359,11 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="text" 
+                          type="number" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={number(crew.harga)}
+                          value={crew.harga}
                           onChange={(e) => {
                             find(e, index, 'crew')
                           }}
@@ -2546,11 +2502,11 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="text" 
+                          type="number" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={number(event.harga)}
+                          value={event.harga}
                           onChange={(e) => {
                             find(e, index, 'event')
                           }}
@@ -2676,11 +2632,11 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="text" 
+                          type="number" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={number(bonus.harga)}
+                          value={bonus.harga}
                           onChange={(e) => {
                             find(e, index, 'bonus')
                           }}
