@@ -1085,7 +1085,7 @@ const QuotationsClone = (props, crewL) => {
                            onChange={(value) => 
                              setDatas({
                              ...datas,
-                             namaproject: value.target.value,
+                             namaProject: value.target.value,
                            })}
                          />
                          ) : roles === 4 ? (
@@ -1099,7 +1099,7 @@ const QuotationsClone = (props, crewL) => {
                              onChange={(value) => 
                                setDatas({
                                ...datas,
-                               namaproject: value.target.value,
+                               namaProject: value.target.value,
                              })}
                            />
                          ) : <div></div>
