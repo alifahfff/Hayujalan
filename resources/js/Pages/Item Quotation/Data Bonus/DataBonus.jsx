@@ -83,7 +83,7 @@ export default function DataBonus(props) {
                 <div className='bg-white border-b border-gray-200'>
                     {/* Data */}
                     <div className=''>
-                        <TBonus data={props.Mydata}/>
+                        <TBonus data={props}/>
                         <div className='m-2 flex justify-between items-center'>
                         {props.Mydata.data.length > 0 && (
                             <a className='text-[10px] text-black'>Showing {props.Mydata.from} - {props.Mydata.from + props.Mydata.data.length -1} of {props.Mydata.total}</a>

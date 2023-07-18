@@ -6,6 +6,7 @@ import ModalBonus from "./ModalBonus";
 import ModalDeleteBonus from "./ModalDeleteFT";
 
 const TBonus = ({data}) => {
+    const roles = data.auth.user.idRoles
     const [showModal, setShowModal] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
     const [dataL, setDataL] = useState([])
@@ -13,7 +14,7 @@ const TBonus = ({data}) => {
     const handleOnClose = () => setShowModal(false);
     const handleOnCloseD = () => setShowDelete(false);
 
-    console.log('data', data.data.length)
+    console.log('data', data.Mydata.data.length)
 
     return (
         <div className="flex flex-col">
@@ -29,21 +30,26 @@ const TBonus = ({data}) => {
                         <th scope="col" className="px-6 py-4">Satuan</th>
                         {/* <th scope="col" className="px-6 py-4">Tanggal Berlaku</th> */}
                         <th scope="col" className="px-6 py-4">Last Update</th>
+                        { roles === 3 || roles === 1 ? (
                         <th scope="col" className="px-6 py-4">Aksi</th>
+                        ) : roles === 2 || roles === 4 ? (
+                            <td></td>
+                        ) : null}
                         </tr>
                     </thead>
-                    {data.data && data.data.length > 0 ? data.data.map((dt, index) => {
+                    {data.Mydata.data && data.Mydata.data.length > 0 ? data.Mydata.data.map((dt, index) => {
                         // console.log('cr', cr)
                         return (
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
-                                <td className="whitespace-nowrap px-6 py-4 font-medium">{data.from + index}</td>
+                                <td className="whitespace-nowrap px-6 py-4 font-medium">{data.Mydata.from + index}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{dt.ketDataBonus}</td>
                                 <td className="whitespace-nowrap px-6 py-4">Rp. {number(dt.biayaDataBonus)},-</td>
                                 <td className="whitespace-nowrap px-6 py-4">{dt.satuanBonus}</td>
                                 <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">
                                 {dt.tglUpdateBonus && dt.tglUpdateBonus.substring(0, 10)}
                                 </td>
+                                { roles === 3 || roles === 1 ? (
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                                     <button 
                                         onClick={() => {
@@ -62,6 +68,9 @@ const TBonus = ({data}) => {
                                      <BsTrash3/> 
                                      </button>
                                 </td>
+                                ) : roles === 2 || roles === 4 ? (
+                                    <td></td>
+                                ) : null}
                                 </tr>
                             </tbody>
                         )

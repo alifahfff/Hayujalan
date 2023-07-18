@@ -79,7 +79,7 @@ export default function DataEvent(props) {
                 <div className='p-4 bg-kuning border-b border-gray-200'></div>
                 <div className='bg-white border-b border-gray-200'>
                     <div className=''>
-                        <TEvent data={props.Mydata}/>
+                        <TEvent data={props}/>
                         <div className='m-2 flex justify-between items-center'>
                         {props.Mydata.data.length > 0 && (
                             <a className='text-[10px] text-black'>Showing {props.Mydata.from} - {props.Mydata.from + props.Mydata.data.length -1} of {props.Mydata.total}</a>
