@@ -14,13 +14,13 @@ const ModalReport = ({ visible, onClose, data }) => {
   const handleSubmit = () => {
     console.log("id", data.idQuotationTransaksi);
     const newInputErrors = {};
-    if (!datas.nilaiKlien) {
+    if (!datas.q_transaksi.nilaiKlien) {
       newInputErrors.nilaiKlien = "Nilai Klien harus diisi";
     }
-    if (!datas.statusBerjalan) {
+    if (!datas.q_transaksi.statusBerjalan) {
       newInputErrors.statusBerjalan = "Status Berjalan harus diisi";
     }
-    if (!datas.feedback) {
+    if (!datas.q_transaksi.feedback) {
         newInputErrors.feedback = "Feedback harus diisi";
       }
     setInputErrors(newInputErrors); // Set pesan error baru
@@ -33,9 +33,9 @@ const ModalReport = ({ visible, onClose, data }) => {
       // update data
       const dataE = {
         id: data.idQuotationTransaksi,
-        nilaiKlien: datas.nilaiKlien,
-        statusBerjalan: datas.statusBerjalan,
-        feedback: datas.feedback,
+        nilaiKlien: datas.q_transaksi.nilaiKlien,
+        statusBerjalan: datas.q_transaksi.statusBerjalan,
+        feedback: datas.q_transaksi.feedback,
         updated_at: new Date(),
       };
       console.log("dataE", dataE);
@@ -176,7 +176,10 @@ const ModalReport = ({ visible, onClose, data }) => {
                   onChange={(e) =>
                     setDatas({
                       ...datas,
-                      statusBerjalan: e.target.value,
+                      q_transaksi: {
+                        ...datas.q_transaksi,
+                        statusBerjalan: e.target.value,
+                      },
                     })
                   }
                 >
@@ -205,7 +208,10 @@ const ModalReport = ({ visible, onClose, data }) => {
                   onChange={(e) =>
                     setDatas({
                       ...datas,
-                      nilaiKlien: e.target.value,
+                      q_transaksi: {
+                        ...datas.q_transaksi,
+                        nilaiKlien: e.target.value,
+                      },
                     })
                   }
                 >
