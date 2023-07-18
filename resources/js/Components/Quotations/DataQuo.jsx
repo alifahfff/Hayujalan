@@ -1,5 +1,7 @@
 import { BsPencilSquare, BsTrash3, BsList, BsThreeDots } from "react-icons/bs";
 import { Link } from "@inertiajs/inertia-react";
+import number from "@/Components/number";
+
 
 const DataQuo = ({ quotation }) => {
   console.log('quotation', quotation)
@@ -57,12 +59,12 @@ const DataQuo = ({ quotation }) => {
                         {cr.quotation.areawisata.namaArea}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
-                        {cr.q_transaksi.sellingPrice}
+                        Rp. {number(cr.q_transaksi.sellingPrice)}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
                         {cr.q_transaksi.statusTransaksi}
                       </td>
-                      {roles === 2 || roles === 1 || roles === 3 ? (
+                      {roles === 2 || roles === 1 || roles === 4 ? (
                         <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                           <button className="btn btn-ghost btn-sm mr-2">
                             <Link
@@ -84,7 +86,7 @@ const DataQuo = ({ quotation }) => {
                             </button>
                           </Link>
                         </td>
-                      ) : roles === 4 ? (
+                      ) : roles === 3 ? (
                         <td></td>
                       ) : null}
                     </tr>

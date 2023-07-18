@@ -85,7 +85,7 @@ export default function ItemCrew(props) {
 
                     {/* Data */}
                     <div className=''>
-                        <Crew crew={props.crew}/>
+                        <Crew crew={props}/>
                         <div className='m-2 flex justify-between items-center'>
                          {props.crew.data.length > 0 && (
                             <a className='text-[10px] text-black'>Showing {props.crew.from} - {props.crew.from + props.crew.data.length -1} of {props.crew.total}</a>

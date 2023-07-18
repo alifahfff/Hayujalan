@@ -5,6 +5,7 @@ import ModalJenisTransport from "./ModalJenisTransport";
 // import DeleteTransport from "./DeleteTransport";
 
 const JenisTransportasi = ({jenis, dataCrew}) => {
+    const roles = dataCrew.auth.user.idRoles
     const [showModal, setShowModal] = useState(false);
     const [dataD, setDataD] = useState([])
     
@@ -29,10 +30,14 @@ const JenisTransportasi = ({jenis, dataCrew}) => {
                         <th scope="col" className="px-6 py-4">Penggunaan Unit</th>
                         <th scope="col" className="px-6 py-4">Kapasitas Maksimal</th>
                         <th scope="col" className="px-6 py-4">Last Update</th>
+                        { roles === 3 || roles === 1 ? (
                         <th scope="col" className="px-6 py-4">Aksi</th>
+                        ) : roles === 2 || roles === 4 ? (
+                            <td></td>
+                        ) : null}
                         </tr>
                     </thead>
-                    {jenis.map((cr, index) => {
+                    {dataCrew.jenis.map((cr, index) => {
                         // console.log('cr', cr)
                         return (
                             <tbody key={index}>
@@ -44,6 +49,7 @@ const JenisTransportasi = ({jenis, dataCrew}) => {
                                 <td className="whitespace-nowrap px-6 py-4">{cr.maxKapasitas}</td>                              
                                 <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">{cr.updated_at.substring(0,10)}</td>                              
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
+                                    { roles === 3 || roles === 1 ? (
                                     <button 
                                         onClick={() => {
                                             setShowModal(true)
@@ -51,6 +57,9 @@ const JenisTransportasi = ({jenis, dataCrew}) => {
                                         }}
                                         className="btn btn-ghost btn-sm mr-2"
                                     ><BsPencilSquare/></button>
+                                    ) : roles === 2 || roles === 4 ? (
+                                        <td></td>
+                                    ) : null}
                                     {/* <button 
                                         className="btn btn-ghost btn-sm"
                                         onClick={() => {

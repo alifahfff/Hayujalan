@@ -7,7 +7,7 @@ import number from "@/Components/number";
 
 
 const Crew = ({crew}) => {
-
+    const roles = crew.auth.user.idRoles
     const [showModal, setShowModal] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
     const [crewL, setCrewL] = useState([])
@@ -15,7 +15,7 @@ const Crew = ({crew}) => {
     const handleOnClose = () => setShowModal(false);
     const handleOnCloseD = () => setShowDelete(false);
 
-    console.log('crew Length', crew.data.length)
+    console.log('crew Length', crew.crew.data.length)
 
     return (
         <div className="flex flex-col">
@@ -31,21 +31,26 @@ const Crew = ({crew}) => {
                         <th scope="col" className="px-6 py-4">Satuan</th>
                         {/* <th scope="col" className="px-6 py-4">Tanggal Berlaku</th> */}
                         <th scope="col" className="px-6 py-4">Last Update</th>
+                        { roles === 3 || roles === 1 ? (
                         <th scope="col" className="px-6 py-4">Aksi</th>
+                        ) : roles === 2 || roles === 4 ? (
+                            <td></td>
+                        ) : null}
                         </tr>
                     </thead>
-                    {crew.data && crew.data.length > 0 ? crew.data.map((cr, index) => {
+                    {crew.crew.data && crew.crew.data.length > 0 ? crew.crew.data.map((cr, index) => {
                         // console.log('cr', cr)
                         return (
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
-                                <td className="whitespace-nowrap px-6 py-4 font-medium">{crew.from + index}</td>
+                                <td className="whitespace-nowrap px-6 py-4 font-medium">{crew.crew.from + index}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.ketCrewOperasional}</td>
                                 <td className="whitespace-nowrap px-6 py-4">Rp. {number(cr.biayaCrewOperasional)},-</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.satuanCrew}</td>
                                 <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">
                                 {cr.tglUpdateCrew && cr.tglUpdateCrew.substring(0, 10)}
                                 </td>
+                                { roles === 3 || roles === 1 ? (
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
                                     <button 
                                         onClick={() => {
@@ -64,6 +69,9 @@ const Crew = ({crew}) => {
                                      <BsTrash3/>   
                                     </button>
                                 </td>
+                                ) : roles === 2 || roles === 4 ? (
+                                        <td></td>
+                                    ) : null}
                                 </tr>
                             </tbody>
                         )

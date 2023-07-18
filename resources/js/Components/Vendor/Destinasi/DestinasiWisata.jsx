@@ -31,13 +31,16 @@ const DestinasiWisata = ({destinasi}) => {
                         <th scope="col" className="px-6 py-4">Nama Destinasi</th>
                         <th scope="col" className="px-6 py-4">Tanggal Berlaku</th>
                         <th scope="col" className="px-6 py-4">Last Update</th>
-                        { roles === 3 || roles === 1 ? (
                         <th scope="col" className="px-6 py-4">
                             Aksi
                         </th>
-                        ) : roles === 2 || roles === 4 ? (
+                        {/* { roles === 3 || roles === 1 ? (
+                        
+                        ) 
+                        : roles === 2 || roles === 4 ? (
                             null
-                        ) : null}
+                        ) : null
+                        } */}
                         </tr>
                     </thead>
                     {destinasi.destinasi.map((cr, index) => {
@@ -50,13 +53,13 @@ const DestinasiWisata = ({destinasi}) => {
                                 <td className="whitespace-nowrap px-6 py-4">{cr.namaDestinasiWisata}</td>
                                 <td className="whitespace-nowrap px-6 py-4 text-merah font-bold">{cr.tglBerlakuDestinasi}</td>
                                 <td className="whitespace-nowrap px-6 py-4 text-hijau font-bold">{cr.updated_at.substring(0,10)}</td>
-                                { roles === 3 || roles === 1 ? (
                                 <td className="whitespace-nowrap px-6 py-4 justify-item-center">
-                                    <button className="btn btn-ghost btn-sm mr-2">
+                                   <button className="btn btn-ghost btn-sm mr-2">
                                         <Link href={route('destinasiwisata.detail')} method="get" data={{id: cr.idDestinasiWisata}}>
                                             <BsThreeDots/>
                                         </Link>
                                     </button>
+                                    { roles === 3 || roles === 1 ? (
                                     <button 
                                         className="btn btn-ghost btn-sm"
                                         onClick={() => {
@@ -66,6 +69,9 @@ const DestinasiWisata = ({destinasi}) => {
                                     >
                                      <BsTrash3/>   
                                     </button>
+                                    ) : roles === 2 || roles === 4 ? (
+                                        <td></td>
+                                    ) : null}
                                     {/* <button 
                                         onClick={() => {
                                             setShowModal(true)
@@ -74,9 +80,6 @@ const DestinasiWisata = ({destinasi}) => {
                                         className="btn btn-ghost btn-sm mr-2"
                                     ><BsThreeDots/></button> */}
                                 </td>
-                                ) : roles === 2 || roles === 4 ? (
-                                    <td></td>
-                                ) : null}
                                 </tr>
                             </tbody>
                         )

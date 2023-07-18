@@ -4,6 +4,7 @@ import { useState } from "react";
 import DeleteTransport from "./DeleteTransport";
 
 const Transportasi = ({transportasi}) => {
+    const roles = transportasi.auth.user.idRoles
     const [showModal, setShowModal] = useState(false);
     const [dataD, setDataD] = useState([])
     
@@ -29,7 +30,7 @@ const Transportasi = ({transportasi}) => {
                         <th scope="col" className="px-6 py-4">Aksi</th>
                         </tr>
                     </thead>
-                    {transportasi.map((cr, index) => {
+                    {transportasi.transportasi.map((cr, index) => {
                         // console.log('cr', cr)
                         return (
                             <tbody key={index}>
@@ -45,6 +46,7 @@ const Transportasi = ({transportasi}) => {
                                             <BsThreeDots/>
                                         </Link>
                                     </button>
+                                    { roles === 3 || roles === 1 ? (
                                     <button 
                                         className="btn btn-ghost btn-sm"
                                         onClick={() => {
@@ -54,6 +56,9 @@ const Transportasi = ({transportasi}) => {
                                     >
                                      <BsTrash3/>   
                                     </button>
+                                    ) : roles === 2 || roles === 4 ? (
+                                        <td></td>
+                                    ) : null}
                                     {/* <button className="btn btn-ghost btn-sm mr-2"><Link href={route('transportasi.detail')} data={{id: cr.id}}><BsThreeDots/></Link></button> */}
                                 </td>
                                 </tr>

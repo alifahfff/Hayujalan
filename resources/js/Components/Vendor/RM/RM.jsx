@@ -5,6 +5,7 @@ import DeleteRM from "./DeleteRM";
 
 
 const RM = ({rm}) => {
+    const roles = rm.auth.user.idRoles
     const [showModal, setShowModal] = useState(false);
     const [dataD, setDataD] = useState([])
     
@@ -31,7 +32,7 @@ const RM = ({rm}) => {
                         <th scope="col" className="px-6 py-4">Aksi</th>
                         </tr>
                     </thead>
-                    {rm.map((cr, index) => {
+                    {rm.rm.map((cr, index) => {
                         // console.log('cr', cr)
                         return (
                             <tbody key={index}>
@@ -47,6 +48,7 @@ const RM = ({rm}) => {
                                             <BsThreeDots/>
                                         </Link>
                                     </button>
+                                    { roles === 3 || roles === 1 ? (
                                     <button 
                                         className="btn btn-ghost btn-sm"
                                         onClick={() => {
@@ -56,6 +58,9 @@ const RM = ({rm}) => {
                                     >
                                      <BsTrash3/>   
                                     </button>
+                                    ) : roles === 2 || roles === 4 ? (
+                                        <td></td>
+                                    ) : null}
                                     {/* <button className="btn btn-ghost btn-sm mr-2"><Link href={route('transportasi.detail')} data={{id: cr.id}}><BsThreeDots/></Link></button> */}
                                 </td>
                                 </tr>

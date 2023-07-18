@@ -4,6 +4,7 @@ import { useState } from "react";
 import DeleteHotel from "./DeleteHotel";
 
 const Hotel = ({hotel}) => {
+    const roles = hotel.auth.user.idRoles
     const [showModal, setShowModal] = useState(false);
     const [dataD, setDataD] = useState([])
     
@@ -30,7 +31,7 @@ const Hotel = ({hotel}) => {
                         <th scope="col" className="px-6 py-4">Aksi</th>
                         </tr>
                     </thead>
-                    {hotel.map((cr, index) => {
+                    {hotel.hotel.map((cr, index) => {
                         // console.log('cr', cr)
                         return (
                             <tbody key={index}>
@@ -47,6 +48,7 @@ const Hotel = ({hotel}) => {
                                             <BsThreeDots/>
                                         </Link>
                                     </button>
+                                    { roles === 3 || roles === 1 ? (
                                     <button 
                                         className="btn btn-ghost btn-sm"
                                         onClick={() => {
@@ -56,6 +58,9 @@ const Hotel = ({hotel}) => {
                                     >
                                      <BsTrash3/>   
                                     </button>
+                                    ) : roles === 2 || roles === 4 ? (
+                                        <td></td>
+                                    ) : null}
                                     {/* <button className="btn btn-ghost btn-sm mr-2"><Link href={route('transportasi.detail')} data={{id: cr.id}}><BsThreeDots/></Link></button> */}
                                 </td>
                                 </tr>
