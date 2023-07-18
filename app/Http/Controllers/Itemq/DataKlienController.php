@@ -49,7 +49,7 @@ class DataKlienController extends Controller
             'tlpKlien' => $request->tlpKlien,
             'namaPicKlien' => $request->namaPicKlien,
             'tlpPicKlien' => $request->tlpPicKlien,
-            'tglUpdateKlien' => $request->tglUpdateKlien,
+            'tglUpdateKlien' => Carbon::now(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
