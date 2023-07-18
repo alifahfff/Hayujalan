@@ -629,7 +629,7 @@ const Quotations = (props, crewL) => {
         values[index]['idDestinasiWisata'] = find2.idDestinasiWisata,
         values[index]['biaya'] = parseInt(list[0]),
         values[index]['harga'] = parseInt(list[0]),
-        values[index]['qty'] = datas.jumlahOrang,
+        values[index]['qty'] = datas.totalOrang,
         values[index]['hari'] = datas.durasiproject,
         setFormDestinasi(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
@@ -694,7 +694,6 @@ const Quotations = (props, crewL) => {
         values[index]['idTransportasi'] = find2.idTransportasi,
         values[index]['biaya'] = parseInt(list[0]),
         values[index]['harga'] = parseInt(list[0]),
-        values[index]['qty'] = datas.jumlahOrang,
         values[index]['hari'] = datas.durasiproject,
         setFormTransport(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
@@ -748,7 +747,7 @@ const Quotations = (props, crewL) => {
         values[index]['idPenginapan'] = find2.idPenginapan,
         values[index]['biaya'] = parseInt(list[0]),
         values[index]['harga'] = parseInt(list[0]),
-        values[index]['qty'] = datas.jumlahOrang,
+        values[index]['qty'] = datas.totalOrang,
         values[index]['hari'] = datas.durasiproject,
         values[index]['qtyKetersediaanKamar'] = find2.qtyKetersediaanKamar,
         setFormPenginapan(values) 
@@ -798,7 +797,7 @@ const Quotations = (props, crewL) => {
         values[index]['namaRM'] = find2.namaMenu,
         values[index]['biaya'] = parseInt(list[0]),
         values[index]['harga'] = parseInt(list[0]),
-        values[index]['qty'] = datas.jumlahOrang,
+        values[index]['qty'] = datas.totalOrang,
         values[index]['hari'] = datas.durasiproject,
         setFormRM(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
@@ -832,7 +831,6 @@ const Quotations = (props, crewL) => {
         values[index]['idFasilitasTour'] = find2.idFasilitasTour,
         values[index]['biayaFasilitas'] = find2.biayaFasilitas,
         values[index]['harga'] = find2.biayaFasilitas,
-        values[index]['qty'] = datas.jumlahOrang,
         values[index]['hari'] = datas.durasiproject,
         setFormFasilitas(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
@@ -866,7 +864,6 @@ const Quotations = (props, crewL) => {
         values[index]['idCrewOperasional'] = find2.idCrewOperasional,
         values[index]['biayaCrewOperasional'] = find2.biayaCrewOperasional,
         values[index]['harga'] = find2.biayaCrewOperasional,
-        values[index]['qty'] = datas.jumlahOrang,
         values[index]['hari'] = datas.durasiproject,
         setFormCrew(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
@@ -900,7 +897,6 @@ const Quotations = (props, crewL) => {
         values[index]['idDataEvent'] = find2.idDataEvent,
         values[index]['biayaDataEvent'] = find2.biayaDataEvent,
         values[index]['harga'] = find2.biayaDataEvent,
-        values[index]['qty'] = datas.jumlahOrang,
         values[index]['hari'] = datas.durasiproject,
         setFormEvent(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
@@ -934,7 +930,6 @@ const Quotations = (props, crewL) => {
         values[index]['idDataBonus'] = find2.idDataBonus,
         values[index]['biayaDataBonus'] = find2.biayaDataBonus,
         values[index]['harga'] = find2.biayaDataBonus,
-        values[index]['qty'] = datas.jumlahOrang,
         values[index]['hari'] = datas.durasiproject,
         setFormBonus(values) 
         values[index]['jumlah'] = parseInt(find3.qty) * parseInt(find3.hari) * parseInt(find3.harga)
@@ -1584,11 +1579,11 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="text" 
+                          type="number" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={number(ds.harga)}
+                          value={ds.harga}
                           onChange={(e) => {
                             find(e, index, 'destinasi')
                           }}
@@ -1753,11 +1748,11 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="text" 
+                          type="number" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={number(ds.harga)}
+                          value={ds.harga}
                           onChange={(e) => {
                             find(e, index, 'transportasi')
                           }}
@@ -1926,11 +1921,11 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="text" 
+                          type="number" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={number(ds.harga)}
+                          value={ds.harga}
                           onChange={(e) => {
                             find(e, index, 'penginapan')
                           }}
@@ -2104,11 +2099,11 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="text" 
+                          type="number" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={number(ds.harga)}
+                          value={ds.harga}
                           onChange={(e) => {
                             find(e, index, 'rm')
                           }}
@@ -2234,11 +2229,11 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="text" 
+                          type="number" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={number(fs.harga)}
+                          value={fs.harga}
                           onChange={(e) => {
                             find(e, index, 'fasilitas')
                           }}
@@ -2364,11 +2359,11 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="text" 
+                          type="number" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={number(crew.harga)}
+                          value={crew.harga}
                           onChange={(e) => {
                             find(e, index, 'crew')
                           }}
@@ -2507,11 +2502,11 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="text" 
+                          type="number" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={number(event.harga)}
+                          value={event.harga}
                           onChange={(e) => {
                             find(e, index, 'event')
                           }}
@@ -2637,11 +2632,11 @@ const Quotations = (props, crewL) => {
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga Satuan</label>
                         <input 
                           key={index}
-                          type="text" 
+                          type="number" 
                           name="harga" 
                           id="brand" 
                           className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          value={number(bonus.harga)}
+                          value={bonus.harga}
                           onChange={(e) => {
                             find(e, index, 'bonus')
                           }}

@@ -7,6 +7,7 @@ use App\Models\Itemq\dataJenisKlien;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class DataKlienController extends Controller
 {
@@ -49,8 +50,8 @@ class DataKlienController extends Controller
             'namaPicKlien' => $request->namaPicKlien,
             'tlpPicKlien' => $request->tlpPicKlien,
             'tglUpdateKlien' => $request->tglUpdateKlien,
-            'created_at' => $request->created_at,
-            'updated_at' => $request->updated_at,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ]);
 
         // dd($klien);
@@ -133,7 +134,7 @@ class DataKlienController extends Controller
             'namaPicKlien' => $request->namaPicKlien,
             'tlpPicKlien' => $request->tlpPicKlien,
             'idJenisKlien' => $request->idJenisKlien,
-            'tglUpdateKlien' => $request->tglUpdateKlien,
+            'tglUpdateKlien' => Carbon::now(),
         ]);
         return redirect()->back()->with('message', 'item berhasil diupdate');
     }
