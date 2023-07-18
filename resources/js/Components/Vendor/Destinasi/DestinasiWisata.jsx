@@ -43,8 +43,8 @@ const DestinasiWisata = ({destinasi}) => {
                         } */}
                         </tr>
                     </thead>
-                    {destinasi.destinasi.map((cr, index) => {
-                        // console.log('cr', cr)
+                    {destinasi.destinasi.data && destinasi.destinasi.data.length > 0 ? destinasi.destinasi.data.map((cr, index) => {
+                        console.log('cr', cr)
                         return (
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
@@ -83,7 +83,7 @@ const DestinasiWisata = ({destinasi}) => {
                                 </tr>
                             </tbody>
                         )
-                    })}
+                    }) : <p className="p-5 pl-2">Tidak ada Data</p>} 
                     </table>
                 </div>
                 </div>

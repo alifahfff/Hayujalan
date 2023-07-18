@@ -58,8 +58,14 @@ export default function VendorDestinasi (props) {
                     <div className=''>
                         <DestinasiWisata destinasi={props}/>
                         <div className='m-2 flex justify-between items-center'>
-                        <a className='text-[10px] text-black'>Showing 1 - 4 of 10</a>
-                        {/* <Pagination/> */}
+                        {props.destinasi.data.length > 0 && (
+                            <a className='text-[10px] text-black'>Showing {props.destinasi.from} - {props.destinasi.from + props.destinasi.data.length -1} of {props.destinasi.total}</a>
+                         )}
+
+                        {props.destinasi.data.length == 0 && (
+                            <a className='text-[10px] text-black'>Showing {props.destinasi.total} data</a>
+                         )}
+                        <Pagination meta={props.destinasi}/>
                         </div>
                     </div>
                 </div>

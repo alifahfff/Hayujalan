@@ -58,8 +58,14 @@ export default function VendorHotel (props) {
                     <div className=''>
                         <Hotel hotel={props}/>
                         <div className='m-2 flex justify-between items-center'>
-                        <a className='text-[10px] text-black'>Showing 1 - 4 of 10</a>
-                        {/* <Pagination/> */}
+                        {props.hotel.data.length > 0 && (
+                            <a className='text-[10px] text-black'>Showing {props.hotel.from} - {props.hotel.from + props.hotel.data.length -1} of {props.hotel.total}</a>
+                         )}
+
+                        {props.hotel.data.length == 0 && (
+                            <a className='text-[10px] text-black'>Showing {props.hotel.total} data</a>
+                         )}
+                        <Pagination meta={props.hotel}/>
                         </div>
                     </div>
                 </div>

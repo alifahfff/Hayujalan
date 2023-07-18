@@ -57,8 +57,15 @@ export default function VendorRM (props) {
                     <div className=''>
                         <RM rm={props}/>
                         <div className='m-2 flex justify-between items-center'>
-                        <a className='text-[10px] text-black'>Showing 1 - 4 of 10</a>
-                        {/* <Pagination/> */}
+                        
+                        {props.rm.data.length > 0 && (
+                            <a className='text-[10px] text-black'>Showing {props.rm.from} - {props.rm.from + props.rm.data.length -1} of {props.rm.total}</a>
+                         )}
+
+                        {props.rm.data.length == 0 && (
+                            <a className='text-[10px] text-black'>Showing {props.rm.total} data</a>
+                         )}
+                        <Pagination meta={props.rm}/>
                         </div>
                     </div>
                 </div>

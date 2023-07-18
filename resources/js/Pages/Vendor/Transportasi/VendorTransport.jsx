@@ -55,7 +55,15 @@ export default function VendorTransport (props) {
                         <Transportasi transportasi={props}/>
                         <div className='m-2 flex justify-between items-center'>
                         <a className='text-[10px] text-black'>Showing 1 - 4 of 10</a>
-                        {/* <Pagination/> */}
+                        {props.transportasi.data.length > 0 && (
+                            <a className='text-[10px] text-black'>Showing {props.transportasi.from} - {props.transportasi.from + props.transportasi.data.length -1} of {props.transportasi.total}</a>
+                         )}
+
+                        {props.transportasi.data.length == 0 && (
+                            <a className='text-[10px] text-black'>Showing {props.transportasi.total} data</a>
+                         )}
+
+                        <Pagination meta={props.transportasi}/>
                         </div>
                     </div>
                 </div>

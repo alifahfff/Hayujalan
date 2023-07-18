@@ -85,7 +85,7 @@ class VendorTransportasiController extends Controller
     public function show(vendorTransportasi $vendorTransportasi)
     {
         $area = areaWisata::all();
-        $transportasi = vendorTransportasi::with('AWtransportasi')->get();
+        $transportasi = vendorTransportasi::with('AWtransportasi')->paginate(4);
         return Inertia::render('Vendor/Transportasi/VendorTransport', [
             'transportasi' => $transportasi,
             'area' => $area,

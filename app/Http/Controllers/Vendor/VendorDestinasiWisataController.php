@@ -80,7 +80,7 @@ class VendorDestinasiWisataController extends Controller
     public function show()
     {
         $area = areaWisata::all();
-        $destinasi = vendorDestinasiWisata::with('AWdestinasi')->get();
+        $destinasi = vendorDestinasiWisata::with('AWdestinasi')->paginate(4);
         return Inertia::render('Vendor/DestinasiWisata/VendorDestinasi', [
             'destinasi' => $destinasi,
             'area' => $area,

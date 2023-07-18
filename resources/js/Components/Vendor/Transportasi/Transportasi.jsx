@@ -30,7 +30,7 @@ const Transportasi = ({transportasi}) => {
                         <th scope="col" className="px-6 py-4">Aksi</th>
                         </tr>
                     </thead>
-                    {transportasi.transportasi.map((cr, index) => {
+                    {transportasi.transportasi.data && transportasi.transportasi.data.length > 0 ? transportasi.transportasi.data.map((cr, index) => {
                         // console.log('cr', cr)
                         return (
                             <tbody key={index}>
@@ -64,7 +64,7 @@ const Transportasi = ({transportasi}) => {
                                 </tr>
                             </tbody>
                         )
-                    })}
+                    }) : <p className="p-5 pl-2">Tidak ada Data</p> }
                     </table>
                 </div>
                 </div>

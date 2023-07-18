@@ -31,7 +31,7 @@ const Hotel = ({hotel}) => {
                         <th scope="col" className="px-6 py-4">Aksi</th>
                         </tr>
                     </thead>
-                    {hotel.hotel.map((cr, index) => {
+                    {hotel.hotel.data && hotel.hotel.data.length > 0 ? hotel.hotel.data.map((cr, index) => {
                         // console.log('cr', cr)
                         return (
                             <tbody key={index}>
@@ -66,7 +66,7 @@ const Hotel = ({hotel}) => {
                                 </tr>
                             </tbody>
                         )
-                    })}
+                    }) : <p className="p-5 pl-2">Tidak ada Data</p>}
                     </table>
                 </div>
                 </div>
