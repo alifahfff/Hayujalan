@@ -119,6 +119,7 @@ const Quotations = (props, crewL) => {
     bref_areaWisata: '',
     bref_jumlahOrang: '',
     bref_durasi: '',
+    bref_budget: '',
     statusTransaksi : "menunggu",
   })
 
@@ -142,10 +143,26 @@ const Quotations = (props, crewL) => {
     list: [],
   });
   
-  const rekomendasi = () => {
+  const rekomendasi = (e) => {
+    const JumlahDestinasi = formDestinasi.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const JumlahTransportasi = formTransport.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const JumlahPenginapan = formPenginapan.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const JumlahRM = formRM.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const JumlahEvent = formEvent.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const JumlahBonus = formBonus.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const JumlahCrew = formCrew.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const JumlahFasilitas = formFasilitas.reduce((sum, item) => sum + parseInt(item.jumlah), 0);
+    const productionPrice = JumlahDestinasi + JumlahTransportasi + JumlahPenginapan + JumlahRM + JumlahEvent + JumlahBonus + JumlahCrew + JumlahFasilitas;
+    const paxPay = datas.jumlahOrang;
+    const netPrice = parseInt(productionPrice / paxPay);
+    const surcharge = parseInt(((netPrice / (100/100 - parseInt(datas.presentaseKeuntungan)/100))* 100/100) - netPrice);
+    const sellingPrice = parseInt(netPrice + surcharge);
+    const totalPrice = parseInt(sellingPrice * paxPay);
+    const profit = parseInt(sellingPrice + parseInt(datas.feemarketing));
+
+    const bref_budget2 = [];
     const bref_durasi = [];
     const bref_jumlahOrang = [];
-
     if(datas.durasiproject){
       if(datas.durasiproject == 1){
         bref_durasi.push(1)
@@ -169,7 +186,10 @@ const Quotations = (props, crewL) => {
         bref_durasi.push(7)
       }
     }
+
+
     if(datas.jumlahOrang){
+
       if(datas.jumlahOrang >= 1 && datas.jumlahOrang <= 5){
         bref_jumlahOrang.push(1)
       }
@@ -177,6 +197,7 @@ const Quotations = (props, crewL) => {
         bref_jumlahOrang.push(2)
       }
       if(datas.jumlahOrang >= 13 && datas.jumlahOrang <= 18){
+
         bref_jumlahOrang.push(3)
       }
       if(datas.jumlahOrang >= 19 && datas.jumlahOrang <= 31){
@@ -199,15 +220,34 @@ const Quotations = (props, crewL) => {
       }
     }
 
-    console.log('durasi', bref_durasi)
-    console.log('orang', bref_jumlahOrang)
+
+    if (sellingPrice >= 0 && sellingPrice <= 50000) {
+
+      bref_budget2.push(1);
+    } else if (sellingPrice > 50000 && sellingPrice <= 1000000) {
+
+      bref_budget2.push(2);
+    } else if (sellingPrice > 1000000 && sellingPrice <= 1500000) {
+      bref_budget2.push(3);
+    } else if (sellingPrice > 1500000 && sellingPrice <= 2000000) {
+      bref_budget2.push(4);
+    } else if (sellingPrice > 2000000 && sellingPrice <= 2500000) {
+      bref_budget2.push(5);
+    } else if (sellingPrice > 2500000) {
+      bref_budget2.push(6);
+    }
 
     setDatas({
       ...datas,
+      bref_budget: bref_budget2[0],
       bref_durasi: bref_durasi[0],
       bref_jumlahOrang: bref_jumlahOrang[0],
+      masaBerlakuQuotation: e,
     })
 
+    console.log('budget', bref_budget2)
+    console.log('durasi', bref_durasi)
+    console.log('orang', bref_jumlahOrang)
   }
 
   const handleDateChange = (e, nama) => {
@@ -252,7 +292,7 @@ const Quotations = (props, crewL) => {
           tglBerlakuQuotation: e.target.value,
         })
       }
-      // rekomendasi()
+      // rekomendasi(e.target.value)
     }
 
     if (nama == 'masa') {
@@ -270,7 +310,7 @@ const Quotations = (props, crewL) => {
           masaBerlakuQuotation: e.target.value,
         })
       }
-      // rekomendasi()
+      rekomendasi(e.target.value)
     }
   };
 
@@ -1019,86 +1059,7 @@ const Quotations = (props, crewL) => {
     const sellingPrice = parseInt(netPrice + surcharge);
     const totalPrice = parseInt(sellingPrice * paxPay);
     const profit = parseInt(sellingPrice + parseInt(datas.feemarketing));
-    const bref_budget2 = [];
-    const bref_durasi = [];
-    const bref_jumlahOrang = [];
-    if(datas.durasiproject){
-      if(datas.durasiproject == 1){
-        bref_durasi.push(1)
-      }
-      if(datas.durasiproject == 2){
-        bref_durasi.push(2)
-      }
-      if(datas.durasiproject == 3){
-        bref_durasi.push(3)
-      }
-      if(datas.durasiproject == 4){
-        bref_durasi.push(4)
-      }
-      if(datas.durasiproject == 5){
-        bref_durasi.push(5)
-      }
-      if(datas.durasiproject == 6){
-        bref_durasi.push(6)
-      }
-      if(datas.durasiproject >= 7){
-        bref_durasi.push(7)
-      }
-    }
-    if(datas.jumlahOrang){
-      if(datas.jumlahOrang >= 1 && datas.jumlahOrang <= 5){
-        bref_jumlahOrang.push(1)
-      }
-      if(datas.jumlahOrang >= 6 && datas.jumlahOrang <= 12){
-        bref_jumlahOrang.push(2)
-      }
-      if(datas.jumlahOrang >= 13 && datas.jumlahOrang <= 18){
-        bref_jumlahOrang.push(3)
-      }
-      if(datas.jumlahOrang >= 19 && datas.jumlahOrang <= 31){
-        bref_jumlahOrang.push(4)
-      }
-      if(datas.jumlahOrang >= 32 && datas.jumlahOrang <= 35){
-        bref_jumlahOrang.push(5)
-      }
-      if(datas.jumlahOrang >= 36 && datas.jumlahOrang <= 39){
-        bref_jumlahOrang.push(6)
-      }
-      if(datas.jumlahOrang >= 40 && datas.jumlahOrang <= 59){
-        bref_jumlahOrang.push(7)
-      }
-      if(datas.jumlahOrang >= 100 && datas.jumlahOrang <= 150){
-        bref_jumlahOrang.push(8)
-      }
-      if(datas.jumlahOrang > 150){
-        bref_jumlahOrang.push(9)
-      }
-    }
-    if (sellingPrice >= 0 && sellingPrice <= 50000) {
-      bref_budget2.push(1);
-    } else if (sellingPrice > 50000 && sellingPrice <= 1000000) {
-      bref_budget2.push(2);
-    } else if (sellingPrice > 1000000 && sellingPrice <= 1500000) {
-      bref_budget2.push(3);
-    } else if (sellingPrice > 1500000 && sellingPrice <= 2000000) {
-      bref_budget2.push(4);
-    } else if (sellingPrice > 2000000 && sellingPrice <= 2500000) {
-      bref_budget2.push(5);
-    } else if (sellingPrice > 2500000) {
-      bref_budget2.push(6);
-    }
-
-    setDatas({
-      ...datas,
-      bref_budget: bref_budget2[0],
-      bref_durasi: bref_durasi[0],
-      bref_jumlahOrang: bref_jumlahOrang[0],
-    })
-
-    console.log('budget', bref_budget2)
-    console.log('durasi', bref_durasi)
-    console.log('orang', bref_jumlahOrang)
-
+    
     const data = {
       quotationTour : datas,
       destinasi : formDestinasi,
