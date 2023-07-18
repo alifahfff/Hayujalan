@@ -1,54 +1,56 @@
 import { Inertia } from "@inertiajs/inertia";
 import { useState } from "react";
+// import tailwindConfig from "tailwind.config";
 
 const ModalTransport = ({ visible, onClose, data, dataArea }) => {
   if (!visible) return null;
   const [datas, setDatas] = useState(data);
-  console.log("modal data", dataArea);
+  console.log("modal data", datas);
   const [error, setError] = useState("");
   const [inputErrors, setInputErrors] = useState({});
 
   const handleSubmit = () => {
-    console.log("id", data.id);
+    //console.log("id", data.id);
+alert(1)
+    // const newInputErrors = {};
 
-    const newInputErrors = {};
+    // if (!datas.idAreaWisata) {
+    //   newInputErrors.idAreaWisata = "Area Wisata harus dipilih";
+    // }
+    // if (!datas.namaTransportasi) {
+    //   newInputErrors.namaTransportasi = "Nama Transportasi harus diisi";
+    // }
+    // if (!datas.alamatTransportasi) {
+    //   newInputErrors.alamatTransportasi = "Alamat Transportasi harus diisi";
+    // }
+    // if (!datas.kapasitasParkirBusWisata) {
+    //   newInputErrors.kapasitasParkirBusWisata =
+    //     "Kapasitas Parkir Bus harus diisi";
+    // }
+    // if (!datas.tlpTransportasi) {
+    //   newInputErrors.tlpTransportasi = "Telepon Transportasi harus diisi";
+    // }
+    // if (!datas.picTransportasi) {
+    //   newInputErrors.picTransportasi = "PIC Transportasi harus diisi";
+    // }
+    // if (!datas.hpPicTransportasi) {
+    //   newInputErrors.hpPicTransportasi = "HP PIC Transportasi harus diisi";
+    // }
+    // if (!datas.tglBerlakuTransportasi) {
+    //   newInputErrors.tglBerlakuTransportasi =
+    //     "Tanggal Berlaku Transportasi harus diisi";
+    // }
 
-    if (!datas.idAreaWisata) {
-      newInputErrors.idAreaWisata = "Area Wisata harus dipilih";
-    }
-    if (!datas.namaTransportasi) {
-      newInputErrors.namaTransportasi = "Nama Transportasi harus diisi";
-    }
-    if (!datas.alamatTransportasi) {
-      newInputErrors.alamatTransportasi = "Alamat Transportasi harus diisi";
-    }
-    if (!datas.kapasitasParkirBusWisata) {
-      newInputErrors.kapasitasParkirBusWisata =
-        "Kapasitas Parkir Bus harus diisi";
-    }
-    if (!datas.tlpTransportasi) {
-      newInputErrors.tlpTransportasi = "Telepon Transportasi harus diisi";
-    }
-    if (!datas.picTransportasi) {
-      newInputErrors.picTransportasi = "PIC Transportasi harus diisi";
-    }
-    if (!datas.hpPicTransportasi) {
-      newInputErrors.hpPicTransportasi = "HP PIC Transportasi harus diisi";
-    }
-    if (!datas.tglBerlakuTransportasi) {
-      newInputErrors.tglBerlakuTransportasi =
-        "Tanggal Berlaku Transportasi harus diisi";
-    }
+    // setInputErrors(newInputErrors); // Set pesan error baru
 
-    setInputErrors(newInputErrors); // Set pesan error baru
+    // if (Object.keys(newInputErrors).length > 0) {
+    //   return; // Hentikan proses submit jika ada pesan error
+    // }
 
-    if (Object.keys(newInputErrors).length > 0) {
-      return; // Hentikan proses submit jika ada pesan error
-    }
-
-    setError(""); // Reset error jika semua validasi berhasil
+    // setError(""); // Reset error jika semua validasi berhasil
 
     if (data.idTransportasi) {
+      alert(2)
       // update data
       const dataUpdate = {
         id: data.idTransportasi,
@@ -63,6 +65,7 @@ const ModalTransport = ({ visible, onClose, data, dataArea }) => {
       };
       Inertia.post("/transportasi/update", dataUpdate);
     } else {
+      alert(3)
       // tambah data
       const TambahData = {
         idAreaWisata: datas.idAreaWisata,
@@ -76,6 +79,7 @@ const ModalTransport = ({ visible, onClose, data, dataArea }) => {
         updated_at: new Date(),
       };
       Inertia.post("/transportasi", TambahData);
+      console.log("tambahData", TambahData);
     }
     onClose();
   };

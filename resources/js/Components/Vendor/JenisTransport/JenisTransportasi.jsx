@@ -25,7 +25,6 @@ const JenisTransportasi = ({jenis, dataCrew}) => {
                     <thead className="border-b bg-abu font-medium dark:border-neutral-500 dark:text-neutral-800">
                         <tr>
                         <th scope="col" className="px-6 py-4">ID</th>
-                        <th scope="col" className="px-6 py-4">Crew Oprasional</th>
                         <th scope="col" className="px-6 py-4">Jenis Transportasi</th>
                         <th scope="col" className="px-6 py-4">Penggunaan Unit</th>
                         <th scope="col" className="px-6 py-4">Kapasitas Maksimal</th>
@@ -43,7 +42,6 @@ const JenisTransportasi = ({jenis, dataCrew}) => {
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
                                 <td className="whitespace-nowrap px-6 py-4">{cr.idJenisTransportasi}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{cr.crew}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.namaJenis}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.penggunaanUnit}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.maxKapasitas}</td>                              

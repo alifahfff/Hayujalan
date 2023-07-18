@@ -7,6 +7,7 @@ use App\Models\Itemq\crewOperasional;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class JenisTransportasiController extends Controller
 {
@@ -42,6 +43,8 @@ class JenisTransportasiController extends Controller
         $jenis->namaJenis = $request->namaJenis;
         $jenis->PenggunaanUnit = $request->PenggunaanUnit;
         $jenis->MaxKapasitas = $request->MaxKapasitas;
+        $jenis->created_at = Carbon::now();
+        $jenis->updated_at = Carbon::now();
         $jenis->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }
@@ -82,8 +85,7 @@ class JenisTransportasiController extends Controller
      */
     public function update(Request $request)
     {
-        jenisTransportasi::where('id', $request->id)->update([
-            'idCrewOperasional' => $request->idCrewOperasional,
+        jenisTransportasi::where('idJenisTransportasi', $request->id)->update([
             'namaJenis' => $request->namaJenis,
             'PenggunaanUnit' => $request->PenggunaanUnit,
             'MaxKapasitas' => $request->MaxKapasitas,

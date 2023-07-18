@@ -6,7 +6,7 @@ const ModalJenisTransport = ({ visible, onClose, data, dataCrew }) => {
   const [datas, setDatas] = useState(data);
   const [error, setError] = useState("");
   const [inputErrors, setInputErrors] = useState({});
-  console.log("modal data", dataCrew);
+  console.log("modal data", datas);
 
   const handleSubmit = () => {
     console.log("id", data.id);
@@ -16,11 +16,11 @@ const ModalJenisTransport = ({ visible, onClose, data, dataCrew }) => {
     if (!datas.namaJenis) {
       newInputErrors.namaJenis = "Transportasi harus dipilih";
     }
-    if (!datas.penggunaanUnit) {
-      newInputErrors.penggunaanUnit = "Jenis Transportasi harus diisi";
+    if (!datas.PenggunaanUnit) {
+      newInputErrors.PenggunaanUnit = "Jenis Transportasi harus diisi";
     }
-    if (!datas.maxKapasitas) {
-      newInputErrors.maxKapasitas = "Nama harus diisi";
+    if (!datas.MaxKapasitas) {
+      newInputErrors.MaxKapasitas = "Nama harus diisi";
     }
     setInputErrors(newInputErrors); // Set pesan error baru
 
@@ -35,8 +35,8 @@ const ModalJenisTransport = ({ visible, onClose, data, dataCrew }) => {
       const dataUpdate = {
         id: data.idJenisTransportasi,
         namaJenis: datas.namaJenis,
-        penggunaanUnit: datas.PenggunaanUnit,
-        maxKapasitas: datas.MaxKapasitas,
+        PenggunaanUnit: datas.PenggunaanUnit,
+        MaxKapasitas: datas.MaxKapasitas,
         updated_at: new Date(),
       };
       Inertia.post("/jenisTransportasi/update", dataUpdate);
@@ -96,17 +96,17 @@ const ModalJenisTransport = ({ visible, onClose, data, dataCrew }) => {
                   <input
                     type="text"
                     className="border border-gray-700 p-2 rounded mb-5"
-                    value={datas.penggunaanUnit || ""}
+                    value={datas.PenggunaanUnit || ""}
                     onChange={(value) =>
                       setDatas({
                         ...datas,
-                        penggunaanUnit: value.target.value,
+                        PenggunaanUnit: value.target.value,
                       })
                     }
                   />
-                  {inputErrors.penggunaanUnit && (
+                  {inputErrors.PenggunaanUnit && (
                     <p className="text-red-500 mt-1">
-                      {inputErrors.penggunaanUnit}
+                      {inputErrors.PenggunaanUnit}
                     </p>
                   )}
                 </div>
@@ -115,17 +115,17 @@ const ModalJenisTransport = ({ visible, onClose, data, dataCrew }) => {
                   <input
                     type="text"
                     className="border border-gray-700 p-2 rounded mb-5"
-                    value={datas.maxKapasitas || ""}
+                    value={datas.MaxKapasitas || ""}
                     onChange={(value) =>
                       setDatas({
                         ...datas,
-                        maxKapasitas: value.target.value,
+                        MaxKapasitas: value.target.value,
                       })
                     }
                   />
-                  {inputErrors.maxKapasitas && (
+                  {inputErrors.MaxKapasitas && (
                     <p className="text-red-500 mt-1">
-                      {inputErrors.maxKapasitas}
+                      {inputErrors.MaxKapasitas}
                     </p>
                   )}
                 </div>
