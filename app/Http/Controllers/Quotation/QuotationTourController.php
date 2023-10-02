@@ -838,7 +838,7 @@ class QuotationTourController extends Controller
                     ->whereHas('quotation', function ($query) use ($keyword) {
                         $query->where('namaProject', 'like', '%' . $keyword . '%');
                     })
-                    ->paginate(4);
+                    ->paginate(10);
         return Inertia::render('Quotation/QuotationsHistory', [
             'quotation' => $quotation,
         ]);

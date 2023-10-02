@@ -65,7 +65,7 @@ class DataKategoriTourController extends Controller
         return Inertia::render('Item Quotation/Kategori Tour/KategoriTour', [
             'Mydata' => dataKategoriTour::when($request->term, function ($query, $term) {
                 $query->where('namaKategoriTour', 'LIKE', "%{$term}%");
-            }) ->paginate(4)
+            }) ->paginate(10)
         ]);
     }
 

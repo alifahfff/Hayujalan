@@ -57,6 +57,20 @@ class VendorTransportasiController extends Controller
 
     public function storeDetail(Request $request)
     {
+        
+        $request->validate([
+            'urlInterior' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'urlEksterior' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // dd($request);
+        $photoInterior = $request->urlInterior->getClientOriginalExtension();
+        $photoEksterior = $request->urlEksterior->getClientOriginalExtension();
+        $urlInterior = 'int'.time().".".$photoInterior;
+        $urlEksterior = 'eks'.time().".".$photoEksterior;
+        $fileInterior = $request->urlInterior->move('photo', $urlInterior);
+        $fileEksterior = $request->urlEksterior->move('photo', $urlEksterior);
+
         $transportasi = new detailVendorTransportasi();
         $transportasi->idTransportasi = $request->idTransportasi;
         $transportasi->idJenisTransportasi = $request->idJenisTransportasi;
@@ -68,10 +82,25 @@ class VendorTransportasiController extends Controller
         $transportasi->hargaSewaWeekdayDalamKota = $request->hargaSewaWeekdayDalamKota;
         $transportasi->hargaSewaWeekendLuarKota = $request->hargaSewaWeekendLuarKota;
         $transportasi->hargaSewaWeekdayLuarKota = $request->hargaSewaWeekdayLuarKota;
-        $transportasi->urlInterior = $request->urlInterior;
-        $transportasi->urlEksterior = $request->urlEksterior;
+        $transportasi->urlInterior = $urlInterior;
+        $transportasi->urlEksterior = $urlEksterior;
+
+        // if ($request->hasFile('urlInterior')) {
+        //     $imageInterior = $request->file('urlInterior');
+        //     $imageInteriorPath = $imageInterior->store('photo', 'public'); // Sesuaikan dengan direktori penyimpanan Anda
+        //     $transportasi->urlInterior = $imageInteriorPath;
+        // }
+    
+        // // Unggah dan simpan gambar eksterior
+        // if ($request->hasFile('urlEksterior')) {
+        //     $imageEksterior = $request->file('urlEksterior');
+        //     $imageEksteriorPath = $imageEksterior->store('photo', 'public'); // Sesuaikan dengan direktori penyimpanan Anda
+        //     $transportasi->urlEksterior = $imageEksteriorPath;
+        // }
+
         $transportasi->expiredDetailTransportasi = $request->expiredDetailTransportasi;
         $transportasi->tglUpdateDetailTransportasi = $request->tglUpdateDetailTransportasi;
+        // dd($transportasi);
         $transportasi->save();
         return redirect()->back()->with('message', 'item berhasil dibuat');
     }
@@ -85,7 +114,7 @@ class VendorTransportasiController extends Controller
     public function show(vendorTransportasi $vendorTransportasi)
     {
         $area = areaWisata::all();
-        $transportasi = vendorTransportasi::with('AWtransportasi')->paginate(4);
+        $transportasi = vendorTransportasi::with('AWtransportasi')->paginate(10);
         return Inertia::render('Vendor/Transportasi/VendorTransport', [
             'transportasi' => $transportasi,
             'area' => $area,
@@ -105,7 +134,7 @@ class VendorTransportasiController extends Controller
         $detail = detailVendorTransportasi::with('jenisTransportasi', 'transportasi') 
         ->where('idTransportasi','=',$request->id)
         ->where('statusDetailTransportasi','berjalan')
-        ->get();
+        ->paginate(10);
         $jenis = jenisTransportasi::all();
         return Inertia::render('Vendor/Transportasi/DetailTransport',[
             'transportasi' => $transportasi,  

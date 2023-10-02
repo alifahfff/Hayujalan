@@ -79,7 +79,7 @@ class VendorPenginapanController extends Controller
     public function show(vendorPenginapan $vendorPenginapan)
     {
         $area = areaWisata::all();
-        $hotel = vendorPenginapan::with('AWpenginapan')->paginate(4);
+        $hotel = vendorPenginapan::with('AWpenginapan')->paginate(10);
         return Inertia::render('Vendor/Hotel/VendorHotel', [
             'hotel' => $hotel,
             'area' => $area,

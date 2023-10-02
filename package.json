@@ -29,6 +29,7 @@
         "moment": "^2.29.4",
         "react-csv": "^2.2.2",
         "react-icons": "^4.8.0",
+        "react-select": "^5.7.5",
         "xlsx": "^0.18.5"
     }
 }

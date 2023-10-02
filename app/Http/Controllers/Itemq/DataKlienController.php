@@ -80,7 +80,7 @@ class DataKlienController extends Controller
         $keyword = $request->input('key');
         $mydata = dataKlien::with('jenisKlien')
             ->where('namaKlien', 'like', '%' . $keyword . '%')
-            ->paginate(4);
+            ->paginate(10);
         return Inertia::render('Item Quotation/Data Klien/Klien', [
             'Mydata' => $mydata,
             'jenisKlien' => $jenisKlien,

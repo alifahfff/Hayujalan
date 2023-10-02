@@ -34,6 +34,7 @@ export default function DetailTransport(props) {
     const handleOnClosed = () => setShowUpdate(false);
 
   console.log('props', props)
+  console.log('dataL', dataL)
   console.log('transportasi', props.transportasi)
   console.log('area', props.area)
   return (
@@ -117,6 +118,7 @@ export default function DetailTransport(props) {
                             <table className="min-w-full text-left text-sm text-black">
                                 <thead className="border-b bg-white font-medium dark:border-neutral-500 dark:text-neutral-800">
                                     <tr>
+                                        <th scope="col" className="px-6 py-4">No</th>
                                         <th scope="col" className="px-6 py-4">Jenis Transportasi</th>
                                         <th scope="col" className="px-6 py-4">Nama</th>
                                         <th scope="col" className="px-6 py-4">Tahun</th>
@@ -132,10 +134,11 @@ export default function DetailTransport(props) {
                                         
                                     </tr>
                                 </thead>
-                                {props.detail.map((cr, index) => {
+                                {props.detail.data.map((cr, index) => {
                                     return (
                                         <tbody key={index}>
                                             <tr className="border-b dark:border-neutral-500">
+                                            <td className="whitespace-nowrap px-6 py-4 font-medium">{index + 1}</td>
                                             <td className="whitespace-nowrap px-6 py-4">{cr.jenis_transportasi.namaJenis}</td>
                                             <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.nama}</td>
                                             <td className="whitespace-nowrap px-6 py-4">{cr.tahun}</td>

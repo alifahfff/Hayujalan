@@ -58,7 +58,7 @@ class JenisTransportasiController extends Controller
     public function show(jenisTransportasi $jenisTransportasi)
     {
         $crew = crewOperasional::all();
-        $jenis = jenisTransportasi::all();
+        $jenis = jenisTransportasi::paginate(10);
         return Inertia::render('Vendor/JenisTransport/VendorJenisTransport', [
             'jenis' => $jenis,
             'crew' => $crew,

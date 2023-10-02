@@ -1,16 +1,17 @@
 import { Inertia } from "@inertiajs/inertia";
-import { useState } from "react";
+import React, { useState } from "react";
 
 const TambahDetailTransport = ({ visible, onClose, data, dataJenis }) => {
   console.log("data", data);
   if (!visible) return null;
   const [datas, setDatas] = useState(data);
   console.log("jenis", dataJenis);
+  const interiorRef = React.useRef();
+  const eksteriorRef = React.useRef();
   const [error, setError] = useState("");
   const [inputErrors, setInputErrors] = useState({});
 
   const handleSubmit = () => {
-    console.log("id", data.id);
 
     const newInputErrors = {};
     
@@ -68,7 +69,7 @@ const TambahDetailTransport = ({ visible, onClose, data, dataJenis }) => {
     }
 
     setError(""); // Reset error jika semua validasi berhasil
-
+    console.log("data id",data.id)
     if (data.id) {
       // update data
       const dataUpdate = {
@@ -93,27 +94,55 @@ const TambahDetailTransport = ({ visible, onClose, data, dataJenis }) => {
       Inertia.post("/transportasi/update/detail", dataUpdate);
     } else {
       // tambah data
-      const TambahData = {
-        idTransportasi: datas.idTransportasi,
-        idJenisTransportasi: datas.idJenisTransportasi,
-        nama: datas.nama,
-        tahun: datas.tahun,
-        kapasitas: datas.kapasitas,
-        qtyKetersediaan: datas.qtyKetersediaan,
-        hargaSewaWeekendDalamKota: datas.hargaSewaWeekendDalamKota,
-        hargaSewaWeekdayDalamKota: datas.hargaSewaWeekdayDalamKota,
-        hargaSewaWeekendLuarKota: datas.hargaSewaWeekendLuarKota,
-        hargaSewaWeekdayLuarKota: datas.hargaSewaWeekdayLuarKota,
-        urlInterior: datas.urlInterior,
-        urlEksterior: datas.urlEksterior,
-        tglUpdateDetailTransportasi: datas.tglUpdateDetailTransportasi,
-        expiredDetailTransportasi: datas.expiredDetailTransportasi,
-        created_at: new Date(),
-        updated_at: new Date(),
-      };
-      Inertia.post("/transportasi/detail", TambahData);
+      // const TambahData = {
+      //   idTransportasi: datas.idTransportasi,
+      //   idJenisTransportasi: datas.idJenisTransportasi,
+      //   nama: datas.nama,
+      //   tahun: datas.tahun,
+      //   kapasitas: datas.kapasitas,
+      //   qtyKetersediaan: datas.qtyKetersediaan,
+      //   hargaSewaWeekendDalamKota: datas.hargaSewaWeekendDalamKota,
+      //   hargaSewaWeekdayDalamKota: datas.hargaSewaWeekdayDalamKota,
+      //   hargaSewaWeekendLuarKota: datas.hargaSewaWeekendLuarKota,
+      //   hargaSewaWeekdayLuarKota: datas.hargaSewaWeekdayLuarKota,
+      //   urlInterior: datas.urlInterior,
+      //   urlEksterior: datas.urlEksterior,
+      //   tglUpdateDetailTransportasi: datas.tglUpdateDetailTransportasi,
+      //   expiredDetailTransportasi: datas.expiredDetailTransportasi,
+      //   created_at: new Date(),
+      //   updated_at: new Date(),
+      // };
+
+      // console.log("tambah data",TambahData)
+      // Inertia.post("/transportasi/detail", TambahData);
+      const TambahData = new FormData();
+
+    TambahData.append('idTransportasi', datas.idTransportasi);
+    TambahData.append('idJenisTransportasi', datas.idJenisTransportasi);
+    TambahData.append('nama', datas.nama);
+    TambahData.append('tahun', datas.tahun);
+    TambahData.append('kapasitas', datas.kapasitas);
+    TambahData.append('qtyKetersediaan', datas.qtyKetersediaan);
+    TambahData.append('hargaSewaWeekendDalamKota', datas.hargaSewaWeekendDalamKota);
+    TambahData.append('hargaSewaWeekdayDalamKota', datas.hargaSewaWeekdayDalamKota);
+    TambahData.append('hargaSewaWeekendLuarKota', datas.hargaSewaWeekendLuarKota);
+    TambahData.append('hargaSewaWeekdayLuarKota', datas.hargaSewaWeekdayLuarKota);
+    TambahData.append('tglUpdateDetailTransportasi', datas.tglUpdateDetailTransportasi);
+    TambahData.append('expiredDetailTransportasi', datas.expiredDetailTransportasi);
+    TambahData.append('created_at', new Date());
+    TambahData.append('updated_at', new Date());
+
+    // Menambahkan foto interior (ganti 'photoInterior' dengan nama yang sesuai)
+    TambahData.append('urlInterior', interiorRef.current.files[0]);
+
+    // Menambahkan foto eksterior (ganti 'photoEksterior' dengan nama yang sesuai)
+    TambahData.append('urlEksterior', eksteriorRef.current.files[0]);
+
+    console.log("tambah data", TambahData);
+
+    Inertia.post("/transportasi/detail", TambahData);
     }
-    onClose();
+    // onClose();
   };
 
   return (
@@ -329,8 +358,10 @@ const TambahDetailTransport = ({ visible, onClose, data, dataJenis }) => {
                 <div className="flex flex-row justify-between">
                   <a className="mr-5 mt-2 text-black">Interior</a>
                   <input
-                    type="text"
+                    type="file"
+                    accept="image/*"
                     className="border border-gray-700 p-2 rounded mb-5"
+                    ref={interiorRef}
                     value={datas.urlInterior || ""}
                     onChange={(value) =>
                       setDatas({
@@ -348,7 +379,9 @@ const TambahDetailTransport = ({ visible, onClose, data, dataJenis }) => {
                 <div className="flex flex-row justify-between">
                   <a className="mr-5 mt-2 text-black">Eksterior</a>
                   <input
-                    type="text"
+                    type="file"
+                    ref={eksteriorRef}
+                    accept="image/*"
                     className="border border-gray-700 p-2 rounded mb-5"
                     value={datas.urlEksterior || ""}
                     onChange={(value) =>
@@ -404,6 +437,7 @@ const TambahDetailTransport = ({ visible, onClose, data, dataJenis }) => {
                     </p>
                   )}
                 </div>
+               
                 {error && <p className="text-red-500 mt-1">{error}</p>}
               </div>
             </div>

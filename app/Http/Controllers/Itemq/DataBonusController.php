@@ -58,7 +58,7 @@ class DataBonusController extends Controller
         return Inertia::render('Item Quotation/Data Bonus/DataBonus', [
             'Mydata' => dataBonus::when($request->term, function ($query, $term) {
                 $query->where('ketDataBonus', 'LIKE', "%{$term}%");
-            }) ->paginate(4)
+            }) ->paginate(10)
         ]);
     }
 

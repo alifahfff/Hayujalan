@@ -24,7 +24,7 @@ const RM = ({rm}) => {
                     <table className="min-w-full text-left text-sm text-black">
                     <thead className="border-b bg-abu font-medium dark:border-neutral-500 dark:text-neutral-800">
                         <tr>
-                        <th scope="col" className="px-6 py-4">ID RM</th>
+                        <th scope="col" className="px-6 py-4">No</th>
                         <th scope="col" className="px-6 py-4">Nama Area</th>
                         <th scope="col" className="px-6 py-4">Nama Rumah Makan</th>
                         <th scope="col" className="px-6 py-4">Tanggal Berlaku</th>
@@ -37,7 +37,7 @@ const RM = ({rm}) => {
                         return (
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
-                                <td className="whitespace-nowrap px-6 py-4">{cr.idRM}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{rm.rm.from + index}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.area_wisata_rm.namaArea}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.namaRM}</td>
                                 <td className="whitespace-nowrap px-6 py-4 text-merah font-bold">{cr.tglBerlakuRm}</td>

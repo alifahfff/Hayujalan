@@ -57,8 +57,14 @@ export default function VendorArea (props) {
                     <div className=''>
                         <AreaWisata area={props}/>
                         <div className='m-2 flex justify-between items-center'>
-                        <a className='text-[10px] text-black'>Showing 1 - 4 of 10</a>
-                        {/* <Pagination/> */}
+                        {props.area.data.length > 0 && (
+                            <a className='text-[10px] text-black'>Showing {props.area.from} - {props.area.from + props.area.data.length -1} of {props.area.total}</a>
+                         )} 
+                         
+                         {props.area.data.length == 0 && (
+                            <a className='text-[10px] text-black'>Showing {props.area.total} data</a>
+                         )}
+                        <Pagination meta={props.area}/>
                         </div>
                     </div>
                 </div>

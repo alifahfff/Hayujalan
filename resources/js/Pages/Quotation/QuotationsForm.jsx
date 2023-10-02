@@ -3,9 +3,25 @@ import Layout from "@/Layouts/Layout";
 import { useState } from "react";
 import { Inertia } from "@inertiajs/inertia";
 import number from "@/Components/number";
+import Select from 'react-select';
 
 const Quotations = (props, crewL) => {
   // const {data} = this.props.location;
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      background: '#F2F4F1', // Ganti dengan warna latar belakang yang Anda inginkan
+      borderColor: 'inherit', // Ganti dengan warna batas yang Anda inginkan
+      color: 'black', // Ganti dengan warna teks yang Anda inginkan
+      borderRadius: '0.375rem', // Ganti dengan radius border yang Anda inginkan
+      fontSize: '0.75rem', // Ganti dengan ukuran font yang Anda inginkan
+      width: 'full',
+      height: 'full',
+      // Tambahkan properti lain sesuai kebutuhan Anda
+    }),
+    // Definisikan gaya untuk bagian-bagian lain seperti menu, pilihan, dan lain-lain sesuai kebutuhan Anda
+  };
+
   const [formDestinasi, setFormDestinasi] = useState([{
     namaDestinasiWisata:'',
     idDestinasiWisata :'',
@@ -315,20 +331,20 @@ const Quotations = (props, crewL) => {
   };
 
   const findList = (e, index, params) => {
-    console.log('value', e.target.value)
-    console.log('name', e.target.name)
+    // console.log('value', e.target.value)
+    // console.log('name', e.target.name)
     console.log('index', index)
     console.log('params', params)
     if(params == 'rm'){
       const values = [...formRM]
       const list = []; 
-      if(e.target.name == 'namaRumahMakan'){
+      if(e.name == 'namaRumahMakan'){
         // alert(1)
         console.log('detailrm', props.detailRM)
         
         // setListRM(list)
         props.detailRM.forEach((lb) => {
-          if(lb.idRM == e.target.value){
+          if(lb.idRM == e.value){
             // if(lb.statusDetailRm == 'berjalan') {
             //   console.log('cek lb', lb)
             //   list.push(lb)
@@ -339,7 +355,7 @@ const Quotations = (props, crewL) => {
         })
         console.log('list', list)
       }
-      values[index]['idRM'] = parseInt(e.target.value),
+      values[index]['idRM'] = parseInt(e.value),
       values[index]['menuRM'] = list
       setFormRM(values)
     }
@@ -347,13 +363,13 @@ const Quotations = (props, crewL) => {
     if(params == 'penginapan'){
       const values = [...formPenginapan]
       const list = []; 
-      if(e.target.name == 'namaPenginapan'){
+      if(e.name == 'namaPenginapan'){
         // alert(1)
         console.log('detailrm', props.detailRM)
         
         // setListRM(list)
         props.detailPenginapan.forEach((lb) => {
-          if(lb.idPenginapan == e.target.value){
+          if(lb.idPenginapan == e.value){
             // if(lb.statusDetailPenginapan == 'berjalan') {
             //   console.log('cek lb', lb)
             //   list.push(lb)
@@ -365,20 +381,20 @@ const Quotations = (props, crewL) => {
         console.log('list', list)
       }
       values[index]['jenisKamar'] = list
-      values[index]['idPenginapan'] = e.target.value
+      values[index]['idPenginapan'] = e.value
       setFormPenginapan(values)
     }
 
     if(params == 'transportasi'){
       const values = [...formTransport]
       const list = []; 
-      if(e.target.name == 'namaTransportasi'){
+      if(e.name == 'namaTransportasi'){
         // alert(1)
         console.log('detailrm', props.detaiTransportasi)
         
         // setListRM(list)
         props.detaiTransportasi.forEach((lb) => {
-          if(lb.idTransportasi == e.target.value){
+          if(lb.idTransportasi == e.value){
             // if(statusDetailTransportasi == 'berjalan') {
             //   console.log('cek lb', lb)
             //   list.push(lb)
@@ -590,17 +606,16 @@ const Quotations = (props, crewL) => {
   };
 
   const find = (e, index, params) => {
-    console.log('value', e.target.value)
-    console.log('name', e.target.name)
+    console.log('value', e)
     console.log('index', index)
     console.log('params', params)
     
     if(params == 'destinasi'){
       const values = [...formDestinasi]
-      if(e.target.name == 'namaDestinasiWisata'){
+      if(e.name == 'namaDestinasiWisata'){
         // alert(1)
         const find2 = props.destinasi.find((x) => {
-          return x.idDestinasiWisata == e.target.value 
+          return x.idDestinasiWisata == e.value 
         });
         const find3 = formDestinasi.find((x, key) => {
           console.log('find index', key)
@@ -609,7 +624,7 @@ const Quotations = (props, crewL) => {
         const list = [];
         // const list = '';
         props.detailDestinasi.forEach((lb) => {
-          if(lb.idDestinasiWisata == e.target.value){
+          if(lb.idDestinasiWisata == e.value){
             if(lb.statusDetailDestinasi == 'berjalan') {
               if(datas.tipeDurasi == 'weekend'){
                 console.log('weekend')
@@ -651,9 +666,9 @@ const Quotations = (props, crewL) => {
 
     if(params == 'transportasi'){
       const values = [...formTransport]
-      if(e.target.name == 'transportasi'){
+      if(e.name == 'transportasi'){
         const find2 = props.detaiTransportasi.find((x) => {
-          return x.idDetailTransportasi == e.target.value 
+          return x.idDetailTransportasi == e.value 
         });
         const find3 = formTransport.find((x, key) => {
           console.log('find index', key)
@@ -664,7 +679,7 @@ const Quotations = (props, crewL) => {
         props.detaiTransportasi.forEach((lb) => {
           console.log('cek lb1', lb)
           if(lb.idTransportasi == find2.idTransportasi){
-            if(lb.idDetailTransportasi == e.target.value){
+            if(lb.idDetailTransportasi == e.value){
               if(datas.namaArea != 'Bandung'){
                 if(datas.tipeDurasi == 'weekend'){
                   console.log('weekend')
@@ -714,9 +729,9 @@ const Quotations = (props, crewL) => {
 
     if(params == 'penginapan'){
       const values = [...formPenginapan]
-      if(e.target.name == 'jenisKamar'){
+      if(e.name == 'jenisKamar'){
         const find2 = props.detailPenginapan.find((x) => {
-          return x.idDetailPenginapan == e.target.value 
+          return x.idDetailPenginapan == e.value 
         });
         const find3 = formPenginapan.find((x, key) => {
           console.log('find index', key)
@@ -727,7 +742,7 @@ const Quotations = (props, crewL) => {
         props.detailPenginapan.forEach((lb) => {
           console.log('cek lb1', lb)
           if(lb.idPenginapan == find2.idPenginapan){
-            if(lb.idDetailPenginapan == e.target.value){
+            if(lb.idDetailPenginapan == e.value){
               if(datas.tipeDurasi == 'weekend'){
                 console.log('weekend')
                 list.push(lb.hargaSewaWeekendPerKamar)
@@ -769,9 +784,9 @@ const Quotations = (props, crewL) => {
     
     if(params == 'rm'){
       const values = [...formRM]
-      if(e.target.name == 'namaRumahMakan'){
+      if(e.name == 'namaRumahMakan'){
         const find2 = props.detailRM.find((x) => {
-          return x.idDetailRM == e.target.value 
+          return x.idDetailRM == e.value 
         });
         const find3 = formRM.find((x, key) => {
           console.log('find index', key)
@@ -783,7 +798,7 @@ const Quotations = (props, crewL) => {
         props.detailRM.forEach((lb) => {
           console.log('cek lb1', lb)
           if(lb.idRM == find2.idRM){
-            if(lb.idDetailRM == e.target.value){
+            if(lb.idDetailRM == e.value){
               list.push(lb.hargaMenu)
               console.log('cek lb2', lb)
             }
@@ -818,9 +833,9 @@ const Quotations = (props, crewL) => {
 
     if(params == 'fasilitas'){
       const values = [...formFasilitas]
-      if(e.target.name == 'ketFasilitasTour'){
+      if(e.name == 'ketFasilitasTour'){
         const find2 = props.fasilitasTour.find((x) => {
-          return x.idFasilitasTour == e.target.value 
+          return x.idFasilitasTour == e.value 
         });
         const find3 = formFasilitas.find((x, key) => {
           console.log('find index', key)
@@ -851,9 +866,9 @@ const Quotations = (props, crewL) => {
 
     if(params == 'crew'){
       const values = [...formCrew]
-      if(e.target.name == 'ketCrewOperasional'){
+      if(e.name == 'ketCrewOperasional'){
         const find2 = props.crewOperasional.find((x) => {
-          return x.idCrewOperasional == e.target.value 
+          return x.idCrewOperasional == e.value 
         });
         const find3 = formCrew.find((x, key) => {
           console.log('find index', key)
@@ -884,9 +899,9 @@ const Quotations = (props, crewL) => {
 
     if(params == 'event'){
       const values = [...formEvent]
-      if(e.target.name == 'ketDataEvent'){
+      if(e.name == 'ketDataEvent'){
         const find2 = props.dataEvent.find((x) => {
-          return x.idDataEvent == e.target.value 
+          return x.idDataEvent == e.value 
         });
         const find3 = formEvent.find((x, key) => {
           console.log('finde idnex', key)
@@ -917,9 +932,9 @@ const Quotations = (props, crewL) => {
 
     if(params == 'bonus'){
       const values = [...formBonus]
-      if(e.target.name == 'ketDataBonus'){
+      if(e.name == 'ketDataBonus'){
         const find2 = props.dataBonus.find((x) => {
-          return x.idDataBonus == e.target.value 
+          return x.idDataBonus == e.value 
         });
         const find3 = formBonus.find((x, key) => {
           console.log('finde idnex', key)
@@ -1156,32 +1171,21 @@ const Quotations = (props, crewL) => {
                       )}
                   </div>
                   <div className="">
-                      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jenis Klien</label>
-                      <select 
-                        placeholder="Jenis Klien" 
-                        defaultValue="default"
-                        className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        // onChange={(e) => 
-                        //   setDatas({
-                        //   ...datas,
-                        //   idUserSales : e.target.value
-                        //   })
-                        // }
-                        onChange={(e) => {
-                          datasFind(e.target.value,'jenisKlien')
-                        }}
-                      >
-                        <option value="default">--</option>
-                        {props.jenisKlien.map((us, index) => {
-                          return (
-                            <option 
-                              value={us.idJenisKlien} 
-                              key={us.id}
-                            >
-                            {us.namaJenisKlien}
-                            </option>
-                        )})}
-                      </select>
+                      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+                        Jenis Klien
+                      </label>
+                      <Select
+                        placeholder="--"
+                        styles={customStyles}
+                        options={props.jenisKlien.map((jk) => ({
+                          value: jk.idJenisKlien,
+                          label: jk.namaJenisKlien,
+                        }))}
+                        onChange={(selectedOption) => {
+                          datasFind(selectedOption.value, 'jenisKlien')
+                          }
+                        }
+                      />
                       {inputErrors.namaJenisKlien && (
                       <p className="mt-2 text-sm text-red-600 dark:text-red-500">
                         {inputErrors.namaJenisKlien}
@@ -1213,32 +1217,21 @@ const Quotations = (props, crewL) => {
                       />
                   </div>
                   <div className="w-full">
-                      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Sales</label>
-                      <select 
-                        placeholder="Jenis Klien" 
-                        defaultValue="default"
-                        className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        // onChange={(e) => 
-                        //   setDatas({
-                        //   ...datas,
-                        //   idUserSales : e.target.value
-                        //   })
-                        // }
-                        onChange={(e) => {
-                          datasFind(e.target.value, 'sales')
-                        }}
-                      >
-                        <option value="default">--</option>
-                        {props.user.map((us, index) => {
-                          return (
-                            <option 
-                              value={us.idUser} 
-                              key={us.id}
-                            >
-                            {us.namaUser}
-                            </option>
-                        )})}
-                      </select>
+                      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+                        Sales
+                      </label>
+                      <Select
+                        placeholder="--"
+                        styles={customStyles}
+                        options={props.user.map((jk) => ({
+                          value: jk.idUser,
+                          label: jk.namaUser,
+                        }))}
+                        onChange={(selectedOption) => {
+                          datasFind(selectedOption.value, 'sales')
+                          }
+                        }
+                      />
                       {inputErrors.namaSales && (
                       <p className="mt-2 text-sm text-red-600 dark:text-red-500">
                         {inputErrors.namaSales}
@@ -1254,26 +1247,21 @@ const Quotations = (props, crewL) => {
               <div className="mb-5 mt-2 bg-gray-200 border-b border-gray-200"></div>
               <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
                   <div>
-                      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Kategori</label>
-                      <select 
-                        placeholder="Jenis Klien" 
-                        defaultValue="default"
-                        className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        onChange={(e) => {
-                          datasFind(e.target.value, 'kategori')
-                        }}
-                      >
-                        <option value="default">-{datas.namaKategoriTour}-</option>
-                        {props.kategoriwisata.map((kw, index) => {
-                          return (
-                            <option 
-                              value={kw.idKategoriTour} 
-                              key={kw.id}
-                            >
-                            {kw.namaKategoriTour}
-                            </option>
-                        )})}
-                      </select>
+                      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+                        Kategori
+                      </label>
+                      <Select
+                        placeholder="--"
+                        styles={customStyles}
+                        options={props.kategoriwisata.map((jk) => ({
+                          value: jk.idKategoriTour,
+                          label: jk.namaKategoriTour,
+                        }))}
+                        onChange={(selectedOption) => {
+                          datasFind(selectedOption.value, 'kategori')
+                          }
+                        }
+                      />
                       {inputErrors.namaKategoriTour && (
                       <p className="mt-2 text-sm text-red-600 dark:text-red-500">
                         {inputErrors.namaKategoriTour}
@@ -1281,27 +1269,21 @@ const Quotations = (props, crewL) => {
                       )}
                   </div>
                   <div>
-                      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Area Wisata</label>
-                      <select 
-                        placeholder="Jenis Klien" 
-                        defaultValue="default"
-                        className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        // onChange={set}
-                        onChange={(e) => {
-                          datasFind(e.target.value, 'area')
-                        }}
-                      >
-                        <option value="default">-{datas.namaArea}-</option>
-                        {props.areawisata.map((ar, index) => {
-                          return (
-                            <option 
-                              value={ar.idAreaWisata} 
-                              key={ar.id}
-                            >
-                            {ar.namaArea}
-                            </option>
-                        )})}
-                      </select>
+                      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+                        Area Wisata
+                      </label>
+                      <Select
+                        placeholder="--"
+                        styles={customStyles}
+                        options={props.areawisata.map((jk) => ({
+                          value: jk.idAreaWisata,
+                          label: jk.namaArea,
+                        }))}
+                        onChange={(selectedOption) => {
+                          datasFind(selectedOption.value, 'area')
+                          }
+                        }
+                      />
                       {inputErrors.namaArea && (
                       <p className="mt-2 text-sm text-red-600 dark:text-red-500">
                         {inputErrors.namaArea}
@@ -1489,7 +1471,28 @@ const Quotations = (props, crewL) => {
                     <div className="grid gap-4 sm:grid-cols-2 sm:gap-4 mt-3">
                       <div className="">
                         <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Destinasi Wisata</label>
-                        <select 
+                        <Select
+                          name="namaDestinasiWisata"
+                          placeholder="--"
+                          defaultValue={null} // Ganti options[0] dengan nilai default yang sesuai
+                          styles={customStyles}
+                          onChange={(selectedOption) => {
+                            find(selectedOption, index, 'destinasi');
+                          }}
+                          options={props.destinasi
+                            .filter((ds) => ds.idAreaWisata === datas.idAreaWisata)
+                            .filter((ds) => {
+                              const berlakuDate = new Date(datas.tglBerlakuQuotation);
+                              const expiredDate = new Date(ds.tglBerlakuDestinasi);
+                              return berlakuDate < expiredDate;
+                            })
+                            .map((ds) => ({
+                              value: ds.idDestinasiWisata,
+                              label: ds.namaDestinasiWisata,
+                              name: "namaDestinasiWisata",
+                            }))}
+                        />
+                        {/* <select 
                           name="namaDestinasiWisata"
                           placeholder="Jenis Klien" 
                           defaultValue="default"
@@ -1505,23 +1508,23 @@ const Quotations = (props, crewL) => {
                           {props.destinasi.map((ds, index) => {
                             if (ds.idAreaWisata === datas.idAreaWisata) {
                               console.log('areawisata', ds)
-                              // const berlakuDate = new Date(datas.tglBerlakuQuotation);
-                              // const expiredDate = new Date(ds.tglBerlakuDestinasi);
-                              // const isTanggalTrue = berlakuDate < expiredDate;
-                              // // console.log('berlaku', berlakuDate)
-                              // // console.log('expired', expiredDate)
-                              // // console.log('isTanggal', isTanggalTrue)
-                              // if (isTanggalTrue) {
-                              //   return (
-                              //     <option 
-                              //       value={ds.idDestinasiWisata} 
-                              //       key={ds.id}
-                              //       // name="ketDataEvent"
-                              //     >
-                              //     {ds.namaDestinasiWisata}
-                              //     </option>
-                              //   );
-                              // }
+                              const berlakuDate = new Date(datas.tglBerlakuQuotation);
+                              const expiredDate = new Date(ds.tglBerlakuDestinasi);
+                              const isTanggalTrue = berlakuDate < expiredDate;
+                              // console.log('berlaku', berlakuDate)
+                              // console.log('expired', expiredDate)
+                              // console.log('isTanggal', isTanggalTrue)
+                              if (isTanggalTrue) {
+                                return (
+                                  <option 
+                                    value={ds.idDestinasiWisata} 
+                                    key={ds.id}
+                                    // name="ketDataEvent"
+                                  >
+                                  {ds.namaDestinasiWisata}
+                                  </option>
+                                );
+                              }
                               return (
                                 <option 
                                   value={ds.idDestinasiWisata} 
@@ -1533,7 +1536,7 @@ const Quotations = (props, crewL) => {
                               );
                             }
                            })}
-                        </select>
+                        </select> */}
                       </div>
                       <div className="">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>
@@ -1640,7 +1643,24 @@ const Quotations = (props, crewL) => {
                     <div className="grid gap-4 sm:grid-cols-3 sm:gap-4 mt-3">
                       <div className="">
                         <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Vendor Transportasi</label>
-                        <select 
+                        <Select
+                          name="namaRumahMakan"
+                          placeholder="--"
+                          defaultValue={null} // Set null jika Anda ingin defaultnya kosong
+                          styles={customStyles}
+                          options={props.transportasi
+                            .filter((ds) => ds.idAreaWisata === datas.idAreaWisata)
+                            .map((ds) => ({
+                              value: ds.idTransportasi,
+                              label: ds.namaTransportasi,
+                              name: "namaTransportasi"
+                            }))
+                          }
+                          onChange={(e) => {
+                            findList(e, index, 'transportasi');
+                          }}
+                        />
+                        {/* <select 
                           name="namaTransportasi"
                           placeholder="Jenis Klien" 
                           defaultValue="default"
@@ -1675,11 +1695,25 @@ const Quotations = (props, crewL) => {
                               );
                             }
                           })}
-                        </select>
+                        </select> */}
                       </div>
                       <div className="">
                         <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Nama Transportasi</label>
-                        <select 
+                        <Select
+                          name="ketDataBonus"
+                          placeholder="--"
+                          styles={customStyles}
+                          options={ds.nama.map((jk) => ({
+                            value: jk.idDetailTransportasi,
+                            label: jk.nama,
+                            name: "transportasi"
+                          }))}
+                          onChange={(e) => {
+                            find(e, index, 'transportasi')
+                            }
+                          }
+                        />
+                        {/* <select 
                           name="transportasi"
                           placeholder="Jenis Klien" 
                           defaultValue="default"
@@ -1702,7 +1736,7 @@ const Quotations = (props, crewL) => {
                               {ds.nama}
                               </option>
                           )})}
-                        </select>
+                        </select> */}
                       </div>
                       <div className="">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>
@@ -1809,69 +1843,40 @@ const Quotations = (props, crewL) => {
                     <div className="grid gap-4 sm:grid-cols-3 sm:gap-4 mt-3">
                       <div className="">
                         <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Vendor Penginapan</label>
-                        <select 
-                          name="namaPenginapan"
-                          placeholder="Jenis Klien" 
-                          defaultValue="default"
-                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          // onChange={set}
+                        <Select
+                          name="namaRumahMakan"
+                          placeholder="--"
+                          defaultValue={null} // Set null jika Anda ingin defaultnya kosong
+                          styles={customStyles}
+                          options={props.penginapan
+                            .filter((ds) => ds.idAreaWisata === datas.idAreaWisata)
+                            .map((ds) => ({
+                              value: ds.idPenginapan,
+                              label: ds.namaPenginapan,
+                              name: "namaPenginapan"
+                            }))
+                          }
                           onChange={(e) => {
-                            findList(e, index, 'penginapan')
+                            findList(e, index, 'penginapan');
                           }}
-                        >
-                          <option 
-                          value="default"
-                          >--</option>
-                          {props.penginapan.map((ds, index) => {
-                            if (ds.idAreaWisata === datas.idAreaWisata) {
-                              // const berlakuDate = new Date(datas.tglBerlakuQuotation);
-                              // const expiredDate = new Date(ds.tglBerlakuPenginapan);
-                              // const isTanggalTrue = berlakuDate < expiredDate;
-                              // // console.log('berlaku', berlakuDate)
-                              // // console.log('expired', expiredDate)
-                              // // console.log('isTanggal', isTanggalTrue)
-                              // if (isTanggalTrue) {
-                               
-                              // }
-                              return (
-                                <option 
-                                  value={ds.idPenginapan} 
-                                  key={ds.id}
-                                  // name="ketDataEvent"
-                                >
-                                {ds.namaPenginapan}
-                                </option>
-                              )
-                            }
-                          })}
-                        </select>
+                        />
                       </div>
                       <div className="">
                         <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jenis Kamar</label>
-                        <select 
-                          name="jenisKamar"
-                          placeholder="Jenis Klien" 
-                          defaultValue="default"
-                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          // onChange={set}
+                        <Select
+                          name="ketDataBonus"
+                          placeholder="--"
+                          styles={customStyles}
+                          options={ds.jenisKamar.map((jk) => ({
+                            value: jk.idDetailPenginapan,
+                            label: jk.namaJenisKamar,
+                            name: "jenisKamar"
+                          }))}
                           onChange={(e) => {
                             find(e, index, 'penginapan')
-                          }}
-                        >
-                          <option 
-                          value="default"
-                          >--</option>
-                          {ds.jenisKamar.map((ds, index) => {
-                            return (
-                              <option 
-                                value={ds.idDetailPenginapan} 
-                                key={ds.id}
-                                // name="ketDataEvent"
-                              >
-                              {ds.namaJenisKamar}
-                              </option>
-                          )})}
-                        </select>
+                            }
+                          }
+                        />
                       </div>
                       <div className="">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>
@@ -1982,78 +1987,40 @@ const Quotations = (props, crewL) => {
                     <div className="grid gap-4 sm:grid-cols-3 sm:gap-4 mt-3">
                       <div className="">
                         <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Makan Dan Minum</label>
-                        <select 
+                        <Select
                           name="namaRumahMakan"
-                          placeholder="Jenis Klien" 
-                          defaultValue="default"
-                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          // onChange={set}
+                          placeholder="--"
+                          defaultValue={null} // Set null jika Anda ingin defaultnya kosong
+                          styles={customStyles}
+                          options={props.rumahMakan
+                            .filter((ds) => ds.idAreaWisata === datas.idAreaWisata)
+                            .map((ds) => ({
+                              value: ds.idRM,
+                              label: ds.namaRM,
+                              name: "namaRumahMakan"
+                            }))
+                          }
                           onChange={(e) => {
-                            findList(e, index, 'rm')
+                            findList(e, index, 'rm');
                           }}
-                        >
-                          <option 
-                          value="default"
-                          >--</option>
-                          {props.rumahMakan.map((ds, index) => {
-                            if (ds.idAreaWisata === datas.idAreaWisata) {
-                              // const berlakuDate = new Date(datas.tglBerlakuQuotation);
-                              // const expiredDate = new Date(ds.tglBerlakuRm);
-                              // const isTanggalTrue = berlakuDate < expiredDate;
-                              // // console.log('berlaku', berlakuDate)
-                              // // console.log('expired', expiredDate)
-                              // // console.log('isTanggal', isTanggalTrue)
-                              // if (isTanggalTrue) {
-                              //   return (
-                              //     <option 
-                              //       value={ds.idRM} 
-                              //       key={ds.id}
-                              //       // name="ketDataEvent"
-                              //     >
-                              //     {ds.namaRM}
-                              //     </option>
-                              //   )
-                              // }
-                              return (
-                                <option 
-                                  value={ds.idRM} 
-                                  key={ds.id}
-                                  // name="ketDataEvent"
-                                >
-                                {ds.namaRM}
-                                </option>
-                              )
-                            }
-                          })}
-                        </select>
+                        />
                       </div>
                       <div className="">
                         <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Menu</label>
-                        <select 
-                          name="namaRumahMakan"
-                          placeholder="Jenis Klien" 
-                          defaultValue="default"
-                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          // onChange={set}
+                        <Select
+                          name="ketDataBonus"
+                          placeholder="--"
+                          styles={customStyles}
+                          options={ds.menuRM.map((jk) => ({
+                            value: jk.idDetailRM,
+                            label: jk.namaMenu,
+                            name: "namaRumahMakan"
+                          }))}
                           onChange={(e) => {
                             find(e, index, 'rm')
-                          }}
-                        > 
-                          <option 
-                          value="default"
-                          >--</option>
-                          {ds.menuRM.map((ds, index) => {
-                            return (
-                              <option 
-                                value={ds.idDetailRM} 
-                                key={ds.id}
-                                // name="ketDataEvent"
-                              >
-                              {ds.namaMenu}
-                              </option>
-                          )
-                          })}
-                        </select>
+                            }
+                          }
+                        />
                       </div>
                       <div className="">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>
@@ -2160,30 +2127,20 @@ const Quotations = (props, crewL) => {
                     <div className="grid gap-4 sm:grid-cols-2 sm:gap-4 mt-3">
                       <div className="">
                         <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Fasilitas Tour</label>
-                        <select 
-                          name="ketFasilitasTour"
-                          placeholder="Jenis Klien" 
-                          defaultValue="default"
-                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          // onChange={set}
+                        <Select
+                          name="ketDataBonus"
+                          placeholder="--"
+                          styles={customStyles}
+                          options={props.fasilitasTour.map((jk) => ({
+                            value: jk.idFasilitasTour,
+                            label: jk.ketFasilitasTour,
+                            name: "ketFasilitasTour"
+                          }))}
                           onChange={(e) => {
                             find(e, index, 'fasilitas')
-                          }}
-                        >
-                          <option 
-                          value="default"
-                          >--</option>
-                          {props.fasilitasTour.map((ds, index) => {
-                            return (
-                              <option 
-                                value={ds.idFasilitasTour} 
-                                key={ds.id}
-                                // name="ketDataEvent"
-                              >
-                              {ds.ketFasilitasTour}
-                              </option>
-                          )})}
-                        </select>
+                            }
+                          }
+                        />
                       </div>
                       <div className="">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>
@@ -2290,30 +2247,20 @@ const Quotations = (props, crewL) => {
                     <div className="grid gap-4 sm:grid-cols-2 sm:gap-4 mt-3">
                       <div className="">
                         <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Crew Operasional</label>
-                        <select 
-                          name="ketCrewOperasional"
-                          placeholder="Jenis Klien" 
-                          defaultValue="default"
-                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          // onChange={set}
+                        <Select
+                          name="ketDataBonus"
+                          placeholder="--"
+                          styles={customStyles}
+                          options={props.crewOperasional.map((jk) => ({
+                            value: jk.idCrewOperasional,
+                            label: jk.ketCrewOperasional,
+                            name: "ketCrewOperasional"
+                          }))}
                           onChange={(e) => {
                             find(e, index, 'crew')
-                          }}
-                        >
-                          <option 
-                          value="default"
-                          >--</option>
-                          {props.crewOperasional.map((ds, index) => {
-                            return (
-                              <option 
-                                value={ds.idCrewOperasional} 
-                                key={ds.id}
-                                // name="ketDataEvent"
-                              >
-                              {ds.ketCrewOperasional}
-                              </option>
-                          )})}
-                        </select>
+                            }
+                          }
+                        />
                       </div>
                       <div className="">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>
@@ -2420,30 +2367,20 @@ const Quotations = (props, crewL) => {
                     <div className="grid gap-4 sm:grid-cols-2 sm:gap-4 mt-3">
                       <div className="">
                         <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Data Event</label>
-                        <select 
-                          name="ketDataEvent"
-                          placeholder="Jenis Klien" 
-                          defaultValue="default"
-                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          // onChange={set}
+                        <Select
+                          name="ketDataBonus"
+                          placeholder="--"
+                          styles={customStyles}
+                          options={props.dataEvent.map((jk) => ({
+                            value: jk.idDataEvent,
+                            label: jk.ketDataEvent,
+                            name: "ketDataEvent"
+                          }))}
                           onChange={(e) => {
                             find(e, index, 'event')
-                          }}
-                        >
-                          <option 
-                          value="default"
-                          >--</option>
-                          {props.dataEvent.map((ds, index) => {
-                            return (
-                              <option 
-                                value={ds.idDataEvent} 
-                                key={ds.id}
-                                // name="ketDataEvent"
-                              >
-                              {ds.ketDataEvent}
-                              </option>
-                          )})}
-                        </select>
+                            }
+                          }
+                        />
                       </div>
                       <div className="">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>
@@ -2562,31 +2499,23 @@ const Quotations = (props, crewL) => {
                   <div key={index}>
                     <div className="grid gap-4 sm:grid-cols-2 sm:gap-4 mt-3">
                       <div className="">
-                        <label name="destinasi" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Data Bonus</label>
-                        <select 
+                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+                          Data Bonus
+                        </label>
+                        <Select
                           name="ketDataBonus"
-                          placeholder="Jenis Klien" 
-                          defaultValue="default"
-                          className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                          // onChange={set}
+                          placeholder="--"
+                          styles={customStyles}
+                          options={props.dataBonus.map((jk) => ({
+                            value: jk.idDataBonus,
+                            label: jk.ketDataBonus,
+                            name: "ketDataBonus"
+                          }))}
                           onChange={(e) => {
                             find(e, index, 'bonus')
-                          }}
-                        >
-                          <option 
-                          value="default"
-                          >--</option>
-                          {props.dataBonus.map((ds, index) => {
-                            return (
-                              <option 
-                                value={ds.idDataBonus} 
-                                key={ds.id}
-                                // name="ketDataEvent"
-                              >
-                              {ds.ketDataBonus}
-                              </option>
-                          )})}
-                        </select>
+                            }
+                          }
+                        />
                       </div>
                       <div className="">
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Harga</label>

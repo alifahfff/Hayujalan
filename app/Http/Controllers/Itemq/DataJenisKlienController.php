@@ -55,7 +55,7 @@ class DataJenisKlienController extends Controller
         return Inertia::render('Item Quotation/Data Jenis Klien/JenisKlien', [
             'Mydata' => dataJenisKlien::when($request->term, function ($query, $term) {
                 $query->where('namaJenisKlien', 'LIKE', "%{$term}%");
-            }) ->paginate(4)
+            }) ->paginate(10)
         ]);
     }
 

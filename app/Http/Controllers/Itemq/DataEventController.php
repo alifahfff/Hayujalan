@@ -58,7 +58,7 @@ class DataEventController extends Controller
         return Inertia::render('Item Quotation/Data Event/DataEvent', [
             'Mydata' => dataEvent::when($request->term, function ($query, $term) {
                 $query->where('ketDataEvent', 'LIKE', "%{$term}%");
-            }) ->paginate(4)
+            }) ->paginate(10)
         ]);
     }
 

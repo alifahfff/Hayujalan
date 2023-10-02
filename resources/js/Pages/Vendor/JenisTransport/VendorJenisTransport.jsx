@@ -51,11 +51,17 @@ export default function VendorJenisTransport (props) {
                 <div className='p-4 bg-kuning border-b border-gray-200'></div>
                 <div className='bg-white border-b border-gray-200'>
                     <div className=''>
-                        <JenisTransportasi jenis={props.jenis} 
+                        <JenisTransportasi jenis={props} 
                         dataCrew={props}/>
                         <div className='m-2 flex justify-between items-center'>
-                        <a className='text-[10px] text-black'>Showing 1 - 4 of 10</a>
-                        {/* <Pagination/> */}
+                        {props.jenis.data.length > 0 && (
+                            <a className='text-[10px] text-black'>Showing {props.jenis.from} - {props.jenis.from + props.jenis.data.length -1} of {props.jenis.total}</a>
+                         )} 
+                         
+                         {props.jenis.data.length == 0 && (
+                            <a className='text-[10px] text-black'>Showing {props.jenis.total} data</a>
+                         )}
+                        <Pagination meta={props.jenis}/>
                         </div>
                     </div>
                 </div>

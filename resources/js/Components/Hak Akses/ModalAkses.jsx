@@ -1,5 +1,6 @@
 import { Inertia } from "@inertiajs/inertia";
 import { useState } from "react";
+import Select from 'react-select';
 
 const ModalAkses = ({ visible, onClose, data, roles }) => {
   if (!visible) return null;
@@ -127,9 +128,9 @@ const ModalAkses = ({ visible, onClose, data, roles }) => {
                   <p className="text-red-500 mt-1">{inputErrors.Password}</p>
                 )}
               </div>
-              <div className="flex flex-row justify-between">
-                <a className="mr-5 mt-2 text-black">Roles</a>
-                <select
+              <div className="flex">
+                <a className="mr-20 mt-2 text-black">Roles</a>
+                {/* <select
                   placeholder="Roles"
                   defaultValue="default"
                   className="w-3/5 border border-gray-700 p-2 rounded mb-5"
@@ -151,7 +152,32 @@ const ModalAkses = ({ visible, onClose, data, roles }) => {
                       </option>
                     );
                   })}
-                </select>
+                </select> */}
+                <Select
+                  placeholder="Roles"
+                  defaultValue={null} // Ganti options[0] dengan nilai default yang sesuai
+                  styles={{
+                    control: (provided) => ({
+                      ...provided,
+                      width: '175%', // Sesuaikan lebar sesuai kebutuhan Anda
+                      border: '1px solid #ccc',
+                      padding: '2px',
+                      borderRadius: '4px',
+                      marginBottom: '5px',
+                      borderColor: 'black',
+                    }),
+                  }}
+                  onChange={(selectedOption) =>
+                    setDatas({
+                      ...datas,
+                      idRoles: selectedOption.value,
+                    })
+                  }
+                  options={roles.map((jk) => ({
+                    value: jk.idRoles,
+                    label: jk.namaRoles,
+                  }))}
+                />
                 {inputErrors.idRoles && (
                   <p className="text-red-500 mt-1">{inputErrors.idRoles}</p>
                 )}

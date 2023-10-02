@@ -80,7 +80,7 @@ class VendorDestinasiWisataController extends Controller
     public function show()
     {
         $area = areaWisata::all();
-        $destinasi = vendorDestinasiWisata::with('AWdestinasi')->paginate(4);
+        $destinasi = vendorDestinasiWisata::with('AWdestinasi')->paginate(10);
         return Inertia::render('Vendor/DestinasiWisata/VendorDestinasi', [
             'destinasi' => $destinasi,
             'area' => $area,
@@ -200,8 +200,7 @@ class VendorDestinasiWisataController extends Controller
         //            'detail_vendor_destinasi_wisatas.tiketMasukWeekday', 
         //            'detail_vendor_destinasi_wisatas.tiketMasukWeekend')
         //            ->get();
-        $destinasi = Tbonus::with('qtransaksi')->get();
-        // $destinasi = dataKlien::with('jenisKlien')->get();
+        $destinasi = Tbonus::with('qtransaksi')->paginate(10);
         return response()->json($destinasi);
     }
 

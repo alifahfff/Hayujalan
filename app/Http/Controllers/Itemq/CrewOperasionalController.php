@@ -59,7 +59,7 @@ class CrewOperasionalController extends Controller
         return Inertia::render('Item Quotation/Crew/ItemCrew', [
             'crew' => crewOperasional::when($request->term, function ($query, $term) {
                 $query->where('ketCrewOperasional', 'LIKE', "%{$term}%");
-            }) ->paginate(4)
+            }) ->paginate(10)
         ]);
     }
 

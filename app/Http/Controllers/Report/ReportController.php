@@ -20,7 +20,7 @@ class ReportController extends Controller
     {
         $keyword = $request->input('key');
         $mydata = quotationTour::where('namaProject', 'like', '%' . $keyword . '%')
-                ->paginate(4);
+                ->paginate(10);
         return Inertia::render('Laporan/LaporanQuotation', [
             'Mydata' => $mydata,
         ]);

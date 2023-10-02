@@ -10,11 +10,33 @@ import ModalCrew from "@/Components/Item Quotation/Crew/ModalCrew";
 import Layout from "@/Layouts/Layout";
 import { useState } from "react";
 import { Inertia } from "@inertiajs/inertia";
+import Select from "react-select";
 
 export default function Quotations(props) {
   // const {data} = this.props.location;
   console.log("cek", props);
   console.log("referensi", props.referensi);
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      background: '#F2F4F1', // Ganti dengan warna latar belakang yang Anda inginkan
+      borderColor: 'inherit', // Ganti dengan warna batas yang Anda inginkan
+      color: 'black', // Ganti dengan warna teks yang Anda inginkan
+      borderRadius: '0.375rem', // Ganti dengan radius border yang Anda inginkan
+      fontSize: '0.75rem', // Ganti dengan ukuran font yang Anda inginkan
+      // Tambahkan properti lain sesuai kebutuhan Anda
+    }),
+    // Definisikan gaya untuk bagian-bagian lain seperti menu, pilihan, dan lain-lain sesuai kebutuhan Anda
+  };
+
+  const bobot = [
+    { value: 0.3, label: '1' },
+    { value: 0.25, label: '2' },
+    { value: 0.2, label: '3' },
+    { value: 0.15, label: '4' },
+    { value: 0.1, label: '5' },
+  ];
+
   const [data, setData] = useState({
       tglBerlakuQuotation: '',
       b_areaWisata: '',
@@ -215,7 +237,7 @@ export default function Quotations(props) {
                   />
                 </div>
 
-                <div className="">
+                {/* <div className="">
                   <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Area Wisata</label>
                   <select 
                     placeholder="Jenis Klien" 
@@ -240,219 +262,191 @@ export default function Quotations(props) {
                         </option>
                     )})}
                   </select>
-                </div>
+                </div> */}
+
                 <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Bobot</label>
-                  <select 
-                    placeholder="Jenis Klien" 
-                    defaultvalue="default"
-                    className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    onChange={(e) => 
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+                    Area Wisata
+                  </label>
+                  <Select
+                    placeholder="- Pilih Area Wisata -"
+                    styles={customStyles}
+                    options={props.areawisata.map((jk) => ({
+                      value: jk.jumlahBobot,
+                      label: jk.namaBobot,
+                    }))}
+                    onChange={(selectedOption) =>
                       setData({
                         ...data,
-                        k_area: parseFloat(e.target.value)
+                        b_areaWisata: parseInt(selectedOption.value),
                       })
                     }
-                  >
-                    <option value="default">- Pilih prioritas -</option>  
-                    <option value={parseFloat(0.3)}>1</option> 
-                    <option value={parseFloat(0.25)}>2</option> 
-                    <option value={parseFloat(0.2)}>3</option> 
-                    <option value={parseFloat(0.15)}>4</option> 
-                    <option value={parseFloat(0.1)}>5</option>   
-                  </select>
+                  />
                 </div>
 
                 <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Kategori Wisata</label>
-                  <select 
-                    placeholder="Jenis Klien" 
-                    defaultvalue="default"
-                    className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    onChange={(e) => 
-                      // normalisasi(e, 'kategori')
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+                    Bobot
+                  </label>
+                  <Select
+                    placeholder="- Pilih prioritas -"
+                    options={bobot}
+                    onChange={(selectedOption) =>
                       setData({
                         ...data,
-                        b_kategori: parseInt(e.target.value)
+                        k_area: parseInt(selectedOption.value),
                       })
                     }
-                  >
-                    <option value="default">- Pilih Kategori Wisata -</option>
-                    {props.kategori.map((jk, index) => {
-                      return (
-                        <option 
-                          value={jk.jumlahBobot} 
-                          key={jk.id}
-                        >
-                        {jk.namaBobot}
-                        </option>
-                    )})}
-                  </select>
-                </div>
-                <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Bobot</label>
-                  <select 
-                    placeholder="Jenis Klien" 
-                    defaultvalue="default"
-                    className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    onChange={(e) => 
-                      setData({
-                        ...data,
-                        k_kategori: parseFloat(e.target.value)
-                      })
-                    }
-                  >
-                    <option value="default">- Pilih prioritas -</option>  
-                    <option value={parseFloat(0.3)}>1</option> 
-                    <option value={parseFloat(0.25)}>2</option> 
-                    <option value={parseFloat(0.2)}>3</option> 
-                    <option value={parseFloat(0.15)}>4</option> 
-                    <option value={parseFloat(0.1)}>5</option>  
-                  </select>
+                    styles={customStyles}
+                  />
                 </div>
 
                 <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Jumlah Orang</label>
-                  <select 
-                    placeholder="Jenis Klien" 
-                    defaultvalue="default"
-                    className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    onChange={(e) => 
-                      // normalisasi(e, 'qty')
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+                    Kategori Wisata
+                  </label>
+                  <Select
+                    placeholder="- Pilih Area Wisata -"
+                    styles={customStyles}
+                    options={props.kategori.map((jk) => ({
+                      value: jk.jumlahBobot,
+                      label: jk.namaBobot,
+                    }))}
+                    onChange={(selectedOption) =>
                       setData({
                         ...data,
-                        b_jumlahOrang: parseInt(e.target.value)
+                        b_kategori: parseInt(selectedOption.value),
                       })
                     }
-                  >
-                    <option value="default">- Pilih Jumlah Orang -</option>
-                    {props.quantity.map((jk, index) => {
-                      return (
-                      <option 
-                        value={jk.jumlahBobot} 
-                        key={jk.id}
-                      >
-                      {jk.namaBobot}
-                      </option>
-                    )})}
-                  </select>
-                </div>
-                <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Bobot</label>
-                  <select 
-                    placeholder="Jenis Klien" 
-                    defaultvalue="default"
-                    className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    onChange={(e) => 
-                      setData({
-                        ...data,
-                        k_jumlahOrang: parseFloat(e.target.value)
-                      })
-                    }
-                  >
-                    <option value="default">- Pilih prioritas -</option>  
-                    <option value={parseFloat(0.3)}>1</option> 
-                    <option value={parseFloat(0.25)}>2</option> 
-                    <option value={parseFloat(0.2)}>3</option> 
-                    <option value={parseFloat(0.15)}>4</option> 
-                    <option value={parseFloat(0.1)}>5</option>  
-                  </select>
+                  />
                 </div>
 
                 <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Durasi Wisata</label>
-                  <select 
-                    placeholder="Jenis Klien" 
-                    defaultvalue="default"
-                    className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    onChange={(e) => 
-                      // normalisasi(e, 'durasi')
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+                    Bobot
+                  </label>
+                  <Select
+                    placeholder="- Pilih prioritas -"
+                    options={bobot}
+                    onChange={(selectedOption) =>
                       setData({
                         ...data,
-                        b_durasi: parseInt(e.target.value)
+                        k_kategori: parseInt(selectedOption.value),
                       })
                     }
-                  >
-                    <option value="default">- Pilih Durasi Wisata -</option>
-                    {props.durasi.map((jk, index) => {
-                      return (
-                      <option 
-                        value={jk.jumlahBobot} 
-                        key={jk.id}
-                      >
-                      {jk.namaBobot}
-                      </option>
-                    )})}
-                  </select>
-                </div>
-                <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Bobot</label>
-                  <select 
-                    placeholder="Jenis Klien" 
-                    defaultvalue="default"
-                    className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    onChange={(e) => 
-                      setData({
-                        ...data,
-                        k_durasi: parseFloat(e.target.value)
-                      })
-                    }
-                  >
-                    <option value="default">- Pilih prioritas -</option>  
-                    <option value={parseFloat(0.3)}>1</option> 
-                    <option value={parseFloat(0.25)}>2</option> 
-                    <option value={parseFloat(0.2)}>3</option> 
-                    <option value={parseFloat(0.15)}>4</option> 
-                    <option value={parseFloat(0.1)}>5</option>   
-                  </select>
+                    styles={customStyles}
+                  />
                 </div>
 
                 <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Budget Wisata</label>
-                  <select 
-                    placeholder="Jenis Klien" 
-                    defaultvalue="default"
-                    className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    onChange={(e) => 
-                      // normalisasi(e, 'budget')
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+                    Jumlah Orang
+                  </label>
+                  <Select
+                    placeholder="- Pilih Area Wisata -"
+                    styles={customStyles}
+                    options={props.quantity.map((jk) => ({
+                      value: jk.jumlahBobot,
+                      label: jk.namaBobot,
+                    }))}
+                    onChange={(selectedOption) =>
                       setData({
                         ...data,
-                        b_budget: parseInt(e.target.value)
+                        b_jumlahOrang: parseInt(selectedOption.value),
                       })
                     }
-                  >
-                    <option value="default">- Pilih Budget Wisata -</option>
-                    {props.budget.map((jk, index) => {
-                      return (
-                        <option 
-                          value={jk.jumlahBobot} 
-                          key={jk.id}
-                        >
-                        {jk.namaBobot}
-                        </option>
-                    )})}
-                  </select>
+                  />
                 </div>
+
                 <div className="">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Bobot</label>
-                  <select 
-                    placeholder="Jenis Klien" 
-                    defaultvalue="default"
-                    className="bg-abu border border-inherit text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-crem dark:border-inherit dark:placeholder-gray-400 dark:text-black dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    onChange={(e) => 
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+                    Bobot
+                  </label>
+                  <Select
+                    placeholder="- Pilih prioritas -"
+                    options={bobot}
+                    onChange={(selectedOption) =>
                       setData({
                         ...data,
-                        k_budget: parseFloat(e.target.value)
+                        k_jumlahOrang: parseInt(selectedOption.value),
                       })
                     }
-                  >
-                    <option value="default">- Pilih prioritas -</option>  
-                    <option value={parseFloat(0.3)}>1</option> 
-                    <option value={parseFloat(0.25)}>2</option> 
-                    <option value={parseFloat(0.2)}>3</option> 
-                    <option value={parseFloat(0.15)}>4</option> 
-                    <option value={parseFloat(0.1)}>5</option>  
-                  </select>
+                    styles={customStyles}
+                  />
+                </div>
+                
+                <div className="">
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+                    Durasi Wisata
+                  </label>
+                  <Select
+                    placeholder="- Pilih Area Wisata -"
+                    styles={customStyles}
+                    options={props.durasi.map((jk) => ({
+                      value: jk.jumlahBobot,
+                      label: jk.namaBobot,
+                    }))}
+                    onChange={(selectedOption) =>
+                      setData({
+                        ...data,
+                        b_durasi: parseInt(selectedOption.value),
+                      })
+                    }
+                  />
+                </div>
+
+                <div className="">
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+                    Bobot
+                  </label>
+                  <Select
+                    placeholder="- Pilih prioritas -"
+                    options={bobot}
+                    onChange={(selectedOption) =>
+                      setData({
+                        ...data,
+                        k_durasi: parseInt(selectedOption.value),
+                      })
+                    }
+                    styles={customStyles}
+                  />
+                </div>
+                
+                <div className="">
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+                    Budget Wisata
+                  </label>
+                  <Select
+                    placeholder="- Pilih Area Wisata -"
+                    styles={customStyles}
+                    options={props.budget.map((jk) => ({
+                      value: jk.jumlahBobot,
+                      label: jk.namaBobot,
+                    }))}
+                    onChange={(selectedOption) =>
+                      setData({
+                        ...data,
+                        b_budget: parseInt(selectedOption.value),
+                      })
+                    }
+                  />
+                </div>
+                
+                <div className="">
+                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
+                    Bobot
+                  </label>
+                  <Select
+                    placeholder="- Pilih prioritas -"
+                    options={bobot}
+                    onChange={(selectedOption) =>
+                      setData({
+                        ...data,
+                        k_budget: parseInt(selectedOption.value),
+                      })
+                    }
+                    styles={customStyles}
+                  />
                 </div>
               </div>
               

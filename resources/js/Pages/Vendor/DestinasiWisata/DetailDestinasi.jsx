@@ -127,6 +127,7 @@ export default function DetailDestinasi(props) {
                             <table className="min-w-full text-left text-sm text-black">
                                 <thead className="border-b bg-white font-medium dark:border-neutral-500 dark:text-neutral-800">
                                     <tr>
+                                        <th scope="col" className="px-6 py-4">No</th>
                                         <th scope="col" className="px-6 py-4">Range Peserta</th>
                                         <th scope="col" className="px-6 py-4">Tiket Masuk Weekday</th>
                                         <th scope="col" className="px-6 py-4">Tiket Masuk Weekend</th>
@@ -144,6 +145,7 @@ export default function DetailDestinasi(props) {
                                     return (
                                         <tbody key={index}>
                                             <tr className="border-b dark:border-neutral-500">
+                                            <td className="whitespace-nowrap px-6 py-4 font-medium">{index + 1}</td>
                                             <td className="whitespace-nowrap px-6 py-4 font-medium">{cr.rangePeserta}</td>
                                             <td className="whitespace-nowrap px-6 py-4">Rp. {number(cr.tiketMasukWeekday)}</td>
                                             <td className="whitespace-nowrap px-6 py-4">Rp. {number(cr.tiketMasukWeekend)}</td>

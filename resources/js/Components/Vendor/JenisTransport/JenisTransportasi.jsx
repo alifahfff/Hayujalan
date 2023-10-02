@@ -24,7 +24,7 @@ const JenisTransportasi = ({jenis, dataCrew}) => {
                     <table className="min-w-full text-left text-sm text-black">
                     <thead className="border-b bg-abu font-medium dark:border-neutral-500 dark:text-neutral-800">
                         <tr>
-                        <th scope="col" className="px-6 py-4">ID</th>
+                        <th scope="col" className="px-6 py-4">No</th>
                         <th scope="col" className="px-6 py-4">Jenis Transportasi</th>
                         <th scope="col" className="px-6 py-4">Penggunaan Unit</th>
                         <th scope="col" className="px-6 py-4">Kapasitas Maksimal</th>
@@ -36,12 +36,12 @@ const JenisTransportasi = ({jenis, dataCrew}) => {
                         ) : null}
                         </tr>
                     </thead>
-                    {dataCrew.jenis.map((cr, index) => {
+                    {jenis.jenis.data && jenis.jenis.data.length > 0 ? jenis.jenis.data.map((cr, index) => {
                         // console.log('cr', cr)
                         return (
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
-                                <td className="whitespace-nowrap px-6 py-4">{cr.idJenisTransportasi}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{jenis.jenis.from + index}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.namaJenis}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.penggunaanUnit}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.maxKapasitas}</td>                              
@@ -72,7 +72,7 @@ const JenisTransportasi = ({jenis, dataCrew}) => {
                                 </tr>
                             </tbody>
                         )
-                    })}
+                    }): <p className="p-5 pl-2">Tidak ada Data</p>}
                     </table>
                 </div>
                 </div>

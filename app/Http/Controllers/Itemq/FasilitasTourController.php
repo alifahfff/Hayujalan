@@ -58,7 +58,7 @@ class FasilitasTourController extends Controller
         return Inertia::render('Item Quotation/Fasilitas Tour/FasilitasTour', [
             'Mydata' => fasilitasTour::when($request->term, function ($query, $term) {
                 $query->where('ketFasilitas', 'LIKE', "%{$term}%");
-            }) ->paginate(4)
+            }) ->paginate(10)
         ]);
     }
 

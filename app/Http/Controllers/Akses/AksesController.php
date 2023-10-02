@@ -179,7 +179,7 @@ class AksesController extends Controller
     {   
         $roles = roles::all();
         $mydata = User::with('roles')
-            ->paginate(4);
+            ->paginate(10);
         $sales = user::all();
         $keuangan = user::all();
         $program = user::all();

@@ -22,7 +22,7 @@ const Transportasi = ({transportasi}) => {
                     <table className="min-w-full text-left text-sm text-black">
                     <thead className="border-b bg-abu font-medium dark:border-neutral-500 dark:text-neutral-800">
                         <tr>
-                        <th scope="col" className="px-6 py-4">ID Transportasi</th>
+                        <th scope="col" className="px-6 py-4">No</th>
                         <th scope="col" className="px-6 py-4">Nama Area</th>
                         <th scope="col" className="px-6 py-4">Nama Transportasi</th>
                         <th scope="col" className="px-6 py-4">Tanggal Berlaku</th>
@@ -35,7 +35,7 @@ const Transportasi = ({transportasi}) => {
                         return (
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
-                                <td className="whitespace-nowrap px-6 py-4">{cr.idTransportasi}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{transportasi.transportasi.from + index}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.a_wtransportasi.namaArea}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.namaTransportasi}</td>
                                 <td className="whitespace-nowrap px-6 py-4 text-merah font-bold">{cr.tglBerlakuTransportasi}</td>

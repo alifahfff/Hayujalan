@@ -22,7 +22,7 @@ const Hotel = ({hotel}) => {
                     <table className="min-w-full text-left text-sm text-black">
                     <thead className="border-b bg-abu font-medium dark:border-neutral-500 dark:text-neutral-800">
                         <tr>
-                        <th scope="col" className="px-6 py-4">ID Penginapan</th>
+                        <th scope="col" className="px-6 py-4">No</th>
                         <th scope="col" className="px-6 py-4">Nama Area</th>
                         <th scope="col" className="px-6 py-4">Nama Penginapan</th>
                         <th scope="col" className="px-6 py-4">Bintang Penginapan</th>
@@ -36,7 +36,7 @@ const Hotel = ({hotel}) => {
                         return (
                             <tbody key={index}>
                                 <tr className="border-b dark:border-neutral-500">
-                                <td className="whitespace-nowrap px-6 py-4">{cr.idPenginapan}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{hotel.hotel.from + index}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.a_wpenginapan.namaArea}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.namaPenginapan}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{cr.bintangPenginapan}</td>

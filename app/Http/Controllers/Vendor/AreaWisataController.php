@@ -65,7 +65,7 @@ class AreaWisataController extends Controller
      */
     public function show(areaWisata $areaWisata)
     {
-        $area = areaWisata::all();
+        $area = areaWisata::paginate(10);
         $bobot = dataBobot::all();
         return Inertia::render('Vendor/AreaWisata/VendorArea', [
             'area' => $area,
